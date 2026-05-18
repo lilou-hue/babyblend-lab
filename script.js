@@ -399,6 +399,141 @@ const ADULT_FUTURES = [
   { headline: 'Climate-policy wonk who actually changes one law.',                    details: ['Spent 11 years on the same comma.', 'Reads regulatory PDFs for pleasure.', 'Hosts excellent dinner parties for very tired colleagues.'], tags: ['education', 'social'] }
 ];
 
+/* ---------- Adult-mode pools (clinical, grounded) ---------- */
+
+const ADULT_FUTURES_CLINICAL = [
+  { headline: 'Physician with chronic burnout.',                                   details: ['Works in a competitive teaching hospital.', 'Has not taken a full vacation in six years.', 'Considering a career pivot to research.'], tags: ['healthcare','education'] },
+  { headline: 'Startup founder, unstable work-life balance.',                       details: ['Series B raised; sleep schedule largely theoretical.', 'Lost two close friendships during product launches.', 'Now invests quietly in mental-health platforms.'], tags: ['economy','education'] },
+  { headline: 'Former competitive athlete; identity recalibration.',                 details: ['Retired at 31 after a knee injury.', 'Coaches a youth program in their hometown.', 'Adjusting to a smaller public profile.'], tags: ['urbanRural','social'] },
+  { headline: 'Multilingual diplomat.',                                              details: ['Posted to two regions over the last decade.', 'Lives out of suitcases six months a year.', 'Maintains correspondence with former colleagues across four time zones.'], tags: ['multilingual','education'] },
+  { headline: 'Independent artist with financial instability.',                      details: ['Sells consistently; rarely at sustainable prices.', 'Maintains a teaching side income.', 'Reports being content with the trade.'], tags: ['social','urbanRural'] },
+  { headline: 'Research scientist; social isolation tendencies.',                    details: ['Lead author on three significant papers.', 'Most active social ties are online.', 'Maintains a small, close in-person circle.'], tags: ['education'] },
+  { headline: 'Public-defender attorney.',                                           details: ['Above-average caseload.', 'Strong reputation with clients; modest compensation.', 'Has begun mentoring junior attorneys.'], tags: ['family','social'] },
+  { headline: 'Veterinarian, small-animal practice.',                                details: ['Practice partners with a wildlife rescue.', 'Actively manages compassion fatigue.', 'Three cats and one unexpected hen.'], tags: ['family','healthcare'] },
+  { headline: 'Senior software engineer, mid-career plateau.',                       details: ['Senior IC at a stable mid-size firm.', 'Has declined three management offers.', 'Maintains an open-source library used in global production.'], tags: ['economy'] },
+  { headline: 'Architect, adaptive-reuse projects.',                                 details: ['Portfolio is mostly former industrial sites.', 'Lectures occasionally at a public university.', 'Avoids social media; reachable by email.'], tags: ['urbanRural','education'] },
+  { headline: 'Nurse practitioner, rural clinic.',                                   details: ['Covers two adjacent counties.', 'Has trained four community-health workers.', 'Considering a federal grant application.'], tags: ['healthcare','urbanRural'] },
+  { headline: 'Civil engineer, transit infrastructure.',                              details: ['Working on a multi-decade light-rail project.', 'Pragmatic politically; rigorous technically.', 'Has not enjoyed a public hearing yet.'], tags: ['urbanRural','economy'] },
+  { headline: 'Career changer: finance to teaching.',                                details: ['Took a 60% pay cut at 38.', 'Teaches high-school economics.', 'Reports the trade was correct.'], tags: ['education','economy'] },
+  { headline: 'Wildlife biologist, coastal monitoring.',                              details: ['Two seasons a year on remote stations.', 'Maintains a long-distance relationship.', 'Publishes annually; reads constantly.'], tags: ['education','urbanRural'] },
+  { headline: 'Therapist, private practice.',                                        details: ['Specializes in early-career professionals.', 'Practices in a major metropolitan area.', 'Deliberately limits weekly caseload.'], tags: ['healthcare','urbanRural'] },
+  { headline: 'Process engineer, second-generation.',                                 details: ['Works at the same plant their parent did.', 'Leads a small continuous-improvement team.', 'Has helped avert plant closure twice.'], tags: ['family','economy'] },
+  { headline: 'Charge nurse, neonatal ICU.',                                         details: ['Sixteen years on the unit.', 'Quietly central to staff retention.', 'Knows when to push policy and when to wait.'], tags: ['healthcare'] },
+  { headline: 'Mid-list author with steady readership.',                              details: ['Two books a year; no breakout.', 'Co-owns a small bookstore.', 'Has declined two adaptation offers.'], tags: ['education'] },
+  { headline: 'Civic technology lead.',                                              details: ['Builds software for state agencies.', 'Frustrated weekly; effective monthly.', 'Has shipped services used by hundreds of thousands.'], tags: ['economy','social'] },
+  { headline: 'Restaurateur, single location.',                                      details: ['Eight years stable; never expanded.', 'Suppliers are personal relationships.', 'Closes for two weeks in August without public explanation.'], tags: ['urbanRural','family'] }
+];
+
+const ADULT_MICRODETAILS = [
+  'Still keeps notebooks from adolescence.',
+  'Changes career path twice before 30.',
+  'Avoids phone calls whenever possible.',
+  'Tends to overprepare for small events.',
+  'Maintains the same three close friends across two decades.',
+  'Drinks coffee well past the point of effect.',
+  'Reads three books at once; finishes two.',
+  'Routinely arrives five minutes early.',
+  'Carries a long unread email backlog without anxiety.',
+  'Holds a quietly considered opinion they\'ve never shared publicly.',
+  'Subscribes to two newsletters from people they no longer know.',
+  'Knows the names of every neighbor\'s pets.',
+  'Has an uncommon food allergy.',
+  'Travels less than peers; more deliberately.',
+  'Will briefly take up running at some point.',
+  'Has tried therapy twice. Will likely return.',
+  'Owns more books than shelf space.',
+  'Is the first person friends call after a hard week.',
+  'Speaks with a grandparent weekly.',
+  'Sustains a low-key creative project across years.'
+];
+
+const CLINICAL_REMINDERS = [
+  'Behavioral outcomes remain difficult to model reliably.',
+  'Strong environmental influence expected.',
+  'Long-term personality outcomes show high developmental variance.',
+  'Current ethical regulations vary globally.',
+  'Phenotypic outcomes are more predictable than behavioral.',
+  'Polygenic traits exhibit significant individual variation.',
+  'Confidence levels decrease over developmental time.',
+  'Cognitive optimization remains a regulatory grey area.',
+  'Trait stability estimates degrade past adolescence.',
+  'Cohort-level outcomes do not predict individual trajectories.'
+];
+
+const TRAIT_CONFLICTS_CLINICAL = [
+  { when: b => b.openness >= 8 && b.conscientiousness <= 4,
+    tag: 'Initiation-completion gap likely',
+    note: 'High exploratory drive paired with low structural tendency. Project completion rates statistically lower.' },
+  { when: b => b.conscientiousness >= 8 && b.neuroticism >= 7,
+    tag: 'Burnout risk: elevated',
+    note: 'High conscientiousness with elevated neuroticism. Stress accumulation likely without active recovery practices.' },
+  { when: b => b.openness >= 8 && b.extraversion <= 3,
+    tag: 'High internal cognition, low social signaling',
+    note: 'Significant private creative output; visibility-dependent careers underperform expectations.' },
+  { when: b => b.agreeableness >= 8 && b.extraversion <= 3,
+    tag: 'Low advocacy for self-interest',
+    note: 'Cooperation prioritized over visibility. Career compensation tends to lag peer benchmarks.' },
+  { when: b => b.extraversion >= 8 && b.neuroticism >= 7,
+    tag: 'Sociability with elevated reactivity',
+    note: 'High external engagement combined with stress sensitivity. Recovery time post-event statistically higher.' },
+  { when: b => b.athletic >= 8 && b.conscientiousness <= 3,
+    tag: 'High activation, low structure',
+    note: 'Physical capacity exceeds organizational tendency. Outcomes depend heavily on external scaffolding.' },
+  { when: b => b.openness >= 8 && b.agreeableness <= 3,
+    tag: 'Disruptive cognition profile',
+    note: 'High novelty-seeking with low affiliative tendency. Conflict frequency above baseline.' },
+  { when: b => b.conscientiousness <= 3 && b.neuroticism <= 3,
+    tag: 'Low concern, low structure',
+    note: 'Outcomes show high variance. Stable in mood; unpredictable in trajectory.' },
+  { when: b => b.agreeableness >= 8 && b.neuroticism <= 3,
+    tag: 'Stable affiliative profile',
+    note: 'Below-baseline interpersonal friction. Caregiving roles correlate.' },
+  { when: b => b.extraversion <= 3 && b.openness >= 8 && b.conscientiousness >= 7,
+    tag: 'Independent execution profile',
+    note: 'High self-directed output; low public signal. Discovery by external observers tends to be delayed.' }
+];
+
+const REGULATORY_CARDS = [
+  { title: 'Regulatory landscape.',             body: 'Genome editing oversight varies by jurisdiction. The EU, UK, US, and several Asian regulators hold non-aligned positions on heritable modifications.' },
+  { title: 'Historical precedent.',             body: 'Early-20th-century state programs grounded in claimed scientific authority resulted in significant documented harm. The underlying scientific basis was later widely rejected.' },
+  { title: 'Access and equity modeling.',       body: 'Distribution modeling consistently projects uneven access across socioeconomic lines.' },
+  { title: 'Phenotype vs. behavior confidence.', body: 'Confidence in physical-trait prediction substantially exceeds confidence in behavioral or cognitive outcome prediction.' },
+  { title: 'Cultural variability of targets.',  body: 'Trait desirability shows significant variation across regions and historical periods. Optimization targets are not culturally stable.' },
+  { title: 'Long-horizon outcome data.',         body: 'Multi-decade follow-up studies on early-modified cohorts do not yet exist at scale.' }
+];
+
+/* ---------- Enhancement Budget (Adult mode centerpiece) ---------- */
+
+const CONFIDENCE = {
+  height:            { label: 'high',     unc: '±5 cm' },
+  athletic:          { label: 'moderate', unc: '±2 pts' },
+  eyeColor:          { label: 'high',     unc: null },
+  hairColor:         { label: 'high',     unc: null },
+  hairType:          { label: 'moderate', unc: null },
+  skinTone:          { label: 'high',     unc: null },
+  faceShape:         { label: 'moderate', unc: null },
+  freckles:          { label: 'moderate', unc: '±15%' },
+  dimples:           { label: 'low',      unc: '±25%' },
+  openness:          { label: 'low',      unc: '±2.5 pts' },
+  conscientiousness: { label: 'low',      unc: '±2.5 pts' },
+  extraversion:      { label: 'low',      unc: '±2.5 pts' },
+  agreeableness:     { label: 'low',      unc: '±2.5 pts' },
+  neuroticism:       { label: 'low',      unc: '±2.5 pts' }
+};
+
+const PRIORITIES = [
+  { key: 'health',       label: 'Health',               cost: 4, tier: 'Standard',     bias: { neuroticism: -0.3 },                          tradeoff: 'Disease-risk reduction (limited heritability for many conditions).' },
+  { key: 'cognition',    label: 'Cognition',            cost: 8, tier: 'Premium',      bias: { openness: 0.6, conscientiousness: 0.4 },      tradeoff: 'Higher academic-load expectations. Burnout risk elevated.' },
+  { key: 'emotional',    label: 'Emotional Stability',  cost: 7, tier: 'Experimental', bias: { neuroticism: -0.7 },                          tradeoff: 'Reduced emotional sensitivity may follow.' },
+  { key: 'creativity',   label: 'Creativity',           cost: 5, tier: 'Standard',     bias: { openness: 0.5 },                              tradeoff: 'Increased novelty-seeking; structural follow-through variable.' },
+  { key: 'athleticism',  label: 'Athleticism',          cost: 4, tier: 'Standard',     bias: { athletic: 0.7 },                              tradeoff: 'Identity attachment to performance later in life.' },
+  { key: 'appearance',   label: 'Appearance',           cost: 3, tier: 'Entry',        bias: {},                                              tradeoff: 'Appearance-based social attention above baseline.' },
+  { key: 'sociability',  label: 'Sociability',          cost: 5, tier: 'Standard',     bias: { extraversion: 0.6 },                          tradeoff: 'Elevated overstimulation risk in dense social contexts.' },
+  { key: 'resilience',   label: 'Resilience',           cost: 6, tier: 'Premium',      bias: { neuroticism: -0.5, conscientiousness: 0.2 },  tradeoff: 'Tolerance for adversity may delay help-seeking.' },
+  { key: 'empathy',      label: 'Empathy',              cost: 5, tier: 'Standard',     bias: { agreeableness: 0.6 },                         tradeoff: 'Empathic load may exceed individual capacity.' }
+];
+const BUDGET_TOTAL = 200;
+
 /* ---------- History of Human Enhancement (educational cards) ---------- */
 
 const HISTORY_CARDS = [
@@ -528,6 +663,8 @@ const SLIDER_DEFS = [
 const state = {
   parents: { A: {}, B: {} },
   env: {},             // environmental factors (nurture)
+  budget: {},          // priority allocations (Adult mode)
+  socialResponse: [],  // projected social pressures (Adult mode)
   ranges: {},          // per-slider { min, max, def, step, kind, ... }
   baby: {},            // current baby slider values
   codename: '',
@@ -679,6 +816,18 @@ function collectEnvData() {
  * 3. Generate slider ranges from parents
  * ==================================================================== */
 
+function applyBudgetBias(centerVal, traitKey) {
+  if (state.ethicsMode !== 'adult') return centerVal;
+  let shift = 0;
+  PRIORITIES.forEach(p => {
+    const alloc = state.budget[p.key] || 0;
+    if (alloc === 0) return;
+    const factor = p.bias[traitKey];
+    if (typeof factor === 'number') shift += alloc * factor;
+  });
+  return centerVal + shift;
+}
+
 function generateSliderRanges(parents) {
   const ranges = {};
   const chaos = state.chaos;
@@ -701,8 +850,10 @@ function generateSliderRanges(parents) {
       // Big-Five-flavored: child ≈ midparent + Gaussian(σ), ~50% heritability.
       // Slider range ≈ midparent ± 2σ (covers ~95% of plausible outcomes).
       // Chaos mode widens to the full hardMin/hardMax range.
+      // In Adult mode, Enhancement Allocation biases the center of the band.
       const a = parents.A[def.key], b = parents.B[def.key];
-      const center = (a + b) / 2;
+      const baseCenter = (a + b) / 2;
+      const center = applyBudgetBias(baseCenter, def.key);
       const half = chaos ? (def.hardMax - def.hardMin) : (2 * def.sigma);
       const lo = clamp(Math.floor(center - half), def.hardMin, def.hardMax);
       const hi = clamp(Math.ceil (center + half), def.hardMin, def.hardMax);
@@ -882,23 +1033,31 @@ function updateBabyPreview() {
 
   // update stats panel
   const statsEl = $('#baby-stats');
+  const inAdult = state.ethicsMode === 'adult';
+  const conf = (k) => {
+    if (!inAdult) return '';
+    const c = CONFIDENCE[k];
+    if (!c) return '';
+    return ` <span class="confidence ${c.label}">${c.label}${c.unc ? ` · ${c.unc}` : ''}</span>`;
+  };
+  const oceanLabel = inAdult ? 'Behavioral Projection' : 'Big Five';
   statsEl.innerHTML = `
     <dt>Sex</dt>                <dd>${GENDER_LABEL[state.gender] || 'Surprise'}</dd>
-    <dt>Height</dt>             <dd>~ ${display.height}</dd>
-    <dt>Athletic</dt>           <dd>${display.athletic}</dd>
-    <dt>Eye color</dt>          <dd>${display.eyeColor}</dd>
-    <dt>Hair color</dt>         <dd>${display.hairColor}</dd>
-    <dt>Hair texture</dt>       <dd>${display.hairType}</dd>
-    <dt>Skin tone</dt>          <dd>${display.skinTone}</dd>
-    <dt>Face shape</dt>         <dd>${display.faceShape}</dd>
-    <dt>Freckles</dt>           <dd>${display.freckles}</dd>
-    <dt>Dimples</dt>            <dd>${display.dimples}</dd>
-    <dt class="ocean-sep">Big Five</dt> <dd></dd>
-    <dt>Openness</dt>           <dd>${display.openness}</dd>
-    <dt>Conscientiousness</dt>  <dd>${display.conscientiousness}</dd>
-    <dt>Extraversion</dt>       <dd>${display.extraversion}</dd>
-    <dt>Agreeableness</dt>      <dd>${display.agreeableness}</dd>
-    <dt>Neuroticism</dt>        <dd>${display.neuroticism}</dd>
+    <dt>Height</dt>             <dd>~ ${display.height}${conf('height')}</dd>
+    <dt>Athletic</dt>           <dd>${display.athletic}${conf('athletic')}</dd>
+    <dt>Eye color</dt>          <dd>${display.eyeColor}${conf('eyeColor')}</dd>
+    <dt>Hair color</dt>         <dd>${display.hairColor}${conf('hairColor')}</dd>
+    <dt>Hair texture</dt>       <dd>${display.hairType}${conf('hairType')}</dd>
+    <dt>Skin tone</dt>          <dd>${display.skinTone}${conf('skinTone')}</dd>
+    <dt>Face shape</dt>         <dd>${display.faceShape}${conf('faceShape')}</dd>
+    <dt>Freckles</dt>           <dd>${display.freckles}${conf('freckles')}</dd>
+    <dt>Dimples</dt>            <dd>${display.dimples}${conf('dimples')}</dd>
+    <dt class="ocean-sep">${oceanLabel}</dt> <dd></dd>
+    <dt>Openness</dt>           <dd>${display.openness}${conf('openness')}</dd>
+    <dt>Conscientiousness</dt>  <dd>${display.conscientiousness}${conf('conscientiousness')}</dd>
+    <dt>Extraversion</dt>       <dd>${display.extraversion}${conf('extraversion')}</dd>
+    <dt>Agreeableness</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
+    <dt>Neuroticism</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>
   `;
 
   // archetype
@@ -912,7 +1071,15 @@ function updateBabyPreview() {
 
   // future vibe + paths + random events + news headlines
   const vibeEl = $('#vibe-title');
-  if (vibeEl) vibeEl.textContent = state.vibe || '';
+  if (vibeEl) {
+    if (state.ethicsMode === 'adult' || !state.vibe) {
+      vibeEl.textContent = '';
+      vibeEl.hidden = true;
+    } else {
+      vibeEl.textContent = state.vibe;
+      vibeEl.hidden = false;
+    }
+  }
   const pathsEl = $('#future-paths');
   if (pathsEl) {
     pathsEl.innerHTML = (state.futurePaths || []).map(t => `<li>${t}</li>`).join('');
@@ -927,6 +1094,9 @@ function updateBabyPreview() {
   }
   const futureBlock = $('#future-block');
   if (futureBlock) futureBlock.hidden = !(state.futurePaths && state.futurePaths.length);
+
+  // Social Response projection (Adult mode)
+  renderSocialResponse();
 
   // Trait conflicts (tradeoff chips)
   const conflictsEl = $('#trait-conflicts');
@@ -1091,10 +1261,11 @@ function generateAdultFutures() {
   if (!state.codename) return;
   const count = state.chaos ? 6 : 4;
   const rng = seededRand(state.codename + '|adultFutures|' + Date.now());
+  const pool = state.ethicsMode === 'adult' ? ADULT_FUTURES_CLINICAL : ADULT_FUTURES;
 
   // Env-weighted picks: high env values bump futures tagged with that env key.
   // Low env values penalize matching futures. Middle env values are neutral.
-  const weighted = ADULT_FUTURES.map(f => {
+  const weighted = pool.map(f => {
     let bonus = 0;
     (f.tags || []).forEach(tag => {
       const v = state.env?.[tag];
@@ -1215,6 +1386,11 @@ function loadAlternateAsMain(idx) {
  * ==================================================================== */
 
 function generateCodename(parents) {
+  if (state.ethicsMode === 'adult') {
+    const num    = String(randInt(1000, 9999));
+    const letter = String.fromCharCode(65 + randInt(0, 5));
+    return `Projection-${num}-${letter}`;
+  }
   const a = (parents.A.name || 'A').trim();
   const bp = (parents.B.name || 'B').trim();
   const aLet = (a[0] || 'A').toUpperCase();
@@ -1224,11 +1400,18 @@ function generateCodename(parents) {
 }
 
 function generateBabyFlavor(codename, baby) {
-  const rng = seededRand(codename + '|flavor' + (state.chaos ? '|c' : ''));
+  const inAdult = state.ethicsMode === 'adult';
+  const rng = seededRand(codename + '|flavor' + (state.chaos ? '|c' : '') + (inAdult ? '|adult' : ''));
+
+  if (inAdult) {
+    // Adult mode: no funny vibe / events / headlines. Show grounded
+    // microdetails instead — "Still keeps notebooks from adolescence."
+    const details = pickN(ADULT_MICRODETAILS, 4, rng);
+    return { vibe: '', paths: details, events: [], headlines: [] };
+  }
 
   const vibe = FUNNY_TITLES[Math.floor(rng() * FUNNY_TITLES.length)];
 
-  // Top personality dimension biases the future-path picks.
   const tagFor = {
     openness: 'O', conscientiousness: 'C', extraversion: 'E',
     agreeableness: 'A', neuroticism: 'N', athletic: 'athletic'
@@ -1238,17 +1421,14 @@ function generateBabyFlavor(codename, baby) {
     .sort((a, b) => b.v - a.v)[0];
   const topTag = tagFor[top.k];
 
-  // Weighted pick: matching-tag paths get a +1.0 weight bump.
   const weighted = FUTURE_PATHS.map(p => ({
     p, w: rng() + (p.tag === topTag ? 1.0 : 0)
   })).sort((a, b) => b.w - a.w);
   const paths = weighted.slice(0, 3).map(x => x.p.text);
 
-  // 0–2 random events; chaos guarantees 2.
   const eventCount = state.chaos ? 2 : (rng() > 0.4 ? 1 : (rng() > 0.6 ? 2 : 0));
   const events = pickN(RANDOM_EVENTS, eventCount, rng);
 
-  // 2 fictional news headlines (different seed so they don't shuffle on small changes)
   const headlineRng = seededRand(codename + '|news');
   const headlines = pickN(NEWS_HEADLINES, 2, headlineRng);
 
@@ -1256,7 +1436,46 @@ function generateBabyFlavor(codename, baby) {
 }
 
 function computeTraitConflicts(b) {
-  return TRAIT_CONFLICTS.filter(c => c.when(b)).map(c => ({ tag: c.tag, note: c.note }));
+  const pool = state.ethicsMode === 'adult' ? TRAIT_CONFLICTS_CLINICAL : TRAIT_CONFLICTS;
+  return pool.filter(c => c.when(b)).map(c => ({ tag: c.tag, note: c.note }));
+}
+
+function computeSocialResponse(b, budget, env) {
+  const out = [];
+  const get = k => budget[k] || 0;
+  if (get('cognition')   >= 5) out.push('Elevated parental academic expectations.');
+  if (get('cognition')   >= 8) out.push('Acceleration-track placement probable in K–12 systems.');
+  if (get('appearance')  >= 5) out.push('Appearance-based social attention above baseline.');
+  if (get('athleticism') >= 5) out.push('Athletic-program identification likely.');
+  if (get('athleticism') >= 8) out.push('Identity-attachment to athletic performance possible.');
+  if (get('sociability') >= 6) out.push('Above-average peer-group reach probable.');
+  if (get('emotional')   >= 7) out.push('Reduced emotional reactivity may complicate peer bonding (ages 4–9).');
+  if (get('resilience')  >= 7) out.push('Delayed help-seeking behavior possible under stress.');
+  if (get('empathy')     >= 7) out.push('Empathic-load fatigue probable in caregiving contexts.');
+  if (b.openness >= 8 && b.conscientiousness <= 4)
+    out.push('Risk: trait-profile misclassification in highly structured education environments.');
+  const totalAlloc = Object.values(budget).reduce((s, v) => s + v, 0);
+  if ((env.economy || 5) <= 4 && totalAlloc >= 8)
+    out.push('Allocation/environment mismatch: visibility of enhancement profile elevated.');
+  if (out.length === 0)
+    out.push('No notable deviation from baseline social-dynamics projection.');
+  return out.slice(0, 6);
+}
+
+function renderSocialResponse() {
+  const section = $('#social-response');
+  if (!section) return;
+  if (state.ethicsMode !== 'adult' || !state.codename) {
+    section.hidden = true;
+    return;
+  }
+  state.socialResponse = computeSocialResponse(state.baby, state.budget, state.env);
+  section.hidden = false;
+  section.innerHTML = `
+    <h3>Projected Social Response</h3>
+    <ul class="social-list">
+      ${state.socialResponse.map(s => `<li>${s}</li>`).join('')}
+    </ul>`;
 }
 
 function pickReflectionPrompt(seed) {
@@ -1267,7 +1486,8 @@ function pickReflectionPrompt(seed) {
 function showHumanityReminder(line) {
   const banner = $('#reminder-banner');
   if (!banner) return;
-  banner.textContent = line || HUMANITY_REMINDERS[Math.floor(Math.random() * HUMANITY_REMINDERS.length)];
+  const pool = state.ethicsMode === 'adult' ? CLINICAL_REMINDERS : HUMANITY_REMINDERS;
+  banner.textContent = line || pool[Math.floor(Math.random() * pool.length)];
   banner.hidden = false;
   banner.classList.add('is-visible');
   clearTimeout(showHumanityReminder._t);
@@ -1691,10 +1911,78 @@ function setupChaosToggle() {
   });
 }
 
+function buildEnhancementBudget() {
+  const grid = $('#budget-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  PRIORITIES.forEach(p => {
+    if (!(p.key in state.budget)) state.budget[p.key] = 0;
+    const id = 'pr_' + p.key;
+    const row = document.createElement('div');
+    row.className = 'priority-row';
+    row.dataset.tier = p.tier.toLowerCase();
+    row.innerHTML = `
+      <div class="priority-head">
+        <label for="${id}">${p.label} <span class="priority-tier">${p.tier}</span></label>
+        <span class="priority-cost">${p.cost} cr · pt</span>
+      </div>
+      <div class="field-range">
+        <input type="range" id="${id}" min="0" max="10" step="1" value="${state.budget[p.key]}" />
+        <span class="val" id="${id}_val">${state.budget[p.key]}</span>
+      </div>
+      <p class="priority-tradeoff">${p.tradeoff}</p>`;
+    grid.appendChild(row);
+    const input = row.querySelector('input');
+    const valEl = row.querySelector('.val');
+    input.addEventListener('input', () => {
+      const requested = Number(input.value);
+      const otherCost = Object.entries(state.budget).reduce((sum, [k, v]) => {
+        if (k === p.key) return sum;
+        const pr = PRIORITIES.find(x => x.key === k);
+        return sum + (pr ? pr.cost * v : 0);
+      }, 0);
+      const allowedMax = Math.max(0, Math.floor((BUDGET_TOTAL - otherCost) / p.cost));
+      const allowed = Math.min(requested, allowedMax);
+      if (allowed !== requested) {
+        input.value = allowed;
+        row.classList.add('over-budget');
+        setTimeout(() => row.classList.remove('over-budget'), 360);
+      }
+      state.budget[p.key] = allowed;
+      valEl.textContent = allowed;
+      updateBudgetBar();
+      if (state.codename && state.ethicsMode === 'adult') {
+        renderSocialResponse();
+        updateBabyPreview();
+      }
+    });
+  });
+  updateBudgetBar();
+}
+
+function updateBudgetBar() {
+  const used = Object.entries(state.budget).reduce((sum, [k, v]) => {
+    const pr = PRIORITIES.find(x => x.key === k);
+    return sum + (pr ? pr.cost * v : 0);
+  }, 0);
+  const bar = $('#budget-fill');
+  const text = $('#budget-text');
+  if (bar) bar.style.width = Math.min(100, (used / BUDGET_TOTAL) * 100) + '%';
+  if (text) text.textContent = `${used} / ${BUDGET_TOTAL} credits`;
+  // Drive UI-temperature shift by total allocation intensity.
+  const intensity = Math.min(1, used / BUDGET_TOTAL);
+  document.body.style.setProperty('--opt-intensity', intensity.toFixed(3));
+}
+
+function renderEnhancementBudget() {
+  updateBudgetBar();
+}
+
 function buildHistorySection() {
   const content = $('#history-content');
   if (!content) return;
-  content.innerHTML = HISTORY_CARDS.map(c => `
+  const cards = state.ethicsMode === 'adult' ? REGULATORY_CARDS : HISTORY_CARDS;
+  content.innerHTML = cards.map(c => `
     <div class="history-card">
       <h3>${c.title}</h3>
       <p>${c.body}</p>
@@ -1717,13 +2005,28 @@ function setupHistoryToggle() {
 function init() {
   buildParentForms();
   buildEnvPanel();
+  buildEnhancementBudget();
   buildHistorySection();
   setupHistoryToggle();
   setupPillToggle('.style-btn', 'style');
   setupPillToggle('.gender-btn', 'gender');
   setupPillToggle('.mode-btn', 'ethicsMode', mode => {
     document.body.classList.toggle('mode-reflection', mode === 'reflection');
+    document.body.classList.toggle('mode-adult',      mode === 'adult');
+    buildHistorySection();           // swap to/from clinical regulatory cards
     if (mode === 'reflection') showHumanityReminder();
+    if (state.codename) {
+      // Re-derive flavor under the new mode so copy/microdetails refresh.
+      const flavor = generateBabyFlavor(state.codename, state.baby);
+      state.vibe        = flavor.vibe;
+      state.futurePaths = flavor.paths;
+      state.events      = flavor.events;
+      state.headlines   = flavor.headlines;
+      state.conflicts   = computeTraitConflicts(state.baby);
+      updateBabyPreview();
+      renderEnhancementBudget();
+      renderSocialResponse();
+    }
   });
   setupChaosToggle();
   $('#randomize-parents-btn').addEventListener('click', randomizeParents);

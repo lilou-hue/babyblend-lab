@@ -863,7 +863,45 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
   font-size: 11px;
 }
 
-/* ---------- Ethics-mode toggle (header) ---------- */
+/* ---------- App-mode toggle (Standard / Kids — primary) ---------- */
+.app-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border-radius: 999px;
+  background: rgba(10, 14, 40, 0.55);
+  padding: 5px;
+  border: 1px solid rgba(126, 224, 255, 0.22);
+  margin: 14px auto 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 0 18px rgba(126, 224, 255, 0.08);
+}
+.app-mode-btn {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--ink-soft);
+  padding: 8px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: background 0.25s, color 0.25s, transform 0.18s, box-shadow 0.25s;
+}
+.app-mode-btn:hover:not(.is-active) { color: var(--ink); }
+.app-mode-btn.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0a0a25;
+  font-weight: 700;
+  box-shadow: 0 0 18px rgba(126,224,255,0.32);
+}
+body.app-kids .app-mode-btn.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-3));
+  color: #3a1d2a;
+  box-shadow: 0 0 22px rgba(255, 178, 198, 0.4);
+}
+
+/* ---------- Ethics-mode toggle (header sub-toggle) ---------- */
 .mode-toggle {
   display: inline-flex;
   align-items: center;
@@ -872,7 +910,7 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
   background: rgba(10, 14, 40, 0.55);
   padding: 4px;
   border: 1px solid rgba(126, 224, 255, 0.18);
-  margin: 12px auto 0;
+  margin: 10px auto 0;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 }
 .mode-btn {
@@ -895,9 +933,407 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
   box-shadow: 0 0 14px rgba(126,224,255,0.32);
 }
 
+/* Hide the Playful/Reflection sub-toggle in Kids mode */
+body.app-kids .sub-mode { display: none !important; }
+
 /* Subtle visual shift while in Reflection mode */
 body.mode-reflection .tagline { opacity: 0.85; }
 body.mode-reflection .gene-bubbles span { opacity: 0.35; }
+
+/* ---------- Kids-mode theme overrides ---------- */
+/* Warm, softly-lit palette. Same structural code, different emotional weather. */
+body.app-kids {
+  --bg-0: #fbeede;
+  --bg-1: #f7d6e2;
+  --bg-2: #e8d4f0;
+  --panel: rgba(255, 248, 240, 0.72);
+  --panel-border: rgba(220, 140, 170, 0.28);
+  --panel-glow: rgba(255, 170, 200, 0.3);
+  --ink: #3a2a3f;
+  --ink-soft: #6e5a72;
+  --ink-mute: #9c8a9a;
+  --accent: #ff8da3;
+  --accent-2: #b08fe0;
+  --accent-3: #ffc06e;
+  --accent-warm: #ffb06b;
+  --success: #6cc8a0;
+  --shadow: 0 8px 30px rgba(120, 70, 110, 0.18);
+  --radius: 22px;
+}
+body.app-kids {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(255, 200, 220, 0.45), transparent 60%),
+    radial-gradient(900px 700px at -10% 30%, rgba(220, 200, 255, 0.45), transparent 60%),
+    radial-gradient(700px 500px at 90% 90%, rgba(255, 220, 170, 0.35), transparent 60%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1) 55%, var(--bg-2));
+}
+
+/* Smooth transitions between modes */
+body, .panel, .btn, .field input, .field select,
+.parent-card, .surprise-wrap, .future-block,
+.trait-conflicts, .reflection-prompt, .saved-timelines,
+.alt-card, .future-card, .history-card, .history-toggle,
+.app-mode-toggle, .mode-toggle, .chaos-pill,
+.style-toggle, .gender-toggle, .reminder-banner {
+  transition:
+    background 0.45s ease,
+    background-color 0.45s ease,
+    border-color 0.45s ease,
+    color 0.35s ease,
+    border-radius 0.35s ease,
+    box-shadow 0.45s ease;
+}
+
+/* Header gradient text — softer in Kids mode */
+body.app-kids .site-header h1 {
+  text-shadow: 0 0 22px rgba(255, 180, 200, 0.25);
+}
+body.app-kids .site-header .logo-mark {
+  text-shadow: 0 0 14px var(--accent);
+}
+body.app-kids .tagline { color: var(--ink-soft); }
+body.app-kids .disclaimer { color: var(--ink-mute); }
+
+/* Panel softening */
+body.app-kids .panel {
+  backdrop-filter: blur(14px) saturate(110%);
+  -webkit-backdrop-filter: blur(14px) saturate(110%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 0 0 1px rgba(220, 140, 170, 0.08),
+    0 18px 60px rgba(120, 70, 110, 0.12),
+    0 0 32px rgba(255, 170, 200, 0.1);
+}
+body.app-kids .panel::before {
+  background: linear-gradient(135deg, rgba(255,141,163,0.4), rgba(176,143,224,0.0) 40%, rgba(255,192,110,0.35) 100%);
+  opacity: 0.5;
+}
+
+/* Parent cards */
+body.app-kids .parent-card {
+  background: rgba(255, 250, 246, 0.55);
+  border: 1px solid rgba(220, 140, 170, 0.18);
+  border-radius: 18px;
+}
+body.app-kids .parent-card[data-parent="A"] { box-shadow: inset 0 0 0 1px rgba(255, 141, 163, 0.08), 0 0 22px rgba(255, 141, 163, 0.08); }
+body.app-kids .parent-card[data-parent="B"] { box-shadow: inset 0 0 0 1px rgba(176, 143, 224, 0.08), 0 0 22px rgba(176, 143, 224, 0.08); }
+body.app-kids .parent-card[data-parent="A"] h3 { color: var(--accent); }
+body.app-kids .parent-card[data-parent="B"] h3 { color: var(--accent-2); }
+
+/* Inputs */
+body.app-kids .field input[type="text"],
+body.app-kids .field input[type="number"],
+body.app-kids .field select {
+  background: rgba(255, 250, 246, 0.85);
+  border: 1px solid rgba(220, 140, 170, 0.22);
+  border-radius: 14px;
+  color: var(--ink);
+}
+body.app-kids .field input:focus,
+body.app-kids .field select:focus {
+  border-color: rgba(255, 141, 163, 0.55);
+  box-shadow: 0 0 0 3px rgba(255, 141, 163, 0.18);
+}
+
+/* Sliders — warmer track */
+body.app-kids input[type="range"]::-webkit-slider-runnable-track,
+body.app-kids input[type="range"]::-moz-range-track {
+  background: linear-gradient(90deg, rgba(255,141,163,0.4), rgba(176,143,224,0.4), rgba(255,192,110,0.4));
+  border: 1px solid rgba(220, 140, 170, 0.22);
+}
+body.app-kids input[type="range"]::-webkit-slider-thumb,
+body.app-kids input[type="range"]::-moz-range-thumb {
+  background: radial-gradient(circle at 30% 30%, #ffffff, #ff8da3 70%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 14px rgba(255, 141, 163, 0.55);
+}
+body.app-kids .field-range .val { color: var(--accent); }
+
+/* Buttons */
+body.app-kids .btn {
+  border: 1px solid rgba(220, 140, 170, 0.28);
+  background: rgba(255, 250, 246, 0.7);
+  color: var(--ink);
+  border-radius: 16px;
+  text-shadow: none;
+}
+body.app-kids .btn:hover {
+  border-color: rgba(255, 141, 163, 0.6);
+  background: rgba(255, 230, 235, 0.85);
+  box-shadow: 0 0 18px rgba(255, 141, 163, 0.18);
+}
+body.app-kids .btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.12);
+  box-shadow:
+    0 0 26px rgba(255, 141, 163, 0.45),
+    inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+/* Slider rows */
+body.app-kids .slider-row .slider-label { color: var(--ink-soft); }
+body.app-kids .slider-row .slider-value { color: var(--accent); }
+body.app-kids .slider-row .slider-foot { color: var(--ink-mute); }
+
+/* Surprise meter */
+body.app-kids .surprise-wrap {
+  background: rgba(255, 250, 246, 0.55);
+  border: 1px solid rgba(255, 192, 110, 0.28);
+  border-radius: 18px;
+}
+body.app-kids .surprise-pct { color: var(--accent); }
+
+/* Codename / vibe-title */
+body.app-kids .codename {
+  color: var(--accent);
+  text-shadow: 0 0 14px rgba(255, 141, 163, 0.35);
+  letter-spacing: 1.8px;
+}
+
+/* Stat panel */
+body.app-kids .baby-stats dt { color: var(--ink-mute); }
+body.app-kids .baby-stats dt.ocean-sep { color: var(--accent-2); }
+body.app-kids .baby-stats dd { color: var(--ink); }
+
+/* Style + Gender toggles */
+body.app-kids .style-toggle,
+body.app-kids .gender-toggle {
+  background: rgba(255, 250, 246, 0.55);
+  border-color: rgba(220, 140, 170, 0.22);
+}
+body.app-kids .gender-toggle { border-color: rgba(255, 192, 110, 0.32); }
+body.app-kids .style-btn.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+}
+body.app-kids .gender-btn.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-3));
+  color: #fff;
+}
+
+/* Chaos / Wild Card pill */
+body.app-kids .chaos-pill {
+  border-color: rgba(255, 192, 110, 0.45);
+  background: rgba(255, 250, 246, 0.55);
+  color: var(--ink-soft);
+}
+body.app-kids .chaos-pill.is-active {
+  background: linear-gradient(135deg, var(--accent-3), var(--accent));
+  color: #4a1f2f;
+  box-shadow: 0 0 22px rgba(255, 178, 130, 0.55);
+}
+
+/* Archetype tag */
+body.app-kids .archetype-tag {
+  background: linear-gradient(135deg, rgba(255, 141, 163, 0.22), rgba(255, 192, 110, 0.22));
+  border-color: rgba(255, 141, 163, 0.35);
+  color: var(--ink);
+}
+
+/* Future block */
+body.app-kids .future-block {
+  background: rgba(255, 250, 246, 0.55);
+  border-color: rgba(176, 143, 224, 0.28);
+  border-radius: 16px;
+}
+body.app-kids .future-block h3 { color: var(--accent-2); }
+body.app-kids .future-paths li { color: var(--ink-soft); }
+body.app-kids .future-paths li::before { color: var(--accent); }
+body.app-kids .event-chip {
+  background: rgba(255, 141, 163, 0.12);
+  border-color: rgba(255, 141, 163, 0.3);
+  color: var(--ink-soft);
+}
+body.app-kids .future-news-heading { color: var(--accent-warm) !important; }
+body.app-kids .future-headlines li {
+  border-left-color: rgba(255, 192, 110, 0.4);
+  color: var(--ink-soft);
+}
+
+/* Trait conflicts */
+body.app-kids .trait-conflicts {
+  background: rgba(255, 250, 246, 0.55);
+  border-color: rgba(255, 192, 110, 0.28);
+  border-radius: 16px;
+}
+body.app-kids .trait-conflicts h3 { color: var(--accent-warm); }
+body.app-kids .conflict-chip {
+  background: rgba(255, 250, 246, 0.7);
+  border-color: rgba(255, 192, 110, 0.3);
+  border-radius: 14px;
+}
+body.app-kids .conflict-tag { color: var(--accent-warm); }
+body.app-kids .conflict-note { color: var(--ink-soft); }
+
+/* Reflection prompt */
+body.app-kids .reflection-prompt {
+  background: rgba(255, 250, 246, 0.55);
+  border-color: rgba(176, 143, 224, 0.4);
+  color: var(--ink-soft);
+}
+body.app-kids .reflection-prompt .reflection-mark {
+  background: rgba(176, 143, 224, 0.3);
+  color: var(--accent-2);
+}
+
+/* Saved timelines */
+body.app-kids .saved-timelines {
+  background: rgba(255, 250, 246, 0.5);
+  border-color: rgba(220, 140, 170, 0.2);
+  border-radius: 16px;
+}
+body.app-kids .saved-entry {
+  background: rgba(255, 250, 246, 0.7);
+  border-color: rgba(220, 140, 170, 0.18);
+  border-radius: 14px;
+}
+body.app-kids .saved-entry:hover { border-color: rgba(255, 141, 163, 0.5); }
+body.app-kids .saved-text strong { color: var(--ink); }
+body.app-kids .saved-vibe { color: var(--accent); }
+
+/* Alternates */
+body.app-kids .alt-card {
+  background: rgba(255, 250, 246, 0.55);
+  border-color: rgba(220, 140, 170, 0.24);
+  border-radius: 18px;
+}
+body.app-kids .alt-codename { color: var(--accent); }
+body.app-kids .alt-vibe {
+  background: linear-gradient(90deg, var(--accent), var(--accent-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+body.app-kids .alt-archetype { color: var(--ink-soft); }
+
+/* Future cards */
+body.app-kids .future-card {
+  background: rgba(255, 250, 246, 0.6);
+  border-color: rgba(176, 143, 224, 0.28);
+  border-radius: 18px;
+}
+body.app-kids .future-headline {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+body.app-kids .future-details li { color: var(--ink-soft); }
+body.app-kids .future-details li::before { color: var(--accent-2); }
+
+/* Reminder banner */
+body.app-kids .reminder-banner {
+  background: rgba(255, 250, 246, 0.92);
+  border-color: rgba(255, 192, 110, 0.5);
+  color: var(--ink);
+  box-shadow: 0 8px 28px rgba(120, 70, 110, 0.18), 0 0 26px rgba(255, 192, 110, 0.2);
+}
+
+/* Ethics block */
+body.app-kids .ethics {
+  background: rgba(255, 250, 246, 0.55);
+  border-left-color: rgba(255, 192, 110, 0.6);
+  color: var(--ink-soft);
+}
+body.app-kids .ethics h3 { color: var(--accent-warm); }
+
+/* DNA decor + gene bubbles — softer & slower in Kids */
+body.app-kids .dna-decor { opacity: 0.2; }
+body.app-kids .dna-left  { color: var(--accent); }
+body.app-kids .dna-right { color: var(--accent-2); }
+body.app-kids .gene-bubbles span {
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,141,163,0.45) 50%, rgba(176,143,224,0.0) 75%);
+  box-shadow: 0 0 18px rgba(255, 141, 163, 0.35);
+  animation-duration: calc(var(--s) * 1.4);
+  opacity: 0.7;
+}
+body.app-kids .gene-bubbles span:nth-child(3n) {
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(176,143,224,0.5) 50%, rgba(255,192,110,0.0) 75%);
+}
+body.app-kids .gene-bubbles span:nth-child(5n) {
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,192,110,0.5) 50%, rgba(255,141,163,0.0) 75%);
+}
+
+/* ---------- Kids: derived-stat star row ---------- */
+.kids-stars-row {
+  display: none;
+  width: 100%;
+  margin: -2px 0 12px;
+  padding: 10px 14px;
+  background: rgba(255, 250, 246, 0.55);
+  border: 1px solid rgba(220, 140, 170, 0.22);
+  border-radius: 14px;
+  text-align: left;
+}
+body.app-kids .kids-stars-row { display: block; }
+.kids-stars-row dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  font-size: 12.5px;
+}
+.kids-stars-row dt {
+  color: var(--ink-mute);
+  letter-spacing: 0.3px;
+}
+.kids-stars-row dd {
+  margin: 0;
+  color: var(--accent);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* ---------- Kids: slider explainer ("?") button + popover ---------- */
+.slider-explain {
+  display: none;
+  vertical-align: baseline;
+}
+body.app-kids .slider-explain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255, 141, 163, 0.18);
+  border: 1px solid rgba(255, 141, 163, 0.35);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.18s, transform 0.12s;
+}
+body.app-kids .slider-explain:hover {
+  background: rgba(255, 141, 163, 0.35);
+  transform: scale(1.08);
+}
+.slider-explain[aria-expanded="true"] {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+
+.slider-popover {
+  display: none;
+  margin: 6px 0 2px;
+  padding: 9px 12px;
+  background: rgba(255, 250, 246, 0.92);
+  border: 1px solid rgba(255, 141, 163, 0.32);
+  border-radius: 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  box-shadow: 0 4px 14px rgba(120, 70, 110, 0.12);
+}
+.slider-popover.is-open { display: block; animation: popIn 0.22s ease; }
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 /* ---------- Humanity reminder banner ---------- */
 .reminder-banner {
@@ -1151,6 +1587,263 @@ body.mode-reflection .gene-bubbles span { opacity: 0.35; }
   margin: 0;
   font-size: 12.5px;
   line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ====================================================================
+ * Adult Mode — clinical biotech-product styling
+ * ==================================================================== */
+
+body { --opt-intensity: 0; }  /* set by JS from budget usage */
+
+/* Mode-conditional text visibility */
+.adult-text { display: none; }
+.playful-text { display: inline; }
+body.mode-adult .adult-text { display: inline; }
+body.mode-adult .playful-text { display: none; }
+
+/* Mode-conditional whole-block visibility */
+.adult-only { display: none; }
+body.mode-adult .adult-only { display: revert; }
+body.mode-adult .playful-only { display: none !important; }
+
+/* Beta-tag inline label */
+.beta-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  font-size: 9.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 1px solid rgba(126, 224, 255, 0.45);
+  color: var(--accent);
+  background: rgba(126, 224, 255, 0.08);
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+/* Cool the accents toward clinical white-cyan as optimization climbs */
+body.mode-adult {
+  --accent:    color-mix(in srgb, #7ee0ff calc((1 - var(--opt-intensity)) * 100%), #d6ecff calc(var(--opt-intensity) * 100%));
+  --accent-2:  color-mix(in srgb, #c89bff calc((1 - var(--opt-intensity)) * 100%), #b8c8e2 calc(var(--opt-intensity) * 100%));
+  --accent-3:  color-mix(in srgb, #ff9bd2 calc((1 - var(--opt-intensity)) * 100%), #9eb4d0 calc(var(--opt-intensity) * 100%));
+  --accent-warm: color-mix(in srgb, #ffd28a calc((1 - var(--opt-intensity)) * 100%), #d2dae6 calc(var(--opt-intensity) * 100%));
+}
+
+body.mode-adult {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(126, 224, 255, calc(0.18 - var(--opt-intensity) * 0.10)), transparent 60%),
+    radial-gradient(900px 700px at -10% 30%, rgba(200, 155, 255, calc(0.16 - var(--opt-intensity) * 0.10)), transparent 60%),
+    radial-gradient(700px 500px at 90% 90%, rgba(255, 155, 210, calc(0.12 - var(--opt-intensity) * 0.10)), transparent 60%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%, var(--bg-2));
+}
+
+/* Quieter decorations as user optimizes more aggressively */
+body.mode-adult .gene-bubbles span {
+  opacity: calc(0.6 - var(--opt-intensity) * 0.45);
+  filter: saturate(calc(1 - var(--opt-intensity) * 0.7));
+}
+body.mode-adult .dna-decor {
+  opacity: calc(0.18 - var(--opt-intensity) * 0.15);
+  filter: saturate(calc(1 - var(--opt-intensity) * 0.6));
+}
+
+/* Tighten + cool the panels */
+body.mode-adult .panel {
+  border-color: rgba(140, 200, 255, calc(0.12 + var(--opt-intensity) * 0.10));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 60px rgba(0, 0, 0, 0.5),
+    0 0 calc(32px * (1 - var(--opt-intensity))) rgba(126, 224, 255, 0.05);
+}
+body.mode-adult .panel::before { opacity: calc(0.35 - var(--opt-intensity) * 0.30); }
+body.mode-adult h1 .logo-mark { text-shadow: 0 0 calc(14px * (1 - var(--opt-intensity))) var(--accent); }
+body.mode-adult .site-header h1 { filter: saturate(calc(1 - var(--opt-intensity) * 0.5)); }
+
+/* No chaos pulse in adult — it'd break the tone */
+body.mode-adult .chaos-pill.is-active { animation: none; }
+
+/* ---------- Budget panel ---------- */
+.budget-bar {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(126, 224, 255, 0.08);
+  border: 1px solid rgba(126, 224, 255, 0.18);
+  margin: 4px 0 16px;
+  overflow: hidden;
+}
+.budget-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 0.25s ease;
+  box-shadow: 0 0 14px rgba(126, 224, 255, 0.4);
+}
+.budget-text {
+  position: absolute;
+  right: 6px;
+  top: -22px;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.3px;
+}
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px 22px;
+}
+.priority-row {
+  background: rgba(10, 12, 38, 0.45);
+  border: 1px solid rgba(126, 224, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+  transition: border-color 0.12s, background 0.12s;
+}
+.priority-row.over-budget {
+  border-color: rgba(255, 150, 170, 0.6);
+  background: rgba(255, 60, 100, 0.08);
+}
+.priority-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.priority-head label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.2px;
+}
+.priority-tier {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 9.5px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  color: var(--ink-mute);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.priority-row[data-tier="premium"] .priority-tier      { color: var(--accent-2); border-color: rgba(200,155,255,0.35); }
+.priority-row[data-tier="experimental"] .priority-tier { color: var(--accent-3); border-color: rgba(255,155,210,0.35); }
+.priority-row[data-tier="entry"] .priority-tier        { color: var(--accent);   border-color: rgba(126,224,255,0.35); }
+.priority-cost {
+  font-size: 11px;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.4px;
+}
+.priority-tradeoff {
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  font-style: italic;
+}
+
+/* ---------- Confidence pill in stats ---------- */
+.confidence {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 1px solid;
+  vertical-align: middle;
+  font-weight: 600;
+}
+.confidence.high     { color: var(--accent);   border-color: rgba(126, 224, 255, 0.45); background: rgba(126, 224, 255, 0.06); }
+.confidence.moderate { color: var(--accent-2); border-color: rgba(200, 155, 255, 0.45); background: rgba(200, 155, 255, 0.06); }
+.confidence.low      { color: var(--ink-mute); border-color: rgba(255, 255, 255, 0.15);  background: rgba(255, 255, 255, 0.03); }
+
+/* ---------- Social Response block ---------- */
+.social-response {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: rgba(10, 14, 40, 0.42);
+  border: 1px solid rgba(126, 224, 255, 0.18);
+  border-radius: 10px;
+  text-align: left;
+}
+.social-response h3 {
+  margin: 0 0 8px;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.social-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.social-list li {
+  padding: 4px 0 4px 14px;
+  position: relative;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+.social-list li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ---------- Adult-mode polish ---------- */
+body.mode-adult .vibe-title       { display: none !important; }
+body.mode-adult .surprise-bar-fill {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 calc(16px * (1 - var(--opt-intensity))) rgba(126, 224, 255, 0.5);
+}
+body.mode-adult .codename {
+  letter-spacing: 1.8px;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  text-shadow: none;
+}
+body.mode-adult .archetype-tag {
+  background: rgba(126, 224, 255, 0.10);
+  border-color: rgba(126, 224, 255, 0.25);
+  color: var(--ink);
+  box-shadow: none;
+  letter-spacing: 0.6px;
+  text-transform: none;
+}
+body.mode-adult .chaos-badge {
+  background: rgba(255, 155, 210, calc(0.25 + var(--opt-intensity) * 0.10));
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0.4px;
+}
+body.mode-adult .future-headline {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--ink);
+  font-weight: 600;
+}
+body.mode-adult .alt-vibe {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
   color: var(--ink-soft);
 }
 

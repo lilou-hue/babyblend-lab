@@ -60,9 +60,14 @@
     <h1><span class="logo-mark">⌬</span> BabyBlend Lab</h1>
     <p class="tagline">A fictional genetics-inspired simulator</p>
     <p class="disclaimer">Not real medical or genetic advice — just a playful what-if.</p>
-    <div class="mode-toggle" role="tablist" aria-label="App mode">
+    <div class="app-mode-toggle" role="tablist" aria-label="App experience">
+      <button type="button" class="app-mode-btn is-active" data-app-mode="standard" role="tab" aria-selected="true">◐ Standard</button>
+      <button type="button" class="app-mode-btn"           data-app-mode="kids"     role="tab" aria-selected="false">✺ Kids</button>
+    </div>
+    <div class="mode-toggle sub-mode" role="tablist" aria-label="Ethics mode">
       <button type="button" class="mode-btn is-active" data-ethics-mode="playful"    role="tab" aria-selected="true">✨ Playful</button>
       <button type="button" class="mode-btn"           data-ethics-mode="reflection" role="tab" aria-selected="false">🪞 Reflection</button>
+      <button type="button" class="mode-btn"           data-ethics-mode="adult"      role="tab" aria-selected="false">Adult</button>
     </div>
   </header>
 
@@ -77,27 +82,53 @@
 
     <!-- 1b. Environmental influences -->
     <section class="panel env-panel" aria-labelledby="env-heading">
-      <h2 id="env-heading">Environmental Influences</h2>
-      <p class="subtle">Genes aren't destiny. Tweak the nurture side too.</p>
+      <h2 id="env-heading"><span class="playful-text">Environmental Influences</span><span class="adult-text">Environmental Modifiers</span></h2>
+      <p class="subtle"><span class="playful-text">Genes aren't destiny. Tweak the nurture side too.</span><span class="adult-text">Adjust developmental modifiers to inform downstream projections.</span></p>
       <div class="env-grid" id="env-grid"></div>
     </section>
 
+    <!-- 1c. Enhancement Allocation (Adult mode only) -->
+    <section class="panel budget-panel adult-only" id="budget-panel" aria-labelledby="budget-heading">
+      <h2 id="budget-heading">Enhancement Allocation <span class="beta-tag">Beta</span></h2>
+      <p class="subtle">Distribute credits across optimization categories. Allocations bias projected outcomes; tradeoffs are listed per package.</p>
+      <div class="budget-bar" aria-label="Budget usage">
+        <span class="budget-fill" id="budget-fill"></span>
+        <span class="budget-text" id="budget-text">0 / 200 credits</span>
+      </div>
+      <div class="budget-grid" id="budget-grid"></div>
+    </section>
+
     <div class="primary-action">
-      <button id="randomize-parents-btn" class="btn">🎲 Randomize Parents</button>
-      <button id="natural-variation-btn" class="btn">🌱 Preserve Natural Variation</button>
-      <button id="generate-btn" class="btn btn-primary">Generate Baby Possibilities</button>
+      <button id="randomize-parents-btn" class="btn">
+        <span class="playful-text">🎲 Randomize Parents</span>
+        <span class="adult-text">Randomize Inputs</span>
+      </button>
+      <button id="natural-variation-btn" class="btn">
+        <span class="playful-text">🌱 Preserve Natural Variation</span>
+        <span class="adult-text">Reset to Natural Variation</span>
+      </button>
+      <button id="generate-btn" class="btn btn-primary">
+        <span class="playful-text">Generate Baby Possibilities</span>
+        <span class="adult-text">Generate Projection</span>
+      </button>
     </div>
 
     <!-- 2 + 3. Sliders + Baby Preview -->
     <section class="results" id="results" hidden>
       <div class="panel sliders-panel" aria-labelledby="sliders-heading">
-        <h2 id="sliders-heading">Baby Trait Sliders</h2>
-        <p class="subtle">Ranges are inspired by both parents. Slide to explore possibilities. Personality sliders use the Big Five (OCEAN) model — inspired by, not predictive of, real psychology.</p>
+        <h2 id="sliders-heading">
+          <span class="playful-text">Baby Trait Sliders</span>
+          <span class="adult-text">Projected Outcomes <span class="beta-tag">Beta</span></span>
+        </h2>
+        <p class="subtle">
+          <span class="playful-text">Ranges are inspired by both parents. Slide to explore possibilities. Personality sliders use the Big Five (OCEAN) model — inspired by, not predictive of, real psychology.</span>
+          <span class="adult-text">Ranges derived from midparent inheritance and allocation bias. Behavioral projections have lower confidence than phenotypic.</span>
+        </p>
         <div id="sliders" class="sliders"></div>
 
         <div class="surprise-wrap">
           <div class="surprise">
-            <span class="surprise-label">Genetic surprise factor</span>
+            <span class="surprise-label"><span class="playful-text">Genetic surprise factor</span><span class="adult-text">Outcome variance index</span></span>
             <span class="surprise-bar"><span class="surprise-bar-fill" id="surprise-fill"></span></span>
             <span class="surprise-pct" id="surprise-pct">0%</span>
           </div>
@@ -105,21 +136,49 @@
         </div>
 
         <div class="actions">
-          <button id="randomize-btn" class="btn">🎲 Randomize Within Parent Range</button>
-          <button id="reset-btn" class="btn">↺ Reset to Parent Average</button>
-          <button id="copy-btn" class="btn">⧉ Copy Baby Profile</button>
-          <button id="save-btn" class="btn">💾 Save Timeline</button>
-          <button id="futures-btn" class="btn">🪐 Show Possible Adult Futures</button>
-          <button id="alternates-btn" class="btn">🌌 Generate Alternate Timelines</button>
+          <button id="randomize-btn" class="btn">
+            <span class="playful-text">🎲 Randomize Within Parent Range</span>
+            <span class="adult-text">Re-sample Within Range</span>
+          </button>
+          <button id="reset-btn" class="btn">
+            <span class="playful-text">↺ Reset to Parent Average</span>
+            <span class="adult-text">Reset to Midparent</span>
+          </button>
+          <button id="copy-btn" class="btn">
+            <span class="playful-text">⧉ Copy Baby Profile</span>
+            <span class="adult-text">Export Projection</span>
+          </button>
+          <button id="save-btn" class="btn">
+            <span class="playful-text">💾 Save Timeline</span>
+            <span class="adult-text">Save Projection</span>
+          </button>
+          <button id="futures-btn" class="btn">
+            <span class="playful-text">🪐 Show Possible Adult Futures</span>
+            <span class="adult-text">Generate Trajectory Set</span>
+          </button>
+          <button id="alternates-btn" class="btn">
+            <span class="playful-text">🌌 Generate Alternate Timelines</span>
+            <span class="adult-text">Generate Alternate Projections</span>
+          </button>
         </div>
         <div class="copy-status" id="copy-status" role="status" aria-live="polite"></div>
         <div class="saved-timelines" id="saved-timelines" hidden></div>
       </div>
 
       <aside class="panel baby-panel" aria-labelledby="baby-heading">
-        <h2 id="baby-heading">Baby Preview</h2>
+        <h2 id="baby-heading">
+          <span class="playful-text">Baby Preview</span>
+          <span class="adult-text">Behavioral Projection <span class="beta-tag">Beta</span></span>
+        </h2>
         <div class="codename" id="codename">Tiny Prototype A-01</div>
         <div class="vibe-title" id="vibe-title"></div>
+
+        <div class="kids-stars-row" id="kids-stars" aria-hidden="true">
+          <dl>
+            <dt>Creativity</dt> <dd id="kids-creativity-stars">☆☆☆☆☆</dd>
+            <dt>Teamwork</dt>   <dd id="kids-teamwork-stars">☆☆☆☆☆</dd>
+          </dl>
+        </div>
 
         <div class="avatar-stage">
           <div class="avatar-glow"></div>
@@ -145,13 +204,17 @@
         <dl class="baby-stats" id="baby-stats"></dl>
 
         <div class="trait-conflicts" id="trait-conflicts" hidden></div>
+        <div class="social-response adult-only" id="social-response" hidden></div>
 
         <div class="future-block" id="future-block" hidden>
-          <h3>Future predictions</h3>
+          <h3 id="future-block-heading">
+            <span class="playful-text">Future predictions</span>
+            <span class="adult-text">Behavioral Trace Notes</span>
+          </h3>
           <ul class="future-paths" id="future-paths"></ul>
-          <div class="random-events" id="random-events"></div>
-          <h3 class="future-news-heading">In the local news, decades later…</h3>
-          <ul class="future-headlines" id="future-headlines"></ul>
+          <div class="random-events playful-only" id="random-events"></div>
+          <h3 class="future-news-heading playful-only">In the local news, decades later…</h3>
+          <ul class="future-headlines playful-only" id="future-headlines"></ul>
         </div>
 
         <div class="reflection-prompt" id="reflection-prompt" hidden></div>
@@ -159,29 +222,49 @@
     </section>
 
     <section class="futures-panel panel" id="futures-panel" hidden>
-      <h2>Possible Adult Futures</h2>
-      <p class="subtle">Different lives this child might end up living. Same kid, many roads — life is unpredictable on purpose.</p>
+      <h2>
+        <span class="playful-text">Possible Adult Futures</span>
+        <span class="adult-text">Projected Adult Trajectories</span>
+      </h2>
+      <p class="subtle">
+        <span class="playful-text">Different lives this child might end up living. Same kid, many roads — life is unpredictable on purpose.</span>
+        <span class="adult-text">Speculative adult-life trajectories under varying environmental conditions. Outcomes are illustrative, not predictive.</span>
+      </p>
       <div class="futures-grid" id="futures-grid"></div>
     </section>
 
     <section class="alternates-panel panel" id="alternates-panel" hidden>
-      <h2>Alternate Timelines</h2>
-      <p class="subtle">Different babies the same two parents might have. Click <em>Make this the main baby</em> on any card to load it.</p>
+      <h2>
+        <span class="playful-text">Alternate Timelines</span>
+        <span class="adult-text">Alternate Projections</span>
+      </h2>
+      <p class="subtle">
+        <span class="playful-text">Different babies the same two parents might have. Click <em>Make this the main baby</em> on any card to load it.</span>
+        <span class="adult-text">Sibling-distribution sampling from the same parental inputs. Select <em>Promote to main</em> to load any projection.</span>
+      </p>
       <div class="alternates-grid" id="alternates-grid"></div>
     </section>
 
     <section class="history-panel" id="history-panel">
       <button type="button" class="history-toggle" id="history-toggle" aria-expanded="false" aria-controls="history-content">
-        <span>📜 History of Human Enhancement</span>
+        <span>
+          <span class="playful-text">📜 History of Human Enhancement</span>
+          <span class="adult-text">Regulatory &amp; Historical Context</span>
+        </span>
         <span class="history-chevron" aria-hidden="true">▾</span>
       </button>
       <div class="history-content" id="history-content" hidden></div>
     </section>
 
     <section class="ethics">
-      <h3>A gentle reminder</h3>
-      <p>This simulator is fictional. Real traits are shaped by many genes, environment, chance,
-      culture, health, and life experience. Babies are not customizable products.</p>
+      <h3>
+        <span class="playful-text">A gentle reminder</span>
+        <span class="adult-text">Disclosure</span>
+      </h3>
+      <p>
+        <span class="playful-text">This simulator is fictional. Real traits are shaped by many genes, environment, chance, culture, health, and life experience. Babies are not customizable products.</span>
+        <span class="adult-text">Fictional simulation for illustrative purposes. Current ethical regulations vary globally. Behavioral outcomes remain difficult to model reliably.</span>
+      </p>
     </section>
   </main>
 
