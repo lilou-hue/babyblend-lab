@@ -60,18 +60,33 @@
     <h1><span class="logo-mark">⌬</span> BabyBlend Lab</h1>
     <p class="tagline">A fictional genetics-inspired simulator</p>
     <p class="disclaimer">Not real medical or genetic advice — just a playful what-if.</p>
+    <div class="mode-toggle" role="tablist" aria-label="App mode">
+      <button type="button" class="mode-btn is-active" data-ethics-mode="playful"    role="tab" aria-selected="true">✨ Playful</button>
+      <button type="button" class="mode-btn"           data-ethics-mode="reflection" role="tab" aria-selected="false">🪞 Reflection</button>
+    </div>
   </header>
+
+  <div class="reminder-banner" id="reminder-banner" hidden></div>
 
   <main>
     <!-- 1. Parent forms -->
     <section class="panel parent-panel" aria-labelledby="parents-heading">
       <h2 id="parents-heading">Parent Profiles</h2>
       <div class="parents" id="parents"></div>
-      <div class="primary-action">
-        <button id="randomize-parents-btn" class="btn">🎲 Randomize Parents</button>
-        <button id="generate-btn" class="btn btn-primary">Generate Baby Possibilities</button>
-      </div>
     </section>
+
+    <!-- 1b. Environmental influences -->
+    <section class="panel env-panel" aria-labelledby="env-heading">
+      <h2 id="env-heading">Environmental Influences</h2>
+      <p class="subtle">Genes aren't destiny. Tweak the nurture side too.</p>
+      <div class="env-grid" id="env-grid"></div>
+    </section>
+
+    <div class="primary-action">
+      <button id="randomize-parents-btn" class="btn">🎲 Randomize Parents</button>
+      <button id="natural-variation-btn" class="btn">🌱 Preserve Natural Variation</button>
+      <button id="generate-btn" class="btn btn-primary">Generate Baby Possibilities</button>
+    </div>
 
     <!-- 2 + 3. Sliders + Baby Preview -->
     <section class="results" id="results" hidden>
@@ -94,6 +109,7 @@
           <button id="reset-btn" class="btn">↺ Reset to Parent Average</button>
           <button id="copy-btn" class="btn">⧉ Copy Baby Profile</button>
           <button id="save-btn" class="btn">💾 Save Timeline</button>
+          <button id="futures-btn" class="btn">🪐 Show Possible Adult Futures</button>
           <button id="alternates-btn" class="btn">🌌 Generate Alternate Timelines</button>
         </div>
         <div class="copy-status" id="copy-status" role="status" aria-live="polite"></div>
@@ -128,18 +144,38 @@
 
         <dl class="baby-stats" id="baby-stats"></dl>
 
+        <div class="trait-conflicts" id="trait-conflicts" hidden></div>
+
         <div class="future-block" id="future-block" hidden>
           <h3>Future predictions</h3>
           <ul class="future-paths" id="future-paths"></ul>
           <div class="random-events" id="random-events"></div>
+          <h3 class="future-news-heading">In the local news, decades later…</h3>
+          <ul class="future-headlines" id="future-headlines"></ul>
         </div>
+
+        <div class="reflection-prompt" id="reflection-prompt" hidden></div>
       </aside>
+    </section>
+
+    <section class="futures-panel panel" id="futures-panel" hidden>
+      <h2>Possible Adult Futures</h2>
+      <p class="subtle">Different lives this child might end up living. Same kid, many roads — life is unpredictable on purpose.</p>
+      <div class="futures-grid" id="futures-grid"></div>
     </section>
 
     <section class="alternates-panel panel" id="alternates-panel" hidden>
       <h2>Alternate Timelines</h2>
-      <p class="subtle">Parallel possibilities from the same two parents. Click <em>Make this the main baby</em> on any card to load it.</p>
+      <p class="subtle">Different babies the same two parents might have. Click <em>Make this the main baby</em> on any card to load it.</p>
       <div class="alternates-grid" id="alternates-grid"></div>
+    </section>
+
+    <section class="history-panel" id="history-panel">
+      <button type="button" class="history-toggle" id="history-toggle" aria-expanded="false" aria-controls="history-content">
+        <span>📜 History of Human Enhancement</span>
+        <span class="history-chevron" aria-hidden="true">▾</span>
+      </button>
+      <div class="history-content" id="history-content" hidden></div>
     </section>
 
     <section class="ethics">

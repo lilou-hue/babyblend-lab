@@ -225,6 +225,191 @@ const FUN_NAMES = [
   'Theo','Ada','Indigo','Marlow','Lior','Rio','Saskia','Beck','Tova','Lev'
 ];
 
+/* ---------- Environmental factors ----------
+ * Nurture sliders that visibly nudge fictional outcomes. The whole point of
+ * having this panel is to make the "genes aren't destiny" message visible:
+ * the same baby grows up differently depending on these knobs.
+ */
+const ENV_FIELDS = [
+  { key: 'family',       label: 'Supportive family',         min: 1, max: 10, def: 7 },
+  { key: 'education',    label: 'Educational access',        min: 1, max: 10, def: 7 },
+  { key: 'economy',      label: 'Economic stability',        min: 1, max: 10, def: 6 },
+  { key: 'healthcare',   label: 'Healthcare access',         min: 1, max: 10, def: 7 },
+  { key: 'social',       label: 'Social pressure',           min: 1, max: 10, def: 5 },
+  { key: 'internet',     label: 'Internet exposure',         min: 1, max: 10, def: 6 },
+  { key: 'multilingual', label: 'Multilingual upbringing',   min: 1, max: 10, def: 4 },
+  { key: 'urbanRural',   label: 'Urban (1) ↔ Rural (10)',    min: 1, max: 10, def: 5 }
+];
+
+/* ---------- Ethics Mode pools ---------- */
+
+const REFLECTION_PROMPTS = [
+  'Why did you prioritize this particular trait?',
+  'Who decides which traits are "desirable"?',
+  'Would society pressure parents into enhancement?',
+  'What might be lost if everyone optimized the same traits?',
+  'Are the trade-offs you accepted worth it?',
+  'What if this child grows up wanting different traits than you chose?',
+  'How would access to choices like these affect inequality?',
+  'Whose definition of "better" did you use?',
+  'What can\'t these sliders measure?',
+  'Does choosing imply rejecting?',
+  'Would the same baby in a different country be seen the same way?',
+  'Is "average" a thing to design away from — or back toward?'
+];
+
+const HUMANITY_REMINDERS = [
+  'Humans are more than predicted traits.',
+  'A person cannot be fully reduced to data.',
+  'Perfection is culturally defined.',
+  'Unexpected traits often become strengths.',
+  'Genes load the gun; environment pulls the trigger; choice writes the story.',
+  'Diversity isn\'t a glitch — it\'s the feature.',
+  'A trait\'s value depends on who, when, and where.',
+  'Strengths and weaknesses are the same thing in different rooms.',
+  'Whoever this child becomes, they get the last word — not us.',
+  'A simulator cannot anticipate a single real Tuesday afternoon.'
+];
+
+const NATURAL_VARIATION_MESSAGES = [
+  'Human diversity preserved.',
+  'Unpredictability is part of humanity.',
+  'Not every trait needs improvement.',
+  'Variation is the soil future strengths grow from.',
+  'Nature did not consult the optimization handbook.'
+];
+
+/* ---------- News Headlines ---------- */
+
+const NEWS_HEADLINES = [
+  'Teen accidentally invents biodegradable glitter.',
+  'Local astrophysicist forgets backpack on train, again.',
+  'World\'s loudest birthday party breaks neighborhood records.',
+  'Spelling bee runner-up confronts judges about Latin etymology.',
+  'Stranger befriends pigeon; pigeon befriends back.',
+  'Bouncy castle inflated indoors after a particularly bold negotiation.',
+  'Local kid corrects museum plaque, museum thanks them.',
+  'Backyard rocket attempt postponed due to weather and grandmother.',
+  'Underground sandwich economy uncovered in 4th-grade classroom.',
+  'High schooler files for trademark on a single emoji.',
+  'Town debates installing skate ramp; one (1) constituent loud in favor.',
+  'Local lemonade stand achieves dynamic pricing.',
+  'Garage band\'s only song now stuck in 200 people\'s heads.',
+  'Anonymous tip leads to most beautifully organized library shelf in district.',
+  'Locally famous prank involves no harm, vast confusion.',
+  'Documentary about a single cat enters its third season.',
+  'High-school robotics team accidentally invents a pancake-flipping arm.',
+  'Person reaches new personal record: longest streak of being on time.',
+  'Library patron returns a book 11 years late with a 12-page apology.',
+  'Choir performance derailed (lovingly) by a particularly committed soloist.',
+  'Tiny garden out-competes city\'s parks division at growing tomatoes.',
+  'Stand-up comedy debut: 4 minutes, 1 prop, 87 photos shared.',
+  'Local kid wins regional spelling bee; spells "schadenfreude" without flinching.',
+  'Surprise viral video involves a homemade Halloween costume of a spreadsheet.',
+  'Annual neighborhood scavenger hunt now has lore.',
+  'Local resident found running a one-person book club for years.',
+  'Birthday-card business operated entirely out of a treehouse audited fairly.',
+  'Person reaches a milestone in a hobby no one knew existed.',
+  'Town\'s annual chili cookoff disrupted by surprise dessert entry.'
+];
+
+/* ---------- Trait Conflicts (framed as tradeoffs, not flaws) ---------- */
+
+const TRAIT_CONFLICTS = [
+  {
+    when: b => b.openness >= 8 && b.conscientiousness <= 4,
+    tag: 'Chaotic experimentation likely',
+    note: 'Big imagination, light scaffolding — many starts, fewer finishes. Sometimes the start was the point.'
+  },
+  {
+    when: b => b.conscientiousness >= 8 && b.neuroticism >= 7,
+    tag: 'Care that runs hot',
+    note: 'Detail-oriented and easily worried. May need rest rituals more than most.'
+  },
+  {
+    when: b => b.openness >= 8 && b.extraversion <= 3,
+    tag: 'Rich inner world, narrow social orbit',
+    note: 'Vivid private universe. Possibly few people who fully see it; that\'s okay.'
+  },
+  {
+    when: b => b.agreeableness >= 8 && b.extraversion <= 3,
+    tag: 'Gentle introvert',
+    note: 'Cares deeply, in small circles. Often overlooked by louder rooms — and underestimated.'
+  },
+  {
+    when: b => b.extraversion >= 8 && b.neuroticism >= 7,
+    tag: 'Outwardly bright, inwardly stormy',
+    note: 'Energy that performs may exhaust the performer. The crowd doesn\'t see the comedown.'
+  },
+  {
+    when: b => b.athletic >= 8 && b.conscientiousness <= 3,
+    tag: 'High energy, low rails',
+    note: 'Will outrun structure. Needs an outlet, not a leash.'
+  },
+  {
+    when: b => b.openness >= 8 && b.agreeableness <= 3,
+    tag: 'Iconoclast tendencies',
+    note: 'Will question loudly. Builds new rooms; sometimes upsets the old ones.'
+  },
+  {
+    when: b => b.conscientiousness <= 3 && b.neuroticism <= 3,
+    tag: 'Cheerfully disorganized',
+    note: 'Not worried, also not planning. Lives are also lived this way; not less, just differently.'
+  },
+  {
+    when: b => b.agreeableness >= 8 && b.neuroticism <= 3,
+    tag: 'Steady kindness',
+    note: 'Calm under pressure, kind by default. The kind of person other people want to be near.'
+  },
+  {
+    when: b => b.extraversion <= 3 && b.openness >= 8 && b.conscientiousness >= 7,
+    tag: 'Quiet builder',
+    note: 'Will make something interesting alone. Will not advertise it. World finds out later, or never.'
+  }
+];
+
+/* ---------- Adult Futures (one fictional life per card) ---------- */
+
+const ADULT_FUTURES = [
+  { headline: 'Marine biologist who names every octopus.',                            details: ['Has a complicated relationship with one specific anglerfish.', 'Wears the same hoodie to every conference for 11 years.', 'Holds a personal record: longest time spent at one tide pool.'], tags: ['education'] },
+  { headline: 'Exhausted but beloved startup founder.',                              details: ['Pitched a productivity app while half-asleep on a flight.', 'Has strong opinions about chairs.', 'Will eventually pivot to artisan pickles.'], tags: ['economy'] },
+  { headline: 'Art teacher who somehow knows every kid in town.',                    details: ['Carries glitter in their pocket "for emergencies."', 'Once made a 20-foot papier-mâché whale during summer break.', 'Has 14 framed crayon portraits.'], tags: ['family'] },
+  { headline: 'Conspiracy podcaster — but the wholesome kind.',                       details: ['Sincerely believes the moon is fine, actually.', 'Has guests on to debunk their own hosts.', 'Discovered, on episode 87, they are the conspiracy.'], tags: ['internet'] },
+  { headline: 'Astronaut who keeps a tiny indoor garden in orbit.',                   details: ['Has cried over a successful sprout. Twice.', 'Brings one (1) absurd snack on every mission.', 'Now answers questions in 3 languages.'], tags: ['education', 'multilingual'] },
+  { headline: 'Indie musician with one cult-favorite song.',                          details: ['Plays venues with exactly 47 people in them.', 'Their song is on a movie\'s closing credits no one watched.', 'Refuses to explain the lyrics. Lyrics are about pasta.'], tags: ['internet'] },
+  { headline: 'Chaotic internet celebrity (mostly accidental).',                      details: ['Went viral for explaining tax code while baking bread.', 'Owns four cameras and one ring light.', 'Has a calendar app that just says "vibes only."'], tags: ['internet'] },
+  { headline: 'High-school physics teacher of legend.',                                details: ['Has demonstrated centripetal force using a frozen turkey.', 'Refers to gravity as "her old friend."', 'Several students will go on to thank them by name.'], tags: ['education'] },
+  { headline: 'Animal shelter director who knows every dog\'s name.',                 details: ['Sleeps with at least one (1) cat per night.', 'Once convinced a city council to adopt a goose.', 'Cries at every adoption — staff has stopped asking.'], tags: ['family'] },
+  { headline: 'Mid-list novelist who finally finishes the trilogy.',                  details: ['Argued with their editor about commas for 4 years.', 'Has 11 unfinished drafts in a desk drawer.', 'One reader writes them every Christmas.'], tags: ['education'] },
+  { headline: 'Civic-organizer who fixes one impossible street.',                     details: ['Knows every neighbor by their grocery routine.', 'Has a binder. Several binders. Color-coded.', 'Will become a low-key local legend.'], tags: ['family'] },
+  { headline: 'Bartender / amateur philosopher / good listener.',                     details: ['Remembers every regular\'s order and their mother\'s birthday.', 'Has a side hustle reading tarot at brunch.', 'Once accidentally married two strangers via toast.'], tags: ['social'] },
+  { headline: 'Software engineer who maintains one cursed open-source tool.',         details: ['Tool is depended on by 600 companies.', 'Lives on hobby farm. Has chickens named after data structures.', 'Reviews pull requests in dry one-liners.'], tags: ['economy'] },
+  { headline: 'Roving sourdough evangelist.',                                          details: ['Travels with a starter named after a 19th-century philosopher.', 'Has converted three former rivals.', 'Bakes are 80% delicious, 20% lessons.'], tags: ['urbanRural'] },
+  { headline: 'Volunteer firefighter and small-town historian.',                      details: ['Has rescued one (1) cat. The cat owes them.', 'Writes the town\'s newsletter. It is unexpectedly funny.', 'Knows where every cornerstone is buried.'], tags: ['urbanRural', 'family'] },
+  { headline: 'Translator-by-day, sci-fi-writer-by-night.',                           details: ['Has translated 5 languages, invented 2 more.', 'Their pseudonym has its own fans.', 'Tea consumption: industrial.'], tags: ['multilingual'] },
+  { headline: 'Pediatrician who lets every kid name a fictional dinosaur.',           details: ['Office wallpaper is the resulting list.', 'Has been on a sticker shortage watchlist twice.', 'Knows when to refer out and when to wait.'], tags: ['healthcare'] },
+  { headline: 'Park ranger fluent in stars.',                                          details: ['Runs once-a-month "look up" nights for the town.', 'Speaks softly to bears. Has reasons.', 'Carries a beat-up copy of Annie Dillard everywhere.'], tags: ['urbanRural', 'education'] },
+  { headline: 'Logistics savant at a mid-sized warehouse.',                            details: ['Reorganized the loading bay; saved 40 minutes a day.', 'Knows the entire crew\'s coffee orders.', 'Plays the harmonica on lunch breaks.'], tags: ['economy'] },
+  { headline: 'Therapist who keeps a "patience plant" by the window.',                details: ['Refuses to keep a clock visible.', 'Has cried, professionally, only twice.', 'Reads three novels at once.'], tags: ['healthcare', 'family'] },
+  { headline: 'Mediocre-but-cherished community-theater director.',                   details: ['Cast a chicken once. The chicken got a callback.', 'Has saved every program from every show.', 'Friends with the lighting tech for life.'], tags: ['social'] },
+  { headline: 'Cooperative-board member of a tiny grocery.',                          details: ['Argues for the bulk-grains section in every meeting.', 'Knows which two members are secretly dating.', 'Bakes for every neighbor on their birthday.'], tags: ['urbanRural'] },
+  { headline: 'Aerospace technician with a side career in jazz piano.',               details: ['Plays a smoky lounge twice a month.', 'Has solved one truly puzzling shuttle malfunction.', 'Wears the same lucky watch to both jobs.'], tags: ['education'] },
+  { headline: 'Local linguist who documents an endangered dialect.',                   details: ['Records elders over kitchen tables; their files are precious.', 'Has been adopted, informally, by three families.', 'Is writing a dictionary by hand.'], tags: ['multilingual', 'family'] },
+  { headline: 'Bookstore owner running a wildly specific genre section.',             details: ['Genre section: "novels with one (1) lighthouse."', 'Hosts an unbearably charming monthly reading.', 'Has a cat named after a literary theorist.'], tags: ['urbanRural'] },
+  { headline: 'Climate-policy wonk who actually changes one law.',                    details: ['Spent 11 years on the same comma.', 'Reads regulatory PDFs for pleasure.', 'Hosts excellent dinner parties for very tired colleagues.'], tags: ['education', 'social'] }
+];
+
+/* ---------- History of Human Enhancement (educational cards) ---------- */
+
+const HISTORY_CARDS = [
+  { title: 'Eugenics, briefly.',                  body: 'Early-20th-century movements claimed scientific authority over which humans were "fit." It justified forced sterilizations and worse. The science was wrong. The harm was real.' },
+  { title: 'Cosmetic surgery culture.',           body: 'Modern cosmetic surgery normalizes the idea that bodies can be edited to match shifting beauty standards. The standards change every decade or two; the bodies that chased them often don\'t change back.' },
+  { title: 'Gene editing today.',                 body: 'CRISPR can edit DNA in a Petri dish or a person. Where the line falls — diseases? height? mood? — is something we\'re answering as a species, mostly without asking it out loud.' },
+  { title: 'Access is the harder question.',     body: 'Even if "designer babies" worked, they\'d almost certainly arrive unevenly. The wealthy modify; everyone else inherits. A new axis of inequality stacked on the old ones.' },
+  { title: 'Who measures "improvement"?',        body: 'Traits cast as flaws in one era (sensitivity, atypical minds, certain bodies) are cast as strengths in another. The measurer changes; the trait doesn\'t.' },
+  { title: 'Genes ≠ destiny.',                    body: 'Twin studies put most personality traits in the 40–60% heritable range. The rest is environment, chance, and the choices of the person themselves — none of which a slider can model.' }
+];
+
 /* ---------- Seeded randomness ---------- */
 // Tiny deterministic hash → uint32. Same string in, same value out.
 function hashStr(s) {
@@ -342,18 +527,25 @@ const SLIDER_DEFS = [
 
 const state = {
   parents: { A: {}, B: {} },
+  env: {},             // environmental factors (nurture)
   ranges: {},          // per-slider { min, max, def, step, kind, ... }
   baby: {},            // current baby slider values
   codename: '',
   vibe: '',            // funny "future vibe" title
   futurePaths: [],     // 3 future-path predictions
   events: [],          // 0–2 random events
+  headlines: [],       // fictional news headlines
+  conflicts: [],       // trait conflict tradeoff notes
+  reflection: '',      // ethics-mode reflection prompt
   archetype: '',
   surprise: 0,
   style: 'lorelei',    // 'lorelei' | 'bigSmile'
   gender: 'surprise',  // 'female' | 'male' | 'surprise'
+  ethicsMode: 'playful', // 'playful' | 'reflection'
   chaos: false,        // amplifies slider ranges + surprise
-  alternates: []       // generated alternate-timeline babies
+  generateCount: 0,    // how many times Generate has been clicked
+  alternates: [],      // generated alternate-baby cards
+  futures: []          // generated adult-life future cards (for current baby)
 };
 
 /* ---------- Helpers ---------- */
@@ -448,6 +640,37 @@ function collectParentData() {
       if (f.type === 'number' || f.type === 'range') v = Number(v);
       out[letter][f.key] = v;
     });
+  });
+  return out;
+}
+
+function buildEnvPanel() {
+  const grid = $('#env-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  ENV_FIELDS.forEach(f => {
+    const id = 'env_' + f.key;
+    const wrap = document.createElement('div');
+    wrap.className = 'env-field';
+    wrap.innerHTML = `
+      <label for="${id}">${f.label}</label>
+      <div class="field-range">
+        <input id="${id}" type="range" min="${f.min}" max="${f.max}" step="1" value="${f.def}" />
+        <span class="val" id="${id}_val">${f.def}</span>
+      </div>`;
+    grid.appendChild(wrap);
+  });
+  $$('.env-field input[type="range"]').forEach(r => {
+    const v = $('#' + r.id + '_val');
+    r.addEventListener('input', () => { v.textContent = r.value; });
+  });
+}
+
+function collectEnvData() {
+  const out = {};
+  ENV_FIELDS.forEach(f => {
+    const el = $('#env_' + f.key);
+    out[f.key] = el ? Number(el.value) : f.def;
   });
   return out;
 }
@@ -687,7 +910,7 @@ function updateBabyPreview() {
   const cb = $('#chaos-badge');
   if (cb) cb.hidden = !state.chaos;
 
-  // future vibe + paths + random events
+  // future vibe + paths + random events + news headlines
   const vibeEl = $('#vibe-title');
   if (vibeEl) vibeEl.textContent = state.vibe || '';
   const pathsEl = $('#future-paths');
@@ -698,8 +921,43 @@ function updateBabyPreview() {
   if (eventsEl) {
     eventsEl.innerHTML = (state.events || []).map(t => `<span class="event-chip">${t}</span>`).join('');
   }
+  const headlinesEl = $('#future-headlines');
+  if (headlinesEl) {
+    headlinesEl.innerHTML = (state.headlines || []).map(t => `<li>“${t}”</li>`).join('');
+  }
   const futureBlock = $('#future-block');
   if (futureBlock) futureBlock.hidden = !(state.futurePaths && state.futurePaths.length);
+
+  // Trait conflicts (tradeoff chips)
+  const conflictsEl = $('#trait-conflicts');
+  if (conflictsEl) {
+    if (state.conflicts && state.conflicts.length) {
+      conflictsEl.hidden = false;
+      conflictsEl.innerHTML = `
+        <h3>Trait tradeoffs</h3>
+        <div class="conflict-chips">
+          ${state.conflicts.map(c => `
+            <div class="conflict-chip" title="${c.note}">
+              <span class="conflict-tag">${c.tag}</span>
+              <span class="conflict-note">${c.note}</span>
+            </div>`).join('')}
+        </div>`;
+    } else {
+      conflictsEl.hidden = true;
+      conflictsEl.innerHTML = '';
+    }
+  }
+
+  // Reflection prompt (only in Reflection mode)
+  const reflEl = $('#reflection-prompt');
+  if (reflEl) {
+    if (state.ethicsMode === 'reflection' && state.codename) {
+      reflEl.hidden = false;
+      reflEl.innerHTML = `<span class="reflection-mark">?</span> ${state.reflection || pickReflectionPrompt(state.codename)}`;
+    } else {
+      reflEl.hidden = true;
+    }
+  }
 
   // avatar
   updateAvatar(b);
@@ -827,6 +1085,46 @@ function updateAvatar(b) {
   host.innerHTML = buildAvatarSvg(b, state.style, state.gender, state.codename);
 }
 
+/* ---------- Multi-Future Panel (adult lives for current baby) ---------- */
+
+function generateAdultFutures() {
+  if (!state.codename) return;
+  const count = state.chaos ? 6 : 4;
+  const rng = seededRand(state.codename + '|adultFutures|' + Date.now());
+
+  // Env-weighted picks: high env values bump futures tagged with that env key.
+  // Low env values penalize matching futures. Middle env values are neutral.
+  const weighted = ADULT_FUTURES.map(f => {
+    let bonus = 0;
+    (f.tags || []).forEach(tag => {
+      const v = state.env?.[tag];
+      if (typeof v === 'number') bonus += (v - 5) * 0.18;
+    });
+    return { f, w: rng() + bonus };
+  }).sort((a, b) => b.w - a.w);
+
+  state.futures = weighted.slice(0, count).map(x => x.f);
+  renderFutures();
+}
+
+function renderFutures() {
+  const grid  = $('#futures-grid');
+  const panel = $('#futures-panel');
+  if (!grid || !panel) return;
+  if (!state.futures || state.futures.length === 0) {
+    panel.hidden = true; return;
+  }
+  grid.innerHTML = state.futures.map(f => `
+    <article class="future-card">
+      <h3 class="future-headline">${f.headline}</h3>
+      <ul class="future-details">
+        ${f.details.map(d => `<li>${d}</li>`).join('')}
+      </ul>
+    </article>`).join('');
+  panel.hidden = false;
+  requestAnimationFrame(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+}
+
 /* ---------- Alternate Timelines ---------- */
 
 function generateAlternateTimelines() {
@@ -950,7 +1248,33 @@ function generateBabyFlavor(codename, baby) {
   const eventCount = state.chaos ? 2 : (rng() > 0.4 ? 1 : (rng() > 0.6 ? 2 : 0));
   const events = pickN(RANDOM_EVENTS, eventCount, rng);
 
-  return { vibe, paths, events };
+  // 2 fictional news headlines (different seed so they don't shuffle on small changes)
+  const headlineRng = seededRand(codename + '|news');
+  const headlines = pickN(NEWS_HEADLINES, 2, headlineRng);
+
+  return { vibe, paths, events, headlines };
+}
+
+function computeTraitConflicts(b) {
+  return TRAIT_CONFLICTS.filter(c => c.when(b)).map(c => ({ tag: c.tag, note: c.note }));
+}
+
+function pickReflectionPrompt(seed) {
+  const rng = seededRand(seed + '|reflection');
+  return REFLECTION_PROMPTS[Math.floor(rng() * REFLECTION_PROMPTS.length)];
+}
+
+function showHumanityReminder(line) {
+  const banner = $('#reminder-banner');
+  if (!banner) return;
+  banner.textContent = line || HUMANITY_REMINDERS[Math.floor(Math.random() * HUMANITY_REMINDERS.length)];
+  banner.hidden = false;
+  banner.classList.add('is-visible');
+  clearTimeout(showHumanityReminder._t);
+  showHumanityReminder._t = setTimeout(() => {
+    banner.classList.remove('is-visible');
+    setTimeout(() => { banner.hidden = true; }, 700);
+  }, 5500);
 }
 
 /* ====================================================================
@@ -1054,23 +1378,33 @@ function renderSurprise(pct) {
 
 function generate() {
   state.parents = collectParentData();
+  state.env     = collectEnvData();
   state.ranges  = generateSliderRanges(state.parents);
   state.surprise = computeSurprise(state.parents);
   state.codename = generateCodename(state.parents);
+  state.generateCount += 1;
 
   $('#codename').textContent = state.codename;
   renderSliders(state.ranges);
   resetBaby();             // sets to parent-average defaults + triggers preview
 
-  // Funny vibe + future paths + random events are derived from the codename so
-  // they're stable for the lifetime of this baby (until next Generate).
+  // Funny vibe + future paths + random events + news headlines are derived
+  // from the codename so they're stable for the lifetime of this baby.
   const flavor = generateBabyFlavor(state.codename, state.baby);
-  state.vibe = flavor.vibe;
+  state.vibe        = flavor.vibe;
   state.futurePaths = flavor.paths;
-  state.events = flavor.events;
+  state.events      = flavor.events;
+  state.headlines   = flavor.headlines;
+  state.conflicts   = computeTraitConflicts(state.baby);
+  state.reflection  = pickReflectionPrompt(state.codename);
 
   renderSurprise(state.surprise);
   updateBabyPreview();      // refresh display with new flavor
+
+  // Quietly remind users this is a person, not a profile, every few generations.
+  if (state.generateCount % 3 === 0 || state.ethicsMode === 'reflection') {
+    showHumanityReminder();
+  }
 
   const results = $('#results');
   results.hidden = false;
@@ -1080,7 +1414,7 @@ function generate() {
   });
 }
 
-function setupPillToggle(btnSelector, stateKey) {
+function setupPillToggle(btnSelector, stateKey, onChange) {
   $$(btnSelector).forEach(btn => {
     btn.addEventListener('click', () => {
       $$(btnSelector).forEach(b => {
@@ -1094,8 +1428,60 @@ function setupPillToggle(btnSelector, stateKey) {
         updateAvatar(state.baby);
         updateBabyPreview();   // refresh stats line that includes the new value
       }
+      if (onChange) onChange(state[stateKey]);
     });
   });
+}
+
+function preserveNaturalVariation() {
+  // Force-widen ranges to the full hard bounds for this generation only.
+  const wasChaos = state.chaos;
+  state.chaos = true;
+
+  state.parents = collectParentData();
+  state.env     = collectEnvData();
+  state.ranges  = generateSliderRanges(state.parents);
+  state.surprise = computeSurprise(state.parents);
+  state.codename = generateCodename(state.parents);
+  state.generateCount += 1;
+
+  $('#codename').textContent = state.codename;
+  renderSliders(state.ranges);
+
+  // Pick freely across each slider's range — no optimization.
+  SLIDER_DEFS.forEach(def => {
+    const r = state.ranges[def.key];
+    const v = Math.floor(Math.random() * (r.max - r.min + 1)) + r.min;
+    state.baby[def.key] = v;
+    const slider = $('#s_' + def.key);
+    if (slider) slider.value = v;
+  });
+
+  // Restore chaos toggle to the user's setting (we only borrowed the range
+  // widening). Note the slider ranges keep their widened bounds for now —
+  // that's intentional: it makes the diversity visible.
+  state.chaos = wasChaos;
+
+  const flavor = generateBabyFlavor(state.codename, state.baby);
+  state.vibe        = flavor.vibe;
+  state.futurePaths = flavor.paths;
+  state.events      = flavor.events;
+  state.headlines   = flavor.headlines;
+  state.conflicts   = computeTraitConflicts(state.baby);
+  state.reflection  = pickReflectionPrompt(state.codename);
+
+  renderSurprise(state.surprise);
+
+  const results = $('#results');
+  if (results.hidden) {
+    results.hidden = false;
+    requestAnimationFrame(() => results.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  }
+
+  updateBabyPreview();
+  showHumanityReminder(
+    NATURAL_VARIATION_MESSAGES[Math.floor(Math.random() * NATURAL_VARIATION_MESSAGES.length)]
+  );
 }
 
 function randomizeParents() {
@@ -1116,6 +1502,14 @@ function randomizeParents() {
       el.value = val;
       el.dispatchEvent(new Event('input', { bubbles: true }));
     });
+  });
+  // Also randomize the environmental factors so the whole context shifts.
+  ENV_FIELDS.forEach(f => {
+    const el = $('#env_' + f.key);
+    if (!el) return;
+    const v = Math.floor(f.min + Math.random() * (f.max - f.min + 1));
+    el.value = v;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
   });
 }
 
@@ -1297,17 +1691,49 @@ function setupChaosToggle() {
   });
 }
 
+function buildHistorySection() {
+  const content = $('#history-content');
+  if (!content) return;
+  content.innerHTML = HISTORY_CARDS.map(c => `
+    <div class="history-card">
+      <h3>${c.title}</h3>
+      <p>${c.body}</p>
+    </div>
+  `).join('');
+}
+
+function setupHistoryToggle() {
+  const btn = $('#history-toggle');
+  const content = $('#history-content');
+  if (!btn || !content) return;
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    content.hidden = expanded;
+    btn.classList.toggle('is-open', !expanded);
+  });
+}
+
 function init() {
   buildParentForms();
+  buildEnvPanel();
+  buildHistorySection();
+  setupHistoryToggle();
   setupPillToggle('.style-btn', 'style');
   setupPillToggle('.gender-btn', 'gender');
+  setupPillToggle('.mode-btn', 'ethicsMode', mode => {
+    document.body.classList.toggle('mode-reflection', mode === 'reflection');
+    if (mode === 'reflection') showHumanityReminder();
+  });
   setupChaosToggle();
   $('#randomize-parents-btn').addEventListener('click', randomizeParents);
+  $('#natural-variation-btn').addEventListener('click', preserveNaturalVariation);
   $('#generate-btn').addEventListener('click', generate);
   $('#randomize-btn').addEventListener('click', randomizeBaby);
   $('#reset-btn').addEventListener('click', resetBaby);
   $('#copy-btn').addEventListener('click', copyProfile);
   $('#save-btn').addEventListener('click', saveCurrentTimeline);
+  $('#futures-btn').addEventListener('click', generateAdultFutures);
   $('#alternates-btn').addEventListener('click', generateAlternateTimelines);
   renderSavedList();
 }
