@@ -213,6 +213,14 @@ main {
   color: var(--ink-soft);
   letter-spacing: 0.3px;
 }
+.field-subtitle {
+  display: inline;
+  margin-left: 4px;
+  font-size: 10.5px;
+  font-style: italic;
+  color: var(--ink-mute);
+  letter-spacing: 0.2px;
+}
 .field input[type="text"],
 .field input[type="number"],
 .field select {
@@ -549,6 +557,13 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
 .baby-stats dt {
   color: var(--ink-mute);
   letter-spacing: 0.3px;
+}
+.baby-stats dt.ocean-sep {
+  margin-top: 6px;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-2);
 }
 .baby-stats dd {
   margin: 0;

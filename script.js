@@ -165,18 +165,20 @@ function addTraitOverlays(svg, b, styleName) {
 const PARENT_FIELDS = [
   { key: 'name',       label: 'Name',                type: 'text',   defA: 'Alex',  defB: 'Bea' },
   { key: 'height',     label: 'Height (cm)',         type: 'number', min: 140, max: 210, defA: 170, defB: 175 },
-  { key: 'eyeColor',   label: 'Eye color',           type: 'select', options: EYE_LADDER,   defA: 'blue',   defB: 'brown' },
-  { key: 'hairColor',  label: 'Hair color',          type: 'select', options: HAIR_LADDER,  defA: 'blonde', defB: 'dark brown' },
-  { key: 'hairType',   label: 'Hair type',           type: 'select', options: TEX_LADDER,   defA: 'straight', defB: 'curly' },
-  { key: 'skinTone',   label: 'Skin tone',           type: 'select', options: SKIN_LADDER,  defA: 'fair',   defB: 'medium' },
-  { key: 'faceShape',  label: 'Face shape',          type: 'select', options: FACE_LADDER,  defA: 'oval',   defB: 'round' },
-  { key: 'freckles',   label: 'Freckles',            type: 'select', options: FRECK_LADDER, defA: 'none',   defB: 'light' },
-  { key: 'dimples',    label: 'Dimples',             type: 'select', options: DIMPLE_LADDER, defA: 'no',    defB: 'yes' },
-  { key: 'creativity', label: 'Creativity',          type: 'range',  min: 1, max: 10, defA: 6, defB: 7 },
-  { key: 'athletic',   label: 'Athletic',            type: 'range',  min: 1, max: 10, defA: 5, defB: 6 },
-  { key: 'calmness',   label: 'Calmness',            type: 'range',  min: 1, max: 10, defA: 7, defB: 5 },
-  { key: 'social',     label: 'Social energy',       type: 'range',  min: 1, max: 10, defA: 6, defB: 8 },
-  { key: 'curiosity',  label: 'Curiosity',           type: 'range',  min: 1, max: 10, defA: 8, defB: 7 }
+  { key: 'athletic',   label: 'Athletic',            subtitle: 'physical tendency',           type: 'range', min: 1, max: 10, defA: 5, defB: 6 },
+  { key: 'eyeColor',   label: 'Eye color',           type: 'select', options: EYE_LADDER,    defA: 'blue',     defB: 'brown' },
+  { key: 'hairColor',  label: 'Hair color',          type: 'select', options: HAIR_LADDER,   defA: 'blonde',   defB: 'dark brown' },
+  { key: 'hairType',   label: 'Hair type',           type: 'select', options: TEX_LADDER,    defA: 'straight', defB: 'curly' },
+  { key: 'skinTone',   label: 'Skin tone',           type: 'select', options: SKIN_LADDER,   defA: 'fair',     defB: 'medium' },
+  { key: 'faceShape',  label: 'Face shape',          type: 'select', options: FACE_LADDER,   defA: 'oval',     defB: 'round' },
+  { key: 'freckles',   label: 'Freckles',            type: 'select', options: FRECK_LADDER,  defA: 'none',     defB: 'light' },
+  { key: 'dimples',    label: 'Dimples',             type: 'select', options: DIMPLE_LADDER, defA: 'no',       defB: 'yes' },
+  // Big Five (OCEAN)
+  { key: 'openness',          label: 'Openness',          subtitle: 'curiosity & imagination',   type: 'range', min: 1, max: 10, defA: 7, defB: 6 },
+  { key: 'conscientiousness', label: 'Conscientiousness', subtitle: 'discipline & organization', type: 'range', min: 1, max: 10, defA: 6, defB: 5 },
+  { key: 'extraversion',      label: 'Extraversion',      subtitle: 'sociability & energy',      type: 'range', min: 1, max: 10, defA: 6, defB: 8 },
+  { key: 'agreeableness',     label: 'Agreeableness',     subtitle: 'kindness & cooperation',    type: 'range', min: 1, max: 10, defA: 7, defB: 7 },
+  { key: 'neuroticism',       label: 'Neuroticism',       subtitle: 'emotional reactivity',      type: 'range', min: 1, max: 10, defA: 4, defB: 5 }
 ];
 
 /* ---------- Slider definitions ---------- */
@@ -184,6 +186,7 @@ const PARENT_FIELDS = [
 
 const SLIDER_DEFS = [
   { key: 'height',     label: 'Height potential',  unit: 'cm',     kind: 'continuous', hardMin: 140, hardMax: 210, expand: 5  },
+  { key: 'athletic',   label: 'Athletic tendency',    unit: '/10', kind: 'polygenic',  hardMin: 1,   hardMax: 10, sigma: 1.75 },
   { key: 'eyeColor',   label: 'Eye color blend',                   kind: 'ladder', ladder: EYE_LADDER  },
   { key: 'hairColor',  label: 'Hair color blend',                  kind: 'ladder', ladder: HAIR_LADDER },
   { key: 'hairType',   label: 'Hair texture blend',                kind: 'ladder', ladder: TEX_LADDER  },
@@ -191,11 +194,12 @@ const SLIDER_DEFS = [
   { key: 'faceShape',  label: 'Face shape blend',                  kind: 'ladder', ladder: FACE_LADDER },
   { key: 'freckles',   label: 'Freckles likelihood',  unit: '%',   kind: 'likelihood', parentKey: 'freckles', ladder: FRECK_LADDER },
   { key: 'dimples',    label: 'Dimples likelihood',   unit: '%',   kind: 'likelihood', parentKey: 'dimples',  ladder: DIMPLE_LADDER },
-  { key: 'creativity', label: 'Creativity',           unit: '/10', kind: 'continuous', hardMin: 1,   hardMax: 10, expand: 1 },
-  { key: 'athletic',   label: 'Athletic tendency',    unit: '/10', kind: 'continuous', hardMin: 1,   hardMax: 10, expand: 1 },
-  { key: 'calmness',   label: 'Calmness',             unit: '/10', kind: 'continuous', hardMin: 1,   hardMax: 10, expand: 1 },
-  { key: 'social',     label: 'Social energy',        unit: '/10', kind: 'continuous', hardMin: 1,   hardMax: 10, expand: 1 },
-  { key: 'curiosity',  label: 'Curiosity',            unit: '/10', kind: 'continuous', hardMin: 1,   hardMax: 10, expand: 1 }
+  // Big Five (OCEAN) — child ≈ midparent ± 2σ (~95% interval at ~50% heritability)
+  { key: 'openness',          label: 'Openness',          unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 },
+  { key: 'conscientiousness', label: 'Conscientiousness', unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 },
+  { key: 'extraversion',      label: 'Extraversion',      unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 },
+  { key: 'agreeableness',     label: 'Agreeableness',     unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 },
+  { key: 'neuroticism',       label: 'Neuroticism',       unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 }
 ];
 
 /* ---------- Application state ---------- */
@@ -267,8 +271,11 @@ function buildParentForms() {
           <label for="${id}">${f.label}</label>
           <select id="${id}" name="${f.key}">${opts}</select>`;
       } else if (f.type === 'range') {
+        const sub = f.subtitle
+          ? `<span class="field-subtitle">${f.subtitle}</span>`
+          : `<span class="hint">(1–10)</span>`;
         field.innerHTML = `
-          <label for="${id}">${f.label} <span class="hint">(1–10)</span></label>
+          <label for="${id}">${f.label} ${sub}</label>
           <div class="field-range">
             <input id="${id}" name="${f.key}" type="range" min="${f.min}" max="${f.max}" value="${def}" step="1" />
             <span class="val" id="${id}_val">${def}</span>
@@ -321,6 +328,21 @@ function generateSliderRanges(parents) {
         min: lo, max: hi,
         step: def.hardMax <= 10 ? 1 : 1,
         def: Math.round(center),
+        unit: def.unit || ''
+      };
+    } else if (def.kind === 'polygenic') {
+      // Big-Five-flavored: child ≈ midparent + Gaussian(σ), ~50% heritability.
+      // Slider range ≈ midparent ± 2σ (covers ~95% of plausible outcomes).
+      const a = parents.A[def.key], b = parents.B[def.key];
+      const center = (a + b) / 2;
+      const half = 2 * def.sigma;
+      const lo = clamp(Math.floor(center - half), def.hardMin, def.hardMax);
+      const hi = clamp(Math.ceil (center + half), def.hardMin, def.hardMax);
+      ranges[def.key] = {
+        kind: 'polygenic',
+        min: lo, max: hi,
+        step: 1,
+        def: clamp(Math.round(center), lo, hi),
         unit: def.unit || ''
       };
     } else if (def.kind === 'ladder') {
@@ -378,12 +400,13 @@ function computeSurprise(parents) {
 
   // continuous & range traits
   const contKeys = [
-    { key: 'height',     span: 50 },
-    { key: 'creativity', span: 9 },
-    { key: 'athletic',   span: 9 },
-    { key: 'calmness',   span: 9 },
-    { key: 'social',     span: 9 },
-    { key: 'curiosity',  span: 9 }
+    { key: 'height',            span: 50 },
+    { key: 'athletic',          span: 9 },
+    { key: 'openness',          span: 9 },
+    { key: 'conscientiousness', span: 9 },
+    { key: 'extraversion',      span: 9 },
+    { key: 'agreeableness',     span: 9 },
+    { key: 'neuroticism',       span: 9 }
   ];
   contKeys.forEach(k => {
     const d = Math.abs(parents.A[k.key] - parents.B[k.key]) / k.span;
@@ -430,7 +453,7 @@ function renderSliders(ranges) {
     let footLabels = '';
     if (r.kind === 'ladder') {
       footLabels = `<div class="slider-foot"><span>${titleCase(r.ladder[r.min])}</span><span>${titleCase(r.ladder[r.max])}</span></div>`;
-    } else if (r.kind === 'continuous') {
+    } else if (r.kind === 'continuous' || r.kind === 'polygenic') {
       footLabels = `<div class="slider-foot"><span>${r.min}${r.unit||''}</span><span>${r.max}${r.unit||''}</span></div>`;
     } else if (r.kind === 'likelihood') {
       footLabels = `<div class="slider-foot"><span>${r.min}%</span><span>${r.max}%</span></div>`;
@@ -466,18 +489,19 @@ function updateBabyPreview() {
   // resolve display values
   const display = {
     height:    `${Math.round(b.height)} cm`,
-    eyeColor:  titleCase(EYE_LADDER[b.eyeColor] || 'unknown'),
+    athletic:  `${b.athletic}/10`,
+    eyeColor:  titleCase(EYE_LADDER[b.eyeColor]  || 'unknown'),
     hairColor: titleCase(HAIR_LADDER[b.hairColor] || 'unknown'),
-    hairType:  titleCase(TEX_LADDER[b.hairType] || 'unknown'),
+    hairType:  titleCase(TEX_LADDER[b.hairType]  || 'unknown'),
     skinTone:  titleCase(SKIN_LADDER[b.skinTone] || 'unknown'),
     faceShape: titleCase(FACE_LADDER[b.faceShape] || 'unknown'),
     freckles:  `${b.freckles}%`,
     dimples:   `${b.dimples}%`,
-    creativity: `${b.creativity}/10`,
-    athletic:   `${b.athletic}/10`,
-    calmness:   `${b.calmness}/10`,
-    social:     `${b.social}/10`,
-    curiosity:  `${b.curiosity}/10`
+    openness:          `${b.openness}/10`,
+    conscientiousness: `${b.conscientiousness}/10`,
+    extraversion:      `${b.extraversion}/10`,
+    agreeableness:     `${b.agreeableness}/10`,
+    neuroticism:       `${b.neuroticism}/10`
   };
 
   // update slider value labels
@@ -491,6 +515,7 @@ function updateBabyPreview() {
   statsEl.innerHTML = `
     <dt>Sex</dt>                <dd>${GENDER_LABEL[state.gender] || 'Surprise'}</dd>
     <dt>Height</dt>             <dd>~ ${display.height}</dd>
+    <dt>Athletic</dt>           <dd>${display.athletic}</dd>
     <dt>Eye color</dt>          <dd>${display.eyeColor}</dd>
     <dt>Hair color</dt>         <dd>${display.hairColor}</dd>
     <dt>Hair texture</dt>       <dd>${display.hairType}</dd>
@@ -498,11 +523,12 @@ function updateBabyPreview() {
     <dt>Face shape</dt>         <dd>${display.faceShape}</dd>
     <dt>Freckles</dt>           <dd>${display.freckles}</dd>
     <dt>Dimples</dt>            <dd>${display.dimples}</dd>
-    <dt>Creativity</dt>         <dd>${display.creativity}</dd>
-    <dt>Athletic</dt>           <dd>${display.athletic}</dd>
-    <dt>Calmness</dt>           <dd>${display.calmness}</dd>
-    <dt>Social energy</dt>      <dd>${display.social}</dd>
-    <dt>Curiosity</dt>          <dd>${display.curiosity}</dd>
+    <dt class="ocean-sep">Big Five</dt> <dd></dd>
+    <dt>Openness</dt>           <dd>${display.openness}</dd>
+    <dt>Conscientiousness</dt>  <dd>${display.conscientiousness}</dd>
+    <dt>Extraversion</dt>       <dd>${display.extraversion}</dd>
+    <dt>Agreeableness</dt>      <dd>${display.agreeableness}</dd>
+    <dt>Neuroticism</dt>        <dd>${display.neuroticism}</dd>
   `;
 
   // archetype
@@ -519,16 +545,18 @@ function updateBabyPreview() {
  * ==================================================================== */
 
 function calculateArchetype(b) {
-  const { creativity, athletic, calmness, social, curiosity } = b;
+  // Scoring over Big Five (O/C/E/A/N) + athletic.
+  const O = b.openness, C = b.conscientiousness, E = b.extraversion,
+        A = b.agreeableness, N = b.neuroticism, athletic = b.athletic;
   const scores = {
-    'Tiny Engineer':         curiosity * 1.2 + calmness * 0.8 - athletic * 0.4,
-    'Wild Artist':           creativity * 1.5 - calmness * 0.6 + social * 0.3,
-    'Calm Explorer':         curiosity * 1.0 + calmness * 1.2,
-    'Social Spark':          social * 1.4 + creativity * 0.6,
-    'Mini Strategist':       curiosity * 0.9 + calmness * 0.9 + creativity * 0.4 + athletic * 0.3,
-    'Chaos Scientist':       curiosity * 1.3 + creativity * 0.9 - calmness * 0.5,
-    'Gentle Genius':         curiosity * 1.0 + calmness * 1.1 - social * 0.4,
-    'Athletic Firecracker':  athletic * 1.4 + social * 0.7
+    'Tiny Engineer':         O * 0.9  + C * 1.3 - E * 0.4,                 // focused & curious & organized
+    'Wild Artist':           O * 1.5  - C * 0.7 + N * 0.2,                 // imaginative, scattered, expressive
+    'Calm Explorer':         O * 1.2  - N * 0.9,                           // curious & emotionally steady
+    'Social Spark':          E * 1.4  + A * 0.6,                           // extraverted & warm
+    'Mini Strategist':       O * 0.7  + C * 1.1 - N * 0.3,                 // analytical & methodical
+    'Chaos Scientist':       O * 1.3  - C * 0.6 + N * 0.5,                 // intense, scattered, creative
+    'Gentle Genius':         O * 1.0  + A * 1.0 - E * 0.4,                 // quiet, smart, kind
+    'Athletic Firecracker':  athletic * 1.3 + E * 0.7 - N * 0.3            // energetic, social, confident
   };
   return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
 }
@@ -550,17 +578,20 @@ function updateAvatar(b) {
   const texName  = TEX_LADDER[b.hairType];
   const faceName = FACE_LADDER[b.faceShape];
 
-  // Universal — every personality / number slider gets a visible effect.
-  const scaleVal  = Math.round(92 + ((b.height - 140) / 70) * 22);          // height → 92–114
-  const rotateVal = Math.round(((b.curiosity - 1) / 9) * 12);                // curiosity → 0–12° tilt
+  // Universal — every numeric slider drives a visible avatar feature.
+  const scaleVal  = Math.round(92 + ((b.height - 140) / 70) * 22);            // height → 92–114
+  const rotateVal = Math.round(((b.openness - 1) / 9) * 12);                  // openness → 0–12° head tilt
 
-  // Background drives calmness (hue) + athletic (lightness). Freckles and
-  // dimples now have direct overlays on the avatar, so they don't muddy the
-  // background formula.
-  const bgHue   = 30 + (b.calmness - 1) * (200/9);
+  // Background channels personality:
+  //   hue        ← neuroticism (low N = cool/blue/calm, high N = warm/intense)
+  //   saturation ← agreeableness (low = muted, high = vivid)
+  //   lightness  ← athletic (low = darker, high = brighter)
+  //   type       ← openness (gradient if open/imaginative)
+  const bgHue   = 30 + (10 - b.neuroticism) * (200/9);
+  const bgSat   = 25 + b.agreeableness * 3;
   const bgLight = 60 + b.athletic * 2;
-  const bgHex   = hslToHex(bgHue, 45, Math.max(48, Math.min(86, bgLight)));
-  const bgType  = b.creativity >= 6 ? 'gradientLinear' : 'solid';            // creativity → gradient on
+  const bgHex   = hslToHex(bgHue, Math.max(20, Math.min(70, bgSat)), Math.max(48, Math.min(86, bgLight)));
+  const bgType  = b.openness >= 6 ? 'gradientLinear' : 'solid';
 
   const seed = `${state.codename || 'baby'}|${b.hairType}|${b.faceShape}|${b.eyeColor}`;
 
@@ -588,15 +619,15 @@ function updateAvatar(b) {
   if (styleName === 'lorelei') {
     options.eyesColor = [eyeHex];
     options.head  = [LORELEI_HEAD[faceName] || 'variant02'];
-    options.mouth = [LORELEI_MOUTH[b.social] || 'happy09'];
+    options.mouth = [LORELEI_MOUTH[b.extraversion] || 'happy09'];
     // Native Lorelei freckles are binary (on/off by seed) — disable, we draw
     // our own continuous-density overlay instead.
     options.frecklesProbability = 0;
     options.beardProbability   = 0; // babies don't have beards
     options.glassesProbability = 0; // or glasses
 
-    // Creativity → eyebrows variant (1–13)
-    const browIdx = Math.max(1, Math.min(13, Math.round((b.creativity - 1) / 9 * 12) + 1));
+    // Conscientiousness → eyebrows variant (1–13)
+    const browIdx = Math.max(1, Math.min(13, Math.round((b.conscientiousness - 1) / 9 * 12) + 1));
     options.eyebrows = [`variant${String(browIdx).padStart(2, '0')}`];
 
     if (g === 'female') {
@@ -610,7 +641,7 @@ function updateAvatar(b) {
       options.earringsProbability = 20;
     }
   } else if (styleName === 'bigSmile') {
-    options.mouth = [BIGSMILE_MOUTH[b.social] || 'gapSmile'];
+    options.mouth = [BIGSMILE_MOUTH[b.extraversion] || 'gapSmile'];
     options.eyes  = [BIGSMILE_EYES[b.eyeColor] || 'normal'];
     if (g === 'female') {
       options.accessoriesProbability = 40;
@@ -689,12 +720,13 @@ function copyProfile() {
     `Freckles likelihood:      ${b.freckles}%`,
     `Dimples likelihood:       ${b.dimples}%`,
     ``,
-    `— Personality —`,
-    `Creativity:    ${b.creativity}/10`,
-    `Athletic:      ${b.athletic}/10`,
-    `Calmness:      ${b.calmness}/10`,
-    `Social energy: ${b.social}/10`,
-    `Curiosity:     ${b.curiosity}/10`,
+    `— Big Five personality (inspired by, not predictive of, real psychology) —`,
+    `Openness:          ${b.openness}/10`,
+    `Conscientiousness: ${b.conscientiousness}/10`,
+    `Extraversion:      ${b.extraversion}/10`,
+    `Agreeableness:     ${b.agreeableness}/10`,
+    `Neuroticism:       ${b.neuroticism}/10`,
+    `Athletic:          ${b.athletic}/10`,
     ``,
     `(Fictional simulation — not a real genetic prediction. Real traits`,
     `are shaped by many genes, environment, chance, culture, health,`,
