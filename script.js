@@ -121,10 +121,10 @@ const BIGSMILE_HAIR_BY_GENDER = {
 
 const GENDER_LABEL = { female: 'Female', male: 'Male', surprise: 'Surprise' };
 
-// Where freckles + dimples land on each style's viewBox (as fractions).
+// Where freckles land on each style's viewBox (as fractions).
 const FACE_METRICS = {
-  lorelei:  { cheekY: 0.54, dimpleY: 0.66, dimpleDx: 0.12, dotR: 0.0085, dimpleStroke: 0.0055, dimpleArc: 0.030 },
-  bigSmile: { cheekY: 0.55, dimpleY: 0.66, dimpleDx: 0.16, dotR: 0.0125, dimpleStroke: 0.0080, dimpleArc: 0.040 }
+  lorelei:  { cheekY: 0.54, dotR: 0.0085 },
+  bigSmile: { cheekY: 0.55, dotR: 0.0125 }
 };
 
 // Deterministic freckle scatter — first N are picked as slider goes up.
@@ -154,20 +154,6 @@ function addTraitOverlays(svg, b, styleName) {
       const cy = (H * m.cheekY + H * dy).toFixed(1);
       pieces += `<circle cx="${cx}" cy="${cy}" r="${r.toFixed(2)}" fill="rgba(70,38,18,${(0.85*opacity).toFixed(2)})"/>`;
     }
-  }
-
-  // Dimples — two small curves either side of the mouth.
-  if (b.dimples > 0) {
-    const opacity = Math.min(1, b.dimples / 100);
-    const stroke = (W * m.dimpleStroke).toFixed(2);
-    const arc    = W * m.dimpleArc;
-    const dy     = H * m.dimpleY;
-    const dx     = W * m.dimpleDx;
-    const leftCx  = W * 0.5 - dx;
-    const rightCx = W * 0.5 + dx;
-    const col = `rgba(60,30,20,${(0.55*opacity).toFixed(2)})`;
-    pieces += `<path d="M ${(leftCx -arc).toFixed(1)} ${dy.toFixed(1)} q ${arc.toFixed(1)} ${(arc*0.55).toFixed(1)} ${(arc*2).toFixed(1)} 0" stroke="${col}" stroke-width="${stroke}" fill="none" stroke-linecap="round"/>`;
-    pieces += `<path d="M ${(rightCx-arc).toFixed(1)} ${dy.toFixed(1)} q ${arc.toFixed(1)} ${(arc*0.55).toFixed(1)} ${(arc*2).toFixed(1)} 0" stroke="${col}" stroke-width="${stroke}" fill="none" stroke-linecap="round"/>`;
   }
 
   if (!pieces) return svg;
