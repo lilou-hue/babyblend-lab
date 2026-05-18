@@ -545,6 +545,219 @@ const HISTORY_CARDS = [
   { title: 'Genes ≠ destiny.',                    body: 'Twin studies put most personality traits in the 40–60% heritable range. The rest is environment, chance, and the choices of the person themselves — none of which a slider can model.' }
 ];
 
+/* ====================================================================
+ * Kids Mode pools (warm, simple, age-appropriate)
+ *
+ * Same engine, friendlier surface. The OCEAN state under the hood is
+ * untouched — these pools just swap the surfaces the user sees.
+ * ==================================================================== */
+
+// 5 friendly trait sliders mapped to the underlying OCEAN keys.
+// `invert: true` means the slider value is mirrored on a 1..10 axis
+// (e.g. confidence 10 ⇒ neuroticism 1).
+const KIDS_TRAIT_VIEW = [
+  { kidsKey: 'curiosity',  oceanKey: 'openness',          label: 'Curiosity',  hint: 'Loves asking questions, exploring, trying new things.', invert: false },
+  { kidsKey: 'kindness',   oceanKey: 'agreeableness',     label: 'Kindness',   hint: 'Cares about others. Good at being a friend.',          invert: false },
+  { kidsKey: 'energy',     oceanKey: 'extraversion',      label: 'Energy',     hint: 'How much they light up in a room full of people.',     invert: false },
+  { kidsKey: 'focus',      oceanKey: 'conscientiousness', label: 'Focus',      hint: 'Finishing what they start. Sticking with things.',     invert: false },
+  { kidsKey: 'confidence', oceanKey: 'neuroticism',       label: 'Confidence', hint: 'Feeling steady when things get bumpy.',               invert: true  }
+];
+
+// Friendlier explainers for the physical sliders too, used in Kids mode.
+const KIDS_EXPLAINERS = {
+  height:    'Height depends on family traits, food, sleep, health, and lots of tiny genes.',
+  athletic:  'Some kids love running and jumping. It changes a lot as they grow.',
+  eyeColor:  'Eye color is mostly inherited from family. Lots of beautiful colors are possible.',
+  hairColor: 'Hair color usually comes from the family, but it can shift with age and sunlight.',
+  hairType:  'Curly, wavy, straight — all come from family traits and can change over time.',
+  skinTone:  'Skin tone is a mix of family genes. Every shade is healthy and beautiful.',
+  faceShape: 'Face shape comes from family. It also changes as kids grow up.',
+  freckles:  'Some kids get freckles when they spend time in the sun, especially if family does too.',
+  dimples:   'Dimples are a fun little family trait. Some have them, some don\'t.',
+  curiosity:  'Two quiet parents can still have a wildly curious kid. People surprise us!',
+  kindness:   'Kindness can be taught and grow over time — it\'s a habit, not just a trait.',
+  energy:     'Some kids are loud at home and shy at school, or the other way around.',
+  focus:      'Focus grows with age, sleep, practice, and finding something that feels exciting.',
+  confidence: 'Confidence changes a LOT as people grow up. Bumpy days are normal.'
+};
+
+const KIDS_FUTURE_PATHS = [
+  { text: 'Might love building things.',                            tag: 'O' },
+  { text: 'Could become really good at storytelling.',              tag: 'O' },
+  { text: 'May enjoy helping other people.',                        tag: 'A' },
+  { text: 'Probably asks a LOT of questions.',                      tag: 'O' },
+  { text: 'Could change interests many times — and that\'s okay.',  tag: 'O' },
+  { text: 'Might love drawing, painting, or making things up.',     tag: 'O' },
+  { text: 'May enjoy solving puzzles or codes.',                    tag: 'C' },
+  { text: 'Could be great at organizing — even their own snacks.',  tag: 'C' },
+  { text: 'Might love making detailed plans for tiny adventures.',  tag: 'C' },
+  { text: 'Probably remembers tiny details no one else notices.',   tag: 'C' },
+  { text: 'May light up around new people and new places.',         tag: 'E' },
+  { text: 'Could be the kid who knows everyone\'s name.',           tag: 'E' },
+  { text: 'Might lead games on the playground.',                    tag: 'E' },
+  { text: 'May love performing — songs, plays, magic tricks.',      tag: 'E' },
+  { text: 'Probably gives the best hugs.',                          tag: 'A' },
+  { text: 'May befriend every animal they meet.',                   tag: 'A' },
+  { text: 'Could be the family peacemaker.',                        tag: 'A' },
+  { text: 'Might give surprisingly wise advice for their age.',     tag: 'A' },
+  { text: 'May have a big imagination world full of characters.',   tag: 'N' },
+  { text: 'Could love writing stories or making up songs.',         tag: 'N' },
+  { text: 'Probably feels things deeply — that\'s a strength.',     tag: 'N' },
+  { text: 'May love sports, running, or jumping off things.',       tag: 'athletic' },
+  { text: 'Could be unbeatable at hide-and-seek.',                  tag: 'athletic' },
+  { text: 'Might be the kid who climbs everything.',                tag: 'athletic' },
+  { text: 'May love dancing or moving to music.',                   tag: 'athletic' },
+  { text: 'Could become a great teacher one day.',                  tag: 'A' },
+  { text: 'Might be obsessed with one specific topic for years.',   tag: 'O' },
+  { text: 'Probably collects something unusual — rocks, leaves, stickers.', tag: 'O' },
+  { text: 'May invent games no one else understands.',              tag: 'O' },
+  { text: 'Could be the family\'s designated joke-teller.',         tag: 'E' }
+];
+
+const KIDS_RANDOM_EVENTS = [
+  'Future rock collector. Watch the pockets.',
+  'Will probably adopt too many pets.',
+  'Keeps random objects \"just in case.\"',
+  'Might learn to whistle before they learn to tie shoes.',
+  'May have a favorite blanket for years (and that\'s okay).',
+  'Could speak a secret language with a sibling or friend.',
+  'Probably names every stuffed animal they own.',
+  'Will go through a dinosaur phase. It is destiny.',
+  'May fall in love with one specific song and replay it 400 times.',
+  'Probably collects coloring pencils like they\'re treasure.',
+  'Could become an expert on one weird topic (volcanoes, octopuses, trains).',
+  'Will leave one shoe in unusual places forever.',
+  'Might be the kid who reads under the covers with a flashlight.',
+  'May invent a friendly imaginary pet.',
+  'Could ask \"why?\" 500 times in a single afternoon.',
+  'Probably has a favorite cup and will not switch.',
+  'Will probably try to teach the family dog something complicated.',
+  'May develop a strong opinion about pancake shapes.',
+  'Could win a school award for kindness one day.',
+  'Will photograph clouds and name every one.',
+  'May write secret notes in invisible ink (lemon juice).',
+  'Could host the world\'s smallest tea party (for stuffed animals).',
+  'Probably loves a particular cozy hoodie until it falls apart.'
+];
+
+const KIDS_NEWS_HEADLINES = [
+  'Local kid plants a tree that becomes a neighborhood favorite.',
+  'Teen invents a clever way to organize the school library.',
+  'Birthday card art exhibit opens at the community center.',
+  'Junior chess team wins their first regional ribbon.',
+  'Local lemonade stand donates earnings to the animal shelter.',
+  'School robotics club builds a friendly cardboard mascot.',
+  'Spelling-bee runner-up gives a charming acceptance speech.',
+  'Kid writes a tiny picture book that gets passed around the whole class.',
+  'Community theater\'s youngest cast member steals the show.',
+  'Local school garden grows a record-setting pumpkin.',
+  'Junior musician plays a sweet song at the town concert.',
+  'Student volunteers help paint a new mural at the playground.',
+  'Local kid wins science fair with a project about backyard bugs.',
+  'School newspaper interviews a long-time crossing guard.',
+  'Soccer-team captain teaches younger kids how to pass.',
+  'Library reading challenge sparks summer-long adventures.',
+  'Local choir wins applause at the holiday performance.',
+  'Kid bakes cookies for the neighbors. Neighbors return the plate refilled.',
+  'Junior artist\'s painting hangs in the town hall lobby.',
+  'Class pet escapes briefly; rescued by a future veterinarian.'
+];
+
+const KIDS_TRAIT_CONFLICTS = [
+  {
+    when: b => b.openness >= 8 && b.conscientiousness <= 4,
+    tag: 'Lots of ideas, sometimes scattered',
+    note: 'Loves starting new things. Finishing can be harder. That\'s okay — many small starts are also wins.'
+  },
+  {
+    when: b => b.conscientiousness >= 8 && b.neuroticism >= 7,
+    tag: 'A careful, sometimes worried kid',
+    note: 'Pays attention to details, and sometimes worries about getting things right. Lots of calm time helps.'
+  },
+  {
+    when: b => b.openness >= 8 && b.extraversion <= 3,
+    tag: 'A big imagination, in a quieter space',
+    note: 'Has a rich world inside their head. They might share it with one or two close friends.'
+  },
+  {
+    when: b => b.agreeableness >= 8 && b.extraversion <= 3,
+    tag: 'A gentle, thoughtful friend',
+    note: 'Kind in small groups. People who get to know them feel lucky.'
+  },
+  {
+    when: b => b.extraversion >= 8 && b.neuroticism >= 7,
+    tag: 'Sparkles in public, recharges in private',
+    note: 'Loves being around people. Also needs quiet time afterwards to refill.'
+  },
+  {
+    when: b => b.athletic >= 8 && b.conscientiousness <= 3,
+    tag: 'Lots of energy, lots of motion',
+    note: 'Needs space to run, jump, climb. Structure helps channel all that joy.'
+  },
+  {
+    when: b => b.openness >= 8 && b.agreeableness <= 3,
+    tag: 'A questioner who likes to challenge ideas',
+    note: 'Will ask \"why?\" a lot. May respectfully disagree with grown-ups.'
+  },
+  {
+    when: b => b.conscientiousness <= 3 && b.neuroticism <= 3,
+    tag: 'Sunny and a little wiggly',
+    note: 'Cheerful and easygoing. Routines help — and that\'s okay to need.'
+  },
+  {
+    when: b => b.agreeableness >= 8 && b.neuroticism <= 3,
+    tag: 'Steady kindness',
+    note: 'Calm and warm. The kind of kid friends naturally gather around.'
+  },
+  {
+    when: b => b.extraversion <= 3 && b.openness >= 8 && b.conscientiousness >= 7,
+    tag: 'A quiet maker',
+    note: 'Likes making things on their own. Often happiest with their own little project.'
+  }
+];
+
+const KIDS_ADULT_FUTURES = [
+  { headline: 'Maybe a teacher who really listens.',          details: ['Knows every student\'s name on day one.', 'Keeps a treasure box of student art.', 'Always has chalk dust on at least one sleeve.'], tags: ['family','education'] },
+  { headline: 'Maybe a veterinarian for tiny animals.',        details: ['Has rescued at least two birds.', 'Talks to dogs in a special soothing voice.', 'Owns one very dramatic cat.'], tags: ['family','healthcare'] },
+  { headline: 'Maybe a builder of cool things.',               details: ['Carries a small notebook for ideas everywhere.', 'Has rebuilt their own bookshelf three times.', 'Loves the smell of fresh wood.'], tags: ['education'] },
+  { headline: 'Maybe an artist who makes happy work.',          details: ['Paints something almost every day.', 'Friends always have art on their walls.', 'Tea consumption: cozy.'], tags: ['social','urbanRural'] },
+  { headline: 'Maybe a scientist asking giant questions.',      details: ['Reads about space before bed.', 'Has a notebook full of \"why?\" questions.', 'Owns three kinds of magnifying glass.'], tags: ['education'] },
+  { headline: 'Maybe a gardener with the greenest yard around.', details: ['Knows every plant in the neighborhood.', 'Trades tomato seeds with friends.', 'Hums while watering.'], tags: ['urbanRural','family'] },
+  { headline: 'Maybe a chef who feeds the whole street.',       details: ['Sundays smell like fresh bread.', 'Has a notebook full of family recipes.', 'Friends drop by hoping for leftovers.'], tags: ['family'] },
+  { headline: 'Maybe a doctor who is great with kids.',         details: ['Has a sticker for every check-up.', 'Tells gentle jokes during scary moments.', 'Office is decorated with crayon drawings.'], tags: ['healthcare','family'] },
+  { headline: 'Maybe an inventor of small clever gadgets.',     details: ['Has built three useful tools that don\'t exist anywhere else.', 'Tinkers in a sunny corner.', 'Friends bring them tricky problems.'], tags: ['education','economy'] },
+  { headline: 'Maybe a librarian who knows every story.',       details: ['Reads to little kids every Saturday.', 'Has a list of \"underrated\" books.', 'Smells faintly of old paper, in the best way.'], tags: ['education','urbanRural'] },
+  { headline: 'Maybe an animal trainer at a sanctuary.',        details: ['Speaks softly to bigger animals.', 'Knows every dog at the local park by name.', 'Has at least one rescue story to tell.'], tags: ['family','urbanRural'] },
+  { headline: 'Maybe a writer of charming little books.',       details: ['Writes by hand in tiny journals.', 'Posts gentle stories online.', 'Friends quote their books on birthdays.'], tags: ['education','social'] },
+  { headline: 'Maybe an athlete who also coaches younger kids.', details: ['Wakes up early for practice, smiles anyway.', 'Buys orange slices for the team.', 'Cheers loudest from the sidelines.'], tags: ['urbanRural','family'] },
+  { headline: 'Maybe a musician who makes everyone want to dance.', details: ['Plays at neighborhood parties.', 'Writes one song a month.', 'Has at least two instruments hanging on a wall.'], tags: ['social'] },
+  { headline: 'Maybe an explorer of wild places.',              details: ['Goes camping in every season.', 'Photographs every interesting bird.', 'Writes postcards from each trip.'], tags: ['urbanRural','education'] },
+  { headline: 'Maybe a designer of fun new games.',             details: ['Has invented a card game with 12 rules.', 'Playtests on a circle of patient friends.', 'Always carries a deck of cards.'], tags: ['education','social'] },
+  { headline: 'Maybe a translator helping people understand each other.', details: ['Speaks two languages by college.', 'Has pen pals on three continents.', 'Owns a shelf of dictionaries.'], tags: ['multilingual','education'] },
+  { headline: 'Maybe a maker of beautiful clothes.',            details: ['Sews most of what they wear.', 'Sells small batches at local markets.', 'Has saved every fabric scrap since age 10.'], tags: ['social','urbanRural'] },
+  { headline: 'Maybe a counselor who helps people feel okay.',  details: ['Listens really well.', 'Keeps fresh flowers in the office.', 'Knows when to say something — and when to wait.'], tags: ['healthcare','family'] },
+  { headline: 'Maybe a baker famous for one specific cookie.',  details: ['The recipe is a kind of secret.', 'Donates extras to the local school.', 'Apron is older than them.'], tags: ['family','urbanRural'] },
+  { headline: 'Maybe an astronomer who throws stargazing nights.', details: ['Owns the friendliest telescope in town.', 'Knows the names of dozens of stars.', 'Brings hot cocoa to every event.'], tags: ['education','urbanRural'] },
+  { headline: 'Maybe an architect designing tree-friendly schools.', details: ['Sketches buildings on napkins.', 'Loves natural light.', 'Has a treehouse phase that lasts decades.'], tags: ['education','urbanRural'] },
+  { headline: 'Maybe an organizer who brings the neighborhood together.', details: ['Plans block parties.', 'Knows everyone\'s grocery routine.', 'Has a binder of community ideas.'], tags: ['family','social'] }
+];
+
+const KIDS_REFLECTION_PROMPTS = [
+  'Should parents choose everything about a child?',
+  'What makes people unique?',
+  'Would the world be boring if everyone were the same?',
+  'What\'s something special about YOU that surprised your family?',
+  'If you could give every kid in the world one thing, what would it be?',
+  'Can two best friends be very different from each other? Why?'
+];
+
+const KIDS_HUMANITY_REMINDERS = [
+  'People grow and change in ways no one can predict.',
+  'Everyone has something amazing inside them.',
+  'Diversity makes the world more interesting.',
+  'You are more than your traits — you are a whole story.'
+];
+
 /* ---------- Seeded randomness ---------- */
 // Tiny deterministic hash → uint32. Same string in, same value out.
 function hashStr(s) {
@@ -678,7 +891,8 @@ const state = {
   surprise: 0,
   style: 'lorelei',    // 'lorelei' | 'bigSmile'
   gender: 'surprise',  // 'female' | 'male' | 'surprise'
-  ethicsMode: 'playful', // 'playful' | 'reflection'
+  ethicsMode: 'playful', // 'playful' | 'reflection' | 'adult' (sub-toggle, Standard only)
+  appMode: 'standard',   // 'standard' | 'kids' — top-level experience selector
   chaos: false,        // amplifies slider ranges + surprise
   generateCount: 0,    // how many times Generate has been clicked
   alternates: [],      // generated alternate-baby cards
@@ -710,6 +924,36 @@ function hslToHex(h, s, l) {
   else              { r = c; g = 0; b = x; }
   const toHex = v => Math.round((v + m) * 255).toString(16).padStart(2, '0');
   return toHex(r) + toHex(g) + toHex(b);
+}
+
+/* ---------- Mode + copy helpers ---------- */
+// In Kids mode we always use kid-friendly copy regardless of the
+// ethics sub-toggle (which is hidden). In Standard mode we follow the
+// existing playful/reflection/adult sub-mode.
+function isKids() { return state.appMode === 'kids'; }
+function effectiveMode() { return isKids() ? 'kids' : state.ethicsMode; }
+
+function pickPool(playful, adult, kids) {
+  const m = effectiveMode();
+  if (m === 'kids' && kids) return kids;
+  if (m === 'adult' && adult) return adult;
+  return playful;
+}
+
+const APP_MODE_KEY = 'babyblend.appMode.v1';
+function loadAppMode() {
+  try {
+    const v = localStorage.getItem(APP_MODE_KEY);
+    return (v === 'kids' || v === 'standard') ? v : 'standard';
+  } catch { return 'standard'; }
+}
+function persistAppMode(m) {
+  try { localStorage.setItem(APP_MODE_KEY, m); } catch {}
+}
+
+function applyAppModeClass() {
+  document.body.classList.toggle('app-kids',     state.appMode === 'kids');
+  document.body.classList.toggle('app-standard', state.appMode === 'standard');
 }
 
 /* ====================================================================
@@ -960,44 +1204,136 @@ function computeSurprise(parents) {
  * 5. Render sliders
  * ==================================================================== */
 
+// Identifies which SLIDER_DEFS entries are personality (OCEAN) vs physical.
+const PERSONALITY_OCEAN_KEYS = new Set([
+  'openness','conscientiousness','extraversion','agreeableness','neuroticism'
+]);
+
+// Maps an OCEAN key back to its Kids view (used by sync helpers).
+function kidsViewForOcean(oceanKey) {
+  return KIDS_TRAIT_VIEW.find(v => v.oceanKey === oceanKey);
+}
+
+// Pushes a baby-state value into whatever slider DOM is currently rendered
+// (Standard uses #s_<oceanKey>; Kids uses #s_<kidsKey> with possible inversion).
+function syncSliderDOMForOcean(oceanKey, oceanValue) {
+  if (isKids() && PERSONALITY_OCEAN_KEYS.has(oceanKey)) {
+    const view = kidsViewForOcean(oceanKey);
+    if (!view) return;
+    const slider = $('#s_' + view.kidsKey);
+    if (slider) slider.value = view.invert ? (11 - oceanValue) : oceanValue;
+    return;
+  }
+  const slider = $('#s_' + oceanKey);
+  if (slider) slider.value = oceanValue;
+}
+
+function buildExplainerHTML(key) {
+  const text = KIDS_EXPLAINERS[key];
+  if (!text || !isKids()) return '';
+  return `
+    <button type="button" class="slider-explain" aria-expanded="false"
+            data-target="exp_${key}" title="How does this work?">?</button>
+    <div class="slider-popover" id="exp_${key}">${text}</div>`;
+}
+
+function bindExplainer(row) {
+  const btn = row.querySelector('.slider-explain');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const target = row.querySelector('#' + btn.dataset.target);
+    if (!target) return;
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+}
+
+function renderStandardSlider(def, ranges, container) {
+  const r = ranges[def.key];
+  const row = document.createElement('div');
+  row.className = 'slider-row';
+  row.dataset.key = def.key;
+
+  const headValSpan = `<span class="slider-value" id="val_${def.key}"></span>`;
+  let footLabels = '';
+  if (r.kind === 'ladder') {
+    footLabels = `<div class="slider-foot"><span>${titleCase(r.ladder[r.min])}</span><span>${titleCase(r.ladder[r.max])}</span></div>`;
+  } else if (r.kind === 'continuous' || r.kind === 'polygenic') {
+    footLabels = `<div class="slider-foot"><span>${r.min}${r.unit||''}</span><span>${r.max}${r.unit||''}</span></div>`;
+  } else if (r.kind === 'likelihood') {
+    footLabels = `<div class="slider-foot"><span>${r.min}%</span><span>${r.max}%</span></div>`;
+  }
+
+  row.innerHTML = `
+    <div class="slider-head">
+      <span class="slider-label">${def.label}${buildExplainerHTML(def.key)}</span>
+      ${headValSpan}
+    </div>
+    <input type="range" id="s_${def.key}" min="${r.min}" max="${r.max}" step="${r.step}" value="${r.def}" />
+    ${footLabels}
+  `;
+  container.appendChild(row);
+  bindExplainer(row);
+
+  const input = $('#s_' + def.key, row);
+  input.addEventListener('input', () => {
+    state.baby[def.key] = Number(input.value);
+    updateBabyPreview();
+  });
+  state.baby[def.key] = r.def;
+}
+
+// In Kids mode, render the friendly personality slider (curiosity/kindness/…)
+// over the underlying OCEAN range. `confidence` inverts neuroticism.
+function renderKidsPersonalitySlider(view, ranges, container) {
+  const r = ranges[view.oceanKey];
+  const dispMin = view.invert ? (11 - r.max) : r.min;
+  const dispMax = view.invert ? (11 - r.min) : r.max;
+  const dispDef = view.invert ? (11 - r.def) : r.def;
+
+  const row = document.createElement('div');
+  row.className = 'slider-row';
+  row.dataset.key = view.kidsKey;
+  row.dataset.ocean = view.oceanKey;
+  row.dataset.invert = view.invert ? '1' : '0';
+
+  row.innerHTML = `
+    <div class="slider-head">
+      <span class="slider-label">${view.label}${buildExplainerHTML(view.kidsKey)}</span>
+      <span class="slider-value" id="val_${view.kidsKey}"></span>
+    </div>
+    <input type="range" id="s_${view.kidsKey}" min="${dispMin}" max="${dispMax}" step="1" value="${dispDef}" />
+    <div class="slider-foot"><span>${dispMin}/10</span><span>${dispMax}/10</span></div>
+  `;
+  container.appendChild(row);
+  bindExplainer(row);
+
+  const input = $('#s_' + view.kidsKey, row);
+  input.addEventListener('input', () => {
+    const v = Number(input.value);
+    state.baby[view.oceanKey] = view.invert ? (11 - v) : v;
+    updateBabyPreview();
+  });
+  state.baby[view.oceanKey] = view.invert ? (11 - dispDef) : dispDef;
+}
+
 function renderSliders(ranges) {
   const container = $('#sliders');
   container.innerHTML = '';
 
-  SLIDER_DEFS.forEach(def => {
-    const r = ranges[def.key];
-    const row = document.createElement('div');
-    row.className = 'slider-row';
-    row.dataset.key = def.key;
-
-    const headValSpan = `<span class="slider-value" id="val_${def.key}"></span>`;
-    let footLabels = '';
-    if (r.kind === 'ladder') {
-      footLabels = `<div class="slider-foot"><span>${titleCase(r.ladder[r.min])}</span><span>${titleCase(r.ladder[r.max])}</span></div>`;
-    } else if (r.kind === 'continuous' || r.kind === 'polygenic') {
-      footLabels = `<div class="slider-foot"><span>${r.min}${r.unit||''}</span><span>${r.max}${r.unit||''}</span></div>`;
-    } else if (r.kind === 'likelihood') {
-      footLabels = `<div class="slider-foot"><span>${r.min}%</span><span>${r.max}%</span></div>`;
-    }
-
-    row.innerHTML = `
-      <div class="slider-head">
-        <span class="slider-label">${def.label}</span>
-        ${headValSpan}
-      </div>
-      <input type="range" id="s_${def.key}" min="${r.min}" max="${r.max}" step="${r.step}" value="${r.def}" />
-      ${footLabels}
-    `;
-    container.appendChild(row);
-
-    const input = $('#s_' + def.key, row);
-    input.addEventListener('input', () => {
-      state.baby[def.key] = Number(input.value);
-      updateBabyPreview();
+  if (isKids()) {
+    // Physical sliders unchanged, with friendlier copy via labels (re-used).
+    SLIDER_DEFS.forEach(def => {
+      if (PERSONALITY_OCEAN_KEYS.has(def.key)) return;
+      renderStandardSlider(def, ranges, container);
     });
-
-    state.baby[def.key] = r.def;
-  });
+    // Personality sliders replaced with Kids view.
+    KIDS_TRAIT_VIEW.forEach(view => {
+      renderKidsPersonalitySlider(view, ranges, container);
+    });
+  } else {
+    SLIDER_DEFS.forEach(def => renderStandardSlider(def, ranges, container));
+  }
 }
 
 /* ====================================================================
@@ -1026,10 +1362,26 @@ function updateBabyPreview() {
   };
 
   // update slider value labels
-  SLIDER_DEFS.forEach(def => {
-    const el = $('#val_' + def.key);
-    if (el) el.textContent = display[def.key];
-  });
+  if (isKids()) {
+    // Physical sliders use OCEAN keys → display values directly.
+    SLIDER_DEFS.forEach(def => {
+      if (PERSONALITY_OCEAN_KEYS.has(def.key)) return;
+      const el = $('#val_' + def.key);
+      if (el) el.textContent = display[def.key];
+    });
+    // Personality sliders: kid-friendly axes (confidence inverts N).
+    KIDS_TRAIT_VIEW.forEach(view => {
+      const raw = b[view.oceanKey];
+      const shown = view.invert ? (11 - raw) : raw;
+      const el = $('#val_' + view.kidsKey);
+      if (el) el.textContent = `${shown}/10`;
+    });
+  } else {
+    SLIDER_DEFS.forEach(def => {
+      const el = $('#val_' + def.key);
+      if (el) el.textContent = display[def.key];
+    });
+  }
 
   // update stats panel
   const statsEl = $('#baby-stats');
@@ -1040,25 +1392,51 @@ function updateBabyPreview() {
     if (!c) return '';
     return ` <span class="confidence ${c.label}">${c.label}${c.unc ? ` · ${c.unc}` : ''}</span>`;
   };
-  const oceanLabel = inAdult ? 'Behavioral Projection' : 'Big Five';
-  statsEl.innerHTML = `
-    <dt>Sex</dt>                <dd>${GENDER_LABEL[state.gender] || 'Surprise'}</dd>
-    <dt>Height</dt>             <dd>~ ${display.height}${conf('height')}</dd>
-    <dt>Athletic</dt>           <dd>${display.athletic}${conf('athletic')}</dd>
-    <dt>Eye color</dt>          <dd>${display.eyeColor}${conf('eyeColor')}</dd>
-    <dt>Hair color</dt>         <dd>${display.hairColor}${conf('hairColor')}</dd>
-    <dt>Hair texture</dt>       <dd>${display.hairType}${conf('hairType')}</dd>
-    <dt>Skin tone</dt>          <dd>${display.skinTone}${conf('skinTone')}</dd>
-    <dt>Face shape</dt>         <dd>${display.faceShape}${conf('faceShape')}</dd>
-    <dt>Freckles</dt>           <dd>${display.freckles}${conf('freckles')}</dd>
-    <dt>Dimples</dt>            <dd>${display.dimples}${conf('dimples')}</dd>
-    <dt class="ocean-sep">${oceanLabel}</dt> <dd></dd>
-    <dt>Openness</dt>           <dd>${display.openness}${conf('openness')}</dd>
-    <dt>Conscientiousness</dt>  <dd>${display.conscientiousness}${conf('conscientiousness')}</dd>
-    <dt>Extraversion</dt>       <dd>${display.extraversion}${conf('extraversion')}</dd>
-    <dt>Agreeableness</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
-    <dt>Neuroticism</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>
-  `;
+  if (isKids()) {
+    // Kid-friendly stat block — friendlier section header, simpler labels.
+    const confidence = 11 - b.neuroticism;
+    statsEl.innerHTML = `
+      <dt>Sex</dt>          <dd>${GENDER_LABEL[state.gender] || 'Surprise'}</dd>
+      <dt>Height</dt>       <dd>~ ${display.height}</dd>
+      <dt>Athletic</dt>     <dd>${display.athletic}</dd>
+      <dt>Eye color</dt>    <dd>${display.eyeColor}</dd>
+      <dt>Hair color</dt>   <dd>${display.hairColor}</dd>
+      <dt>Hair texture</dt> <dd>${display.hairType}</dd>
+      <dt>Skin tone</dt>    <dd>${display.skinTone}</dd>
+      <dt>Face shape</dt>   <dd>${display.faceShape}</dd>
+      <dt>Freckles</dt>     <dd>${display.freckles}</dd>
+      <dt>Dimples</dt>      <dd>${display.dimples}</dd>
+      <dt class="ocean-sep">Personality</dt> <dd></dd>
+      <dt>Curiosity</dt>    <dd>${b.openness}/10</dd>
+      <dt>Kindness</dt>     <dd>${b.agreeableness}/10</dd>
+      <dt>Energy</dt>       <dd>${b.extraversion}/10</dd>
+      <dt>Focus</dt>        <dd>${b.conscientiousness}/10</dd>
+      <dt>Confidence</dt>   <dd>${confidence}/10</dd>
+    `;
+  } else {
+    const oceanLabel = inAdult ? 'Behavioral Projection' : 'Big Five';
+    statsEl.innerHTML = `
+      <dt>Sex</dt>                <dd>${GENDER_LABEL[state.gender] || 'Surprise'}</dd>
+      <dt>Height</dt>             <dd>~ ${display.height}${conf('height')}</dd>
+      <dt>Athletic</dt>           <dd>${display.athletic}${conf('athletic')}</dd>
+      <dt>Eye color</dt>          <dd>${display.eyeColor}${conf('eyeColor')}</dd>
+      <dt>Hair color</dt>         <dd>${display.hairColor}${conf('hairColor')}</dd>
+      <dt>Hair texture</dt>       <dd>${display.hairType}${conf('hairType')}</dd>
+      <dt>Skin tone</dt>          <dd>${display.skinTone}${conf('skinTone')}</dd>
+      <dt>Face shape</dt>         <dd>${display.faceShape}${conf('faceShape')}</dd>
+      <dt>Freckles</dt>           <dd>${display.freckles}${conf('freckles')}</dd>
+      <dt>Dimples</dt>            <dd>${display.dimples}${conf('dimples')}</dd>
+      <dt class="ocean-sep">${oceanLabel}</dt> <dd></dd>
+      <dt>Openness</dt>           <dd>${display.openness}${conf('openness')}</dd>
+      <dt>Conscientiousness</dt>  <dd>${display.conscientiousness}${conf('conscientiousness')}</dd>
+      <dt>Extraversion</dt>       <dd>${display.extraversion}${conf('extraversion')}</dd>
+      <dt>Agreeableness</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
+      <dt>Neuroticism</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>
+    `;
+  }
+
+  // Derived-stat star row (Kids mode only — CSS hides in Standard).
+  renderKidsDerivedStats(b);
 
   // archetype
   const archetype = calculateArchetype(b);
@@ -1118,10 +1496,10 @@ function updateBabyPreview() {
     }
   }
 
-  // Reflection prompt (only in Reflection mode)
+  // Reflection prompt (Reflection sub-mode OR Kids mode show a gentle question)
   const reflEl = $('#reflection-prompt');
   if (reflEl) {
-    if (state.ethicsMode === 'reflection' && state.codename) {
+    if ((state.ethicsMode === 'reflection' || isKids()) && state.codename) {
       reflEl.hidden = false;
       reflEl.innerHTML = `<span class="reflection-mark">?</span> ${state.reflection || pickReflectionPrompt(state.codename)}`;
     } else {
@@ -1131,6 +1509,39 @@ function updateBabyPreview() {
 
   // avatar
   updateAvatar(b);
+}
+
+/* ---------- Kids-mode derived stats (creativity, teamwork) ---------- */
+// Read-only star ratings displayed under the codename in Kids mode.
+// Kept derivation simple: weighted blends of OCEAN + inverted N.
+function computeKidsDerived(b) {
+  const O = b.openness || 0;
+  const A = b.agreeableness || 0;
+  const E = b.extraversion || 0;
+  const N = b.neuroticism || 0;
+  const conf = 11 - N;
+  const creativity = clamp(Math.round((O * 0.7 + conf * 0.3)), 1, 10);
+  const teamwork   = clamp(Math.round((A * 0.6 + E * 0.4)), 1, 10);
+  return { creativity, teamwork };
+}
+
+function starString(value10) {
+  const stars = Math.round(value10 / 2); // 1..10 → 1..5 stars
+  return '★'.repeat(stars) + '☆'.repeat(Math.max(0, 5 - stars));
+}
+
+function renderKidsDerivedStats(b) {
+  const cEl = $('#kids-creativity-stars');
+  const tEl = $('#kids-teamwork-stars');
+  if (!cEl || !tEl) return;
+  if (!isKids()) {
+    cEl.textContent = '☆☆☆☆☆';
+    tEl.textContent = '☆☆☆☆☆';
+    return;
+  }
+  const { creativity, teamwork } = computeKidsDerived(b);
+  cEl.textContent = `${starString(creativity)}  (${creativity}/10)`;
+  tEl.textContent = `${starString(teamwork)}  (${teamwork}/10)`;
 }
 
 /* ====================================================================
@@ -1261,7 +1672,7 @@ function generateAdultFutures() {
   if (!state.codename) return;
   const count = state.chaos ? 6 : 4;
   const rng = seededRand(state.codename + '|adultFutures|' + Date.now());
-  const pool = state.ethicsMode === 'adult' ? ADULT_FUTURES_CLINICAL : ADULT_FUTURES;
+  const pool = pickPool(ADULT_FUTURES, ADULT_FUTURES_CLINICAL, KIDS_ADULT_FUTURES);
 
   // Env-weighted picks: high env values bump futures tagged with that env key.
   // Low env values penalize matching futures. Middle env values are neutral.
@@ -1372,8 +1783,7 @@ function loadAlternateAsMain(idx) {
 
   $('#codename').textContent = state.codename;
   SLIDER_DEFS.forEach(def => {
-    const slider = $('#s_' + def.key);
-    if (slider) slider.value = a.baby[def.key];
+    syncSliderDOMForOcean(def.key, a.baby[def.key]);
   });
   updateBabyPreview();
 
@@ -1421,22 +1831,23 @@ function generateBabyFlavor(codename, baby) {
     .sort((a, b) => b.v - a.v)[0];
   const topTag = tagFor[top.k];
 
-  const weighted = FUTURE_PATHS.map(p => ({
+  const pathsPool = pickPool(FUTURE_PATHS, FUTURE_PATHS, KIDS_FUTURE_PATHS);
+  const weighted = pathsPool.map(p => ({
     p, w: rng() + (p.tag === topTag ? 1.0 : 0)
   })).sort((a, b) => b.w - a.w);
   const paths = weighted.slice(0, 3).map(x => x.p.text);
 
   const eventCount = state.chaos ? 2 : (rng() > 0.4 ? 1 : (rng() > 0.6 ? 2 : 0));
-  const events = pickN(RANDOM_EVENTS, eventCount, rng);
+  const events = pickN(pickPool(RANDOM_EVENTS, RANDOM_EVENTS, KIDS_RANDOM_EVENTS), eventCount, rng);
 
   const headlineRng = seededRand(codename + '|news');
-  const headlines = pickN(NEWS_HEADLINES, 2, headlineRng);
+  const headlines = pickN(pickPool(NEWS_HEADLINES, NEWS_HEADLINES, KIDS_NEWS_HEADLINES), 2, headlineRng);
 
   return { vibe, paths, events, headlines };
 }
 
 function computeTraitConflicts(b) {
-  const pool = state.ethicsMode === 'adult' ? TRAIT_CONFLICTS_CLINICAL : TRAIT_CONFLICTS;
+  const pool = pickPool(TRAIT_CONFLICTS, TRAIT_CONFLICTS_CLINICAL, KIDS_TRAIT_CONFLICTS);
   return pool.filter(c => c.when(b)).map(c => ({ tag: c.tag, note: c.note }));
 }
 
@@ -1480,13 +1891,14 @@ function renderSocialResponse() {
 
 function pickReflectionPrompt(seed) {
   const rng = seededRand(seed + '|reflection');
-  return REFLECTION_PROMPTS[Math.floor(rng() * REFLECTION_PROMPTS.length)];
+  const pool = pickPool(REFLECTION_PROMPTS, REFLECTION_PROMPTS, KIDS_REFLECTION_PROMPTS);
+  return pool[Math.floor(rng() * pool.length)];
 }
 
 function showHumanityReminder(line) {
   const banner = $('#reminder-banner');
   if (!banner) return;
-  const pool = state.ethicsMode === 'adult' ? CLINICAL_REMINDERS : HUMANITY_REMINDERS;
+  const pool = pickPool(HUMANITY_REMINDERS, CLINICAL_REMINDERS, KIDS_HUMANITY_REMINDERS);
   banner.textContent = line || pool[Math.floor(Math.random() * pool.length)];
   banner.hidden = false;
   banner.classList.add('is-visible');
@@ -1506,8 +1918,7 @@ function randomizeBaby() {
     const r = state.ranges[def.key];
     const v = randInt(r.min, r.max);
     state.baby[def.key] = v;
-    const slider = $('#s_' + def.key);
-    if (slider) slider.value = v;
+    syncSliderDOMForOcean(def.key, v);
   });
   updateBabyPreview();
 }
@@ -1516,8 +1927,7 @@ function resetBaby() {
   SLIDER_DEFS.forEach(def => {
     const r = state.ranges[def.key];
     state.baby[def.key] = r.def;
-    const slider = $('#s_' + def.key);
-    if (slider) slider.value = r.def;
+    syncSliderDOMForOcean(def.key, r.def);
   });
   updateBabyPreview();
 }
@@ -1673,8 +2083,7 @@ function preserveNaturalVariation() {
     const r = state.ranges[def.key];
     const v = Math.floor(Math.random() * (r.max - r.min + 1)) + r.min;
     state.baby[def.key] = v;
-    const slider = $('#s_' + def.key);
-    if (slider) slider.value = v;
+    syncSliderDOMForOcean(def.key, v);
   });
 
   // Restore chaos toggle to the user's setting (we only borrowed the range
@@ -1837,8 +2246,7 @@ function loadTimeline(id) {
     if (typeof v === 'number') {
       const clamped = clamp(v, r.min, r.max);
       state.baby[def.key] = clamped;
-      const slider = $('#s_' + def.key);
-      if (slider) slider.value = clamped;
+      syncSliderDOMForOcean(def.key, clamped);
     }
   });
   renderSurprise(state.surprise);
@@ -1901,8 +2309,7 @@ function setupChaosToggle() {
         if (typeof prev[def.key] === 'number') {
           const v = clamp(prev[def.key], r.min, r.max);
           state.baby[def.key] = v;
-          const slider = $('#s_' + def.key);
-          if (slider) slider.value = v;
+          syncSliderDOMForOcean(def.key, v);
         }
       });
       renderSurprise(state.surprise);
@@ -2002,12 +2409,80 @@ function setupHistoryToggle() {
   });
 }
 
+function applyChaosPillLabel() {
+  const btn = $('#chaos-btn');
+  if (!btn) return;
+  btn.textContent = isKids() ? '🃏 Wild Card' : '💥 Chaos Mode';
+}
+
+function setupAppModeToggle() {
+  $$('.app-mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const m = btn.dataset.appMode;
+      if (m !== 'standard' && m !== 'kids') return;
+      $$('.app-mode-btn').forEach(b => {
+        const active = b === btn;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      state.appMode = m;
+      persistAppMode(m);
+      applyAppModeClass();
+      applyChaosPillLabel();
+
+      // Entering Kids hides the sub-toggle, so reset to playful and drop any
+      // lingering Standard-mode body classes for a clean visual handoff.
+      if (m === 'kids') {
+        state.ethicsMode = 'playful';
+        $$('.mode-btn').forEach(b => {
+          const active = b.dataset.ethicsMode === 'playful';
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        document.body.classList.remove('mode-adult');
+        document.body.classList.remove('mode-reflection');
+      }
+
+      // Re-render so labels, copy pools, sliders, and stats all refresh.
+      if (state.codename) {
+        renderSliders(state.ranges);
+        // Restore baby values into the freshly rendered sliders.
+        SLIDER_DEFS.forEach(def => {
+          if (typeof state.baby[def.key] === 'number') {
+            syncSliderDOMForOcean(def.key, state.baby[def.key]);
+          }
+        });
+        const flavor = generateBabyFlavor(state.codename, state.baby);
+        state.vibe        = flavor.vibe;
+        state.futurePaths = flavor.paths;
+        state.events      = flavor.events;
+        state.headlines   = flavor.headlines;
+        state.conflicts   = computeTraitConflicts(state.baby);
+        state.reflection  = pickReflectionPrompt(state.codename);
+        updateBabyPreview();
+      }
+    });
+  });
+
+  // Reflect persisted mode in the UI.
+  $$('.app-mode-btn').forEach(b => {
+    const active = b.dataset.appMode === state.appMode;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+}
+
 function init() {
+  state.appMode = loadAppMode();
+  applyAppModeClass();
+
   buildParentForms();
   buildEnvPanel();
   buildEnhancementBudget();
   buildHistorySection();
   setupHistoryToggle();
+  setupAppModeToggle();
+  applyChaosPillLabel();
   setupPillToggle('.style-btn', 'style');
   setupPillToggle('.gender-btn', 'gender');
   setupPillToggle('.mode-btn', 'ethicsMode', mode => {

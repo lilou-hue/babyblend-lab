@@ -863,6 +863,14 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
   font-size: 11px;
 }
 
+/* Kids mode forces playful copy & hides any adult-only content
+   (Standard mode's playful/adult visibility lives further down in the
+   "Adult Mode" CSS section.) */
+body.app-kids .playful-text { display: inline; }
+body.app-kids .adult-text   { display: none !important; }
+body.app-kids .adult-only   { display: none !important; }
+body.app-kids #history-panel { display: none !important; }
+
 /* ---------- App-mode toggle (Standard / Kids — primary) ---------- */
 .app-mode-toggle {
   display: inline-flex;
