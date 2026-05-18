@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+  <title>BabyBlend Lab — A fictional genetics-inspired simulator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Floating gene bubbles (decorative) -->
+  <div class="gene-bubbles" aria-hidden="true">
+    <span style="--x:8%;  --d:0s;  --s:14s; --size:18px;"></span>
+    <span style="--x:18%; --d:2s;  --s:16s; --size:10px;"></span>
+    <span style="--x:28%; --d:5s;  --s:18s; --size:22px;"></span>
+    <span style="--x:42%; --d:1s;  --s:13s; --size:8px;"></span>
+    <span style="--x:55%; --d:7s;  --s:20s; --size:14px;"></span>
+    <span style="--x:65%; --d:3s;  --s:15s; --size:20px;"></span>
+    <span style="--x:74%; --d:6s;  --s:17s; --size:11px;"></span>
+    <span style="--x:84%; --d:0.5s;--s:19s; --size:16px;"></span>
+    <span style="--x:92%; --d:4s;  --s:14s; --size:9px;"></span>
+    <span style="--x:35%; --d:8s;  --s:22s; --size:24px;"></span>
+  </div>
+
+  <!-- DNA helix decoration -->
+  <svg class="dna-decor dna-left" viewBox="0 0 60 400" aria-hidden="true">
+    <g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M10,0 Q50,40 10,80 Q-30,120 10,160 Q50,200 10,240 Q-30,280 10,320 Q50,360 10,400" opacity="0.6"/>
+      <path d="M50,0 Q10,40 50,80 Q90,120 50,160 Q10,200 50,240 Q90,280 50,320 Q10,360 50,400" opacity="0.6"/>
+      <line x1="14" y1="20" x2="46" y2="20" opacity="0.4"/>
+      <line x1="46" y1="60" x2="14" y2="60" opacity="0.4"/>
+      <line x1="14" y1="100" x2="46" y2="100" opacity="0.4"/>
+      <line x1="46" y1="140" x2="14" y2="140" opacity="0.4"/>
+      <line x1="14" y1="180" x2="46" y2="180" opacity="0.4"/>
+      <line x1="46" y1="220" x2="14" y2="220" opacity="0.4"/>
+      <line x1="14" y1="260" x2="46" y2="260" opacity="0.4"/>
+      <line x1="46" y1="300" x2="14" y2="300" opacity="0.4"/>
+      <line x1="14" y1="340" x2="46" y2="340" opacity="0.4"/>
+      <line x1="46" y1="380" x2="14" y2="380" opacity="0.4"/>
+    </g>
+  </svg>
+  <svg class="dna-decor dna-right" viewBox="0 0 60 400" aria-hidden="true">
+    <g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M10,0 Q50,40 10,80 Q-30,120 10,160 Q50,200 10,240 Q-30,280 10,320 Q50,360 10,400" opacity="0.6"/>
+      <path d="M50,0 Q10,40 50,80 Q90,120 50,160 Q10,200 50,240 Q90,280 50,320 Q10,360 50,400" opacity="0.6"/>
+      <line x1="14" y1="20" x2="46" y2="20" opacity="0.4"/>
+      <line x1="46" y1="60" x2="14" y2="60" opacity="0.4"/>
+      <line x1="14" y1="100" x2="46" y2="100" opacity="0.4"/>
+      <line x1="46" y1="140" x2="14" y2="140" opacity="0.4"/>
+      <line x1="14" y1="180" x2="46" y2="180" opacity="0.4"/>
+      <line x1="46" y1="220" x2="14" y2="220" opacity="0.4"/>
+      <line x1="14" y1="260" x2="46" y2="260" opacity="0.4"/>
+      <line x1="46" y1="300" x2="14" y2="300" opacity="0.4"/>
+      <line x1="14" y1="340" x2="46" y2="340" opacity="0.4"/>
+      <line x1="46" y1="380" x2="14" y2="380" opacity="0.4"/>
+    </g>
+  </svg>
+
+  <header class="site-header">
+    <h1><span class="logo-mark">⌬</span> BabyBlend Lab</h1>
+    <p class="tagline">A fictional genetics-inspired simulator</p>
+    <p class="disclaimer">Not real medical or genetic advice — just a playful what-if.</p>
+  </header>
+
+  <main>
+    <!-- 1. Parent forms -->
+    <section class="panel parent-panel" aria-labelledby="parents-heading">
+      <h2 id="parents-heading">Parent Profiles</h2>
+      <div class="parents" id="parents"></div>
+      <div class="primary-action">
+        <button id="generate-btn" class="btn btn-primary">Generate Baby Possibilities</button>
+      </div>
+    </section>
+
+    <!-- 2 + 3. Sliders + Baby Preview -->
+    <section class="results" id="results" hidden>
+      <div class="panel sliders-panel" aria-labelledby="sliders-heading">
+        <h2 id="sliders-heading">Baby Trait Sliders</h2>
+        <p class="subtle">Ranges are inspired by both parents. Slide to explore possibilities.</p>
+        <div id="sliders" class="sliders"></div>
+
+        <div class="surprise-wrap">
+          <div class="surprise">
+            <span class="surprise-label">Genetic surprise factor</span>
+            <span class="surprise-bar"><span class="surprise-bar-fill" id="surprise-fill"></span></span>
+            <span class="surprise-pct" id="surprise-pct">0%</span>
+          </div>
+          <p class="surprise-note" id="surprise-note">How likely the baby strays from a simple average of the parents.</p>
+        </div>
+
+        <div class="actions">
+          <button id="randomize-btn" class="btn">🎲 Randomize Within Parent Range</button>
+          <button id="reset-btn" class="btn">↺ Reset to Parent Average</button>
+          <button id="copy-btn" class="btn">⧉ Copy Baby Profile</button>
+        </div>
+        <div class="copy-status" id="copy-status" role="status" aria-live="polite"></div>
+      </div>
+
+      <aside class="panel baby-panel" aria-labelledby="baby-heading">
+        <h2 id="baby-heading">Baby Preview</h2>
+        <div class="codename" id="codename">Tiny Prototype A-01</div>
+
+        <div class="avatar-stage">
+          <div class="avatar-glow"></div>
+          <div id="avatar-host" class="avatar-host" role="img" aria-label="Generated baby avatar"></div>
+        </div>
+
+        <div class="style-toggle" role="tablist" aria-label="Avatar style">
+          <button type="button" class="style-btn is-active" data-style="lorelei"  role="tab" aria-selected="true">Lorelei</button>
+          <button type="button" class="style-btn"           data-style="bigSmile" role="tab" aria-selected="false">Big Smile</button>
+        </div>
+
+        <div class="gender-toggle" role="tablist" aria-label="Baby gender">
+          <button type="button" class="gender-btn"           data-gender="female"   role="tab" aria-selected="false">♀ Female</button>
+          <button type="button" class="gender-btn is-active" data-gender="surprise" role="tab" aria-selected="true">? Surprise</button>
+          <button type="button" class="gender-btn"           data-gender="male"     role="tab" aria-selected="false">♂ Male</button>
+        </div>
+
+        <div class="archetype-tag" id="archetype">Tiny Prototype</div>
+
+        <dl class="baby-stats" id="baby-stats"></dl>
+      </aside>
+    </section>
+
+    <section class="ethics">
+      <h3>A gentle reminder</h3>
+      <p>This simulator is fictional. Real traits are shaped by many genes, environment, chance,
+      culture, health, and life experience. Babies are not customizable products.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>BabyBlend Lab · A playful what-if · No data leaves your device</span>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
