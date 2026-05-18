@@ -121,6 +121,59 @@ const BIGSMILE_HAIR_BY_GENDER = {
 
 const GENDER_LABEL = { female: 'Female', male: 'Male', surprise: 'Surprise' };
 
+// Where freckles + dimples land on each style's viewBox (as fractions).
+const FACE_METRICS = {
+  lorelei:  { cheekY: 0.54, dimpleY: 0.66, dimpleDx: 0.12, dotR: 0.0085, dimpleStroke: 0.0055, dimpleArc: 0.030 },
+  bigSmile: { cheekY: 0.55, dimpleY: 0.66, dimpleDx: 0.16, dotR: 0.0125, dimpleStroke: 0.0080, dimpleArc: 0.040 }
+};
+
+// Deterministic freckle scatter — first N are picked as slider goes up.
+const FRECKLE_SCATTER = [
+  [-0.18, -0.02], [-0.12,  0.01], [-0.08, -0.03], [-0.05,  0.02], [-0.02, -0.01],
+  [ 0.02, -0.01], [ 0.05,  0.02], [ 0.08, -0.03], [ 0.12,  0.01], [ 0.18, -0.02],
+  [-0.14,  0.04], [-0.06,  0.05], [ 0.06,  0.05], [ 0.14,  0.04]
+];
+
+function addTraitOverlays(svg, b, styleName) {
+  const m = FACE_METRICS[styleName] || FACE_METRICS.lorelei;
+  const vb = /viewBox="(\d+)\s+(\d+)\s+(\d+)\s+(\d+)"/.exec(svg);
+  if (!vb) return svg;
+  const W = Number(vb[3]);
+  const H = Number(vb[4]);
+
+  let pieces = '';
+
+  // Freckles — count + opacity both scale with slider value.
+  if (b.freckles > 0) {
+    const opacity = Math.min(1, b.freckles / 100);
+    const visible = Math.max(3, Math.round((b.freckles / 100) * FRECKLE_SCATTER.length));
+    const r = W * m.dotR;
+    for (let i = 0; i < visible; i++) {
+      const [dx, dy] = FRECKLE_SCATTER[i];
+      const cx = (W * 0.5 + W * dx).toFixed(1);
+      const cy = (H * m.cheekY + H * dy).toFixed(1);
+      pieces += `<circle cx="${cx}" cy="${cy}" r="${r.toFixed(2)}" fill="rgba(70,38,18,${(0.85*opacity).toFixed(2)})"/>`;
+    }
+  }
+
+  // Dimples — two small curves either side of the mouth.
+  if (b.dimples > 0) {
+    const opacity = Math.min(1, b.dimples / 100);
+    const stroke = (W * m.dimpleStroke).toFixed(2);
+    const arc    = W * m.dimpleArc;
+    const dy     = H * m.dimpleY;
+    const dx     = W * m.dimpleDx;
+    const leftCx  = W * 0.5 - dx;
+    const rightCx = W * 0.5 + dx;
+    const col = `rgba(60,30,20,${(0.55*opacity).toFixed(2)})`;
+    pieces += `<path d="M ${(leftCx -arc).toFixed(1)} ${dy.toFixed(1)} q ${arc.toFixed(1)} ${(arc*0.55).toFixed(1)} ${(arc*2).toFixed(1)} 0" stroke="${col}" stroke-width="${stroke}" fill="none" stroke-linecap="round"/>`;
+    pieces += `<path d="M ${(rightCx-arc).toFixed(1)} ${dy.toFixed(1)} q ${arc.toFixed(1)} ${(arc*0.55).toFixed(1)} ${(arc*2).toFixed(1)} 0" stroke="${col}" stroke-width="${stroke}" fill="none" stroke-linecap="round"/>`;
+  }
+
+  if (!pieces) return svg;
+  return svg.replace(/<\/svg>\s*$/, pieces + '</svg>');
+}
+
 /* ---------- Parent form schema ---------- */
 
 const PARENT_FIELDS = [
@@ -515,10 +568,11 @@ function updateAvatar(b) {
   const scaleVal  = Math.round(92 + ((b.height - 140) / 70) * 22);          // height → 92–114
   const rotateVal = Math.round(((b.curiosity - 1) / 9) * 12);                // curiosity → 0–12° tilt
 
-  // Background derives from calmness, athletic, freckles, dimples — so all four
-  // sliders are visible even on styles that lack their own dial.
-  const bgHue   = 30 + (b.calmness - 1) * (200/9) + (b.freckles - 50) * 0.25;
-  const bgLight = 60 + b.athletic * 2 + (b.dimples - 50) * 0.06;
+  // Background drives calmness (hue) + athletic (lightness). Freckles and
+  // dimples now have direct overlays on the avatar, so they don't muddy the
+  // background formula.
+  const bgHue   = 30 + (b.calmness - 1) * (200/9);
+  const bgLight = 60 + b.athletic * 2;
   const bgHex   = hslToHex(bgHue, 45, Math.max(48, Math.min(86, bgLight)));
   const bgType  = b.creativity >= 6 ? 'gradientLinear' : 'solid';            // creativity → gradient on
 
@@ -549,17 +603,15 @@ function updateAvatar(b) {
     options.eyesColor = [eyeHex];
     options.head  = [LORELEI_HEAD[faceName] || 'variant02'];
     options.mouth = [LORELEI_MOUTH[b.social] || 'happy09'];
-    options.frecklesProbability = Math.round(b.freckles);
-    options.beardProbability = 0;  // babies don't have beards, period
-    options.glassesProbability = 0; // and no glasses on infants by default
+    // Native Lorelei freckles are binary (on/off by seed) — disable, we draw
+    // our own continuous-density overlay instead.
+    options.frecklesProbability = 0;
+    options.beardProbability   = 0; // babies don't have beards
+    options.glassesProbability = 0; // or glasses
 
     // Creativity → eyebrows variant (1–13)
     const browIdx = Math.max(1, Math.min(13, Math.round((b.creativity - 1) / 9 * 12) + 1));
     options.eyebrows = [`variant${String(browIdx).padStart(2, '0')}`];
-
-    // Dimples → nose variant (1–6)
-    const noseIdx = Math.max(1, Math.min(6, Math.floor(b.dimples / 17) + 1));
-    options.nose = [`variant${String(noseIdx).padStart(2, '0')}`];
 
     if (g === 'female') {
       options.hairAccessoriesProbability = 100;
@@ -583,7 +635,8 @@ function updateAvatar(b) {
   }
 
   try {
-    const svg = createAvatar(cfg.module, options).toString();
+    let svg = createAvatar(cfg.module, options).toString();
+    svg = addTraitOverlays(svg, b, styleName);
     host.innerHTML = svg;
   } catch (e) {
     host.innerHTML = '<div class="avatar-error">Avatar failed to load</div>';
