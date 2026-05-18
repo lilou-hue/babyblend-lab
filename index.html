@@ -68,6 +68,7 @@
       <h2 id="parents-heading">Parent Profiles</h2>
       <div class="parents" id="parents"></div>
       <div class="primary-action">
+        <button id="randomize-parents-btn" class="btn">🎲 Randomize Parents</button>
         <button id="generate-btn" class="btn btn-primary">Generate Baby Possibilities</button>
       </div>
     </section>
@@ -92,13 +93,17 @@
           <button id="randomize-btn" class="btn">🎲 Randomize Within Parent Range</button>
           <button id="reset-btn" class="btn">↺ Reset to Parent Average</button>
           <button id="copy-btn" class="btn">⧉ Copy Baby Profile</button>
+          <button id="save-btn" class="btn">💾 Save Timeline</button>
+          <button id="alternates-btn" class="btn">🌌 Generate Alternate Timelines</button>
         </div>
         <div class="copy-status" id="copy-status" role="status" aria-live="polite"></div>
+        <div class="saved-timelines" id="saved-timelines" hidden></div>
       </div>
 
       <aside class="panel baby-panel" aria-labelledby="baby-heading">
         <h2 id="baby-heading">Baby Preview</h2>
         <div class="codename" id="codename">Tiny Prototype A-01</div>
+        <div class="vibe-title" id="vibe-title"></div>
 
         <div class="avatar-stage">
           <div class="avatar-glow"></div>
@@ -116,10 +121,25 @@
           <button type="button" class="gender-btn"           data-gender="male"     role="tab" aria-selected="false">♂ Male</button>
         </div>
 
+        <button type="button" class="chaos-pill" id="chaos-btn" aria-pressed="false">💥 Chaos Mode</button>
+
         <div class="archetype-tag" id="archetype">Tiny Prototype</div>
+        <span class="chaos-badge" id="chaos-badge" hidden>💥 Chaos</span>
 
         <dl class="baby-stats" id="baby-stats"></dl>
+
+        <div class="future-block" id="future-block" hidden>
+          <h3>Future predictions</h3>
+          <ul class="future-paths" id="future-paths"></ul>
+          <div class="random-events" id="random-events"></div>
+        </div>
       </aside>
+    </section>
+
+    <section class="alternates-panel panel" id="alternates-panel" hidden>
+      <h2>Alternate Timelines</h2>
+      <p class="subtle">Parallel possibilities from the same two parents. Click <em>Make this the main baby</em> on any card to load it.</p>
+      <div class="alternates-grid" id="alternates-grid"></div>
     </section>
 
     <section class="ethics">

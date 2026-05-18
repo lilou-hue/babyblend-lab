@@ -121,6 +121,142 @@ const BIGSMILE_HAIR_BY_GENDER = {
 
 const GENDER_LABEL = { female: 'Female', male: 'Male', surprise: 'Surprise' };
 
+/* ---------- Flavor pools ---------- */
+
+const FUNNY_TITLES = [
+  'Chaos Gremlin', 'Future Space Pirate', 'Tiny Philosopher', 'Galactic Menace',
+  'Certified Goober', 'Mini Strategist', 'Cosmic Researcher', 'Pocket Scientist',
+  'Local Cryptid', 'Aspiring Wizard', 'Tiny Bureaucrat', 'Future CEO of Cats',
+  'Galaxy-Brained Toddler', 'Backup Main Character', 'Tiny Tax Evader',
+  'Professional Cousin', 'Stealth Comedian', 'Aspiring Lawyer of Crumbs',
+  'Future Documentary Subject', 'Tiny Conspiracy Theorist', 'Junior Cartographer',
+  'Designated Driver of the Family', 'Future Internet Mystery', 'Resident Cool Aunt-In-Training',
+  'Lowercase Genius', 'Tiny Method Actor', 'Pocket-Sized Visionary', 'Heir to the Couch Fort',
+  'Future Forager', 'Sleeper Agent of Joy', 'Future Sourdough Influencer',
+  'Tiny Cult Leader (Wholesome)', 'Local Vibe Curator', 'Future Hobby Collector',
+  'Backseat Driver of Destiny', 'Junior Sky Inspector', 'Tiny Dragon Negotiator',
+  'Tomorrow’s Roller-Skating Champion', 'Future Spreadsheet Wizard',
+  'Junior Time-Travel Skeptic', 'Tiny Patron of the Arts', 'Future Whittler of Tiny Things'
+];
+
+// Future-path predictions, tagged with personality bias keys (O/C/E/A/N/athletic).
+// Tagging is loose — at runtime we pick from the full pool with the bias as a soft weight.
+const FUTURE_PATHS = [
+  { text: 'Probably starts three unfinished novels.',                          tag: 'O' },
+  { text: 'Will attempt to build a robot at age 11.',                          tag: 'O' },
+  { text: 'Most likely to accidentally become famous online.',                 tag: 'E' },
+  { text: 'Will get into 47 hobbies and finish 0.5 of them.',                  tag: 'O' },
+  { text: 'Future expert in obscure cheeses.',                                 tag: 'O' },
+  { text: 'Will own a slightly haunted plant.',                                tag: 'O' },
+  { text: 'Will form a strong opinion about whether a hot dog is a sandwich.', tag: 'A' },
+  { text: 'Almost certainly invents a board game no one understands.',         tag: 'C' },
+  { text: 'Will alphabetize the spice rack at age 9.',                         tag: 'C' },
+  { text: 'Probably keeps a meticulous log of every dream they’ve had.',   tag: 'C' },
+  { text: 'Becomes the family’s designated planner of everything.',        tag: 'C' },
+  { text: 'Will have a five-year plan by age 7.',                              tag: 'C' },
+  { text: 'Future class president, slightly suspiciously.',                    tag: 'E' },
+  { text: 'Talks to strangers at the bus stop and learns their life story.',   tag: 'E' },
+  { text: 'Will throw the loudest, weirdest birthday parties.',                tag: 'E' },
+  { text: 'Becomes the kid everyone has a crush on but is oblivious.',         tag: 'E' },
+  { text: 'Will run an underground trading economy in elementary school.',     tag: 'E' },
+  { text: 'Becomes the family peacemaker before age 6.',                       tag: 'A' },
+  { text: 'Will adopt every stray animal in a 10-mile radius.',                tag: 'A' },
+  { text: 'Sends handwritten thank-you notes unprompted.',                     tag: 'A' },
+  { text: 'Will be voted "best to call when you’re sad."',                 tag: 'A' },
+  { text: 'Forms a deeply parasocial relationship with one specific celebrity.', tag: 'N' },
+  { text: 'Will worry about the structural integrity of the bouncy castle.',   tag: 'N' },
+  { text: 'Develops a slightly intense relationship with a stuffed animal.',   tag: 'N' },
+  { text: 'Future investigative journalist of family secrets.',                tag: 'N' },
+  { text: 'Will be unreasonably good at one weird sport.',                     tag: 'athletic' },
+  { text: 'Sprints everywhere, even indoors, for reasons unknown.',            tag: 'athletic' },
+  { text: 'Future captain of a sport that hasn’t been invented yet.',      tag: 'athletic' },
+  { text: 'Will challenge a stranger to a footrace and win.',                  tag: 'athletic' },
+  { text: 'Becomes the only person in their school who can do a backflip on command.', tag: 'athletic' },
+  { text: 'Will name their first car something embarrassing.',                 tag: 'O' },
+  { text: 'Probably invents a sandwich that goes mildly viral.',               tag: 'O' },
+  { text: 'Will read every plaque in every museum, out loud.',                 tag: 'O' },
+  { text: 'Future hobbyist beekeeper of one (1) bee.',                         tag: 'O' },
+  { text: 'Will form a band, write one song, then break up the band.',         tag: 'O' },
+  { text: 'Becomes the kid who knows everyone in town somehow.',               tag: 'E' },
+  { text: 'Will start a podcast nobody listens to but it’s great anyway.',  tag: 'O' },
+  { text: 'Future bridge-builder between extended family group chats.',        tag: 'A' },
+  { text: 'Will memorize the menu of one specific diner by heart.',            tag: 'C' },
+  { text: 'Eventually becomes Designated Dog Person of their friend group.',   tag: 'A' },
+  { text: 'Will refuse to eat anything green until age 24, then write a cookbook.', tag: 'O' },
+  { text: 'Probably collects keychains from places they’ve never been.',    tag: 'O' },
+  { text: 'Future expert on the optimal way to organize a snack drawer.',      tag: 'C' },
+  { text: 'Will form a competitive rivalry with a neighbor’s cat.',        tag: 'N' },
+  { text: 'Almost certainly tries to start a treehouse co-op.',                tag: 'A' },
+  { text: 'Will say “technically” at least 40 times a day by middle school.', tag: 'C' }
+];
+
+const RANDOM_EVENTS = [
+  'Mutation Event: Can fall asleep absolutely anywhere.',
+  'Inherited Grandparent Energy: 1970s edition.',
+  'Inherited Grandparent Energy: surprise great-aunt arc.',
+  'Main Character Syndrome detected.',
+  'Extremely Competitive Sibling Arc unlocked.',
+  'Raised by space documentaries.',
+  'Briefly believes they’re a cat. Compelling case.',
+  'Tiny existential crisis on the swing set, age 4.',
+  'Develops mysterious fluency in a video game language.',
+  'Inexplicable mastery of one specific accent.',
+  'Has one (1) recurring oddly specific dream.',
+  'Becomes the family’s designated Wi-Fi shaman.',
+  'Adopts an imaginary friend with a full backstory and a job.',
+  'Will quote a niche movie obsessively for 18 months straight.',
+  'Develops a strong, baffling opinion about cereal hierarchy.',
+  'Recessive trait surfaces: laughs exactly like a great-grandparent.',
+  'Spontaneous golden-retriever-coded summer.',
+  'Spontaneous black-cat-coded autumn.',
+  'Unexpected lefty energy despite righty parents.',
+  'Forms a parasocial bond with a houseplant. Names it.',
+  'Becomes weirdly good at one obscure carnival game.',
+  'Will go through a brief but committed pirate phase.',
+  'Surprise musical talent surfaces during karaoke night.',
+  'Develops a personal catchphrase by age 5. Family adopts it.',
+  'Future memoir title: already chosen, age 6.'
+];
+
+const FUN_NAMES = [
+  'Avery','Bea','Cyrus','Dax','Echo','Fern','Gus','Hazel','Iris','Juno',
+  'Kai','Lior','Mika','Nia','Onyx','Paz','Quill','Rune','Sage','Tabor',
+  'Una','Vesper','Wren','Xander','Yuki','Zane','Cleo','Soren','Mae','Pax',
+  'Theo','Ada','Indigo','Marlow','Lior','Rio','Saskia','Beck','Tova','Lev'
+];
+
+/* ---------- Seeded randomness ---------- */
+// Tiny deterministic hash → uint32. Same string in, same value out.
+function hashStr(s) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return h >>> 0;
+}
+// Returns a deterministic RNG (0..1) for a given seed.
+function seededRand(seed) {
+  let s = hashStr(String(seed)) || 1;
+  return () => {
+    // mulberry32
+    s = (s + 0x6D2B79F5) >>> 0;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function pickN(arr, n, rng) {
+  const copy = arr.slice();
+  const out = [];
+  while (out.length < n && copy.length) {
+    const i = Math.floor(rng() * copy.length);
+    out.push(copy.splice(i, 1)[0]);
+  }
+  return out;
+}
+
 // Where freckles land on each style's viewBox (as fractions).
 const FACE_METRICS = {
   lorelei:  { cheekY: 0.54, dotR: 0.0085 },
@@ -209,9 +345,15 @@ const state = {
   ranges: {},          // per-slider { min, max, def, step, kind, ... }
   baby: {},            // current baby slider values
   codename: '',
+  vibe: '',            // funny "future vibe" title
+  futurePaths: [],     // 3 future-path predictions
+  events: [],          // 0–2 random events
+  archetype: '',
   surprise: 0,
   style: 'lorelei',    // 'lorelei' | 'bigSmile'
-  gender: 'surprise'   // 'female' | 'male' | 'surprise'
+  gender: 'surprise',  // 'female' | 'male' | 'surprise'
+  chaos: false,        // amplifies slider ranges + surprise
+  alternates: []       // generated alternate-timeline babies
 };
 
 /* ---------- Helpers ---------- */
@@ -316,12 +458,14 @@ function collectParentData() {
 
 function generateSliderRanges(parents) {
   const ranges = {};
+  const chaos = state.chaos;
 
   SLIDER_DEFS.forEach(def => {
     if (def.kind === 'continuous') {
       const a = parents.A[def.key], b = parents.B[def.key];
-      const lo = clamp(Math.min(a, b) - def.expand, def.hardMin, def.hardMax);
-      const hi = clamp(Math.max(a, b) + def.expand, def.hardMin, def.hardMax);
+      const expand = chaos ? def.expand * 8 : def.expand;
+      const lo = clamp(Math.min(a, b) - expand, def.hardMin, def.hardMax);
+      const hi = clamp(Math.max(a, b) + expand, def.hardMin, def.hardMax);
       const center = (a + b) / 2;
       ranges[def.key] = {
         kind: 'continuous',
@@ -333,9 +477,10 @@ function generateSliderRanges(parents) {
     } else if (def.kind === 'polygenic') {
       // Big-Five-flavored: child ≈ midparent + Gaussian(σ), ~50% heritability.
       // Slider range ≈ midparent ± 2σ (covers ~95% of plausible outcomes).
+      // Chaos mode widens to the full hardMin/hardMax range.
       const a = parents.A[def.key], b = parents.B[def.key];
       const center = (a + b) / 2;
-      const half = 2 * def.sigma;
+      const half = chaos ? (def.hardMax - def.hardMin) : (2 * def.sigma);
       const lo = clamp(Math.floor(center - half), def.hardMin, def.hardMax);
       const hi = clamp(Math.ceil (center + half), def.hardMin, def.hardMax);
       ranges[def.key] = {
@@ -351,14 +496,17 @@ function generateSliderRanges(parents) {
       const bi = ladder.indexOf(parents.B[def.key]);
       let lo = Math.min(ai, bi);
       let hi = Math.max(ai, bi);
-      // If both parents identical, allow ±1 of variation as "uncertainty"
-      if (lo === hi) {
-        lo = Math.max(0, lo - 1);
-        hi = Math.min(ladder.length - 1, hi + 1);
+      if (chaos) {
+        lo = 0; hi = ladder.length - 1;
+      } else {
+        // If both parents identical, allow ±1 of variation as "uncertainty"
+        if (lo === hi) {
+          lo = Math.max(0, lo - 1);
+          hi = Math.min(ladder.length - 1, hi + 1);
+        }
+        lo = Math.max(0, lo);
+        hi = Math.min(ladder.length - 1, hi);
       }
-      // Always allow a one-step expansion so blending feels possible
-      lo = Math.max(0, lo);
-      hi = Math.min(ladder.length - 1, hi);
       const center = Math.round((ai + bi) / 2);
       ranges[def.key] = {
         kind: 'ladder',
@@ -371,10 +519,8 @@ function generateSliderRanges(parents) {
       const ladder = def.ladder;
       const ai = ladder.indexOf(parents.A[def.key]);
       const bi = ladder.indexOf(parents.B[def.key]);
-      // average index normalized to 0..1
       const norm = ((ai + bi) / 2) / (ladder.length - 1);
-      // Range around the average, widening with parental disagreement
-      const spread = 25 + Math.abs(ai - bi) * 15;
+      const spread = chaos ? 100 : (25 + Math.abs(ai - bi) * 15);
       const center = Math.round(norm * 100);
       const lo = clamp(center - spread, 0, 100);
       const hi = clamp(center + spread, 0, 100);
@@ -431,8 +577,9 @@ function computeSurprise(parents) {
   });
 
   const avg = diffs.reduce((s, v) => s + v, 0) / diffs.length;
-  // base 8% so it's never zero — life always has uncertainty
-  return Math.round(clamp(avg * 90 + 8, 0, 100));
+  // base 8% so it's never zero — life always has uncertainty. Chaos mode amplifies.
+  const chaosBoost = state.chaos ? 30 : 0;
+  return Math.round(clamp(avg * 90 + 8 + chaosBoost, 0, 100));
 }
 
 /* ====================================================================
@@ -536,6 +683,24 @@ function updateBabyPreview() {
   $('#archetype').textContent = archetype;
   state.archetype = archetype;
 
+  // chaos badge visibility
+  const cb = $('#chaos-badge');
+  if (cb) cb.hidden = !state.chaos;
+
+  // future vibe + paths + random events
+  const vibeEl = $('#vibe-title');
+  if (vibeEl) vibeEl.textContent = state.vibe || '';
+  const pathsEl = $('#future-paths');
+  if (pathsEl) {
+    pathsEl.innerHTML = (state.futurePaths || []).map(t => `<li>${t}</li>`).join('');
+  }
+  const eventsEl = $('#random-events');
+  if (eventsEl) {
+    eventsEl.innerHTML = (state.events || []).map(t => `<span class="event-chip">${t}</span>`).join('');
+  }
+  const futureBlock = $('#future-block');
+  if (futureBlock) futureBlock.hidden = !(state.futurePaths && state.futurePaths.length);
+
   // avatar
   updateAvatar(b);
 }
@@ -565,12 +730,8 @@ function calculateArchetype(b) {
  * 8. Avatar updates (SVG)
  * ==================================================================== */
 
-function updateAvatar(b) {
-  const host = document.getElementById('avatar-host');
-  if (!host) return;
-  const styleName = state.style;
+function buildAvatarSvg(b, styleName, g, seedHint) {
   const cfg = DICEBEAR_STYLES[styleName] || DICEBEAR_STYLES.lorelei;
-  const g = state.gender;
 
   const skinHex = SKIN_HEX[SKIN_LADDER[b.skinTone]].replace('#','');
   const hairHex = HAIR_HEX[HAIR_LADDER[b.hairColor]].replace('#','');
@@ -593,7 +754,7 @@ function updateAvatar(b) {
   const bgHex   = hslToHex(bgHue, Math.max(20, Math.min(70, bgSat)), Math.max(48, Math.min(86, bgLight)));
   const bgType  = b.openness >= 6 ? 'gradientLinear' : 'solid';
 
-  const seed = `${state.codename || 'baby'}|${b.hairType}|${b.faceShape}|${b.eyeColor}`;
+  const seed = `${seedHint || state.codename || 'baby'}|${b.hairType}|${b.faceShape}|${b.eyeColor}`;
 
   const options = {
     seed,
@@ -653,12 +814,102 @@ function updateAvatar(b) {
 
   try {
     let svg = createAvatar(cfg.module, options).toString();
-    svg = addTraitOverlays(svg, b, styleName);
-    host.innerHTML = svg;
+    return addTraitOverlays(svg, b, styleName);
   } catch (e) {
-    host.innerHTML = '<div class="avatar-error">Avatar failed to load</div>';
     console.error('DiceBear render failed:', e);
+    return '<div class="avatar-error">Avatar failed to load</div>';
   }
+}
+
+function updateAvatar(b) {
+  const host = document.getElementById('avatar-host');
+  if (!host) return;
+  host.innerHTML = buildAvatarSvg(b, state.style, state.gender, state.codename);
+}
+
+/* ---------- Alternate Timelines ---------- */
+
+function generateAlternateTimelines() {
+  if (!state.codename) return;
+  const count = state.chaos ? 6 : 4;
+  const baseSeed = Date.now() + ':' + Math.random().toString(36).slice(2, 6);
+  const alternates = [];
+
+  for (let i = 0; i < count; i++) {
+    const rng = seededRand('alt|' + baseSeed + '|' + i);
+
+    // Pick a random value within each slider's current range.
+    // Chaos mode opens it to the full hard range so things really diverge.
+    const baby = {};
+    SLIDER_DEFS.forEach(def => {
+      const r = state.ranges[def.key];
+      const lo = state.chaos && def.hardMin !== undefined ? def.hardMin : r.min;
+      const hi = state.chaos && def.hardMax !== undefined ? def.hardMax : r.max;
+      baby[def.key] = Math.floor(rng() * (hi - lo + 1)) + lo;
+    });
+
+    const aLet = ((state.parents.A.name || 'A')[0] || 'A').toUpperCase();
+    const bLet = ((state.parents.B.name || 'B')[0] || 'B').toUpperCase();
+    const num = String(Math.floor(rng() * 99) + 1).padStart(2, '0');
+    const codename = `Tiny Prototype ${aLet}${bLet}-${num}`;
+
+    const archetype = calculateArchetype(baby);
+    const flavor = generateBabyFlavor(codename, baby);
+    alternates.push({ baby, codename, archetype, ...flavor });
+  }
+
+  state.alternates = alternates;
+  renderAlternates();
+}
+
+function renderAlternates() {
+  const grid  = $('#alternates-grid');
+  const panel = $('#alternates-panel');
+  if (!grid || !panel) return;
+  if (!state.alternates || state.alternates.length === 0) {
+    panel.hidden = true; return;
+  }
+
+  grid.innerHTML = state.alternates.map((a, i) => {
+    const svg = buildAvatarSvg(a.baby, state.style, state.gender, a.codename);
+    return `
+      <article class="alt-card" data-index="${i}">
+        <div class="alt-avatar">${svg}</div>
+        <div class="alt-codename">${a.codename}</div>
+        <div class="alt-vibe">${a.vibe}</div>
+        <div class="alt-archetype">${a.archetype}</div>
+        <button type="button" class="btn btn-tiny alt-load" data-index="${i}">Make this the main baby</button>
+      </article>`;
+  }).join('');
+
+  grid.querySelectorAll('.alt-load').forEach(b => {
+    b.addEventListener('click', () => loadAlternateAsMain(Number(b.dataset.index)));
+  });
+
+  panel.hidden = false;
+  requestAnimationFrame(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+}
+
+function loadAlternateAsMain(idx) {
+  const a = state.alternates[idx];
+  if (!a) return;
+
+  state.baby      = { ...a.baby };
+  state.codename  = a.codename;
+  state.vibe      = a.vibe;
+  state.futurePaths = a.paths || [];
+  state.events    = a.events || [];
+  state.archetype = a.archetype;
+
+  $('#codename').textContent = state.codename;
+  SLIDER_DEFS.forEach(def => {
+    const slider = $('#s_' + def.key);
+    if (slider) slider.value = a.baby[def.key];
+  });
+  updateBabyPreview();
+
+  const babyPanel = document.querySelector('.baby-panel');
+  if (babyPanel) babyPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* ====================================================================
@@ -672,6 +923,34 @@ function generateCodename(parents) {
   const bLet = (bp[0] || 'B').toUpperCase();
   const num = String(randInt(1, 99)).padStart(2, '0');
   return `Tiny Prototype ${aLet}${bLet}-${num}`;
+}
+
+function generateBabyFlavor(codename, baby) {
+  const rng = seededRand(codename + '|flavor' + (state.chaos ? '|c' : ''));
+
+  const vibe = FUNNY_TITLES[Math.floor(rng() * FUNNY_TITLES.length)];
+
+  // Top personality dimension biases the future-path picks.
+  const tagFor = {
+    openness: 'O', conscientiousness: 'C', extraversion: 'E',
+    agreeableness: 'A', neuroticism: 'N', athletic: 'athletic'
+  };
+  const top = Object.keys(tagFor)
+    .map(k => ({ k, v: baby[k] || 0 }))
+    .sort((a, b) => b.v - a.v)[0];
+  const topTag = tagFor[top.k];
+
+  // Weighted pick: matching-tag paths get a +1.0 weight bump.
+  const weighted = FUTURE_PATHS.map(p => ({
+    p, w: rng() + (p.tag === topTag ? 1.0 : 0)
+  })).sort((a, b) => b.w - a.w);
+  const paths = weighted.slice(0, 3).map(x => x.p.text);
+
+  // 0–2 random events; chaos guarantees 2.
+  const eventCount = state.chaos ? 2 : (rng() > 0.4 ? 1 : (rng() > 0.6 ? 2 : 0));
+  const events = pickN(RANDOM_EVENTS, eventCount, rng);
+
+  return { vibe, paths, events };
 }
 
 /* ====================================================================
@@ -782,7 +1061,16 @@ function generate() {
   $('#codename').textContent = state.codename;
   renderSliders(state.ranges);
   resetBaby();             // sets to parent-average defaults + triggers preview
+
+  // Funny vibe + future paths + random events are derived from the codename so
+  // they're stable for the lifetime of this baby (until next Generate).
+  const flavor = generateBabyFlavor(state.codename, state.baby);
+  state.vibe = flavor.vibe;
+  state.futurePaths = flavor.paths;
+  state.events = flavor.events;
+
   renderSurprise(state.surprise);
+  updateBabyPreview();      // refresh display with new flavor
 
   const results = $('#results');
   results.hidden = false;
@@ -810,14 +1098,218 @@ function setupPillToggle(btnSelector, stateKey) {
   });
 }
 
+function randomizeParents() {
+  ['A', 'B'].forEach(letter => {
+    PARENT_FIELDS.forEach(f => {
+      const el = $('#p' + letter + '_' + f.key);
+      if (!el) return;
+      let val;
+      if (f.type === 'text') {
+        val = FUN_NAMES[Math.floor(Math.random() * FUN_NAMES.length)];
+      } else if (f.type === 'number') {
+        val = Math.round(f.min + Math.random() * (f.max - f.min));
+      } else if (f.type === 'range') {
+        val = Math.floor(f.min + Math.random() * (f.max - f.min + 1));
+      } else if (f.type === 'select') {
+        val = f.options[Math.floor(Math.random() * f.options.length)];
+      }
+      el.value = val;
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+}
+
+/* ---------- Saved Timelines (localStorage) ---------- */
+
+const SAVED_KEY = 'babyblend.saved.v1';
+const MAX_SAVED = 12;
+
+function loadSavedFromStorage() {
+  try { const raw = localStorage.getItem(SAVED_KEY); return raw ? JSON.parse(raw) : []; }
+  catch { return []; }
+}
+
+function persistSaved(list) {
+  try { localStorage.setItem(SAVED_KEY, JSON.stringify(list)); } catch {}
+}
+
+function saveCurrentTimeline() {
+  if (!state.codename) return;
+  const list = loadSavedFromStorage();
+  // Don't double-save the exact same baby; refresh its timestamp if identical.
+  const dupeIdx = list.findIndex(e => e.codename === state.codename &&
+    JSON.stringify(e.baby) === JSON.stringify(state.baby));
+  if (dupeIdx !== -1) list.splice(dupeIdx, 1);
+  list.unshift({
+    id: 'baby-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+    savedAt: Date.now(),
+    parents: state.parents,
+    baby:    { ...state.baby },
+    codename: state.codename,
+    vibe:     state.vibe,
+    futurePaths: state.futurePaths,
+    events:   state.events,
+    archetype: state.archetype,
+    style:    state.style,
+    gender:   state.gender,
+    chaos:    state.chaos,
+    surprise: state.surprise
+  });
+  while (list.length > MAX_SAVED) list.pop();
+  persistSaved(list);
+  renderSavedList();
+  const status = $('#copy-status');
+  if (status) {
+    status.textContent = 'Saved ✓';
+    setTimeout(() => { if (status.textContent === 'Saved ✓') status.textContent = ''; }, 1800);
+  }
+}
+
+function deleteTimeline(id) {
+  const list = loadSavedFromStorage().filter(x => x.id !== id);
+  persistSaved(list);
+  renderSavedList();
+}
+
+function loadTimeline(id) {
+  const list = loadSavedFromStorage();
+  const entry = list.find(x => x.id === id);
+  if (!entry) return;
+
+  state.parents = entry.parents;
+  ['A', 'B'].forEach(letter => {
+    PARENT_FIELDS.forEach(f => {
+      const el = $('#p' + letter + '_' + f.key);
+      const v = entry.parents?.[letter]?.[f.key];
+      if (el && v !== undefined) {
+        el.value = v;
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
+  });
+
+  state.style  = entry.style  || 'lorelei';
+  state.gender = entry.gender || 'surprise';
+  state.chaos  = !!entry.chaos;
+  $$('.style-btn').forEach(b => {
+    const active = b.dataset.style === state.style;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+  $$('.gender-btn').forEach(b => {
+    const active = b.dataset.gender === state.gender;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+  const chaosBtn = $('#chaos-btn');
+  if (chaosBtn) {
+    chaosBtn.setAttribute('aria-pressed', state.chaos ? 'true' : 'false');
+    chaosBtn.classList.toggle('is-active', state.chaos);
+  }
+
+  state.ranges  = generateSliderRanges(state.parents);
+  state.surprise = entry.surprise;
+  state.codename = entry.codename;
+  state.vibe = entry.vibe;
+  state.futurePaths = entry.futurePaths || [];
+  state.events = entry.events || [];
+  state.archetype = entry.archetype;
+
+  $('#codename').textContent = state.codename;
+  renderSliders(state.ranges);
+  SLIDER_DEFS.forEach(def => {
+    const r = state.ranges[def.key];
+    const v = entry.baby[def.key];
+    if (typeof v === 'number') {
+      const clamped = clamp(v, r.min, r.max);
+      state.baby[def.key] = clamped;
+      const slider = $('#s_' + def.key);
+      if (slider) slider.value = clamped;
+    }
+  });
+  renderSurprise(state.surprise);
+  const results = $('#results');
+  if (results.hidden) results.hidden = false;
+  updateBabyPreview();
+}
+
+function renderSavedList() {
+  const container = $('#saved-timelines');
+  if (!container) return;
+  const list = loadSavedFromStorage();
+  if (list.length === 0) {
+    container.hidden = true;
+    container.innerHTML = '';
+    return;
+  }
+  container.hidden = false;
+  container.innerHTML = `
+    <h3>Saved Timelines <span class="saved-count">${list.length}</span></h3>
+    <div class="saved-list">
+      ${list.map(e => `
+        <div class="saved-entry" data-id="${e.id}">
+          <div class="saved-text">
+            <strong>${e.codename}</strong>
+            <span class="saved-vibe">${e.vibe || ''}</span>
+          </div>
+          <div class="saved-actions">
+            <button class="btn btn-tiny" data-action="load" data-id="${e.id}">Load</button>
+            <button class="btn btn-tiny btn-danger" data-action="delete" data-id="${e.id}" aria-label="Delete">×</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+  container.querySelectorAll('[data-action="load"]').forEach(b => {
+    b.addEventListener('click', () => loadTimeline(b.dataset.id));
+  });
+  container.querySelectorAll('[data-action="delete"]').forEach(b => {
+    b.addEventListener('click', () => deleteTimeline(b.dataset.id));
+  });
+}
+
+function setupChaosToggle() {
+  const btn = $('#chaos-btn');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    state.chaos = !state.chaos;
+    btn.setAttribute('aria-pressed', state.chaos ? 'true' : 'false');
+    btn.classList.toggle('is-active', state.chaos);
+    // If a baby already exists, re-derive the slider ranges + surprise so the
+    // chaos effect is felt immediately (clamping any current baby values into
+    // the new range).
+    if (state.codename) {
+      state.ranges = generateSliderRanges(state.parents);
+      state.surprise = computeSurprise(state.parents);
+      const prev = { ...state.baby };
+      renderSliders(state.ranges);
+      SLIDER_DEFS.forEach(def => {
+        const r = state.ranges[def.key];
+        if (typeof prev[def.key] === 'number') {
+          const v = clamp(prev[def.key], r.min, r.max);
+          state.baby[def.key] = v;
+          const slider = $('#s_' + def.key);
+          if (slider) slider.value = v;
+        }
+      });
+      renderSurprise(state.surprise);
+      updateBabyPreview();
+    }
+  });
+}
+
 function init() {
   buildParentForms();
   setupPillToggle('.style-btn', 'style');
   setupPillToggle('.gender-btn', 'gender');
+  setupChaosToggle();
+  $('#randomize-parents-btn').addEventListener('click', randomizeParents);
   $('#generate-btn').addEventListener('click', generate);
   $('#randomize-btn').addEventListener('click', randomizeBaby);
   $('#reset-btn').addEventListener('click', resetBaby);
   $('#copy-btn').addEventListener('click', copyProfile);
+  $('#save-btn').addEventListener('click', saveCurrentTimeline);
+  $('#alternates-btn').addEventListener('click', generateAlternateTimelines);
+  renderSavedList();
 }
 
 document.addEventListener('DOMContentLoaded', init);
