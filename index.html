@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="mode-adult app-adult">
   <!-- Landing overlay (full-viewport, fades out on Enter) -->
   <section class="landing" id="landing" aria-labelledby="landing-title">
     <div class="landing-inner">
@@ -84,9 +84,9 @@
     <p class="tagline">A fictional genetics-inspired simulator</p>
     <p class="disclaimer">Not real medical or genetic advice — just a playful what-if.</p>
     <div class="app-mode-toggle" role="tablist" aria-label="App experience">
-      <button type="button" class="app-mode-btn is-active" data-app-mode="reflection" role="tab" aria-selected="true">🪞 Reflection</button>
+      <button type="button" class="app-mode-btn"           data-app-mode="reflection" role="tab" aria-selected="false">🪞 Reflection</button>
       <button type="button" class="app-mode-btn"           data-app-mode="kids"       role="tab" aria-selected="false">✺ Kids</button>
-      <button type="button" class="app-mode-btn"           data-app-mode="adult"      role="tab" aria-selected="false">◐ Adult</button>
+      <button type="button" class="app-mode-btn is-active" data-app-mode="adult"      role="tab" aria-selected="true">◐ Adult</button>
     </div>
   </header>
 
@@ -201,6 +201,10 @@
           <span class="playful-text">Baby Preview</span>
           <span class="adult-text">Behavioral Projection <span class="beta-tag">Beta</span></span>
         </h2>
+
+        <aside class="profile-epigraph" id="profile-epigraph" hidden></aside>
+        <aside class="case-file" id="case-file" hidden></aside>
+
         <div class="codename" id="codename">Tiny Prototype A-01</div>
         <div class="vibe-title" id="vibe-title"></div>
 

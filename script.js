@@ -292,6 +292,22 @@ const CANNOT_MEASURE = [
   'what they\'ll regret, and what they won\'t'
 ];
 
+// Reflection-mode epigraphs — short, literary openings rendered above
+// the codename so each generated profile reads like the first line of
+// a chapter rather than a product card.
+const REFLECTION_EPIGRAPHS = [
+  'A possible life, imagined from these two.',
+  'One of many people who could have started here.',
+  'A profile of someone who might have been.',
+  'A person sketched in the language of probabilities.',
+  'A life that exists only in this small simulation, and only for now.',
+  'A person held briefly in mind, then released.',
+  'A possible child, glimpsed sideways.',
+  'A face the world has not yet seen.',
+  'A version of a person who, in some other corner of the world, may already be.',
+  'A single line drawn through a cloud of possibilities.'
+];
+
 const HUMANITY_REMINDERS = [
   'Humans are more than predicted traits.',
   'A person cannot be fully reduced to data.',
@@ -1156,7 +1172,7 @@ const state = {
   surprise: 0,
   style: 'lorelei',    // 'lorelei' | 'bigSmile'
   gender: 'surprise',  // 'female' | 'male' | 'surprise'
-  appMode: 'reflection', // 'reflection' | 'kids' | 'adult' — the single mode dimension
+  appMode: 'adult', // 'reflection' | 'kids' | 'adult' — the single mode dimension
   chaos: false,        // amplifies slider ranges + surprise
   generateCount: 0,    // how many times Generate has been clicked
   alternates: [],      // generated alternate-baby cards
@@ -1867,8 +1883,68 @@ function updateBabyPreview() {
   // Recompute the cool/warm UI evolution based on slider drift.
   updateOptIntensity();
 
+  // Reflection epigraph + Adult case-file header sit above the codename.
+  renderProfileEpigraph();
+  renderCaseFile();
+
   // avatar
   updateAvatar(b);
+}
+
+/* ---------- Reflection: profile epigraph ----------
+ * One literary opening line above the codename, seeded by codename so
+ * it's stable per baby. Reflection mode only. */
+function renderProfileEpigraph() {
+  const host = $('#profile-epigraph');
+  if (!host) return;
+  if (state.appMode !== 'reflection' || !state.codename) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  const rng = seededRand(state.codename + '|epigraph');
+  const line = REFLECTION_EPIGRAPHS[Math.floor(rng() * REFLECTION_EPIGRAPHS.length)];
+  host.hidden = false;
+  host.innerHTML = `<p class="epigraph-text">${line}</p>`;
+}
+
+/* ---------- Adult: clinical case-file header ----------
+ * Five-row monospace metadata strip rendered above the codename in
+ * Adult mode. Reads as a dossier opener: subject ID, cohort, profile
+ * version, generation timestamp, classification tier. The
+ * classification tier shifts with optimization intensity, so the
+ * header gets quietly more severe as the user pushes harder. */
+function renderCaseFile() {
+  const host = $('#case-file');
+  if (!host) return;
+  if (state.appMode !== 'adult' || !state.codename) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  const ts = new Date();
+  const tsStr =
+    ts.getUTCFullYear() + '-' +
+    String(ts.getUTCMonth() + 1).padStart(2, '0') + '-' +
+    String(ts.getUTCDate()).padStart(2, '0') + ' · ' +
+    String(ts.getUTCHours()).padStart(2, '0') + ':' +
+    String(ts.getUTCMinutes()).padStart(2, '0') + 'Z';
+  const intensity = state.optIntensity || 0;
+  let tier = 'Tier I · Baseline';
+  if (intensity > 0.30) tier = 'Tier II · Moderate optimization';
+  if (intensity > 0.60) tier = 'Tier III · Aggressive optimization';
+  if (intensity > 0.85) tier = 'Tier IV · Boundary case — review required';
+  const profileV = (state.generateCount || 0) + '.' + Math.floor((state.surprise || 0) / 10);
+  const disclosure = intensity > 0.45 ? 'required' : 'not required';
+  host.hidden = false;
+  host.innerHTML = `
+    <div class="case-row"><span class="case-label">Subject ID</span><span class="case-value">${state.codename}</span></div>
+    <div class="case-row"><span class="case-label">Cohort</span><span class="case-value">ENH-2042 / Class II</span></div>
+    <div class="case-row"><span class="case-label">Profile</span><span class="case-value">v${profileV}</span></div>
+    <div class="case-row"><span class="case-label">Generated</span><span class="case-value">${tsStr}</span></div>
+    <div class="case-row"><span class="case-label">Classification</span><span class="case-value case-tier">${tier}</span></div>
+    <div class="case-row"><span class="case-label">Disclosure</span><span class="case-value">${disclosure}</span></div>
+  `;
 }
 
 function renderPausePanel() {

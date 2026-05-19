@@ -102,10 +102,11 @@ main,
   margin: 0;
   font-size: clamp(28px, 4vw, 42px);
   letter-spacing: 0.5px;
+  color: var(--ink); /* fallback when background-clip:text isn't supported */
   background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
   text-shadow: 0 0 30px rgba(126, 224, 255, 0.15);
 }
 .site-header .logo-mark {
@@ -2879,10 +2880,14 @@ body.has-entered .landing {
   margin: 6px 0 0;
   font-size: clamp(36px, 7vw, 56px);
   letter-spacing: 0.6px;
+  /* Visible fallback in case background-clip:text or color-mix aren't
+     supported. -webkit-text-fill-color only takes effect when the gradient
+     clip works; otherwise the ink-colored fallback shows through. */
+  color: var(--ink);
   background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
   text-shadow: 0 0 40px rgba(126, 224, 255, 0.15);
 }
 
@@ -2952,8 +2957,8 @@ body.has-entered .landing {
 
 .landing-disclaimer {
   margin: 22px 0 0;
-  color: var(--ink-mute);
-  font-size: 11.5px;
+  color: var(--ink-soft);
+  font-size: 12px;
   font-style: italic;
   letter-spacing: 0.3px;
 }
