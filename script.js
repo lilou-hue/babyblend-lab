@@ -562,6 +562,95 @@ const KIDS_TRACES = [
   'Practises one tiny skill on their own — origami, juggling, drawing eyes.'
 ];
 
+// Kid-friendly hobbies, tagged by personality dimension so the
+// constellation reads the baby's traits. Used in Kids mode only.
+const KIDS_HOBBIES = [
+  { name: 'Reading',         tag: 'O' },
+  { name: 'Drawing',         tag: 'O' },
+  { name: 'Inventing games', tag: 'O' },
+  { name: 'Astronomy',       tag: 'O' },
+  { name: 'Building things', tag: 'O' },
+  { name: 'Writing stories', tag: 'O' },
+  { name: 'Puzzles',         tag: 'C' },
+  { name: 'Chess',           tag: 'C' },
+  { name: 'Origami',         tag: 'C' },
+  { name: 'Gardening',       tag: 'C' },
+  { name: 'Lego',            tag: 'C' },
+  { name: 'Theatre',         tag: 'E' },
+  { name: 'Choir',           tag: 'E' },
+  { name: 'Performing',      tag: 'E' },
+  { name: 'Hosting friends', tag: 'E' },
+  { name: 'Storytelling',    tag: 'E' },
+  { name: 'Caring for pets', tag: 'A' },
+  { name: 'Helping neighbours', tag: 'A' },
+  { name: 'Birthday-card making', tag: 'A' },
+  { name: 'Babysitting little cousins', tag: 'A' },
+  { name: 'Nature walks',    tag: 'A' },
+  { name: 'Stargazing',      tag: 'N' },
+  { name: 'Diary writing',   tag: 'N' },
+  { name: 'Quiet music',     tag: 'N' },
+  { name: 'Daydreaming',     tag: 'N' },
+  { name: 'Soccer',          tag: 'athletic' },
+  { name: 'Dancing',         tag: 'athletic' },
+  { name: 'Climbing trees',  tag: 'athletic' },
+  { name: 'Cycling',         tag: 'athletic' },
+  { name: 'Swimming',        tag: 'athletic' },
+  { name: 'Skateboarding',   tag: 'athletic' }
+];
+
+// Reflection mode: memory-snapshot pools per life stage.
+const CHILDHOOD_MEMORIES = [
+  'The smell of their grandmother\'s kitchen.',
+  'A scraped knee that became a story.',
+  'A blanket fort that lasted three days.',
+  'A song their parent hummed without thinking.',
+  'A stuffed animal whose name they\'ll keep their whole life.',
+  'A puddle they jumped in, told off for, and remembered fondly.',
+  'A cousin who taught them a card game.',
+  'A library card kept in a small pocket.',
+  'A drawing they\'re proud of, taped to the fridge for a year.',
+  'A teacher who waited a beat longer than the others.',
+  'A bedtime story they made the adult read fifty times.',
+  'A particular kind of weather they\'ll always associate with feeling safe.',
+  'A bird outside the window they thought of as theirs.',
+  'A favourite chair in the house, claimed.',
+  'A friend whose face they will recall, but not their name.'
+];
+const ADOLESCENCE_MEMORIES = [
+  'A note passed in class that changed something.',
+  'A song played on repeat for an entire summer.',
+  'A teacher who said one thing they would carry forever.',
+  'A friendship that mattered more than they let on.',
+  'The first time they kept a secret well.',
+  'A photograph they would later regret deleting.',
+  'A small embarrassment they kept private for twenty years.',
+  'A night that ended later than it should have.',
+  'The first time they realised an adult was wrong.',
+  'A book read alone in a car.',
+  'The week they decided who they would be.',
+  'A walk home they still take in their head.',
+  'A grown-up who treated them like a grown-up first.',
+  'A grief they didn\'t have the words for yet.',
+  'A bedroom wall covered in things that no longer fit.'
+];
+const ADULTHOOD_MEMORIES = [
+  'A phone call they made even though it was late.',
+  'The Sunday they learned to bake bread.',
+  'A loss they thought they would not survive — they did.',
+  'A small apartment that, in memory, will be the happiest one.',
+  'A friendship they let lapse without meaning to.',
+  'A walk through their old neighbourhood years later.',
+  'A child whose hand fit perfectly in theirs.',
+  'A parent\'s handwriting on an envelope, read again.',
+  'A meeting at work that turned into something else.',
+  'A garden, kept badly, loved deeply.',
+  'A move to a city they once swore against.',
+  'A reconciliation they did not initiate.',
+  'A morning they understood their own parent for the first time.',
+  'A song they sang to themselves through a hard year.',
+  'A choice they made quietly that changed everything afterward.'
+];
+
 const CLINICAL_REMINDERS = [
   'Behavioral outcomes remain difficult to model reliably.',
   'Strong environmental influence expected.',
@@ -648,6 +737,67 @@ const PRIORITIES = [
   { key: 'empathy',      label: 'Empathy',              cost: 5, tier: 'Standard',     bias: { agreeableness: 0.6 },                         tradeoff: 'Empathic load may exceed individual capacity.' }
 ];
 const BUDGET_TOTAL = 200;
+
+// Regulatory Context rules — each fires when its predicate matches the
+// current budget state. Surfaced in Adult mode as small clinical notes
+// inside the Enhancement Allocation panel. Phrased in the register of
+// a near-future regulatory disclosure UI.
+const REGULATORY_NOTE_RULES = [
+  {
+    id: 'GE-3-cognition',
+    when: b => (b.cognition || 0) >= 5,
+    severity: 'amber',
+    text: 'GE-3 Compliance: cognitive enhancement exceeds intra-cohort variance threshold. Annual disclosure to school admissions bodies required in 14 jurisdictions.'
+  },
+  {
+    id: 'GE-3-cognition-high',
+    when: b => (b.cognition || 0) >= 9,
+    severity: 'red',
+    text: 'Class II modification flagged. Enrollment in the multi-decade outcome registry is mandatory.'
+  },
+  {
+    id: 'EM-stability',
+    when: b => (b.emotional || 0) >= 6,
+    severity: 'amber',
+    text: 'Emotional Stability allocation triggers Class III monitoring. Quarterly affective-band reporting required for the first 12 years.'
+  },
+  {
+    id: 'RES-resilience-elevated',
+    when: b => (b.resilience || 0) >= 7,
+    severity: 'amber',
+    text: 'Resilience profile above population norm. Insurer notification required at enrolment; some carriers exclude this profile from depression-care coverage.'
+  },
+  {
+    id: 'APP-appearance',
+    when: b => (b.appearance || 0) >= 6,
+    severity: 'amber',
+    text: 'Appearance-package allocation in upper quartile. Cosmetic-modification disclosure required on identity documents in 7 jurisdictions.'
+  },
+  {
+    id: 'ATH-athleticism',
+    when: b => (b.athleticism || 0) >= 7,
+    severity: 'amber',
+    text: 'Athletic-enhancement profile would be ineligible for sanctioned youth competition in the IOC Aligned Federation framework.'
+  },
+  {
+    id: 'multi-category',
+    when: b => Object.values(b).filter(v => v >= 4).length >= 3,
+    severity: 'red',
+    text: 'Multi-category enhancement profile detected. Subject will be auto-enrolled in the federal long-horizon cohort study (LH-2042). Opt-out window: 30 days.'
+  },
+  {
+    id: 'total-spend-high',
+    when: (b, total) => total >= BUDGET_TOTAL * 0.7,
+    severity: 'red',
+    text: 'Aggregate allocation exceeds 70% of platform budget. Identity-document watermark required in the Premium-Tier Disclosure Schedule.'
+  },
+  {
+    id: 'empathy-low',
+    when: b => (b.empathy || 0) >= 6 && (b.cognition || 0) >= 6,
+    severity: 'amber',
+    text: 'High empathy + high cognition allocation: documented elevated burnout risk in adolescent and early-adult cohorts. Carer mental-health monitoring advised.'
+  }
+];
 
 /* ---------- History of Human Enhancement (educational cards) ---------- */
 
@@ -1703,6 +1853,13 @@ function updateBabyPreview() {
   // Future branching tree (all modes, mode-aware styling).
   renderFutureTree();
 
+  // Mode-specific deepenings:
+  // - Kids: hobby constellation
+  // - Reflection: memory snapshot cards (At 7 / 17 / 47)
+  // - Adult: regulatory-context notes (handled in updateBudgetBar)
+  renderHobbyConstellation(b);
+  renderMemoryCards();
+
   // Recompute the cool/warm UI evolution based on slider drift.
   updateOptIntensity();
 
@@ -1760,6 +1917,104 @@ function renderKidsDerivedStats(b) {
   const { creativity, teamwork } = computeKidsDerived(b);
   cEl.textContent = `${starString(creativity)}  (${creativity}/10)`;
   tEl.textContent = `${starString(teamwork)}  (${teamwork}/10)`;
+}
+
+/* ---------- Kids: Hobby Constellation ----------
+ * Six hobbies sampled from KIDS_HOBBIES, weighted by the baby's top
+ * personality dimensions. Arranged as a ring of nodes around a small
+ * central "child" point. Same SVG idiom as the Trait Constellation. */
+function pickHobbiesForBaby(b, codename, count = 6) {
+  const tagFor = {
+    openness: 'O', conscientiousness: 'C', extraversion: 'E',
+    agreeableness: 'A', neuroticism: 'N', athletic: 'athletic'
+  };
+  const weights = Object.fromEntries(Object.keys(tagFor).map(k => [tagFor[k], (b[k] || 5) / 10]));
+  const rng = seededRand(codename + '|hobbies');
+  const scored = KIDS_HOBBIES.map(h => ({
+    h,
+    w: rng() * 0.5 + (weights[h.tag] || 0.4)
+  })).sort((a, b) => b.w - a.w);
+  return scored.slice(0, count).map(s => s.h);
+}
+
+function renderHobbyConstellation(b) {
+  const host = $('#hobby-constellation');
+  if (!host) return;
+  if (!isKids() || !state.codename) { host.innerHTML = ''; return; }
+
+  const hobbies = pickHobbiesForBaby(b, state.codename, 6);
+  const W = 280, H = 220;
+  const cx = W / 2, cy = H / 2;
+  const ringR = 78;
+  const n = hobbies.length;
+
+  let lines = '';
+  let nodes = '';
+  hobbies.forEach((h, i) => {
+    const theta = (i / n) * Math.PI * 2 - Math.PI / 2;
+    const x = cx + ringR * Math.cos(theta);
+    const y = cy + ringR * Math.sin(theta);
+    // Line from center to each node.
+    lines += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" class="hobby-link" />`;
+    // Label sits a touch outward.
+    const labelR = ringR + 22;
+    const lx = cx + labelR * Math.cos(theta);
+    const ly = cy + labelR * Math.sin(theta);
+    nodes += `<g class="hobby-node">
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" />
+      <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${h.name}</text>
+    </g>`;
+  });
+  // Central child marker.
+  const center = `<circle cx="${cx}" cy="${cy}" r="9" class="hobby-center" />`;
+
+  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="hobby-constellation-svg" role="img" aria-label="Predicted hobbies">
+    <g class="hobby-links">${lines}</g>
+    ${center}
+    <g class="hobby-nodes">${nodes}</g>
+  </svg>`;
+}
+
+/* ---------- Reflection: Memory Snapshot cards ----------
+ * Three small horizontal cards showing one memory each from
+ * childhood / adolescence / adulthood. Seeded by codename so each
+ * baby has stable memories. Reflection mode only. */
+function pickStableFrom(pool, seed) {
+  if (!pool || !pool.length) return '';
+  const rng = seededRand(seed);
+  return pool[Math.floor(rng() * pool.length)];
+}
+
+function renderMemoryCards() {
+  const host = $('#memory-cards');
+  if (!host) return;
+  if (state.appMode !== 'reflection' || !state.codename) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  const c = state.codename;
+  const m7  = pickStableFrom(CHILDHOOD_MEMORIES,  c + '|m7');
+  const m17 = pickStableFrom(ADOLESCENCE_MEMORIES, c + '|m17');
+  const m47 = pickStableFrom(ADULTHOOD_MEMORIES,   c + '|m47');
+
+  host.hidden = false;
+  host.innerHTML = `
+    <h3 class="memory-heading">Memory snapshots</h3>
+    <div class="memory-strip">
+      <article class="memory-card" data-stage="7">
+        <span class="memory-age">At 7</span>
+        <p class="memory-text">${m7}</p>
+      </article>
+      <article class="memory-card" data-stage="17">
+        <span class="memory-age">At 17</span>
+        <p class="memory-text">${m17}</p>
+      </article>
+      <article class="memory-card" data-stage="47">
+        <span class="memory-age">At 47</span>
+        <p class="memory-text">${m47}</p>
+      </article>
+    </div>`;
 }
 
 /* ---------- Behavioral Trace Notes ----------
@@ -2694,6 +2949,17 @@ function renderSavedList() {
   });
 }
 
+function setupDetailsToggle() {
+  const btn = $('#details-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    document.body.classList.toggle('show-details', !expanded);
+    btn.textContent = expanded ? 'Show more' : 'Show less';
+  });
+}
+
 function setupChaosToggle() {
   const btn = $('#chaos-btn');
   if (!btn) return;
@@ -2832,6 +3098,48 @@ function updateBudgetProjections(usedOverride) {
     if (pressure > 0.75) note = 'High visibility, elevated identity load';
     pressureNote.textContent = note;
   }
+
+  renderRegulatoryNotes();
+}
+
+/* ---------- Adult: Regulatory Context notes ----------
+ * Clinical disclosure-language notes that surface when the user's
+ * enhancement allocation crosses thresholds. Drives the "this is
+ * unsettling" beat by treating optimization like a real consumer
+ * product with paperwork. */
+function renderRegulatoryNotes() {
+  const host = $('#regulatory-notes');
+  if (!host) return;
+  if (state.appMode !== 'adult') {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  const b = state.budget || {};
+  const total = Object.entries(b).reduce((s, [k, v]) => {
+    const pr = PRIORITIES.find(p => p.key === k);
+    return s + (pr ? pr.cost * v : 0);
+  }, 0);
+  const matched = REGULATORY_NOTE_RULES.filter(rule => {
+    try { return rule.when(b, total); } catch { return false; }
+  });
+  if (!matched.length) {
+    host.hidden = false;
+    host.innerHTML = `
+      <h3 class="reg-heading">Regulatory Context</h3>
+      <p class="reg-empty">No allocation thresholds crossed. Current profile does not trigger disclosure requirements.</p>`;
+    return;
+  }
+  host.hidden = false;
+  host.innerHTML = `
+    <h3 class="reg-heading">Regulatory Context <span class="reg-count">${matched.length}</span></h3>
+    <ul class="reg-list">
+      ${matched.map(m => `
+        <li class="reg-note reg-${m.severity}">
+          <span class="reg-dot" aria-hidden="true"></span>
+          <span class="reg-text">${m.text}</span>
+        </li>`).join('')}
+    </ul>`;
 }
 
 /* ---------- Dynamic UI evolution ----------
@@ -2988,6 +3296,7 @@ function init() {
   setupPillToggle('.style-btn', 'style');
   setupPillToggle('.gender-btn', 'gender');
   setupChaosToggle();
+  setupDetailsToggle();
   $('#randomize-parents-btn').addEventListener('click', randomizeParents);
   $('#natural-variation-btn').addEventListener('click', preserveNaturalVariation);
   $('#generate-btn').addEventListener('click', generate);
