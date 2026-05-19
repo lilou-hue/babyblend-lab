@@ -255,7 +255,51 @@ const REFLECTION_PROMPTS = [
   'What can\'t these sliders measure?',
   'Does choosing imply rejecting?',
   'Would the same baby in a different country be seen the same way?',
-  'Is "average" a thing to design away from — or back toward?'
+  'Is "average" a thing to design away from — or back toward?',
+  'If this child later asked, "why did you make me this way?" — what would you say?',
+  'Whose ideas of a "good life" are you smuggling in with each slider?',
+  'Would you be okay being someone else\'s design?',
+  'What kind of imperfection are you quietly editing out?',
+  'Who gets to opt out — and who doesn\'t?',
+  'Are you choosing for the child, or for the parent you want to be?',
+  'Which traits are you assuming will stay good across their whole life?',
+  'Whose grandparents shaped what you call "normal" today?'
+];
+
+// Short interpretive observations about this specific baby. Shown in
+// Reflection mode alongside the prompt so the ethics aren't a single
+// tucked-away question.
+const REFLECTION_OBSERVATIONS = [
+  'This person will be both more and less than these numbers suggest.',
+  'Whoever this child becomes, they will not have been consulted on these settings.',
+  'These sliders measured what was easy to measure. The rest is most of the person.',
+  'Two children with identical numbers can live very different lives.',
+  'Half of what shapes them isn\'t on any of these sliders, and never will be.',
+  'A trait that reads as a strength at age 8 may read as a wound at 28.',
+  'Optimization assumes a destination. There isn\'t one.',
+  'The most interesting version of this child is probably the one you didn\'t plan for.',
+  'Every "ideal" you encoded here was, somewhere, an ordinary preference.',
+  'This child will love things you would never have chosen for them.'
+];
+
+// "Things this simulator cannot see." Concrete reminders of human texture
+// the engine can't capture. Surface as a short list in the Pause panel.
+const CANNOT_MEASURE = [
+  'their specific laugh',
+  'who they will love, and how',
+  'what they will fear at 3am',
+  'the moment they decide who they are',
+  'their relationship with their own body',
+  'what makes them feel held',
+  'the friendship that changes everything',
+  'the loss that re-shapes them',
+  'the day they discover something they\'re great at',
+  'how they will mother, or father, or refuse to',
+  'their politics, their faith, their doubts',
+  'the smell that will mean home to them',
+  'the songs they will sing alone in a car',
+  'how they will treat someone with less power than them',
+  'what they\'ll regret, and what they won\'t'
 ];
 
 const HUMANITY_REMINDERS = [
@@ -1499,10 +1543,11 @@ function updateBabyPreview() {
     }
   }
 
-  // Reflection prompt (Reflection sub-mode OR Kids mode show a gentle question)
+  // Small italic reflection prompt — used only in Kids mode now (gentle).
+  // Reflection mode gets the richer Pause panel instead.
   const reflEl = $('#reflection-prompt');
   if (reflEl) {
-    if ((state.appMode === 'reflection' || isKids()) && state.codename) {
+    if (isKids() && state.codename) {
       reflEl.hidden = false;
       reflEl.innerHTML = `<span class="reflection-mark">?</span> ${state.reflection || pickReflectionPrompt(state.codename)}`;
     } else {
@@ -1510,8 +1555,30 @@ function updateBabyPreview() {
     }
   }
 
+  // Pause panel (Reflection mode only): observations + cannot-see + a prompt.
+  renderPausePanel();
+
   // avatar
   updateAvatar(b);
+}
+
+function renderPausePanel() {
+  const panel = $('#pause-panel');
+  if (!panel) return;
+  if (state.appMode !== 'reflection' || !state.codename) {
+    panel.hidden = true;
+    return;
+  }
+  panel.hidden = false;
+
+  const rng = seededRand(state.codename + '|pause');
+  const obs = pickN(REFLECTION_OBSERVATIONS, 2, rng);
+  const cant = pickN(CANNOT_MEASURE, 4, rng);
+  const question = state.reflection || pickReflectionPrompt(state.codename);
+
+  $('#pause-observations').innerHTML = obs.map(o => `<li>${o}</li>`).join('');
+  $('#pause-cant-see').innerHTML     = cant.map(c => `<li>${c}</li>`).join('');
+  $('#pause-question').innerHTML     = `<span class="pause-q-mark">?</span> ${question}`;
 }
 
 /* ---------- Kids-mode derived stats (creativity, teamwork) ---------- */

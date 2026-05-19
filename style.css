@@ -944,9 +944,156 @@ body.app-kids .app-mode-btn.is-active {
 /* Hide the Playful/Reflection sub-toggle in Kids mode */
 body.app-kids .sub-mode { display: none !important; }
 
-/* Subtle visual shift while in Reflection mode */
+/* ---------- Reflection-mode theme ----------
+   A muted twilight: deeper indigo/violet, lower saturation, slower
+   movement. Distinct from the default playful palette AND from the
+   clinical Adult look. The page should feel like it's asking you to
+   slow down. */
+body.mode-reflection {
+  --bg-0: #07071a;
+  --bg-1: #0e0c25;
+  --bg-2: #181333;
+  --panel: rgba(28, 22, 56, 0.62);
+  --panel-border: rgba(180, 160, 220, 0.22);
+  --panel-glow: rgba(180, 160, 220, 0.25);
+  --ink: #e6e0f2;
+  --ink-soft: #b6acd0;
+  --ink-mute: #847aa3;
+  --accent: #b8a8e8;
+  --accent-2: #d6b8e4;
+  --accent-3: #e9bfd4;
+  --accent-warm: #f0caa6;
+}
+body.mode-reflection {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(184, 168, 232, 0.18), transparent 60%),
+    radial-gradient(900px 700px at -10% 30%, rgba(214, 184, 228, 0.16), transparent 60%),
+    radial-gradient(700px 500px at 90% 90%, rgba(233, 191, 212, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%, var(--bg-2));
+}
+
+/* Quieter motion */
 body.mode-reflection .tagline { opacity: 0.85; }
-body.mode-reflection .gene-bubbles span { opacity: 0.35; }
+body.mode-reflection .gene-bubbles span {
+  opacity: 0.28;
+  animation-duration: calc(var(--s) * 1.6);
+  filter: saturate(0.65);
+}
+body.mode-reflection .dna-decor { opacity: 0.18; filter: saturate(0.6); }
+body.mode-reflection .avatar-glow { opacity: 0.55; }
+
+/* Make the gentle-reminder ethics footer actually feel weighted */
+body.mode-reflection .ethics {
+  background: rgba(28, 22, 56, 0.55);
+  border-left-width: 4px;
+  border-left-color: rgba(214, 184, 228, 0.7);
+  padding: 18px 20px;
+  font-size: 14px;
+  line-height: 1.65;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+body.mode-reflection .ethics h3 {
+  font-size: 13px;
+  color: var(--accent-2);
+  margin-bottom: 8px;
+}
+
+/* The small italic reflection-prompt block stays hidden in Reflection mode
+   (the Pause panel below now carries the question with more weight). */
+body.mode-reflection #reflection-prompt { display: none !important; }
+
+/* ---------- Pause panel (Reflection mode) ---------- */
+.pause-panel {
+  width: 100%;
+  margin-top: 14px;
+  padding: 16px 18px;
+  background: rgba(28, 22, 56, 0.55);
+  border: 1px solid rgba(180, 160, 220, 0.32);
+  border-left: 3px solid rgba(214, 184, 228, 0.75);
+  border-radius: 14px;
+  text-align: left;
+  color: var(--ink-soft);
+}
+.pause-panel[hidden] { display: none; }
+.pause-panel h3 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  font-weight: 600;
+}
+.pause-panel h4 {
+  margin: 14px 0 6px;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+  font-weight: 600;
+  opacity: 0.85;
+}
+.pause-observations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pause-observations li {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+  font-style: italic;
+  padding-left: 14px;
+  border-left: 2px solid rgba(214, 184, 228, 0.4);
+}
+.pause-cant-see {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+.pause-cant-see li {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  padding: 3px 10px;
+  background: rgba(180, 160, 220, 0.08);
+  border: 1px solid rgba(180, 160, 220, 0.2);
+  border-radius: 999px;
+}
+.pause-question {
+  margin-top: 14px;
+  padding: 12px 14px 12px 38px;
+  background: rgba(7, 7, 26, 0.45);
+  border-radius: 10px;
+  position: relative;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.pause-q-mark {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(214, 184, 228, 0.3);
+  color: var(--accent-2);
+  text-align: center;
+  line-height: 20px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Don't let Kids mode override the pause panel (it's hidden anyway,
+   but keep the rules orthogonal). */
+body.app-kids .pause-panel { display: none !important; }
 
 /* ---------- Kids-mode theme overrides ---------- */
 /* Warm, softly-lit palette. Same structural code, different emotional weather. */
