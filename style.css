@@ -568,6 +568,105 @@ body.mode-adult .slider-row .confidence-band-svg .current-marker {
   filter: drop-shadow(0 8px 16px rgba(0,0,0,0.35));
 }
 
+/* ---------- Life-stage avatar strip ----------
+   Three small avatars (At 7 / At 17 / At 47) below the main one.
+   Same trait state, per-age seed suffix so DiceBear varies the hair
+   while keeping identity recognizable. Mode-aware framing. */
+.life-stage-section {
+  width: 100%;
+  margin: 4px 0 10px;
+  text-align: center;
+}
+.life-stage-section[hidden] { display: none; }
+.life-stage-heading {
+  margin: 0 0 8px;
+  font-size: 10.5px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 600;
+}
+.life-stage-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+.life-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+.life-stage-avatar {
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(7, 9, 30, 0.45);
+  border: 1px solid rgba(126, 224, 255, 0.18);
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.18s ease;
+}
+.life-stage-avatar svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
+}
+.life-stage-label {
+  font-size: 10.5px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.life-stage[data-age="47"] .life-stage-avatar svg { filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3)) saturate(0.85); }
+.life-stage[data-age="7"]  .life-stage-avatar svg { filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3)) brightness(1.04); }
+
+/* Reflection: violet glow on the avatar frames, italic age labels. */
+body.mode-reflection .life-stage-heading { color: var(--accent-2); }
+body.mode-reflection .life-stage-avatar {
+  background: rgba(28, 22, 56, 0.55);
+  border-color: rgba(180, 160, 220, 0.32);
+  box-shadow: 0 0 14px rgba(180, 160, 220, 0.18);
+}
+body.mode-reflection .life-stage-label { color: var(--accent-3); font-style: italic; letter-spacing: 1.6px; }
+
+/* Kids: warmer frame, bouncier hover. */
+body.app-kids .life-stage-heading { color: var(--accent); }
+body.app-kids .life-stage-avatar {
+  background: rgba(255, 250, 246, 0.65);
+  border-color: rgba(220, 140, 170, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 0 12px rgba(255, 141, 163, 0.18);
+}
+body.app-kids .life-stage-label { color: var(--accent); }
+body.app-kids .life-stage:hover .life-stage-avatar {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(255, 141, 163, 0.3);
+}
+
+/* Adult: precise dossier framing, monospace labels. */
+body.mode-adult .life-stage-heading { color: var(--accent); letter-spacing: 1.8px; }
+body.mode-adult .life-stage-avatar {
+  background: rgba(7, 9, 30, 0.6);
+  border-color: rgba(126, 224, 255, 0.28);
+  border-radius: 6px;
+  box-shadow: none;
+}
+body.mode-adult .life-stage-avatar svg { filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45)) saturate(0.92); }
+body.mode-adult .life-stage-label {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  color: var(--ink-soft);
+  letter-spacing: 1.2px;
+}
+body.mode-adult .life-stage[data-age="47"] .life-stage-avatar svg { filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45)) saturate(0.7); }
+
 /* Segmented controls (style + gender) */
 .style-toggle,
 .gender-toggle {

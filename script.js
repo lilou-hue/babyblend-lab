@@ -1860,6 +1860,10 @@ function updateBabyPreview() {
   renderHobbyConstellation(b);
   renderMemoryCards();
 
+  // Life-stage avatar strip — three small avatars (At 7 / 17 / 47)
+  // alongside the main one so the person reads across time.
+  renderLifeStageStrip(b);
+
   // Recompute the cool/warm UI evolution based on slider drift.
   updateOptIntensity();
 
@@ -2015,6 +2019,44 @@ function renderMemoryCards() {
         <p class="memory-text">${m47}</p>
       </article>
     </div>`;
+}
+
+/* ---------- Life-stage avatar strip ----------
+ * Three small avatars rendered alongside the main one: At 7 / At 17 /
+ * At 47. Each uses the same trait state (so identity stays consistent)
+ * but a per-age seed suffix so DiceBear picks different hair variants
+ * within the seeded buckets — the illusion of aging.
+ */
+const LIFE_STAGES = [
+  { age: 7,  label: 'At 7'  },
+  { age: 17, label: 'At 17' },
+  { age: 47, label: 'At 47' }
+];
+
+function renderLifeStageStrip(b) {
+  const section = $('#life-stage-section');
+  const strip   = $('#life-stage-strip');
+  const heading = $('#life-stage-heading');
+  if (!section || !strip) return;
+  if (!state.codename || !b || typeof b.openness !== 'number') {
+    section.hidden = true;
+    strip.innerHTML = '';
+    return;
+  }
+  section.hidden = false;
+  if (heading) {
+    heading.textContent =
+      state.appMode === 'adult' ? 'Trajectory Snapshots'
+      : state.appMode === 'kids' ? 'Future portraits'
+      : 'Across the years';
+  }
+  strip.innerHTML = LIFE_STAGES.map(s => {
+    const svg = buildAvatarSvg(b, state.style, state.gender, state.codename + '|age' + s.age);
+    return `<figure class="life-stage" data-age="${s.age}">
+      <div class="life-stage-avatar">${svg}</div>
+      <figcaption class="life-stage-label">${s.label}</figcaption>
+    </figure>`;
+  }).join('');
 }
 
 /* ---------- Behavioral Trace Notes ----------
@@ -2949,6 +2991,22 @@ function renderSavedList() {
   });
 }
 
+function setupLanding() {
+  const landing = $('#landing');
+  const begin   = $('#landing-begin');
+  if (!landing || !begin) return;
+  const dismiss = () => {
+    document.body.classList.add('has-entered');
+    setTimeout(() => { landing.style.display = 'none'; }, 700);
+  };
+  begin.addEventListener('click', dismiss);
+  // Press Enter or Space (once) to dismiss without tabbing to the button.
+  window.addEventListener('keydown', e => {
+    if (landing.style.display === 'none') return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismiss(); }
+  }, { once: true });
+}
+
 function setupDetailsToggle() {
   const btn = $('#details-toggle');
   if (!btn) return;
@@ -3297,6 +3355,7 @@ function init() {
   setupPillToggle('.gender-btn', 'gender');
   setupChaosToggle();
   setupDetailsToggle();
+  setupLanding();
   $('#randomize-parents-btn').addEventListener('click', randomizeParents);
   $('#natural-variation-btn').addEventListener('click', preserveNaturalVariation);
   $('#generate-btn').addEventListener('click', generate);

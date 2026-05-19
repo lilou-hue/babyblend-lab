@@ -8,6 +8,29 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Landing overlay (full-viewport, fades out on Enter) -->
+  <section class="landing" id="landing" aria-labelledby="landing-title">
+    <div class="landing-inner">
+      <span class="landing-mark" aria-hidden="true">⌬</span>
+      <h1 class="landing-title" id="landing-title">BabyBlend Lab</h1>
+      <p class="landing-tagline">A fictional genetics-inspired simulator</p>
+      <p class="landing-desc">
+        Build two parents. Adjust their environment.<br />
+        See what a possible child might look like, think, and become.
+      </p>
+
+      <ul class="landing-features" aria-label="What's inside">
+        <li>Polygenic-flavored inheritance</li>
+        <li>Big Five behavioral projection</li>
+        <li>Speculative adult trajectories</li>
+      </ul>
+
+      <button type="button" class="landing-begin" id="landing-begin">Enter the lab</button>
+
+      <p class="landing-disclaimer">Fictional simulation. Not real medical or genetic advice.</p>
+    </div>
+  </section>
+
   <!-- Floating gene bubbles (decorative) -->
   <div class="gene-bubbles" aria-hidden="true">
     <span style="--x:8%;  --d:0s;  --s:14s; --size:18px;"></span>
@@ -192,6 +215,11 @@
           <div class="avatar-glow"></div>
           <div id="avatar-host" class="avatar-host" role="img" aria-label="Generated baby avatar"></div>
         </div>
+
+        <section class="life-stage-section" id="life-stage-section" hidden>
+          <h3 class="life-stage-heading" id="life-stage-heading">Across the years</h3>
+          <div class="life-stage-strip" id="life-stage-strip" aria-hidden="true"></div>
+        </section>
 
         <div class="style-toggle" role="tablist" aria-label="Avatar style">
           <button type="button" class="style-btn is-active" data-style="lorelei"  role="tab" aria-selected="true">Lorelei</button>
