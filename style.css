@@ -535,6 +535,61 @@ body.mode-adult .slider-row .confidence-band-svg .current-marker {
   margin: 2px 0 10px;
   text-shadow: 0 0 10px rgba(126, 224, 255, 0.5);
 }
+
+/* ---------- Profile epigraph (Reflection only) ---------- */
+.profile-epigraph { display: none; }
+.profile-epigraph[hidden] { display: none !important; }
+body.mode-reflection .profile-epigraph:not([hidden]) { display: block; }
+.profile-epigraph .epigraph-text {
+  margin: 4px auto 12px;
+  max-width: 320px;
+  font-family: var(--reflection-serif, Georgia, serif);
+  font-style: italic;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+.profile-epigraph .epigraph-text::before { content: '“'; margin-right: 2px; opacity: 0.6; }
+.profile-epigraph .epigraph-text::after  { content: '”'; margin-left: 2px;  opacity: 0.6; }
+
+/* ---------- Case-file header (Adult only) ---------- */
+.case-file { display: none; }
+.case-file[hidden] { display: none !important; }
+body.mode-adult .case-file:not([hidden]) {
+  display: grid;
+  grid-template-columns: minmax(110px, auto) 1fr;
+  gap: 4px 14px;
+  width: 100%;
+  max-width: 360px;
+  margin: 6px auto 10px;
+  padding: 10px 12px;
+  background: rgba(7, 9, 24, 0.6);
+  border: 1px solid rgba(126, 192, 224, 0.22);
+  border-radius: 4px;
+  text-align: left;
+  font-family: var(--adult-mono, ui-monospace, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.6px;
+  line-height: 1.6;
+}
+.case-file .case-row {
+  display: contents;
+}
+.case-file .case-label {
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 9.5px;
+}
+.case-file .case-value {
+  color: var(--ink);
+}
+.case-file .case-tier {
+  color: var(--accent);
+}
+
 .avatar-stage {
   position: relative;
   width: 220px;
@@ -1126,26 +1181,49 @@ body.app-kids .sub-mode { display: none !important; }
    clinical Adult look. The page should feel like it's asking you to
    slow down. */
 body.mode-reflection {
-  --bg-0: #07071a;
-  --bg-1: #0e0c25;
-  --bg-2: #181333;
-  --panel: rgba(28, 22, 56, 0.62);
-  --panel-border: rgba(180, 160, 220, 0.22);
-  --panel-glow: rgba(180, 160, 220, 0.25);
-  --ink: #e6e0f2;
-  --ink-soft: #b6acd0;
-  --ink-mute: #847aa3;
-  --accent: #b8a8e8;
-  --accent-2: #d6b8e4;
-  --accent-3: #e9bfd4;
-  --accent-warm: #f0caa6;
+  /* Warm dusk: more pink/peach in the violet, less blue. The page
+     should feel like late-evening light, not space. */
+  --bg-0: #1a0e22;
+  --bg-1: #2a1530;
+  --bg-2: #3a1a36;
+  --panel: rgba(46, 28, 64, 0.62);
+  --panel-border: rgba(220, 180, 200, 0.24);
+  --panel-glow: rgba(238, 196, 220, 0.28);
+  --ink: #f4e7ee;
+  --ink-soft: #d4bccd;
+  --ink-mute: #a08aa0;
+  --accent: #e9bfd4;
+  --accent-2: #f0caa6;
+  --accent-3: #f5b8b0;
+  --accent-warm: #ffd2a0;
+  --reflection-serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
 }
 body.mode-reflection {
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(184, 168, 232, 0.18), transparent 60%),
-    radial-gradient(900px 700px at -10% 30%, rgba(214, 184, 228, 0.16), transparent 60%),
-    radial-gradient(700px 500px at 90% 90%, rgba(233, 191, 212, 0.12), transparent 60%),
-    linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%, var(--bg-2));
+    radial-gradient(1200px 600px at 80% -10%, rgba(245, 184, 176, 0.22), transparent 60%),
+    radial-gradient(900px 700px at -10% 30%, rgba(238, 196, 220, 0.20), transparent 60%),
+    radial-gradient(700px 500px at 90% 90%, rgba(255, 210, 160, 0.16), transparent 60%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1) 55%, var(--bg-2));
+}
+/* Reflection: literary register. Serif body type on key surfaces. */
+body.mode-reflection .baby-panel,
+body.mode-reflection .pause-panel,
+body.mode-reflection .memory-card .memory-text,
+body.mode-reflection .ethics p,
+body.mode-reflection .reflection-prompt,
+body.mode-reflection .vibe-title {
+  font-family: var(--reflection-serif);
+}
+body.mode-reflection .codename {
+  font-family: var(--reflection-serif);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  font-size: 15px;
+}
+body.mode-reflection .vibe-title {
+  font-style: italic;
+  font-weight: 400;
 }
 
 /* Quieter motion */
@@ -2388,20 +2466,59 @@ body.mode-adult .playful-only { display: none !important; }
   font-weight: 600;
 }
 
-/* Cool the accents toward clinical white-cyan as optimization climbs */
+/* Cool the accents toward clinical white-cyan as optimization climbs.
+   The base palette is also pushed toward a more monochrome blue-gray
+   so Adult reads less "neon biotech" and more "medical record viewer". */
 body.mode-adult {
-  --accent:    color-mix(in srgb, #7ee0ff calc((1 - var(--opt-intensity)) * 100%), #d6ecff calc(var(--opt-intensity) * 100%));
-  --accent-2:  color-mix(in srgb, #c89bff calc((1 - var(--opt-intensity)) * 100%), #b8c8e2 calc(var(--opt-intensity) * 100%));
-  --accent-3:  color-mix(in srgb, #ff9bd2 calc((1 - var(--opt-intensity)) * 100%), #9eb4d0 calc(var(--opt-intensity) * 100%));
-  --accent-warm: color-mix(in srgb, #ffd28a calc((1 - var(--opt-intensity)) * 100%), #d2dae6 calc(var(--opt-intensity) * 100%));
+  --bg-0: #060814;
+  --bg-1: #0a0e1c;
+  --bg-2: #10162a;
+  --ink: #e2e8f4;
+  --ink-soft: #99a3b8;
+  --ink-mute: #6c768a;
+  --panel: rgba(14, 18, 36, 0.55);
+  --panel-border: rgba(140, 180, 220, 0.18);
+  --accent:    color-mix(in srgb, #7ec0e0 calc((1 - var(--opt-intensity)) * 100%), #d6ecff calc(var(--opt-intensity) * 100%));
+  --accent-2:  color-mix(in srgb, #8a9fc0 calc((1 - var(--opt-intensity)) * 100%), #b8c8e2 calc(var(--opt-intensity) * 100%));
+  --accent-3:  color-mix(in srgb, #9eb4d0 calc((1 - var(--opt-intensity)) * 100%), #9eb4d0 calc(var(--opt-intensity) * 100%));
+  --accent-warm: color-mix(in srgb, #c0c8d6 calc((1 - var(--opt-intensity)) * 100%), #d2dae6 calc(var(--opt-intensity) * 100%));
+  --adult-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 body.mode-adult {
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(126, 224, 255, calc(0.18 - var(--opt-intensity) * 0.10)), transparent 60%),
-    radial-gradient(900px 700px at -10% 30%, rgba(200, 155, 255, calc(0.16 - var(--opt-intensity) * 0.10)), transparent 60%),
-    radial-gradient(700px 500px at 90% 90%, rgba(255, 155, 210, calc(0.12 - var(--opt-intensity) * 0.10)), transparent 60%),
+    radial-gradient(1200px 600px at 80% -10%, rgba(126, 192, 224, calc(0.16 - var(--opt-intensity) * 0.10)), transparent 60%),
+    radial-gradient(900px 700px at -10% 30%, rgba(140, 160, 192, calc(0.14 - var(--opt-intensity) * 0.10)), transparent 60%),
+    radial-gradient(700px 500px at 90% 90%, rgba(160, 172, 196, calc(0.10 - var(--opt-intensity) * 0.10)), transparent 60%),
     linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%, var(--bg-2));
+}
+
+/* Monospace section headings in Adult mode — feels like a record viewer. */
+body.mode-adult .panel h2,
+body.mode-adult #baby-heading,
+body.mode-adult .codename,
+body.mode-adult .archetype-tag {
+  font-family: var(--adult-mono);
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+body.mode-adult .codename {
+  font-weight: 600;
+  text-shadow: none;
+  color: var(--ink);
+  background: rgba(126, 192, 224, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(126, 192, 224, 0.22);
+  display: inline-block;
+}
+body.mode-adult .archetype-tag {
+  background: rgba(126, 192, 224, 0.10);
+  border-radius: 4px;
+  border: 1px solid rgba(126, 192, 224, 0.28);
+  color: var(--ink);
+  box-shadow: none;
 }
 
 /* Quieter decorations as user optimizes more aggressively */
