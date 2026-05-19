@@ -1355,6 +1355,55 @@ function buildExplainerHTML(key) {
     <div class="slider-popover" id="exp_${key}">${text}</div>`;
 }
 
+/* ---------- Confidence band SVG ----------
+ * Visualizes the natural-variation distribution for a personality
+ * slider as a Gaussian-ish bell centered on the midparent value.
+ * A vertical marker tracks the user's current position so any push
+ * away from the midpoint is visible against the underlying bell.
+ */
+function bellPath(width, height, midX, sigmaX) {
+  const steps = 50;
+  const peakH = height - 2;
+  let d = `M 0 ${height}`;
+  for (let i = 0; i <= steps; i++) {
+    const x = (i / steps) * width;
+    const z = sigmaX > 0 ? (x - midX) / sigmaX : 0;
+    const y = sigmaX > 0 ? Math.exp(-(z*z) / 2) : 0;
+    d += ` L ${x.toFixed(2)} ${(height - y * peakH).toFixed(2)}`;
+  }
+  d += ` L ${width} ${height} Z`;
+  return d;
+}
+
+function buildConfidenceBandHTML(rangeKey, displayMid, displaySigma, r, currentDisplayed) {
+  if (!r || r.max <= r.min) return '';
+  const W = 100, H = 28;
+  const span = r.max - r.min;
+  const midX = Math.max(0, Math.min(W, ((displayMid - r.min) / span) * W));
+  const sigmaX = (displaySigma / span) * W;
+  const d = bellPath(W, H, midX, sigmaX);
+  const cur = Math.max(0, Math.min(W, ((currentDisplayed - r.min) / span) * W));
+  return `<svg class="confidence-band-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+    <path d="${d}" class="band-fill" />
+    <line class="midparent-marker" x1="${midX.toFixed(2)}" y1="2" x2="${midX.toFixed(2)}" y2="${H}" />
+    <line class="current-marker"   x1="${cur.toFixed(2)}"  y1="0" x2="${cur.toFixed(2)}"  y2="${H}" data-band="${rangeKey}" />
+  </svg>`;
+}
+
+// Move just the current-position marker; used on every slider input.
+function updateBandMarker(rangeKey, currentDisplayed, r) {
+  if (!r || r.max <= r.min) return;
+  const marker = document.querySelector(`.current-marker[data-band="${rangeKey}"]`);
+  if (!marker) return;
+  const span = r.max - r.min;
+  const x = Math.max(0, Math.min(100, ((currentDisplayed - r.min) / span) * 100));
+  marker.setAttribute('x1', x.toFixed(2));
+  marker.setAttribute('x2', x.toFixed(2));
+}
+
+// Sigma for personality polygenic sliders (matches SLIDER_DEFS).
+const PERSONALITY_SIGMA = 1.75;
+
 function bindExplainer(row) {
   const btn = row.querySelector('.slider-explain');
   if (!btn) return;
@@ -1382,12 +1431,20 @@ function renderStandardSlider(def, ranges, container) {
     footLabels = `<div class="slider-foot"><span>${r.min}%</span><span>${r.max}%</span></div>`;
   }
 
+  // Confidence band only for personality (polygenic) sliders.
+  let bandHTML = '';
+  if (PERSONALITY_OCEAN_KEYS.has(def.key) && state.parents?.A && state.parents?.B) {
+    const mid = (state.parents.A[def.key] + state.parents.B[def.key]) / 2;
+    bandHTML = buildConfidenceBandHTML(def.key, mid, PERSONALITY_SIGMA, r, r.def);
+  }
+
   row.innerHTML = `
     <div class="slider-head">
       <span class="slider-label">${def.label}${buildExplainerHTML(def.key)}</span>
       ${headValSpan}
     </div>
     <input type="range" id="s_${def.key}" min="${r.min}" max="${r.max}" step="${r.step}" value="${r.def}" />
+    ${bandHTML}
     ${footLabels}
   `;
   container.appendChild(row);
@@ -1396,6 +1453,9 @@ function renderStandardSlider(def, ranges, container) {
   const input = $('#s_' + def.key, row);
   input.addEventListener('input', () => {
     state.baby[def.key] = Number(input.value);
+    if (PERSONALITY_OCEAN_KEYS.has(def.key)) {
+      updateBandMarker(def.key, Number(input.value), r);
+    }
     updateBabyPreview();
   });
   state.baby[def.key] = r.def;
@@ -1780,18 +1840,16 @@ const CONSTELLATION_NODES = [
   { ocean: 'agreeableness',     shortLabel: 'A', kidsLabel: 'Kindness',   invertKids: false },
   { ocean: 'neuroticism',       shortLabel: 'N', kidsLabel: 'Confidence', invertKids: true  }
 ];
-const CONSTELLATION_R  = 80;
-const CONSTELLATION_CX = 120;
-const CONSTELLATION_CY = 120;
-
-function constellationPos(i) {
-  const theta = (i / 5) * Math.PI * 2 - Math.PI / 2; // start at top, go clockwise
-  return {
-    x: CONSTELLATION_CX + CONSTELLATION_R * Math.cos(theta),
-    y: CONSTELLATION_CY + CONSTELLATION_R * Math.sin(theta),
-    theta
-  };
-}
+// Irregular, hand-tuned positions so the 5 stars read as a real
+// constellation rather than a regular pentagon. Same order as
+// CONSTELLATION_NODES: O, C, E, A, N.
+const CONSTELLATION_POS = [
+  { x:  55, y:  78 },
+  { x: 108, y:  38 },
+  { x: 175, y:  68 },
+  { x: 200, y: 148 },
+  { x: 102, y: 192 }
+];
 
 function renderTraitConstellation(b) {
   const host = $('#trait-constellation');
@@ -1808,41 +1866,61 @@ function renderTraitConstellation(b) {
     return { ...n, raw, displayed };
   });
 
-  // Lines between all pairs.
-  let links = '';
-  for (let i = 0; i < 5; i++) {
-    for (let j = i + 1; j < 5; j++) {
-      const a = constellationPos(i), c = constellationPos(j);
-      const op = Math.max(0.05, (values[i].displayed * values[j].displayed) / 100);
-      links += `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${c.x.toFixed(1)}" y2="${c.y.toFixed(1)}" class="link" style="opacity:${op.toFixed(2)}" />`;
-    }
+  // Background star field — deterministic from the codename so it doesn't
+  // re-twinkle on every slider tweak.
+  const bgRng = seededRand(state.codename + '|stars');
+  let bg = '';
+  for (let i = 0; i < 32; i++) {
+    const x  = (bgRng() * 240).toFixed(1);
+    const y  = (bgRng() * 240).toFixed(1);
+    const r  = (0.3 + bgRng() * 0.8).toFixed(2);
+    const op = (0.22 + bgRng() * 0.45).toFixed(2);
+    bg += `<circle cx="${x}" cy="${y}" r="${r}" class="bg-star" style="opacity:${op}"/>`;
   }
 
-  // Nodes.
+  // Chain (4 lines) — connects stars in declared order so the constellation
+  // reads as a *shape*. Line brightness scales with the product of the two
+  // endpoint values: stronger profiles draw a brighter chart.
+  let links = '';
+  for (let i = 0; i < CONSTELLATION_POS.length - 1; i++) {
+    const a = CONSTELLATION_POS[i], c = CONSTELLATION_POS[i + 1];
+    const op = Math.max(0.22, (values[i].displayed * values[i + 1].displayed) / 100 * 0.85);
+    links += `<line x1="${a.x}" y1="${a.y}" x2="${c.x}" y2="${c.y}" class="link" style="opacity:${op.toFixed(2)}"/>`;
+  }
+
+  // Stars: a small bright dot with a horizontal + vertical ray (cross-flare).
+  // Size encodes value; rays scale with size.
   let nodes = '';
   values.forEach((v, i) => {
-    const p = constellationPos(i);
-    const r = 5 + (v.displayed / 10) * 13; // 5..18
+    const p = CONSTELLATION_POS[i];
+    const r = 1.6 + (v.displayed / 10) * 3.4;   // 2..5
+    const flare = r * 2.6;
     let confRing = '';
     if (state.appMode === 'adult') {
       const conf = CONFIDENCE[v.ocean];
       if (conf) {
-        const ringR = r + 6;
-        const ringW = conf.label === 'high' ? 1 : (conf.label === 'moderate' ? 2.5 : 4);
-        confRing = `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${ringR.toFixed(1)}" class="confidence-ring conf-${conf.label}" fill="none" stroke-width="${ringW}" />`;
+        const ringR = r + 5;
+        const ringW = conf.label === 'high' ? 0.6 : (conf.label === 'moderate' ? 1.1 : 1.8);
+        confRing = `<circle cx="${p.x}" cy="${p.y}" r="${ringR.toFixed(1)}" class="confidence-ring conf-${conf.label}" fill="none" stroke-width="${ringW}"/>`;
       }
     }
-    const labelR  = CONSTELLATION_R + 26;
-    const labelX  = CONSTELLATION_CX + labelR * Math.cos(p.theta);
-    const labelY  = CONSTELLATION_CY + labelR * Math.sin(p.theta);
+    // Place label on the side facing away from the chart's mass so it
+    // doesn't collide with the chain.
+    const dx = p.x < 120 ? -1 : 1;
+    const dy = p.y < 100 ? -1 : 1;
+    const labelX = p.x + dx * (flare + 4);
+    const labelY = p.y + dy * (flare + 7);
+    const anchor = dx < 0 ? 'end' : 'start';
     nodes += `<g class="node node-${i}" data-trait="${v.ocean}">
       ${confRing}
-      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${r.toFixed(1)}" />
-      <text x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${v[showLabel]}</text>
+      <line x1="${(p.x - flare).toFixed(1)}" y1="${p.y}" x2="${(p.x + flare).toFixed(1)}" y2="${p.y}" class="ray"/>
+      <line x1="${p.x}" y1="${(p.y - flare).toFixed(1)}" x2="${p.x}" y2="${(p.y + flare).toFixed(1)}" class="ray"/>
+      <circle cx="${p.x}" cy="${p.y}" r="${r.toFixed(2)}"/>
+      <text x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">${v[showLabel]}</text>
     </g>`;
   });
 
-  host.innerHTML = `<svg viewBox="0 0 240 240" class="constellation-svg" role="img" aria-label="Personality trait constellation"><g class="links">${links}</g><g class="nodes">${nodes}</g></svg>`;
+  host.innerHTML = `<svg viewBox="0 0 240 240" class="constellation-svg" role="img" aria-label="Personality trait constellation"><g class="bg-stars">${bg}</g><g class="links">${links}</g><g class="nodes">${nodes}</g></svg>`;
 }
 
 /* ====================================================================
