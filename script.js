@@ -1619,6 +1619,12 @@ function updateBabyPreview() {
   // Trait constellation visualization (all modes, mode-aware styling).
   renderTraitConstellation(b);
 
+  // Future branching tree (all modes, mode-aware styling).
+  renderFutureTree();
+
+  // Recompute the cool/warm UI evolution based on slider drift.
+  updateOptIntensity();
+
   // avatar
   updateAvatar(b);
 }
@@ -1709,6 +1715,56 @@ function renderBehavioralTraces() {
     <div class="traces-grid">
       ${traces.map(t => `<div class="trace-card">${t}</div>`).join('')}
     </div>`;
+}
+
+/* ---------- Future Branching Tree ----------
+ * Replaces the linear bulleted future-paths list with an SVG tree:
+ * a central origin node + 3-4 branches fanning to leaves, each
+ * labeled with one future-path text. Mode-aware styling.
+ */
+function renderFutureTree() {
+  const host = $('#future-tree');
+  if (!host) return;
+  const paths = (state.futurePaths || []).slice(0, 4);
+  if (!state.codename || !paths.length) {
+    host.innerHTML = '';
+    return;
+  }
+
+  const W = 380, H = 220;
+  const rootX = 50, rootY = H / 2;
+  const leafX = 200;                     // anchor x for leaf dot
+  const textX = leafX + 14;              // text starts after dot
+  const n = paths.length;
+  const spread = Math.min(H - 30, 50 + n * 35); // vertical spread of leaves
+  const startY = (H - spread) / 2;
+  const step = n > 1 ? spread / (n - 1) : 0;
+
+  let svg = '';
+  // Branches first (so they sit behind leaves).
+  paths.forEach((_, i) => {
+    const y = startY + i * step;
+    const c1x = rootX + (leafX - rootX) * 0.55;
+    const c1y = rootY;
+    const c2x = rootX + (leafX - rootX) * 0.55;
+    const c2y = y;
+    svg += `<path d="M ${rootX} ${rootY} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${leafX} ${y}" class="branch" />`;
+  });
+  // Root node.
+  svg += `<circle cx="${rootX}" cy="${rootY}" r="7" class="root" />`;
+  // Leaves with text. Wrap long text with foreignObject for legible line-wrap.
+  paths.forEach((text, i) => {
+    const y = startY + i * step;
+    const safe = String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    svg += `<g class="leaf">
+      <circle cx="${leafX}" cy="${y}" r="5" />
+      <foreignObject x="${textX}" y="${y - 22}" width="${W - textX - 8}" height="44">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="leaf-text">${safe}</div>
+      </foreignObject>
+    </g>`;
+  });
+
+  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="future-tree-svg" role="img" aria-label="Branching future paths">${svg}</svg>`;
 }
 
 /* ---------- Trait Constellation ----------
@@ -2359,6 +2415,8 @@ function preserveNaturalVariation() {
   showHumanityReminder(
     NATURAL_VARIATION_MESSAGES[Math.floor(Math.random() * NATURAL_VARIATION_MESSAGES.length)]
   );
+  // Bloom the palette briefly — preserving variation is the warm move.
+  flashWarming();
 }
 
 function randomizeParents() {
@@ -2624,9 +2682,63 @@ function updateBudgetBar() {
   const text = $('#budget-text');
   if (bar) bar.style.width = Math.min(100, (used / BUDGET_TOTAL) * 100) + '%';
   if (text) text.textContent = `${used} / ${BUDGET_TOTAL} credits`;
-  // Drive UI-temperature shift by total allocation intensity.
-  const intensity = Math.min(1, used / BUDGET_TOTAL);
+  // Recompute the unified opt-intensity (drift + budget).
+  updateOptIntensity();
+}
+
+/* ---------- Dynamic UI evolution ----------
+ * `--opt-intensity` (0..1) is the page's "how hard is the user
+ * optimizing" signal. Adult mode already used this for the clinical
+ * desaturation effect; we now compute it universally from how far the
+ * baby's personality sliders have drifted from the parents' midpoint,
+ * plus any Adult budget allocation, and let a small layer of universal
+ * CSS react across all modes.
+ */
+function updateOptIntensity() {
+  // While a "preserve" override is active, the UI rewards the act of
+  // preservation: opt-intensity is forced to 0 regardless of how wide
+  // the resulting baby ended up being.
+  if (state.preserveActive) {
+    state.optIntensity = 0;
+    document.body.style.setProperty('--opt-intensity', '0');
+    return;
+  }
+  let driftI = 0;
+  const a = state.parents?.A, b2 = state.parents?.B;
+  if (state.codename && a && typeof a.openness === 'number' && b2 && typeof b2.openness === 'number') {
+    const keys = ['openness','conscientiousness','extraversion','agreeableness','neuroticism'];
+    let sum = 0;
+    keys.forEach(k => {
+      const mid = (a[k] + b2[k]) / 2;
+      // Normalize: ±4.5 from midpoint is full drift on that axis.
+      sum += Math.min(1, Math.abs((state.baby[k] || mid) - mid) / 4.5);
+    });
+    driftI = sum / keys.length;
+  }
+  let budgetI = 0;
+  if (state.appMode === 'adult') {
+    const used = Object.entries(state.budget || {}).reduce((s, [k, v]) => {
+      const pr = PRIORITIES.find(x => x.key === k);
+      return s + (pr ? pr.cost * v : 0);
+    }, 0);
+    budgetI = Math.min(1, used / BUDGET_TOTAL);
+  }
+  const intensity = Math.max(driftI, budgetI);
+  state.optIntensity = intensity;
   document.body.style.setProperty('--opt-intensity', intensity.toFixed(3));
+}
+
+function flashWarming(durationMs = 3600) {
+  const body = document.body;
+  body.classList.add('is-warming');
+  state.preserveActive = true;
+  updateOptIntensity();
+  clearTimeout(flashWarming._t);
+  flashWarming._t = setTimeout(() => {
+    body.classList.remove('is-warming');
+    state.preserveActive = false;
+    updateOptIntensity();
+  }, durationMs);
 }
 
 function renderEnhancementBudget() {
