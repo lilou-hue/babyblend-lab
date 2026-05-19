@@ -891,8 +891,7 @@ const state = {
   surprise: 0,
   style: 'lorelei',    // 'lorelei' | 'bigSmile'
   gender: 'surprise',  // 'female' | 'male' | 'surprise'
-  ethicsMode: 'playful', // 'playful' | 'reflection' | 'adult' (sub-toggle, Standard only)
-  appMode: 'standard',   // 'standard' | 'kids' — top-level experience selector
+  appMode: 'reflection', // 'reflection' | 'kids' | 'adult' — the single mode dimension
   chaos: false,        // amplifies slider ranges + surprise
   generateCount: 0,    // how many times Generate has been clicked
   alternates: [],      // generated alternate-baby cards
@@ -926,34 +925,38 @@ function hslToHex(h, s, l) {
   return toHex(r) + toHex(g) + toHex(b);
 }
 
-/* ---------- Mode + copy helpers ---------- */
-// In Kids mode we always use kid-friendly copy regardless of the
-// ethics sub-toggle (which is hidden). In Standard mode we follow the
-// existing playful/reflection/adult sub-mode.
-function isKids() { return state.appMode === 'kids'; }
-function effectiveMode() { return isKids() ? 'kids' : state.ethicsMode; }
+/* ---------- Mode + copy helpers ----------
+ * One mode dimension only:
+ *   reflection — playful look + reflective prompt always on (default)
+ *   kids       — warm Kids surface, friendly trait names + explainers
+ *   adult      — clinical biotech sim with the Enhancement Allocation
+ */
+const VALID_MODES = ['reflection', 'kids', 'adult'];
+function isKids()  { return state.appMode === 'kids'; }
+function isAdult() { return state.appMode === 'adult'; }
 
-function pickPool(playful, adult, kids) {
-  const m = effectiveMode();
-  if (m === 'kids' && kids) return kids;
-  if (m === 'adult' && adult) return adult;
-  return playful;
+function pickPool(defaultPool, adultPool, kidsPool) {
+  if (state.appMode === 'kids'  && kidsPool)  return kidsPool;
+  if (state.appMode === 'adult' && adultPool) return adultPool;
+  return defaultPool;
 }
 
 const APP_MODE_KEY = 'babyblend.appMode.v1';
 function loadAppMode() {
   try {
     const v = localStorage.getItem(APP_MODE_KEY);
-    return (v === 'kids' || v === 'standard') ? v : 'standard';
-  } catch { return 'standard'; }
+    return VALID_MODES.includes(v) ? v : 'reflection';
+  } catch { return 'reflection'; }
 }
 function persistAppMode(m) {
   try { localStorage.setItem(APP_MODE_KEY, m); } catch {}
 }
 
 function applyAppModeClass() {
-  document.body.classList.toggle('app-kids',     state.appMode === 'kids');
-  document.body.classList.toggle('app-standard', state.appMode === 'standard');
+  const m = state.appMode;
+  document.body.classList.toggle('app-kids',        m === 'kids');
+  document.body.classList.toggle('mode-adult',      m === 'adult');
+  document.body.classList.toggle('mode-reflection', m === 'reflection');
 }
 
 /* ====================================================================
@@ -1061,7 +1064,7 @@ function collectEnvData() {
  * ==================================================================== */
 
 function applyBudgetBias(centerVal, traitKey) {
-  if (state.ethicsMode !== 'adult') return centerVal;
+  if (state.appMode !== 'adult') return centerVal;
   let shift = 0;
   PRIORITIES.forEach(p => {
     const alloc = state.budget[p.key] || 0;
@@ -1385,7 +1388,7 @@ function updateBabyPreview() {
 
   // update stats panel
   const statsEl = $('#baby-stats');
-  const inAdult = state.ethicsMode === 'adult';
+  const inAdult = state.appMode === 'adult';
   const conf = (k) => {
     if (!inAdult) return '';
     const c = CONFIDENCE[k];
@@ -1450,7 +1453,7 @@ function updateBabyPreview() {
   // future vibe + paths + random events + news headlines
   const vibeEl = $('#vibe-title');
   if (vibeEl) {
-    if (state.ethicsMode === 'adult' || !state.vibe) {
+    if (state.appMode === 'adult' || !state.vibe) {
       vibeEl.textContent = '';
       vibeEl.hidden = true;
     } else {
@@ -1499,7 +1502,7 @@ function updateBabyPreview() {
   // Reflection prompt (Reflection sub-mode OR Kids mode show a gentle question)
   const reflEl = $('#reflection-prompt');
   if (reflEl) {
-    if ((state.ethicsMode === 'reflection' || isKids()) && state.codename) {
+    if ((state.appMode === 'reflection' || isKids()) && state.codename) {
       reflEl.hidden = false;
       reflEl.innerHTML = `<span class="reflection-mark">?</span> ${state.reflection || pickReflectionPrompt(state.codename)}`;
     } else {
@@ -1796,7 +1799,7 @@ function loadAlternateAsMain(idx) {
  * ==================================================================== */
 
 function generateCodename(parents) {
-  if (state.ethicsMode === 'adult') {
+  if (state.appMode === 'adult') {
     const num    = String(randInt(1000, 9999));
     const letter = String.fromCharCode(65 + randInt(0, 5));
     return `Projection-${num}-${letter}`;
@@ -1810,7 +1813,7 @@ function generateCodename(parents) {
 }
 
 function generateBabyFlavor(codename, baby) {
-  const inAdult = state.ethicsMode === 'adult';
+  const inAdult = state.appMode === 'adult';
   const rng = seededRand(codename + '|flavor' + (state.chaos ? '|c' : '') + (inAdult ? '|adult' : ''));
 
   if (inAdult) {
@@ -1876,7 +1879,7 @@ function computeSocialResponse(b, budget, env) {
 function renderSocialResponse() {
   const section = $('#social-response');
   if (!section) return;
-  if (state.ethicsMode !== 'adult' || !state.codename) {
+  if (state.appMode !== 'adult' || !state.codename) {
     section.hidden = true;
     return;
   }
@@ -2032,7 +2035,7 @@ function generate() {
   updateBabyPreview();      // refresh display with new flavor
 
   // Quietly remind users this is a person, not a profile, every few generations.
-  if (state.generateCount % 3 === 0 || state.ethicsMode === 'reflection') {
+  if (state.generateCount % 3 === 0 || state.appMode === 'reflection') {
     showHumanityReminder();
   }
 
@@ -2358,7 +2361,7 @@ function buildEnhancementBudget() {
       state.budget[p.key] = allowed;
       valEl.textContent = allowed;
       updateBudgetBar();
-      if (state.codename && state.ethicsMode === 'adult') {
+      if (state.codename && state.appMode === 'adult') {
         renderSocialResponse();
         updateBabyPreview();
       }
@@ -2388,7 +2391,7 @@ function renderEnhancementBudget() {
 function buildHistorySection() {
   const content = $('#history-content');
   if (!content) return;
-  const cards = state.ethicsMode === 'adult' ? REGULATORY_CARDS : HISTORY_CARDS;
+  const cards = state.appMode === 'adult' ? REGULATORY_CARDS : HISTORY_CARDS;
   content.innerHTML = cards.map(c => `
     <div class="history-card">
       <h3>${c.title}</h3>
@@ -2419,7 +2422,7 @@ function setupAppModeToggle() {
   $$('.app-mode-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const m = btn.dataset.appMode;
-      if (m !== 'standard' && m !== 'kids') return;
+      if (!VALID_MODES.includes(m)) return;
       $$('.app-mode-btn').forEach(b => {
         const active = b === btn;
         b.classList.toggle('is-active', active);
@@ -2430,23 +2433,13 @@ function setupAppModeToggle() {
       applyAppModeClass();
       applyChaosPillLabel();
 
-      // Entering Kids hides the sub-toggle, so reset to playful and drop any
-      // lingering Standard-mode body classes for a clean visual handoff.
-      if (m === 'kids') {
-        state.ethicsMode = 'playful';
-        $$('.mode-btn').forEach(b => {
-          const active = b.dataset.ethicsMode === 'playful';
-          b.classList.toggle('is-active', active);
-          b.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        document.body.classList.remove('mode-adult');
-        document.body.classList.remove('mode-reflection');
-      }
+      // History section copy depends on mode (REGULATORY_CARDS vs HISTORY_CARDS).
+      buildHistorySection();
+      if (m === 'reflection') showHumanityReminder();
 
       // Re-render so labels, copy pools, sliders, and stats all refresh.
       if (state.codename) {
         renderSliders(state.ranges);
-        // Restore baby values into the freshly rendered sliders.
         SLIDER_DEFS.forEach(def => {
           if (typeof state.baby[def.key] === 'number') {
             syncSliderDOMForOcean(def.key, state.baby[def.key]);
@@ -2460,6 +2453,8 @@ function setupAppModeToggle() {
         state.conflicts   = computeTraitConflicts(state.baby);
         state.reflection  = pickReflectionPrompt(state.codename);
         updateBabyPreview();
+        renderEnhancementBudget();
+        renderSocialResponse();
       }
     });
   });
@@ -2485,24 +2480,6 @@ function init() {
   applyChaosPillLabel();
   setupPillToggle('.style-btn', 'style');
   setupPillToggle('.gender-btn', 'gender');
-  setupPillToggle('.mode-btn', 'ethicsMode', mode => {
-    document.body.classList.toggle('mode-reflection', mode === 'reflection');
-    document.body.classList.toggle('mode-adult',      mode === 'adult');
-    buildHistorySection();           // swap to/from clinical regulatory cards
-    if (mode === 'reflection') showHumanityReminder();
-    if (state.codename) {
-      // Re-derive flavor under the new mode so copy/microdetails refresh.
-      const flavor = generateBabyFlavor(state.codename, state.baby);
-      state.vibe        = flavor.vibe;
-      state.futurePaths = flavor.paths;
-      state.events      = flavor.events;
-      state.headlines   = flavor.headlines;
-      state.conflicts   = computeTraitConflicts(state.baby);
-      updateBabyPreview();
-      renderEnhancementBudget();
-      renderSocialResponse();
-    }
-  });
   setupChaosToggle();
   $('#randomize-parents-btn').addEventListener('click', randomizeParents);
   $('#natural-variation-btn').addEventListener('click', preserveNaturalVariation);
