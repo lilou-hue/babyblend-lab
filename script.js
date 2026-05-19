@@ -1339,11 +1339,20 @@ function syncSliderDOMForOcean(oceanKey, oceanValue) {
     const view = kidsViewForOcean(oceanKey);
     if (!view) return;
     const slider = $('#s_' + view.kidsKey);
-    if (slider) slider.value = view.invert ? (11 - oceanValue) : oceanValue;
+    if (slider) {
+      const displayed = view.invert ? (11 - oceanValue) : oceanValue;
+      slider.value = displayed;
+      updateBandMarker(view.kidsKey, displayed, { min: Number(slider.min), max: Number(slider.max) });
+    }
     return;
   }
   const slider = $('#s_' + oceanKey);
-  if (slider) slider.value = oceanValue;
+  if (slider) {
+    slider.value = oceanValue;
+    if (PERSONALITY_OCEAN_KEYS.has(oceanKey)) {
+      updateBandMarker(oceanKey, oceanValue, { min: Number(slider.min), max: Number(slider.max) });
+    }
+  }
 }
 
 function buildExplainerHTML(key) {
@@ -1475,21 +1484,33 @@ function renderKidsPersonalitySlider(view, ranges, container) {
   row.dataset.ocean = view.oceanKey;
   row.dataset.invert = view.invert ? '1' : '0';
 
+  // Confidence band: midparent + sigma reflected through any invert.
+  let bandHTML = '';
+  if (state.parents?.A && state.parents?.B) {
+    const midOcean = (state.parents.A[view.oceanKey] + state.parents.B[view.oceanKey]) / 2;
+    const midDisplay = view.invert ? (11 - midOcean) : midOcean;
+    const displayR = { min: dispMin, max: dispMax, def: dispDef };
+    bandHTML = buildConfidenceBandHTML(view.kidsKey, midDisplay, PERSONALITY_SIGMA, displayR, dispDef);
+  }
+
   row.innerHTML = `
     <div class="slider-head">
       <span class="slider-label">${view.label}${buildExplainerHTML(view.kidsKey)}</span>
       <span class="slider-value" id="val_${view.kidsKey}"></span>
     </div>
     <input type="range" id="s_${view.kidsKey}" min="${dispMin}" max="${dispMax}" step="1" value="${dispDef}" />
+    ${bandHTML}
     <div class="slider-foot"><span>${dispMin}/10</span><span>${dispMax}/10</span></div>
   `;
   container.appendChild(row);
   bindExplainer(row);
 
+  const displayR = { min: dispMin, max: dispMax };
   const input = $('#s_' + view.kidsKey, row);
   input.addEventListener('input', () => {
     const v = Number(input.value);
     state.baby[view.oceanKey] = view.invert ? (11 - v) : v;
+    updateBandMarker(view.kidsKey, v, displayR);
     updateBabyPreview();
   });
   state.baby[view.oceanKey] = view.invert ? (11 - dispDef) : dispDef;
@@ -2760,8 +2781,57 @@ function updateBudgetBar() {
   const text = $('#budget-text');
   if (bar) bar.style.width = Math.min(100, (used / BUDGET_TOTAL) * 100) + '%';
   if (text) text.textContent = `${used} / ${BUDGET_TOTAL} credits`;
+  updateBudgetProjections(used);
   // Recompute the unified opt-intensity (drift + budget).
   updateOptIntensity();
+}
+
+/* ---------- Adult budget projections ----------
+ * Two derived indicators that respond to enhancement allocation. The
+ * Cohort Placement reads as a percentile claim ("Projected: top 8% of
+ * birth cohort by composite score"); the Social Pressure Index tracks
+ * appearance + sociability allocation as a visible bar. Both update on
+ * every budget change. The numbers are made up — the point is to make
+ * the consumer-product feeling concrete. */
+function updateBudgetProjections(usedOverride) {
+  const cohortEl   = $('#cohort-placement');
+  const pressureEl = $('#pressure-fill');
+  const pressureNote = $('#pressure-note');
+  if (!cohortEl) return;
+
+  const used = (typeof usedOverride === 'number')
+    ? usedOverride
+    : Object.entries(state.budget || {}).reduce((s, [k, v]) => {
+        const pr = PRIORITIES.find(x => x.key === k);
+        return s + (pr ? pr.cost * v : 0);
+      }, 0);
+
+  // Cohort percentile: 0 credits → 50th percentile baseline; full budget →
+  // top 1%. Non-linear so the first few allocations move things fast.
+  let cohortText = 'Untouched · baseline cohort';
+  if (used > 0) {
+    const ratio  = Math.min(1, used / BUDGET_TOTAL);
+    const top    = Math.max(1, Math.round(50 * Math.pow(1 - ratio, 1.6)));
+    cohortText = `Projected: top ${top}% of birth cohort`;
+  }
+  cohortEl.textContent = cohortText;
+
+  // Social pressure: Appearance + Sociability spend, normalized.
+  const apprPts = (state.budget?.appearance  || 0);
+  const socPts  = (state.budget?.sociability || 0);
+  const apprPr  = PRIORITIES.find(p => p.key === 'appearance');
+  const socPr   = PRIORITIES.find(p => p.key === 'sociability');
+  const socialCost = (apprPr ? apprPr.cost * apprPts : 0) + (socPr ? socPr.cost * socPts : 0);
+  // Max possible = both maxed → roughly 30 + 50 = 80
+  const pressure = Math.min(1, socialCost / 60);
+  if (pressureEl) pressureEl.style.width = (pressure * 100).toFixed(0) + '%';
+  if (pressureNote) {
+    let note = 'Minimal';
+    if (pressure > 0.15) note = 'Above baseline';
+    if (pressure > 0.45) note = 'Considerable peer-comparison exposure';
+    if (pressure > 0.75) note = 'High visibility, elevated identity load';
+    pressureNote.textContent = note;
+  }
 }
 
 /* ---------- Dynamic UI evolution ----------
