@@ -123,99 +123,89 @@ const GENDER_LABEL = { female: 'Female', male: 'Male', surprise: 'Surprise' };
 
 /* ---------- Flavor pools ---------- */
 
+// Behavioral tone — a single grounded descriptor per baby. Replaces the
+// older meme-titled "funny vibe" pool with calmer, more specific lines.
 const FUNNY_TITLES = [
-  'Chaos Gremlin', 'Future Space Pirate', 'Tiny Philosopher', 'Galactic Menace',
-  'Certified Goober', 'Mini Strategist', 'Cosmic Researcher', 'Pocket Scientist',
-  'Local Cryptid', 'Aspiring Wizard', 'Tiny Bureaucrat', 'Future CEO of Cats',
-  'Galaxy-Brained Toddler', 'Backup Main Character', 'Tiny Tax Evader',
-  'Professional Cousin', 'Stealth Comedian', 'Aspiring Lawyer of Crumbs',
-  'Future Documentary Subject', 'Tiny Conspiracy Theorist', 'Junior Cartographer',
-  'Designated Driver of the Family', 'Future Internet Mystery', 'Resident Cool Aunt-In-Training',
-  'Lowercase Genius', 'Tiny Method Actor', 'Pocket-Sized Visionary', 'Heir to the Couch Fort',
-  'Future Forager', 'Sleeper Agent of Joy', 'Future Sourdough Influencer',
-  'Tiny Cult Leader (Wholesome)', 'Local Vibe Curator', 'Future Hobby Collector',
-  'Backseat Driver of Destiny', 'Junior Sky Inspector', 'Tiny Dragon Negotiator',
-  'Tomorrow’s Roller-Skating Champion', 'Future Spreadsheet Wizard',
-  'Junior Time-Travel Skeptic', 'Tiny Patron of the Arts', 'Future Whittler of Tiny Things'
+  'Quietly observant',
+  'Steady and warm',
+  'Sharp-witted, slow to share',
+  'Thoughtful, slightly self-conscious',
+  'Open-hearted but private',
+  'Restless in a precise way',
+  'Easy company, harder to know',
+  'Asks better questions than most',
+  'Holds opinions loosely; affections firmly',
+  'Quick to laugh, slower to forgive',
+  'Capable but rarely in a hurry',
+  'Curious without performing it',
+  'Generous with attention, careful with words',
+  'Reads people more than they read books',
+  'Carries small kindnesses without naming them',
+  'Watches longer than they speak'
 ];
 
 // Future-path predictions, tagged with personality bias keys (O/C/E/A/N/athletic).
 // Tagging is loose — at runtime we pick from the full pool with the bias as a soft weight.
+// Grounded register: specific, plausible, emotionally textured. No memes.
 const FUTURE_PATHS = [
-  { text: 'Probably starts three unfinished novels.',                          tag: 'O' },
-  { text: 'Will attempt to build a robot at age 11.',                          tag: 'O' },
-  { text: 'Most likely to accidentally become famous online.',                 tag: 'E' },
-  { text: 'Will get into 47 hobbies and finish 0.5 of them.',                  tag: 'O' },
-  { text: 'Future expert in obscure cheeses.',                                 tag: 'O' },
-  { text: 'Will own a slightly haunted plant.',                                tag: 'O' },
-  { text: 'Will form a strong opinion about whether a hot dog is a sandwich.', tag: 'A' },
-  { text: 'Almost certainly invents a board game no one understands.',         tag: 'C' },
-  { text: 'Will alphabetize the spice rack at age 9.',                         tag: 'C' },
-  { text: 'Probably keeps a meticulous log of every dream they’ve had.',   tag: 'C' },
-  { text: 'Becomes the family’s designated planner of everything.',        tag: 'C' },
-  { text: 'Will have a five-year plan by age 7.',                              tag: 'C' },
-  { text: 'Future class president, slightly suspiciously.',                    tag: 'E' },
-  { text: 'Talks to strangers at the bus stop and learns their life story.',   tag: 'E' },
-  { text: 'Will throw the loudest, weirdest birthday parties.',                tag: 'E' },
-  { text: 'Becomes the kid everyone has a crush on but is oblivious.',         tag: 'E' },
-  { text: 'Will run an underground trading economy in elementary school.',     tag: 'E' },
-  { text: 'Becomes the family peacemaker before age 6.',                       tag: 'A' },
-  { text: 'Will adopt every stray animal in a 10-mile radius.',                tag: 'A' },
-  { text: 'Sends handwritten thank-you notes unprompted.',                     tag: 'A' },
-  { text: 'Will be voted "best to call when you’re sad."',                 tag: 'A' },
-  { text: 'Forms a deeply parasocial relationship with one specific celebrity.', tag: 'N' },
-  { text: 'Will worry about the structural integrity of the bouncy castle.',   tag: 'N' },
-  { text: 'Develops a slightly intense relationship with a stuffed animal.',   tag: 'N' },
-  { text: 'Future investigative journalist of family secrets.',                tag: 'N' },
-  { text: 'Will be unreasonably good at one weird sport.',                     tag: 'athletic' },
-  { text: 'Sprints everywhere, even indoors, for reasons unknown.',            tag: 'athletic' },
-  { text: 'Future captain of a sport that hasn’t been invented yet.',      tag: 'athletic' },
-  { text: 'Will challenge a stranger to a footrace and win.',                  tag: 'athletic' },
-  { text: 'Becomes the only person in their school who can do a backflip on command.', tag: 'athletic' },
-  { text: 'Will name their first car something embarrassing.',                 tag: 'O' },
-  { text: 'Probably invents a sandwich that goes mildly viral.',               tag: 'O' },
-  { text: 'Will read every plaque in every museum, out loud.',                 tag: 'O' },
-  { text: 'Future hobbyist beekeeper of one (1) bee.',                         tag: 'O' },
-  { text: 'Will form a band, write one song, then break up the band.',         tag: 'O' },
-  { text: 'Becomes the kid who knows everyone in town somehow.',               tag: 'E' },
-  { text: 'Will start a podcast nobody listens to but it’s great anyway.',  tag: 'O' },
-  { text: 'Future bridge-builder between extended family group chats.',        tag: 'A' },
-  { text: 'Will memorize the menu of one specific diner by heart.',            tag: 'C' },
-  { text: 'Eventually becomes Designated Dog Person of their friend group.',   tag: 'A' },
-  { text: 'Will refuse to eat anything green until age 24, then write a cookbook.', tag: 'O' },
-  { text: 'Probably collects keychains from places they’ve never been.',    tag: 'O' },
-  { text: 'Future expert on the optimal way to organize a snack drawer.',      tag: 'C' },
-  { text: 'Will form a competitive rivalry with a neighbor’s cat.',        tag: 'N' },
-  { text: 'Almost certainly tries to start a treehouse co-op.',                tag: 'A' },
-  { text: 'Will say “technically” at least 40 times a day by middle school.', tag: 'C' }
+  { text: 'Starts three projects before finishing the first; learns to live with that.',   tag: 'O' },
+  { text: 'Develops a long, quiet obsession with one specific era of music.',                tag: 'O' },
+  { text: 'Keeps a notebook of overheard sentences.',                                        tag: 'O' },
+  { text: 'Reads slowly, finishes most of what they start, remembers little phrases for years.', tag: 'O' },
+  { text: 'Has a phase of writing letters to people they will never send them to.',          tag: 'O' },
+  { text: 'Builds something with their hands that the family keeps for decades.',            tag: 'O' },
+  { text: 'Returns to one childhood interest in adulthood, more seriously than before.',     tag: 'O' },
+  { text: 'Plans everything quietly, then carries it out without telling anyone.',           tag: 'C' },
+  { text: 'Keeps a desk drawer organized to a degree that startles their roommates.',        tag: 'C' },
+  { text: 'Finishes the long thing.',                                                        tag: 'C' },
+  { text: 'Tracks tiny inconsistencies and remembers them years later.',                     tag: 'C' },
+  { text: 'Becomes the friend everyone trusts with logistics.',                              tag: 'C' },
+  { text: 'Says less than they think; says it carefully when they do.',                      tag: 'C' },
+  { text: 'Knows everyone in their building, on every floor, by their grocery routine.',     tag: 'E' },
+  { text: 'Throws small, deliberate gatherings rather than big parties.',                    tag: 'E' },
+  { text: 'Brings strangers into existing friend groups, gently.',                           tag: 'E' },
+  { text: 'Talks to the same regulars at the corner shop for decades.',                      tag: 'E' },
+  { text: 'Becomes the one who organizes reunions years after they should have died out.',   tag: 'E' },
+  { text: 'Stays in touch with friends across continents through small, specific messages.', tag: 'A' },
+  { text: 'Sends a handwritten note after every funeral and every wedding.',                 tag: 'A' },
+  { text: 'Looks after a parent without making it a story.',                                 tag: 'A' },
+  { text: 'Becomes the family\'s designated emotional translator.',                          tag: 'A' },
+  { text: 'Says yes too often, slowly learns to say no, mostly succeeds.',                   tag: 'A' },
+  { text: 'Worries about people more than they admit.',                                      tag: 'N' },
+  { text: 'Replays small interactions in their head for days afterward.',                    tag: 'N' },
+  { text: 'Carries one fear they\'ve had since age 7 quietly into adulthood.',               tag: 'N' },
+  { text: 'Develops a private vocabulary for moods they don\'t share with others.',          tag: 'N' },
+  { text: 'Becomes drawn to one particular kind of repair work — bicycles, sentences, relationships.', tag: 'O' },
+  { text: 'Picks up a sport in their thirties they never thought they\'d like.',             tag: 'athletic' },
+  { text: 'Walks long distances alone and considers it a personality trait.',                tag: 'athletic' },
+  { text: 'Cooks the same five dishes well, for years, for the same circle of people.',     tag: 'C' },
+  { text: 'Has a specific spot in one specific park they consider theirs.',                  tag: 'O' },
+  { text: 'Learns one instrument badly and another well; never tells anyone which is which.', tag: 'O' },
+  { text: 'Saves voicemails from people who have died.',                                     tag: 'A' },
+  { text: 'Knows their grandparents\' handwriting at a glance.',                             tag: 'A' }
 ];
 
+// Specific small life-events. Grounded register — these read like things a
+// real person carries forward, not internet jokes.
 const RANDOM_EVENTS = [
-  'Mutation Event: Can fall asleep absolutely anywhere.',
-  'Inherited Grandparent Energy: 1970s edition.',
-  'Inherited Grandparent Energy: surprise great-aunt arc.',
-  'Main Character Syndrome detected.',
-  'Extremely Competitive Sibling Arc unlocked.',
-  'Raised by space documentaries.',
-  'Briefly believes they’re a cat. Compelling case.',
-  'Tiny existential crisis on the swing set, age 4.',
-  'Develops mysterious fluency in a video game language.',
-  'Inexplicable mastery of one specific accent.',
-  'Has one (1) recurring oddly specific dream.',
-  'Becomes the family’s designated Wi-Fi shaman.',
-  'Adopts an imaginary friend with a full backstory and a job.',
-  'Will quote a niche movie obsessively for 18 months straight.',
-  'Develops a strong, baffling opinion about cereal hierarchy.',
-  'Recessive trait surfaces: laughs exactly like a great-grandparent.',
-  'Spontaneous golden-retriever-coded summer.',
-  'Spontaneous black-cat-coded autumn.',
-  'Unexpected lefty energy despite righty parents.',
-  'Forms a parasocial bond with a houseplant. Names it.',
-  'Becomes weirdly good at one obscure carnival game.',
-  'Will go through a brief but committed pirate phase.',
-  'Surprise musical talent surfaces during karaoke night.',
-  'Develops a personal catchphrase by age 5. Family adopts it.',
-  'Future memoir title: already chosen, age 6.'
+  'Inherits a habit from a grandparent they never met.',
+  'Laughs the same way a great-aunt did, without ever having heard her.',
+  'Goes through a phase of writing in a notebook every night, age 11.',
+  'Becomes a careful left-hander in a family of careful right-handers.',
+  'Develops one strong preference about food they will never explain.',
+  'Forms an unusually close attachment to a particular old sweater.',
+  'Carries a memory from age 4 that the family doesn\'t remember.',
+  'Picks up the rhythm of a parent\'s walk without noticing.',
+  'Learns a song from a great-grandparent\'s funeral and hums it for years.',
+  'Develops a quiet ritual around bedtime that they keep into adulthood.',
+  'Has a recurring dream they don\'t mention to anyone.',
+  'Becomes the keeper of a family object no one else wanted.',
+  'Has an early friendship that re-emerges, unexpectedly, at 32.',
+  'Saves something small from every place they live.',
+  'Carries one phrase from a teacher for the rest of their life.',
+  'Repeats one word strangely between ages 3 and 5, then stops.',
+  'Develops a small, specific fear that never fully resolves.',
+  'Holds onto a particular smell as the texture of home.'
 ];
 
 const FUN_NAMES = [
@@ -325,36 +315,29 @@ const NATURAL_VARIATION_MESSAGES = [
 
 /* ---------- News Headlines ---------- */
 
+// Local-news flavor — quiet civic things. Less viral-internet, more "the
+// kind of paragraph you find on page 6 of a small-town paper".
 const NEWS_HEADLINES = [
-  'Teen accidentally invents biodegradable glitter.',
-  'Local astrophysicist forgets backpack on train, again.',
-  'World\'s loudest birthday party breaks neighborhood records.',
-  'Spelling bee runner-up confronts judges about Latin etymology.',
-  'Stranger befriends pigeon; pigeon befriends back.',
-  'Bouncy castle inflated indoors after a particularly bold negotiation.',
-  'Local kid corrects museum plaque, museum thanks them.',
-  'Backyard rocket attempt postponed due to weather and grandmother.',
-  'Underground sandwich economy uncovered in 4th-grade classroom.',
-  'High schooler files for trademark on a single emoji.',
-  'Town debates installing skate ramp; one (1) constituent loud in favor.',
-  'Local lemonade stand achieves dynamic pricing.',
-  'Garage band\'s only song now stuck in 200 people\'s heads.',
-  'Anonymous tip leads to most beautifully organized library shelf in district.',
-  'Locally famous prank involves no harm, vast confusion.',
-  'Documentary about a single cat enters its third season.',
-  'High-school robotics team accidentally invents a pancake-flipping arm.',
-  'Person reaches new personal record: longest streak of being on time.',
-  'Library patron returns a book 11 years late with a 12-page apology.',
-  'Choir performance derailed (lovingly) by a particularly committed soloist.',
-  'Tiny garden out-competes city\'s parks division at growing tomatoes.',
-  'Stand-up comedy debut: 4 minutes, 1 prop, 87 photos shared.',
-  'Local kid wins regional spelling bee; spells "schadenfreude" without flinching.',
-  'Surprise viral video involves a homemade Halloween costume of a spreadsheet.',
-  'Annual neighborhood scavenger hunt now has lore.',
-  'Local resident found running a one-person book club for years.',
-  'Birthday-card business operated entirely out of a treehouse audited fairly.',
-  'Person reaches a milestone in a hobby no one knew existed.',
-  'Town\'s annual chili cookoff disrupted by surprise dessert entry.'
+  'Local librarian retires after 31 years; the children\'s section is renamed.',
+  'Volunteer firefighter delivers a baby on the side of route 12.',
+  'Anonymous donor pays off the elementary school\'s overdue lunch accounts.',
+  'High-school marching band wins their first state title in a generation.',
+  'Local resident maps every public bench in the city. Map goes mildly viral.',
+  'Couple celebrates 60 years of marriage; their first date was at the same diner.',
+  'Town\'s last family-owned hardware store finds a new owner.',
+  'Local poet wins a small but meaningful national prize.',
+  'Community garden produces enough vegetables for the food bank, all year.',
+  'Long-time mail carrier knows every dog by name; the dogs reciprocate.',
+  'Local engineer designs a free wheelchair ramp for a neighbor\'s porch.',
+  'Two strangers who met at a bus stop are now business partners.',
+  'High-school graduation speech, delivered in three languages, goes home with everyone.',
+  'Retired teacher publishes a children\'s book at 78. Sells out at the local store.',
+  'Small bookstore hosts a reading; line stretches around the block.',
+  'Local choir performs for the residents of the hospice once a month, for years.',
+  'A widow learns to drive at 71 and visits her sister three states away.',
+  'Town crossing guard is honored for 25 years of remembering every child\'s name.',
+  'High-school robotics team mentors the elementary school for a year.',
+  'Local family adopts a refugee family\'s grocery list as their own.'
 ];
 
 /* ---------- Trait Conflicts (framed as tradeoffs, not flaws) ---------- */
@@ -468,11 +451,15 @@ const ADULT_FUTURES_CLINICAL = [
   { headline: 'Restaurateur, single location.',                                      details: ['Eight years stable; never expanded.', 'Suppliers are personal relationships.', 'Closes for two weeks in August without public explanation.'], tags: ['urbanRural','family'] }
 ];
 
-const ADULT_MICRODETAILS = [
+// Behavioral trace notes — small, specific human details that read as
+// "leakage" inside the clinical Adult system. Expanded from the previous
+// 20-item ADULT_MICRODETAILS to ~40 entries spanning relationships,
+// routines, regrets, quiet attachments.
+const ADULT_TRACES = [
   'Still keeps notebooks from adolescence.',
   'Changes career path twice before 30.',
-  'Avoids phone calls whenever possible.',
-  'Tends to overprepare for small events.',
+  'Avoids phone calls; writes thoughtful letters instead.',
+  'Tends to overprepare for social events.',
   'Maintains the same three close friends across two decades.',
   'Drinks coffee well past the point of effect.',
   'Reads three books at once; finishes two.',
@@ -481,14 +468,98 @@ const ADULT_MICRODETAILS = [
   'Holds a quietly considered opinion they\'ve never shared publicly.',
   'Subscribes to two newsletters from people they no longer know.',
   'Knows the names of every neighbor\'s pets.',
-  'Has an uncommon food allergy.',
+  'Has an uncommon food allergy that shapes their dinner plans for life.',
   'Travels less than peers; more deliberately.',
-  'Will briefly take up running at some point.',
-  'Has tried therapy twice. Will likely return.',
+  'Has tried therapy twice. May return.',
   'Owns more books than shelf space.',
   'Is the first person friends call after a hard week.',
-  'Speaks with a grandparent weekly.',
-  'Sustains a low-key creative project across years.'
+  'Speaks with a grandparent weekly until that grandparent dies.',
+  'Sustains a low-key creative project across years.',
+  'Still keeps a childhood stuffed animal on a shelf in the closet.',
+  'Replays small interactions in their head for days afterward.',
+  'Changes friend groups dramatically after age 19.',
+  'Learns one recipe extremely well; serves it for the rest of their life.',
+  'Has an old conversation thread they still re-read sometimes.',
+  'Develops obscure interests unexpectedly in their thirties.',
+  'Quietly identifies as the family member who keeps everyone in touch.',
+  'Carries one specific song to every difficult moment.',
+  'Saves voicemails from people who have died.',
+  'Has a desk drawer of small objects no one else would want.',
+  'Knows exactly which photographs to put away when relatives visit.',
+  'Has a specific kind of laughter their family recognizes across rooms.',
+  'Takes long walks alone at night, and considers this a personality trait.',
+  'Keeps unfinished projects for years; some, eventually, finish themselves.',
+  'Saves handwritten notes in books, then forgets which books.',
+  'Has a place in one specific city they consider theirs.',
+  'Will, at some point, take care of a parent and not make it a story.',
+  'Knows their grandparents\' handwriting at a glance.',
+  'Has one private vocabulary for moods they don\'t share with anyone.',
+  'Repeats one phrase a teacher said to them, decades later, to a stranger.',
+  'Becomes, late in life, a person their younger self would have liked.'
+];
+
+// Reflection mode: poetic and observational. Read more like fragments of
+// a profile than data points.
+const REFLECTION_TRACES = [
+  'Calls their parents during grocery shopping, when there\'s nothing in particular to say.',
+  'Keeps old receipts inside the books they\'ve read.',
+  'Remembers one embarrassing middle-school moment forever.',
+  'Has a song they only listen to alone in cars.',
+  'Texts their best friend the same one-liner every birthday.',
+  'Wears one piece of clothing they wore at 16 deep into their thirties.',
+  'Walks the same route home, even when there\'s a shorter one.',
+  'Cries reliably at one specific kind of film they wouldn\'t name in public.',
+  'Has a name for the colour of a particular afternoon sky.',
+  'Keeps the last birthday card their grandmother sent.',
+  'Becomes friends with the corner-shop owner without quite meaning to.',
+  'Holds two contradictory beliefs about themselves at all times.',
+  'Knows the date their first pet died, but not the date they got a driver\'s licence.',
+  'Hums a song their mother hummed; doesn\'t know it\'s her song.',
+  'Has a recurring dream about a hallway they\'ve never seen awake.',
+  'Apologises to inanimate objects when they bump into them.',
+  'Keeps a folded paper in their wallet with handwriting that isn\'t theirs.',
+  'Avoids one specific street in their hometown for reasons they don\'t articulate.',
+  'Owns a photograph of someone they\'re no longer in touch with, framed.',
+  'Saves the last voicemail from a parent for years before listening again.',
+  'Cooks the same Sunday meal as their grandmother, without realising.',
+  'Keeps a note app full of sentences they overheard on trains.',
+  'Has a small kind of bravery no one in their family sees.',
+  'Carries the smell of their childhood home in one particular sweater.',
+  'Returns to the same beach every five years; doesn\'t plan it.',
+  'Keeps a friend\'s number even after the friendship quietly ends.',
+  'Will tell their child a story they were told once, almost word for word.',
+  'Has one piece of music that means something different every decade.',
+  'Saves screenshots of conversations that mattered.',
+  'Recognises a stranger\'s walk and thinks of someone they used to love.'
+];
+
+// Kids mode: believable kid-specific details. Hopeful, embodied, small.
+const KIDS_TRACES = [
+  'Keeps interesting rocks in their pockets.',
+  'Names every plant in the house.',
+  'Replays one song until the family knows every word.',
+  'Builds strange, careful inventions out of cardboard.',
+  'Writes stories in notebooks no one else reads.',
+  'Talks to the family pet in a special quiet voice.',
+  'Counts steps when they walk to school.',
+  'Saves drawings under their bed in a specific order.',
+  'Asks the same favourite question every night.',
+  'Practises handwriting on the back of receipts.',
+  'Collects stickers and refuses to use any of them.',
+  'Knows the name of every kid in their class\'s pets.',
+  'Has a particular tree they always sit under.',
+  'Watches the same film many times in one week.',
+  'Reads books past their bedtime, by streetlight if they can.',
+  'Asks grown-ups about their childhoods.',
+  'Picks out a present for a friend long before the birthday.',
+  'Carries a small notebook in case they need to remember something.',
+  'Brings home small treasures from the playground.',
+  'Has invented their own kind of secret code.',
+  'Knows the way to a friend\'s house by heart, including shortcuts.',
+  'Always sits in the same chair at the kitchen table.',
+  'Holds onto one stuffed animal for years, even past liking it.',
+  'Says hello to dogs they pass on the street, by name when they know it.',
+  'Practises one tiny skill on their own — origami, juggling, drawing eyes.'
 ];
 
 const CLINICAL_REMINDERS = [
@@ -1439,30 +1510,10 @@ function updateBabyPreview() {
     if (!c) return '';
     return ` <span class="confidence ${c.label}">${c.label}${c.unc ? ` · ${c.unc}` : ''}</span>`;
   };
-  if (isKids()) {
-    // Kid-friendly stat block — friendlier section header, simpler labels.
-    const confidence = 11 - b.neuroticism;
-    statsEl.innerHTML = `
-      <dt>Sex</dt>          <dd>${GENDER_LABEL[state.gender] || 'Surprise'}</dd>
-      <dt>Height</dt>       <dd>~ ${display.height}</dd>
-      <dt>Athletic</dt>     <dd>${display.athletic}</dd>
-      <dt>Eye color</dt>    <dd>${display.eyeColor}</dd>
-      <dt>Hair color</dt>   <dd>${display.hairColor}</dd>
-      <dt>Hair texture</dt> <dd>${display.hairType}</dd>
-      <dt>Skin tone</dt>    <dd>${display.skinTone}</dd>
-      <dt>Face shape</dt>   <dd>${display.faceShape}</dd>
-      <dt>Freckles</dt>     <dd>${display.freckles}</dd>
-      <dt>Dimples</dt>      <dd>${display.dimples}</dd>
-      <dt class="ocean-sep">Personality</dt> <dd></dd>
-      <dt>Curiosity</dt>    <dd>${b.openness}/10</dd>
-      <dt>Kindness</dt>     <dd>${b.agreeableness}/10</dd>
-      <dt>Energy</dt>       <dd>${b.extraversion}/10</dd>
-      <dt>Focus</dt>        <dd>${b.conscientiousness}/10</dd>
-      <dt>Confidence</dt>   <dd>${confidence}/10</dd>
-    `;
-  } else {
-    const oceanLabel = inAdult ? 'Behavioral Projection' : 'Big Five';
-    statsEl.innerHTML = `
+  // Stats panel: physical traits are always shown. Personality numbers
+  // are hidden in Reflection / Kids (the constellation shows them
+  // visually) and kept in Adult for the clinical-detail aesthetic.
+  const physicalRows = `
       <dt>Sex</dt>                <dd>${GENDER_LABEL[state.gender] || 'Surprise'}</dd>
       <dt>Height</dt>             <dd>~ ${display.height}${conf('height')}</dd>
       <dt>Athletic</dt>           <dd>${display.athletic}${conf('athletic')}</dd>
@@ -1473,14 +1524,18 @@ function updateBabyPreview() {
       <dt>Face shape</dt>         <dd>${display.faceShape}${conf('faceShape')}</dd>
       <dt>Freckles</dt>           <dd>${display.freckles}${conf('freckles')}</dd>
       <dt>Dimples</dt>            <dd>${display.dimples}${conf('dimples')}</dd>
-      <dt class="ocean-sep">${oceanLabel}</dt> <dd></dd>
+  `;
+  let personalityRows = '';
+  if (inAdult) {
+    personalityRows = `
+      <dt class="ocean-sep">Behavioral Projection</dt> <dd></dd>
       <dt>Openness</dt>           <dd>${display.openness}${conf('openness')}</dd>
       <dt>Conscientiousness</dt>  <dd>${display.conscientiousness}${conf('conscientiousness')}</dd>
       <dt>Extraversion</dt>       <dd>${display.extraversion}${conf('extraversion')}</dd>
       <dt>Agreeableness</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
-      <dt>Neuroticism</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>
-    `;
+      <dt>Neuroticism</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>`;
   }
+  statsEl.innerHTML = physicalRows + personalityRows;
 
   // Derived-stat star row (Kids mode only — CSS hides in Standard).
   renderKidsDerivedStats(b);
@@ -1558,6 +1613,12 @@ function updateBabyPreview() {
   // Pause panel (Reflection mode only): observations + cannot-see + a prompt.
   renderPausePanel();
 
+  // Behavioral trace cards (all modes, mode-aware copy).
+  renderBehavioralTraces();
+
+  // Trait constellation visualization (all modes, mode-aware styling).
+  renderTraitConstellation(b);
+
   // avatar
   updateAvatar(b);
 }
@@ -1614,23 +1675,139 @@ function renderKidsDerivedStats(b) {
   tEl.textContent = `${starString(teamwork)}  (${teamwork}/10)`;
 }
 
+/* ---------- Behavioral Trace Notes ----------
+ * Small, specific human details rendered as a 2×2 card grid below the
+ * avatar. Different pool per mode; same renderer, same DOM hook.
+ */
+function pickBehavioralTraces(seed, count = 4) {
+  const pool = pickPool(REFLECTION_TRACES, ADULT_TRACES, KIDS_TRACES);
+  if (!pool || !pool.length) return [];
+  const rng = seededRand(seed + '|traces');
+  return pickN(pool, Math.min(count, pool.length), rng);
+}
+
+function renderBehavioralTraces() {
+  const host = $('#behavioral-traces');
+  if (!host) return;
+  if (!state.codename) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  const traces = pickBehavioralTraces(state.codename, 4);
+  if (!traces.length) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  const heading = state.appMode === 'adult'
+    ? 'Behavioral Trace Notes'
+    : (state.appMode === 'kids' ? 'Small memories' : 'Small things they\'ll carry');
+  host.hidden = false;
+  host.innerHTML = `
+    <h3 class="traces-heading">${heading}</h3>
+    <div class="traces-grid">
+      ${traces.map(t => `<div class="trace-card">${t}</div>`).join('')}
+    </div>`;
+}
+
+/* ---------- Trait Constellation ----------
+ * SVG visualization of the baby's personality as five nodes on a circle,
+ * connected by lines whose opacity scales with the product of endpoint
+ * values. Replaces the text-heavy personality dl in Reflection / Kids;
+ * supplements it in Adult (numbers remain in the stats block there).
+ */
+const CONSTELLATION_NODES = [
+  { ocean: 'openness',          shortLabel: 'O', kidsLabel: 'Curiosity',  invertKids: false },
+  { ocean: 'conscientiousness', shortLabel: 'C', kidsLabel: 'Focus',      invertKids: false },
+  { ocean: 'extraversion',      shortLabel: 'E', kidsLabel: 'Energy',     invertKids: false },
+  { ocean: 'agreeableness',     shortLabel: 'A', kidsLabel: 'Kindness',   invertKids: false },
+  { ocean: 'neuroticism',       shortLabel: 'N', kidsLabel: 'Confidence', invertKids: true  }
+];
+const CONSTELLATION_R  = 80;
+const CONSTELLATION_CX = 120;
+const CONSTELLATION_CY = 120;
+
+function constellationPos(i) {
+  const theta = (i / 5) * Math.PI * 2 - Math.PI / 2; // start at top, go clockwise
+  return {
+    x: CONSTELLATION_CX + CONSTELLATION_R * Math.cos(theta),
+    y: CONSTELLATION_CY + CONSTELLATION_R * Math.sin(theta),
+    theta
+  };
+}
+
+function renderTraitConstellation(b) {
+  const host = $('#trait-constellation');
+  if (!host) return;
+  if (!state.codename || !b || typeof b.openness !== 'number') {
+    host.innerHTML = '';
+    return;
+  }
+
+  const showLabel = isKids() ? 'kidsLabel' : 'shortLabel';
+  const values = CONSTELLATION_NODES.map(n => {
+    const raw = b[n.ocean] ?? 5;
+    const displayed = (isKids() && n.invertKids) ? (11 - raw) : raw;
+    return { ...n, raw, displayed };
+  });
+
+  // Lines between all pairs.
+  let links = '';
+  for (let i = 0; i < 5; i++) {
+    for (let j = i + 1; j < 5; j++) {
+      const a = constellationPos(i), c = constellationPos(j);
+      const op = Math.max(0.05, (values[i].displayed * values[j].displayed) / 100);
+      links += `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${c.x.toFixed(1)}" y2="${c.y.toFixed(1)}" class="link" style="opacity:${op.toFixed(2)}" />`;
+    }
+  }
+
+  // Nodes.
+  let nodes = '';
+  values.forEach((v, i) => {
+    const p = constellationPos(i);
+    const r = 5 + (v.displayed / 10) * 13; // 5..18
+    let confRing = '';
+    if (state.appMode === 'adult') {
+      const conf = CONFIDENCE[v.ocean];
+      if (conf) {
+        const ringR = r + 6;
+        const ringW = conf.label === 'high' ? 1 : (conf.label === 'moderate' ? 2.5 : 4);
+        confRing = `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${ringR.toFixed(1)}" class="confidence-ring conf-${conf.label}" fill="none" stroke-width="${ringW}" />`;
+      }
+    }
+    const labelR  = CONSTELLATION_R + 26;
+    const labelX  = CONSTELLATION_CX + labelR * Math.cos(p.theta);
+    const labelY  = CONSTELLATION_CY + labelR * Math.sin(p.theta);
+    nodes += `<g class="node node-${i}" data-trait="${v.ocean}">
+      ${confRing}
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${r.toFixed(1)}" />
+      <text x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="middle" dominant-baseline="middle">${v[showLabel]}</text>
+    </g>`;
+  });
+
+  host.innerHTML = `<svg viewBox="0 0 240 240" class="constellation-svg" role="img" aria-label="Personality trait constellation"><g class="links">${links}</g><g class="nodes">${nodes}</g></svg>`;
+}
+
 /* ====================================================================
  * 7. Archetype scoring
  * ==================================================================== */
 
 function calculateArchetype(b) {
   // Scoring over Big Five (O/C/E/A/N) + athletic.
+  // Labels were rewritten to read as grounded interpretive descriptors
+  // rather than meme-y character titles.
   const O = b.openness, C = b.conscientiousness, E = b.extraversion,
         A = b.agreeableness, N = b.neuroticism, athletic = b.athletic;
   const scores = {
-    'Tiny Engineer':         O * 0.9  + C * 1.3 - E * 0.4,                 // focused & curious & organized
-    'Wild Artist':           O * 1.5  - C * 0.7 + N * 0.2,                 // imaginative, scattered, expressive
-    'Calm Explorer':         O * 1.2  - N * 0.9,                           // curious & emotionally steady
-    'Social Spark':          E * 1.4  + A * 0.6,                           // extraverted & warm
-    'Mini Strategist':       O * 0.7  + C * 1.1 - N * 0.3,                 // analytical & methodical
-    'Chaos Scientist':       O * 1.3  - C * 0.6 + N * 0.5,                 // intense, scattered, creative
-    'Gentle Genius':         O * 1.0  + A * 1.0 - E * 0.4,                 // quiet, smart, kind
-    'Athletic Firecracker':  athletic * 1.3 + E * 0.7 - N * 0.3            // energetic, social, confident
+    'The Methodical One':  O * 0.9 + C * 1.3 - E * 0.4,                 // focused, curious, organized
+    'The Imagining One':   O * 1.5 - C * 0.7 + N * 0.2,                 // imaginative, scattered, expressive
+    'The Observer':        O * 1.2 - N * 0.9,                           // curious, emotionally steady
+    'The Connector':       E * 1.4 + A * 0.6,                           // extraverted, warm
+    'The Planner':         O * 0.7 + C * 1.1 - N * 0.3,                 // analytical, methodical
+    'The Recombiner':      O * 1.3 - C * 0.6 + N * 0.5,                 // intense, scattered, creative
+    'The Quiet Maker':     O * 1.0 + A * 1.0 - E * 0.4,                 // quiet, smart, kind
+    'The Mover':           athletic * 1.3 + E * 0.7 - N * 0.3           // energetic, embodied, social
   };
   return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
 }
@@ -1885,8 +2062,9 @@ function generateBabyFlavor(codename, baby) {
 
   if (inAdult) {
     // Adult mode: no funny vibe / events / headlines. Show grounded
-    // microdetails instead — "Still keeps notebooks from adolescence."
-    const details = pickN(ADULT_MICRODETAILS, 4, rng);
+    // microdetails instead — they\'re also surfaced separately as
+    // behavioral-trace cards below the avatar.
+    const details = pickN(ADULT_TRACES, 4, rng);
     return { vibe: '', paths: details, events: [], headlines: [] };
   }
 
@@ -2482,7 +2660,9 @@ function setupHistoryToggle() {
 function applyChaosPillLabel() {
   const btn = $('#chaos-btn');
   if (!btn) return;
-  btn.textContent = isKids() ? '🃏 Wild Card' : '💥 Chaos Mode';
+  if (state.appMode === 'kids')        btn.textContent = '🃏 Wild Card';
+  else if (state.appMode === 'adult')  btn.textContent = '◇ Divergence Model';
+  else                                  btn.textContent = '✦ Wildcard Projection';
 }
 
 function setupAppModeToggle() {

@@ -1095,6 +1095,176 @@ body.mode-reflection #reflection-prompt { display: none !important; }
    but keep the rules orthogonal). */
 body.app-kids .pause-panel { display: none !important; }
 
+/* ---------- Trait Constellation ----------
+   Five-node SVG visualization of the baby's personality. Replaces the
+   text-heavy personality dl in Reflection / Kids; supplements it in
+   Adult. Mode-specific styling via body classes — same JS-generated
+   SVG, different surface treatments. */
+.trait-constellation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 14px;
+}
+.trait-constellation:empty { display: none; }
+.trait-constellation .constellation-svg {
+  width: 240px;
+  height: 240px;
+  overflow: visible;
+}
+.trait-constellation .links line {
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+.trait-constellation .nodes .node circle {
+  fill: var(--accent);
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1;
+  transition: r 0.5s ease, opacity 0.5s ease, fill 0.5s ease;
+}
+.trait-constellation .nodes .node text {
+  font-size: 10.5px;
+  letter-spacing: 0.4px;
+  fill: var(--ink-soft);
+  font-family: inherit;
+}
+/* Per-trait color identity. Lets the constellation read as a structure,
+   not a uniform blob. Each node uses its mode's CSS variable so the
+   palette swap follows mode automatically. */
+.trait-constellation .nodes .node-0 circle { fill: var(--accent); }      /* O */
+.trait-constellation .nodes .node-1 circle { fill: var(--accent-2); }    /* C */
+.trait-constellation .nodes .node-2 circle { fill: var(--accent-3); }    /* E */
+.trait-constellation .nodes .node-3 circle { fill: var(--accent-warm); } /* A */
+.trait-constellation .nodes .node-4 circle { fill: var(--success); }     /* N / Confidence */
+
+/* Reflection: soft glow + slow pulse. Lines drift in opacity. */
+body.mode-reflection .trait-constellation .nodes .node circle {
+  filter: drop-shadow(0 0 5px var(--accent-2));
+  animation: constellationPulse 5s ease-in-out infinite;
+}
+body.mode-reflection .trait-constellation .nodes .node-1 circle { animation-delay: -1s; }
+body.mode-reflection .trait-constellation .nodes .node-2 circle { animation-delay: -2s; }
+body.mode-reflection .trait-constellation .nodes .node-3 circle { animation-delay: -3s; }
+body.mode-reflection .trait-constellation .nodes .node-4 circle { animation-delay: -4s; }
+body.mode-reflection .trait-constellation .links line {
+  stroke: var(--accent-2);
+  stroke-width: 0.85;
+  stroke-dasharray: 1 3;
+  animation: constellationLinkDrift 9s linear infinite;
+}
+@keyframes constellationPulse {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 5px var(--accent-2)); }
+  50%      { transform: scale(1.06); filter: drop-shadow(0 0 9px var(--accent-2)); }
+}
+@keyframes constellationLinkDrift {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 16; }
+}
+body.mode-reflection .trait-constellation .nodes .node circle {
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* Kids: warmer fills, gentle pulse, larger label type. */
+body.app-kids .trait-constellation .nodes .node circle {
+  filter: drop-shadow(0 0 6px var(--accent));
+  animation: kidsConstellationPulse 4s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+body.app-kids .trait-constellation .nodes .node-1 circle { animation-delay: -0.8s; }
+body.app-kids .trait-constellation .nodes .node-2 circle { animation-delay: -1.6s; }
+body.app-kids .trait-constellation .nodes .node-3 circle { animation-delay: -2.4s; }
+body.app-kids .trait-constellation .nodes .node-4 circle { animation-delay: -3.2s; }
+body.app-kids .trait-constellation .nodes .node text { font-size: 11px; fill: var(--ink); }
+body.app-kids .trait-constellation .links line { stroke: var(--accent); stroke-width: 1; }
+@keyframes kidsConstellationPulse {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 6px var(--accent)); }
+  50%      { transform: scale(1.08); filter: drop-shadow(0 0 12px var(--accent-3)); }
+}
+
+/* Adult: clinical dots, confidence rings, crisp lines, no glow. */
+body.mode-adult .trait-constellation .nodes .node circle {
+  filter: none;
+  stroke: rgba(126, 224, 255, 0.5);
+  stroke-width: 0.5;
+}
+body.mode-adult .trait-constellation .links line {
+  stroke: rgba(126, 224, 255, 0.4);
+  stroke-width: 0.6;
+}
+body.mode-adult .trait-constellation .nodes .node text {
+  fill: var(--ink-soft);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+body.mode-adult .trait-constellation .nodes .node .confidence-ring {
+  stroke: rgba(126, 224, 255, 0.45);
+  stroke-dasharray: 2 3;
+}
+body.mode-adult .trait-constellation .nodes .node .confidence-ring.conf-low {
+  stroke: rgba(255, 210, 138, 0.55);
+}
+body.mode-adult .trait-constellation .nodes .node .confidence-ring.conf-moderate {
+  stroke: rgba(200, 155, 255, 0.5);
+}
+
+/* ---------- Behavioral Trace Notes (card grid) ---------- */
+.behavioral-traces {
+  width: 100%;
+  margin: 10px 0 6px;
+  text-align: left;
+}
+.behavioral-traces[hidden] { display: none; }
+.behavioral-traces .traces-heading {
+  margin: 0 0 8px;
+  font-size: 10.5px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+  font-weight: 600;
+}
+.behavioral-traces .traces-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.behavioral-traces .trace-card {
+  padding: 9px 11px;
+  background: rgba(10, 14, 40, 0.45);
+  border: 1px solid rgba(126, 224, 255, 0.18);
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+/* Mode-specific trace card surfaces */
+body.mode-reflection .behavioral-traces .traces-heading { color: var(--accent-2); }
+body.mode-reflection .behavioral-traces .trace-card {
+  background: rgba(28, 22, 56, 0.5);
+  border-color: rgba(180, 160, 220, 0.25);
+  font-style: italic;
+  color: var(--ink);
+}
+body.app-kids .behavioral-traces .traces-heading { color: var(--accent); }
+body.app-kids .behavioral-traces .trace-card {
+  background: rgba(255, 250, 246, 0.6);
+  border-color: rgba(220, 140, 170, 0.22);
+  color: var(--ink);
+  border-radius: 14px;
+}
+body.mode-adult .behavioral-traces .traces-heading { color: var(--accent); letter-spacing: 1.8px; }
+body.mode-adult .behavioral-traces .trace-card {
+  background: rgba(7, 9, 30, 0.55);
+  border-color: rgba(126, 224, 255, 0.22);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+
 /* ---------- Kids-mode theme overrides ---------- */
 /* Warm, softly-lit palette. Same structural code, different emotional weather. */
 body.app-kids {
