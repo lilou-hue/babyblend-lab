@@ -2706,8 +2706,9 @@ body.app-kids .slider-explain:hover {
  * behind a summary keeps the inputs reachable without consuming
  * attention. Default-open in Reflection/Kids, default-closed in
  * Adult — applyAppModeClass() flips the `open` attribute when the
- * mode toggle is used. Chevron + motion mirror .parent-advanced so
- * the two read as one disclosure vocabulary. */
+ * mode toggle is used. Chevron size + opacity + motion match
+ * .parent-advanced exactly (R5 coherence pass) so the two read as
+ * one disclosure vocabulary. */
 .env-disclosure { width: 100%; }
 .env-disclosure > .env-disclosure-summary {
   list-style: none;
@@ -2737,11 +2738,11 @@ body.app-kids .slider-explain:hover {
 }
 .env-disclosure > .env-disclosure-summary::after {
   content: '';
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-right: 1px solid currentColor;
   border-bottom: 1px solid currentColor;
-  opacity: 0.45;
+  opacity: 0.55;
   transform: translateY(-2px) rotate(45deg);
   transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.35s ease;
   margin-left: auto;
@@ -2749,7 +2750,7 @@ body.app-kids .slider-explain:hover {
 }
 .env-disclosure[open] > .env-disclosure-summary::after {
   transform: translateY(1px) rotate(225deg);
-  opacity: 0.8;
+  opacity: 0.85;
 }
 .env-disclosure-hint {
   font-size: 10.5px;
