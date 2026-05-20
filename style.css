@@ -3194,22 +3194,35 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   border-left: 2px solid rgba(140, 180, 220, 0.25); padding: 2px 0 2px 10px;
 }
 
-/* Consent Implications panel — adjacent to Enhancement Allocation. */
+/* Consent Implications panel — adjacent to Enhancement Allocation.
+   Warm-tinted left border echoes the heritable-allocation badge; negative
+   margin tightens the gap with the budget panel above so the two read as a
+   grouped pair rather than two equally-weighted sections. */
+#budget-panel + .consent-panel { margin-top: -10px; }
+.consent-panel { border-left: 3px solid rgba(255, 210, 138, 0.4); }
+.consent-panel > .subtle { font-size: 13px; }
 .consent-panel .consent-explainer { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
 .consent-panel .consent-row {
-  display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: start;
-  padding: 10px 12px; background: rgba(7, 9, 30, 0.5);
+  display: grid; grid-template-columns: minmax(110px, 18%) 1fr; gap: 14px; align-items: start;
+  padding: 10px 12px; background: rgba(14, 18, 40, 0.6);
   border: 1px solid rgba(140, 180, 220, 0.18); border-radius: 8px;
 }
 .consent-panel .consent-label {
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase;
-  color: var(--accent); padding-top: 1px;
+  font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase;
+  color: var(--accent-warm); padding: 1px 0 6px;
+  border-bottom: 1px solid rgba(255, 210, 138, 0.18);
 }
 .consent-panel .consent-body,
-.consent-panel .consent-line { font-size: 12.5px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
-@media (max-width: 640px) {
+.consent-panel .consent-line { font-size: 13px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+@media (max-width: 768px) {
   .consent-panel .consent-row { grid-template-columns: 1fr; gap: 6px; }
+  .consent-panel .consent-label { display: inline; font-weight: 700; border-bottom: 0; padding: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .consent-panel,
+  .consent-panel .consent-row,
+  .consent-panel .consent-body { transition: none !important; animation: none !important; }
 }
 
 .priority-row {
