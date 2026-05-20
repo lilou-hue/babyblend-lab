@@ -544,6 +544,81 @@ const BIGSMILE_HAIR_BY_GENDER = {
 
 const GENDER_LABEL = { female: 'Female', male: 'Male', surprise: 'Surprise' };
 
+/* ---------- Ladder + gender translations ----------
+ * Localized labels for the visible trait values (eye/hair/skin/face/
+ * freckles/dimples) and for the gender display. Each language array
+ * must match the English ladder length 1:1 because the same index
+ * stored in state.baby maps to the localized string at that index. */
+const LADDER_I18N = {
+  EYE: {
+    zh: ['蓝色', '绿色', '榛色', '棕色', '深棕色'],
+    ja: ['ブルー', 'グリーン', 'ヘーゼル', 'ブラウン', 'ダークブラウン'],
+    ko: ['파란색', '초록색', '헤이즐', '갈색', '진갈색'],
+    tr: ['Mavi', 'Yeşil', 'Ela', 'Kahverengi', 'Koyu Kahverengi']
+  },
+  HAIR: {
+    zh: ['白金色', '金色', '草莓金', '浅棕色', '红褐色', '棕色', '深棕色', '黑色', '乌黑色', '红色', '灰色'],
+    ja: ['プラチナ', 'ブロンド', 'ストロベリー', 'ライトブラウン', 'オーバーン', 'ブラウン', 'ダークブラウン', 'ブラック', '漆黒', 'レッド', 'グレー'],
+    ko: ['플래티넘', '금발', '딸기금발', '연갈색', '적갈색', '갈색', '진갈색', '검정', '칠흑', '빨강', '회색'],
+    tr: ['Platin', 'Sarı', 'Çilek Sarısı', 'Açık Kahverengi', 'Kızıl-Kahve', 'Kahverengi', 'Koyu Kahverengi', 'Siyah', 'Karasiyah', 'Kızıl', 'Gri']
+  },
+  TEX: {
+    zh: ['直发', '波浪卷', '卷发', '紧致卷'],
+    ja: ['ストレート', 'ウェーブ', 'カール', 'コイリー'],
+    ko: ['직모', '웨이브', '곱슬', '꼬불꼬불'],
+    tr: ['Düz', 'Dalgalı', 'Kıvırcık', 'Sıkı Kıvırcık']
+  },
+  SKIN: {
+    zh: ['瓷白', '极浅', '浅色', '浅麦色', '中等', '橄榄色', '小麦色', '棕色', '深棕色', '深褐色'],
+    ja: ['ポーセリン', '非常に明るい', '明るめ', 'ライトタン', 'ミディアム', 'オリーブ', 'タン', 'ブラウン', 'ディープブラウン', 'ダークブラウン'],
+    ko: ['포셀린', '매우 밝은', '밝은', '연한 갈색조', '중간', '올리브', '갈색조', '갈색', '진갈색', '아주 진한 갈색'],
+    tr: ['Porselen', 'Çok Açık', 'Açık', 'Açık Buğday', 'Orta', 'Zeytin', 'Bronz', 'Kahverengi', 'Koyu Kahverengi', 'Çok Koyu']
+  },
+  FACE: {
+    zh: ['圆形', '椭圆形', '心形', '方形', '长形'],
+    ja: ['丸顔', '卵型', 'ハート型', '四角形', '面長'],
+    ko: ['둥근형', '계란형', '하트형', '사각형', '긴형'],
+    tr: ['Yuvarlak', 'Oval', 'Kalp', 'Kare', 'Uzun']
+  },
+  FRECK: {
+    zh: ['无', '少量', '很多'],
+    ja: ['なし', '少なめ', '多め'],
+    ko: ['없음', '적음', '많음'],
+    tr: ['Yok', 'Az', 'Çok']
+  },
+  DIMPLE: {
+    zh: ['无', '有'],
+    ja: ['なし', 'あり'],
+    ko: ['없음', '있음'],
+    tr: ['Yok', 'Var']
+  }
+};
+const LADDER_REF = {
+  EYE: EYE_LADDER, HAIR: HAIR_LADDER, TEX: TEX_LADDER,
+  SKIN: SKIN_LADDER, FACE: FACE_LADDER, FRECK: FRECK_LADDER, DIMPLE: DIMPLE_LADDER
+};
+// Returns the localized label for ladder `name` at index `idx`. Falls
+// back to the English ladder when the language slice is missing.
+function localLadder(name, idx) {
+  const enArr = LADDER_REF[name] || [];
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  if (lang === 'en') return titleCase(enArr[idx] || '');
+  const trArr = LADDER_I18N[name] && LADDER_I18N[name][lang];
+  if (!trArr) return titleCase(enArr[idx] || '');
+  return trArr[idx] || titleCase(enArr[idx] || '');
+}
+function localGender(g) {
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  const map = {
+    en: { female: 'Female', male: 'Male', surprise: 'Surprise' },
+    zh: { female: '女', male: '男', surprise: '随机' },
+    ja: { female: '女の子', male: '男の子', surprise: 'おまかせ' },
+    ko: { female: '여아', male: '남아', surprise: '랜덤' },
+    tr: { female: 'Kız', male: 'Erkek', surprise: 'Sürpriz' }
+  };
+  return (map[lang] && map[lang][g]) || map.en[g] || g;
+}
+
 /* ---------- Ancestry presets ----------
  * Each preset describes the typical *range* of trait values seen in that
  * ancestry — not a fixed look. Picking an ancestry rolls one trait out of
@@ -3190,12 +3265,11 @@ function applyEnvDisclosureMode() {
   d.open = state.appMode !== 'adult';
 }
 
-// Enhancement Allocation is now visible from first load in Adult mode,
-// but interaction is GATED on generateCount>=1 (lock copy explains why).
-// Consent Implications now reveals purely on allocation weight (>=50
-// credits) — the gen-2 co-gate was redundant once allocation is the
-// signal that the user has committed to an optimization frame, and was
-// blocking the consent reframing during the most teachable moment.
+// Enhancement Allocation is visible from first load in Adult mode as a
+// compact locked preview; its dense controls are hidden/disabled until the
+// first projection exists. Consent Implications reveals on allocation weight
+// (>=50 credits), once the user has moved from playful baseline sampling into
+// explicit optimization.
 // Other analytical Adult panels (Societal Brief, Sibling Cohort, Trait
 // Popularity) keep the gen requirement as their own reveal gate.
 function applyBudgetPanelGate() {
@@ -3257,7 +3331,7 @@ function ensureBudgetLockNotice(showLock) {
     if (!notice) {
       notice = document.createElement('p');
       notice.className = 'budget-lock-notice';
-      notice.textContent = 'Enhancement packages unlock after your first generation.';
+      notice.textContent = 'Baseline projection required before optimization packages unlock.';
       const intro = panel.querySelector('.subtle');
       if (intro && intro.nextSibling) panel.insertBefore(notice, intro.nextSibling);
       else panel.appendChild(notice);
@@ -3276,6 +3350,9 @@ function ensureBudgetLockNotice(showLock) {
 // this UX-shaped concern out of the data shape.
 const PARENT_ADVANCED_KEYS = new Set([
   'openness', 'conscientiousness', 'extraversion', 'agreeableness', 'neuroticism'
+]);
+const PARENT_APPEARANCE_KEYS = new Set([
+  'eyeColor', 'hairColor', 'hairType', 'skinTone', 'faceShape', 'freckles', 'dimples'
 ]);
 
 function buildParentForms() {
@@ -3300,6 +3377,14 @@ function buildParentForms() {
     const advancedBody = document.createElement('div');
     advancedBody.className = 'parent-advanced-body';
     advanced.appendChild(advancedBody);
+    const appearance = document.createElement('details');
+    appearance.className = 'parent-appearance';
+    appearance.dataset.parent = letter;
+    appearance.open = !window.matchMedia('(max-width: 720px)').matches;
+    appearance.innerHTML = `<summary class="parent-appearance-summary">Visible traits</summary>`;
+    const appearanceBody = document.createElement('div');
+    appearanceBody.className = 'parent-appearance-body';
+    appearance.appendChild(appearanceBody);
     PARENT_FIELDS.forEach(f => {
       const id = `p${letter}_${f.key}`;
       const def = letter === 'A' ? f.defA : f.defB;
@@ -3334,10 +3419,13 @@ function buildParentForms() {
       }
       if (PARENT_ADVANCED_KEYS.has(f.key)) {
         advancedBody.appendChild(field);
+      } else if (PARENT_APPEARANCE_KEYS.has(f.key)) {
+        appearanceBody.appendChild(field);
       } else {
         card.appendChild(field);
       }
     });
+    card.appendChild(appearance);
     card.appendChild(advanced);
     container.appendChild(card);
     const rb = card.querySelector('.parent-randomize-btn');
@@ -6131,15 +6219,12 @@ function buildEnhancementBudget() {
     const valEl = row.querySelector('.val');
     input.addEventListener('input', () => {
       const requested = Number(input.value);
-      // Two-beat consent rhythm: the FIRST non-zero allocation in this
-      // session is held until a one-time micro-acknowledgment fires.
-      // Until acknowledged, any non-zero input is rejected back to 0.
+      // Two-beat consent rhythm: the first non-zero allocation quietly moves
+      // the session from baseline play into optimization, then the progress
+      // hint leads toward the fuller consent panel at 50 credits.
       if (requested > 0 && !state.consentAck) {
-        input.value = 0;
-        state.budget[p.key] = 0;
-        valEl.textContent = 0;
-        showConsentAckPrompt();
-        return;
+        state.consentAck = true;
+        ensureConsentProgressHint();
       }
       const otherCost = Object.entries(state.budget).reduce((sum, [k, v]) => {
         if (k === p.key) return sum;
@@ -6271,7 +6356,12 @@ function renderConsentExplainer() {
     const body  = (it && it.body)  ? it.body  : '';
     return `<div class="consent-row"><span class="consent-label">${label}</span><span class="consent-body">${body}</span></div>`;
   }).join('');
-  host.innerHTML = leadHtml + rowsHtml;
+  host.innerHTML = `
+    ${leadHtml}
+    <details class="consent-detail">
+      <summary>Institutional consent record</summary>
+      <div class="consent-detail-body">${rowsHtml}</div>
+    </details>`;
   host.dataset.rendered = '1';
 }
 
@@ -6387,7 +6477,7 @@ function updateBudgetProjections(usedOverride) {
         : 'Footnote: compliance language manages institutional risk; it does not restore the future subject’s consent.';
     } else if (gapNote) { gapNote.remove(); }
     let accessFoot = projHost.querySelector('.access-compound-foot');
-    if (used > 0) {
+    if (used >= 50) {
       if (!accessFoot) {
         accessFoot = document.createElement('p');
         accessFoot.className = 'access-compound-foot';
@@ -6425,11 +6515,16 @@ function renderRegulatoryNotes() {
   const matched = REGULATORY_NOTE_RULES.filter(rule => {
     try { return rule.when(b, total); } catch { return false; }
   });
+  if (!total) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
   if (!matched.length) {
     host.hidden = false;
     host.innerHTML = `
       <h3 class="reg-heading">Regulatory Context</h3>
-      <p class="reg-empty">No allocation thresholds crossed. Current profile does not trigger disclosure requirements.</p>`;
+      <p class="reg-empty">No disclosure thresholds crossed yet.</p>`;
     return;
   }
   host.hidden = false;
