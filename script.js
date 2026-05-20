@@ -4300,7 +4300,7 @@ function renderCaseFile() {
   const intensity = state.optIntensity || 0;
   let tier = 'Tier I · Baseline';
   if (intensity > 0.30) tier = 'Tier II · Moderate optimization';
-  if (intensity > 0.60) tier = 'Tier III · Aggressive optimization';
+  if (intensity > 0.60) tier = 'Tier III · Elevated optimization';
   if (intensity > 0.85) tier = 'Tier IV · Boundary case — review required';
   const profileV = (state.generateCount || 0) + '.' + Math.floor((state.surprise || 0) / 10);
   const disclosure = intensity > 0.45 ? 'required' : 'not required';
