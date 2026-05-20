@@ -262,6 +262,15 @@
           <div class="life-stage-strip" id="life-stage-strip" aria-hidden="true"></div>
         </section>
 
+        <section class="aging-scrubber" id="aging-scrubber" hidden>
+          <div class="scrubber-head">
+            <span class="scrubber-label" id="scrubber-label">See them at</span>
+            <span class="scrubber-value" id="scrubber-value">17 years old</span>
+          </div>
+          <input type="range" id="age-slider" min="0" max="80" step="1" value="17" aria-label="Age" />
+          <p class="scrubber-ticker" id="scrubber-ticker"></p>
+        </section>
+
         <div class="style-toggle" role="tablist" aria-label="Avatar style">
           <button type="button" class="style-btn is-active" data-style="lorelei"  role="tab" aria-selected="true">Lorelei</button>
           <button type="button" class="style-btn"           data-style="bigSmile" role="tab" aria-selected="false">Big Smile</button>

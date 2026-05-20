@@ -15,28 +15,37 @@ const DICEBEAR_STYLES = {
 /* ---------- Trait ladders & color maps ---------- */
 
 const EYE_LADDER  = ['blue', 'green', 'hazel', 'brown', 'dark brown'];
-const HAIR_LADDER = ['blonde', 'light brown', 'brown', 'dark brown', 'black', 'red'];
+const HAIR_LADDER = ['platinum', 'blonde', 'strawberry', 'light brown', 'auburn', 'brown', 'dark brown', 'black', 'jet black', 'red', 'gray'];
 const TEX_LADDER  = ['straight', 'wavy', 'curly', 'coily'];
-const SKIN_LADDER = ['very fair', 'fair', 'medium', 'olive', 'brown', 'dark brown'];
+const SKIN_LADDER = ['porcelain', 'very fair', 'fair', 'light tan', 'medium', 'olive', 'tan', 'brown', 'deep brown', 'dark brown'];
 const FACE_LADDER = ['round', 'oval', 'heart', 'square', 'long'];
 const FRECK_LADDER = ['none', 'light', 'lots'];
 const DIMPLE_LADDER = ['no', 'yes'];
 
 const HAIR_HEX = {
+  'platinum':    '#e8dcc0',
   'blonde':      '#d8b96b',
+  'strawberry':  '#c98a5a',
   'light brown': '#8e6238',
+  'auburn':      '#7a3a1f',
   'brown':       '#5a3825',
   'dark brown':  '#3a2210',
   'black':       '#1a120a',
-  'red':         '#a44222'
+  'jet black':   '#0a0604',
+  'red':         '#a44222',
+  'gray':        '#a8a39b'
 };
 const SKIN_HEX = {
-  'very fair':  '#fde7d4',
-  'fair':       '#f3d2ad',
-  'medium':     '#dbac82',
-  'olive':      '#c89972',
-  'brown':      '#9a6a44',
-  'dark brown': '#5d3a22'
+  'porcelain':   '#fdeede',
+  'very fair':   '#fde7d4',
+  'fair':        '#f3d2ad',
+  'light tan':   '#e6bc94',
+  'medium':      '#dbac82',
+  'olive':       '#c89972',
+  'tan':         '#b3835a',
+  'brown':       '#9a6a44',
+  'deep brown':  '#74502f',
+  'dark brown':  '#5d3a22'
 };
 const EYE_HEX = {
   'blue':       '#3870b8',
@@ -120,6 +129,67 @@ const BIGSMILE_HAIR_BY_GENDER = {
 };
 
 const GENDER_LABEL = { female: 'Female', male: 'Male', surprise: 'Surprise' };
+
+/* ---------- Ancestry presets ----------
+ * Each preset describes the typical *range* of trait values seen in that
+ * ancestry — not a fixed look. Picking an ancestry rolls one trait out of
+ * each list, so two babies of the same ancestry still vary. "Mixed" leaves
+ * the existing fields alone. None of this is biology — it's just a starting
+ * point so combinations don't all collapse to one phenotype.
+ */
+const ANCESTRY_LADDER = [
+  'unspecified', 'european', 'east asian', 'south asian',
+  'african', 'latin american', 'middle eastern', 'mixed'
+];
+const ANCESTRY_LABEL = {
+  'unspecified':    'Unspecified',
+  'european':       'European',
+  'east asian':     'East Asian',
+  'south asian':    'South Asian',
+  'african':        'African',
+  'latin american': 'Latin American',
+  'middle eastern': 'Middle Eastern',
+  'mixed':          'Mixed'
+};
+const ANCESTRY_PRESETS = {
+  european: {
+    skinTone:  ['porcelain', 'very fair', 'fair', 'light tan'],
+    hairColor: ['platinum', 'blonde', 'strawberry', 'light brown', 'auburn', 'brown', 'dark brown', 'red'],
+    hairType:  ['straight', 'wavy', 'curly'],
+    eyeColor:  ['blue', 'green', 'hazel', 'brown']
+  },
+  'east asian': {
+    skinTone:  ['very fair', 'fair', 'light tan'],
+    hairColor: ['black', 'jet black', 'dark brown'],
+    hairType:  ['straight', 'wavy'],
+    eyeColor:  ['brown', 'dark brown']
+  },
+  'south asian': {
+    skinTone:  ['light tan', 'medium', 'olive', 'tan', 'brown'],
+    hairColor: ['dark brown', 'black', 'jet black'],
+    hairType:  ['straight', 'wavy', 'curly'],
+    eyeColor:  ['brown', 'dark brown', 'hazel']
+  },
+  african: {
+    skinTone:  ['brown', 'deep brown', 'dark brown', 'tan'],
+    hairColor: ['black', 'jet black', 'dark brown'],
+    hairType:  ['coily', 'curly'],
+    eyeColor:  ['brown', 'dark brown']
+  },
+  'latin american': {
+    skinTone:  ['fair', 'light tan', 'medium', 'olive', 'tan', 'brown'],
+    hairColor: ['brown', 'dark brown', 'black', 'auburn'],
+    hairType:  ['straight', 'wavy', 'curly'],
+    eyeColor:  ['hazel', 'brown', 'dark brown', 'green']
+  },
+  'middle eastern': {
+    skinTone:  ['fair', 'light tan', 'medium', 'olive', 'tan'],
+    hairColor: ['dark brown', 'black', 'brown'],
+    hairType:  ['straight', 'wavy', 'curly'],
+    eyeColor:  ['brown', 'dark brown', 'hazel', 'green']
+  },
+  mixed: null
+};
 
 /* ---------- Flavor pools ---------- */
 
@@ -667,6 +737,75 @@ const ADULTHOOD_MEMORIES = [
   'A choice they made quietly that changed everything afterward.'
 ];
 
+/* ---------- Aging scrubber ticker pools ----------
+ * Stage-bucketed lines surfaced by the age slider. Three buckets:
+ * early (0-12), mid (13-29), later (30+). Reflection reuses the
+ * existing memory pools; Kids and Adult get their own. */
+const KIDS_AGE_TICKERS = {
+  early: [
+    'Building a fort out of every sofa cushion in the house.',
+    'Naming a goldfish, then naming it again the next day.',
+    'Insisting on wearing the same dinosaur t-shirt three days in a row.',
+    'Practising writing their name on every available surface.',
+    'Asking why the sky is blue. Then why the why is why.',
+    'Memorising every word of one specific picture book.',
+    'Inventing an imaginary friend who works at a bakery.'
+  ],
+  mid: [
+    'Walking to school with a best friend, debating something important.',
+    'Trying a new way of dressing — it lasts six months, mostly.',
+    'Becoming briefly very serious about one specific band.',
+    'Discovering they are unexpectedly good at something they did not try for.',
+    'Falling in love for the first time, quietly.',
+    'Spending a whole weekend on a project no one else understands yet.',
+    'Becoming the friend who remembers everyone\'s birthday.'
+  ],
+  later: [
+    'Settling into a kitchen they cook in often. The same chair, mostly.',
+    'Calling a parent on Sundays out of habit.',
+    'Realising one of their childhood teachers shaped them more than they knew.',
+    'Building something with their hands that lasts beyond them.',
+    'Becoming the person their younger self would have wanted to find.',
+    'Telling a story at a small dinner that everyone will repeat later.',
+    'Looking at a photo of themselves at this age and recognising who they were.'
+  ]
+};
+
+const ADULT_TRAJECTORY_MILESTONES = {
+  early: [
+    'Phenotype expression stable. Pre-cognitive markers within projected range.',
+    'Developmental milestones tracked on schedule.',
+    'No deviation from cohort baseline in motor-coordination indices.',
+    'Verbal-acquisition curve consistent with predicted range.',
+    'Subject enrolled in standard early-developmental tracking program.',
+    'Cognitive-enhancement vector beginning to differentiate from baseline cohort.'
+  ],
+  mid: [
+    'Academic-track placement consistent with allocation profile.',
+    'Cohort visibility elevated. Peer-comparison exposure rising as projected.',
+    'Behavioral projection band narrowing. Three primary archetypes remain viable.',
+    'Identity-formation phase: stable signals expected through ages 17-22.',
+    'First formal performance evaluation complete. Profile classification confirmed.',
+    'Voluntary opt-out window for cohort study has now closed.',
+    'Early career signals consistent with allocation-bias forecast.'
+  ],
+  later: [
+    'Adult profile stable. Long-term trait expression within projected range.',
+    'Cohort follow-up confirms allocation-bias retention through midlife.',
+    'Long-horizon outcome metrics now eligible for cohort-wide aggregation.',
+    'Subject continues quarterly trajectory reporting. No flags raised.',
+    'Affective-stability indices declining slightly within expected senescence band.',
+    'Final allocation-outcome correlation report scheduled at next decadal review.',
+    'Subject offspring (n=0-2 projected) will be assessed under LH-2070 framework.'
+  ]
+};
+
+function ageBucket(age) {
+  if (age < 13) return 'early';
+  if (age < 30) return 'mid';
+  return 'later';
+}
+
 const CLINICAL_REMINDERS = [
   'Behavioral outcomes remain difficult to model reliably.',
   'Strong environmental influence expected.',
@@ -1114,6 +1253,7 @@ function addTraitOverlays(svg, b, styleName) {
 
 const PARENT_FIELDS = [
   { key: 'name',       label: 'Name',                type: 'text',   defA: 'Alex',  defB: 'Bea' },
+  { key: 'ancestry',   label: 'Ancestry',            type: 'select', options: ANCESTRY_LADDER, optionLabels: ANCESTRY_LABEL, defA: 'unspecified', defB: 'unspecified', appliesPreset: true },
   { key: 'height',     label: 'Height (cm)',         type: 'number', min: 140, max: 210, defA: 170, defB: 175 },
   { key: 'athletic',   label: 'Athletic',            subtitle: 'physical tendency',           type: 'range', min: 1, max: 10, defA: 5, defB: 6 },
   { key: 'eyeColor',   label: 'Eye color',           type: 'select', options: EYE_LADDER,    defA: 'blue',     defB: 'brown' },
@@ -1176,7 +1316,8 @@ const state = {
   chaos: false,        // amplifies slider ranges + surprise
   generateCount: 0,    // how many times Generate has been clicked
   alternates: [],      // generated alternate-baby cards
-  futures: []          // generated adult-life future cards (for current baby)
+  futures: [],         // generated adult-life future cards (for current baby)
+  age: 17              // current age on the aging-scrubber slider (0..80)
 };
 
 /* ---------- Helpers ---------- */
@@ -1269,7 +1410,10 @@ function buildParentForms() {
           <label for="${id}">${f.label}</label>
           <input id="${id}" name="${f.key}" type="number" min="${f.min}" max="${f.max}" value="${def}" />`;
       } else if (f.type === 'select') {
-        const opts = f.options.map(o => `<option value="${o}" ${o===def?'selected':''}>${titleCase(o)}</option>`).join('');
+        const opts = f.options.map(o => {
+          const lbl = (f.optionLabels && f.optionLabels[o]) || titleCase(o);
+          return `<option value="${o}" ${o===def?'selected':''}>${lbl}</option>`;
+        }).join('');
         field.innerHTML = `
           <label for="${id}">${f.label}</label>
           <select id="${id}" name="${f.key}">${opts}</select>`;
@@ -1299,6 +1443,25 @@ function buildParentForms() {
   $$('.parent-card input[type="range"]').forEach(r => {
     const valEl = $('#' + r.id + '_val');
     r.addEventListener('input', () => { valEl.textContent = r.value; });
+  });
+
+  // Ancestry change → roll plausible defaults for that parent's trait selects.
+  ['A', 'B'].forEach(letter => {
+    const sel = $('#p' + letter + '_ancestry');
+    if (!sel) return;
+    sel.addEventListener('change', () => applyAncestryPreset(letter, sel.value));
+  });
+}
+
+function applyAncestryPreset(letter, ancestry) {
+  const preset = ANCESTRY_PRESETS[ancestry];
+  if (!preset) return; // 'unspecified' or 'mixed' — leave fields as-is
+  const pickFrom = arr => arr[Math.floor(Math.random() * arr.length)];
+  Object.entries(preset).forEach(([key, options]) => {
+    const el = $('#p' + letter + '_' + key);
+    if (!el) return;
+    el.value = pickFrom(options);
+    el.dispatchEvent(new Event('change', { bubbles: true }));
   });
 }
 
@@ -1891,6 +2054,11 @@ function updateBabyPreview() {
   // Life-stage avatar strip — three small avatars (At 7 / 17 / 47)
   // alongside the main one so the person reads across time.
   renderLifeStageStrip(b);
+
+  // Aging scrubber — single slider you can drag through the person's
+  // life. The main avatar re-seeds per age, ticker line updates.
+  renderAgingScrubber();
+  setupAgeScrubberListener();
 
   // Generational lineage cascade (parents → baby → hypothetical
   // grandchildren). Lives in its own panel below the baby panel.
@@ -2577,7 +2745,79 @@ function buildAvatarSvg(b, styleName, g, seedHint) {
 function updateAvatar(b) {
   const host = document.getElementById('avatar-host');
   if (!host) return;
-  host.innerHTML = buildAvatarSvg(b, state.style, state.gender, state.codename);
+  // Age-seeded suffix so the main avatar shifts as the user scrubs
+  // through life on the aging slider. Identity stays locked by the
+  // codename + locked palette options; only DiceBear's hair/mouth
+  // variant picks vary with age.
+  const ageSuffix = (typeof state.age === 'number') ? '|age' + state.age : '';
+  host.innerHTML = buildAvatarSvg(b, state.style, state.gender, state.codename + ageSuffix);
+}
+
+/* ---------- Aging scrubber ----------
+ * Single age slider (0..80) below the life-stage strip. Updates
+ * the main avatar with an age-seeded variant and shows a mode-aware
+ * ticker line describing this person at this age. */
+function pickAgeTicker(age) {
+  const bucket = ageBucket(age);
+  const rng = seededRand((state.codename || 'baby') + '|tick|' + age);
+  let pool = [];
+  if (state.appMode === 'kids') {
+    pool = KIDS_AGE_TICKERS[bucket] || [];
+  } else if (state.appMode === 'adult') {
+    pool = ADULT_TRAJECTORY_MILESTONES[bucket] || [];
+  } else {
+    // Reflection: reuse the existing memory pools (already stage-bucketed).
+    if (bucket === 'early') pool = CHILDHOOD_MEMORIES;
+    else if (bucket === 'mid') pool = ADOLESCENCE_MEMORIES;
+    else pool = ADULTHOOD_MEMORIES;
+  }
+  if (!pool.length) return '';
+  return pool[Math.floor(rng() * pool.length)];
+}
+
+function renderAgingScrubber() {
+  const section = $('#aging-scrubber');
+  const label   = $('#scrubber-label');
+  const value   = $('#scrubber-value');
+  const ticker  = $('#scrubber-ticker');
+  if (!section) return;
+  if (!state.codename) {
+    section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+
+  if (label) {
+    label.textContent =
+      state.appMode === 'adult' ? 'Trajectory point'
+      : state.appMode === 'kids' ? 'Visit them at age'
+      : 'See them at';
+  }
+  const age = state.age;
+  if (value) {
+    value.textContent =
+      state.appMode === 'adult' ? `t = ${age} yrs`
+      : (age === 0 ? 'newborn' : `${age} years old`);
+  }
+  if (ticker) ticker.textContent = pickAgeTicker(age);
+}
+
+// Throttled slider listener — only re-render avatar at ~animation
+// frame cadence so dragging stays smooth even at full speed.
+let _scrubberFrame = 0;
+function setupAgeScrubberListener() {
+  const slider = $('#age-slider');
+  if (!slider || slider.dataset.bound === '1') return;
+  slider.dataset.bound = '1';
+  slider.addEventListener('input', () => {
+    state.age = Number(slider.value);
+    if (_scrubberFrame) return;
+    _scrubberFrame = requestAnimationFrame(() => {
+      _scrubberFrame = 0;
+      renderAgingScrubber();
+      updateAvatar(state.baby);
+    });
+  });
 }
 
 /* ---------- Multi-Future Panel (adult lives for current baby) ---------- */
