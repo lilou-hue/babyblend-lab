@@ -498,6 +498,17 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
   box-shadow: 0 0 18px rgba(126, 224, 255, 0.15);
 }
 .btn:active { transform: translateY(1px); }
+/* Keyboard focus: a visible ring on the four primary control families.
+   :focus-visible only fires for keyboard navigation, so mouse users
+   don't see it. Same ring colour as the cyan accent so it lives
+   inside the existing palette. */
+.btn:focus-visible,
+.app-mode-btn:focus-visible,
+.style-btn:focus-visible,
+.gender-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 .btn-primary {
   background: linear-gradient(135deg, rgba(126,224,255,0.85), rgba(200,155,255,0.85));
   color: #0a0a25;
@@ -3877,6 +3888,11 @@ body.mode-adult .societal-brief-panel:not([hidden]) {
   color: var(--accent-warm);
   font-weight: 700;
 }
+/* Mobile: tiny compliance text gets a touch larger + looser leading
+   so it stays readable on phones without breaking the dry register. */
+@media (max-width: 720px) {
+  .regional-list li { font-size: 12.5px; line-height: 1.6; }
+}
 
 /* ====================================================================
  * Reflection arc: Inner Cohort + Lifetime Drift
@@ -4248,13 +4264,16 @@ body.mode-reflection .lifetime-drift-panel h2 {
 @keyframes introEventIn {
   to { opacity: 1; transform: translateY(0); }
 }
-.intro-event:nth-child(1) { animation-delay: 0.5s; }
-.intro-event:nth-child(2) { animation-delay: 0.7s; }
-.intro-event:nth-child(3) { animation-delay: 0.9s; }
-.intro-event:nth-child(4) { animation-delay: 1.1s; }
-.intro-event:nth-child(5) { animation-delay: 1.3s; }
-.intro-event:nth-child(6) { animation-delay: 1.5s; }
-.intro-event:nth-child(7) { animation-delay: 1.7s; }
+/* Tightened stagger: 0.1s steps so the timeline lands faster and the
+   eye reaches the contested 2018/2019 beats sooner. Total span 0.95s
+   (0.35s → 0.95s) instead of the previous 1.2s. */
+.intro-event:nth-child(1) { animation-delay: 0.35s; }
+.intro-event:nth-child(2) { animation-delay: 0.45s; }
+.intro-event:nth-child(3) { animation-delay: 0.55s; }
+.intro-event:nth-child(4) { animation-delay: 0.65s; }
+.intro-event:nth-child(5) { animation-delay: 0.75s; }
+.intro-event:nth-child(6) { animation-delay: 0.85s; }
+.intro-event:nth-child(7) { animation-delay: 0.95s; }
 
 .intro-event::before {
   content: "";
@@ -4280,6 +4299,31 @@ body.mode-reflection .lifetime-drift-panel h2 {
 @keyframes contestedDotPulse {
   0%, 100% { box-shadow: 0 0 12px rgba(255, 210, 160, 0.55); transform: scale(1); }
   50%      { box-shadow: 0 0 22px rgba(255, 210, 160, 0.95); transform: scale(1.18); }
+}
+/* 2019 — He Jiankui sentencing. The institutional response to the
+   contested edit. Deeper, redder cast and a slower (~6.4s) pulse —
+   distinct from 2018's warmer unease: this dot reads as judgement,
+   not anxiety. */
+.intro-event:nth-child(5)::before {
+  background: #d97a6c;
+  box-shadow: 0 0 14px rgba(217, 122, 108, 0.7);
+  animation: sentencingDotPulse 6.4s ease-in-out infinite;
+  animation-delay: 2s;
+}
+@keyframes sentencingDotPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(217, 122, 108, 0.55); transform: scale(1); }
+  50%      { box-shadow: 0 0 20px rgba(217, 122, 108, 0.9);  transform: scale(1.12); }
+}
+/* 2023 — closure beat. After the timeline lands, the final dot
+   re-glows once, like the page settling. Single play, runs ~2.4s
+   after the last event's stagger completes. */
+.intro-event:nth-child(7)::before {
+  animation: closureDotGlow 2.2s ease-out 2.4s 1 both;
+}
+@keyframes closureDotGlow {
+  0%   { box-shadow: 0 0 12px rgba(126, 224, 255, 0.6); }
+  45%  { box-shadow: 0 0 26px rgba(126, 224, 255, 0.95); }
+  100% { box-shadow: 0 0 12px rgba(126, 224, 255, 0.6); }
 }
 .intro-event-year {
   font-size: 18px;
@@ -4462,6 +4506,12 @@ body.mode-reflection .lifetime-drift-panel h2 {
   .intro-questions-list { gap: 28px; }
 }
 
+/* iPad portrait / mid-tablet: intro was using desktop padding and
+   the prose felt cramped against the edges. Pull it in. */
+@media (max-width: 768px) {
+  .intro-section { padding: 56px 20px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .intro-section { transition: opacity 0.3s ease !important; transform: none !important; }
   .intro-section:not(.is-visible) { opacity: 0; }
@@ -4470,5 +4520,7 @@ body.mode-reflection .lifetime-drift-panel h2 {
   .intro-hero .landing-mark { animation: none !important; }
   .intro-timeline::before { transition: none !important; transform: scaleY(1) !important; }
   .intro-event { transition: none !important; opacity: 1 !important; transform: none !important; }
-  .intro-event:nth-child(4)::before { animation: none !important; }
+  .intro-event:nth-child(4)::before,
+  .intro-event:nth-child(5)::before,
+  .intro-event:nth-child(7)::before { animation: none !important; }
 }
