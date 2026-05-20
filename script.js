@@ -5969,13 +5969,18 @@ function renderConsentExplainer() {
  * what the future subject inherits without consent. Both update on every
  * budget change. The numbers are made up — the point is to make the
  * consumer-product feeling concrete. */
-// Per-priority burden weights for the Inheritance Burden Index. Higher =
-// more identity / phenotype / affect lock-in carried into descendants.
-// Health-class allocations reduce disease load for the line and weight low;
-// cosmetic and personality-altering allocations weight high.
+// Weights model NON-CONSENSUAL LOCK-IN (reversibility × identity-impact ×
+// propagation), NOT heritability percentages. EVERY heritable allocation
+// removes the descendant's choice — the weight measures HOW MUCH that loss
+// of consent matters, not WHETHER it occurs. Health-class allocations weight
+// low because their effects partially reverse across generations or respond
+// to environmental buffering; identity / affect allocations weight high
+// because they self-perpetuate in the line. Polderman et al. (2015) puts
+// Big Five personality heritability at ~40-50%; these weights are narrative
+// modeling, not science.
 const INHERITANCE_BURDEN_WEIGHTS = {
   health: 0.1, resilience: 0.2, creativity: 0.4, empathy: 0.4,
-  athleticism: 0.6, cognition: 0.7, emotional: 1.0,
+  cognition: 0.5, athleticism: 0.6, emotional: 1.0,
   appearance: 1.0, sociability: 1.0
 };
 function updateBudgetProjections(usedOverride) {
