@@ -2375,6 +2375,15 @@ const BUDGET_TOTAL = 200;
 // a near-future regulatory disclosure UI.
 const REGULATORY_NOTE_RULES = [
   {
+    // Fires on the first non-zero enhancement allocation. Frames the
+    // structural-disadvantage externality as compliance text rather than
+    // editorial. Stays single-line and dry, matching adjacent notes.
+    id: 'first-allocation',
+    when: (b, total) => total > 0,
+    severity: 'amber',
+    text: 'Notice: enhancement allocations establish heritable advantage. Unenhanced cohorts may experience structural disadvantage.'
+  },
+  {
     id: 'GE-3-cognition',
     when: b => (b.cognition || 0) >= 5,
     severity: 'amber',
@@ -3636,11 +3645,11 @@ function renderCaseFile() {
   const disclosure = intensity > 0.45 ? 'required' : 'not required';
   host.hidden = false;
   host.innerHTML = `
-    <div class="case-row"><span class="case-label">Subject ID</span><span class="case-value">${state.codename}</span></div>
+    <div class="case-row"><span class="case-label">Simulation Codename</span><span class="case-value">${state.codename}</span></div>
     <div class="case-row"><span class="case-label">Cohort</span><span class="case-value">ENH-2042 / Class II</span></div>
     <div class="case-row"><span class="case-label">Profile</span><span class="case-value">v${profileV}</span></div>
     <div class="case-row"><span class="case-label">Generated</span><span class="case-value">${tsStr}</span></div>
-    <div class="case-row"><span class="case-label">Classification</span><span class="case-value case-tier">${tier}</span></div>
+    <div class="case-row"><span class="case-label">Optimization Intensity</span><span class="case-value case-tier">${tier}</span></div>
     <div class="case-row"><span class="case-label">Disclosure</span><span class="case-value">${disclosure}</span></div>
   `;
 }
@@ -4945,15 +4954,18 @@ function renderRegionalAccess(usedCredits) {
   const budget = state.budget || {};
   const usd = usedCredits * 1000;
   let lines;
-  // Channel codes (RA-1…RA-5) and Schedule references are diegetic; the
-  // copy reads as compliance disclosure, not editorial commentary.
-  if      (usd < 50000)  lines = ['EU (Schedule I): partial reimbursement under Directive 2039/14, indication-restricted.', 'US: payer coverage discretionary; out-of-network rates apply outside designated centers.', 'Annex IV regions: provision limited to in-country accredited facilities.'];
-  else if (usd < 100000) lines = ['EU (Schedule I, elective): self-pay; clinic registration with the national competent authority required.', 'US: household income above the 60th percentile typically required; clinic waiting list 9–14 months.', 'Annex IV regions: no reimbursement pathway; cross-border referral on case basis.'];
-  else if (usd < 150000) lines = ['EU (Schedule II, Section 4(c)): elective allocation under post-market review by the national competent authority.', 'US: ~5% of households by income; clinic networks limited to designated Tier-B centers.', 'Asia-Pacific: jurisdiction-dependent; refer to channel code RA-3 for current authorizations.'];
-  else if (usd < 200000) lines = ['EU + UK (Schedule II, Section 6): restricted approval; pre-authorization required from the national competent authority.', 'US: ~1% of households; concierge networks only. Waiting list 14–22 months at Tier-A centers.', 'Annex IV regions: not commercially available under current channel-code RA-4 listing.'];
-  else                   lines = ['Global (Schedule III): provision limited to ~0.1% of households by declared assets.', 'Multiple jurisdictions: authorization pending or withheld under Article 11 review.', 'De facto pathway: extraterritorial facilities outside Schedule III enforcement.'];
-  if ((budget.cognition || 0) >= 6) lines.push('Cognitive optimization (CMP-2): EU partial restriction under Directive 2039/14; US Phase III post-market review ongoing.');
-  if ((budget.emotional || 0) >= 6) lines.push('Affective-band editing (CMP-4): experimental authorization required; subject to Article 11 cohort follow-up.');
+  // Real-world instruments cited: Oviedo Convention Art. 13 (prohibition
+  // on heritable genome edits), UK HFEA 2008, and the (draft) EU IVD-Germ
+  // Lines Directive. Channel codes RA-1…RA-5 remain diegetic and refer to
+  // jurisdictional access pathways, not income cohorts. Access friction is
+  // expressed in waiting periods and eligibility conditions, never percentiles.
+  if      (usd < 50000)  lines = ['EU (Oviedo Convention Art. 13): heritable modification prohibited; indication-restricted somatic procedures only.', 'UK (HFEA 2008, Schedule 2): licensed in-vitro use only; clinics must hold a current HFEA treatment licence.', 'US: payer coverage discretionary; out-of-network rates apply outside HFEA-equivalent accredited centers.'];
+  else if (usd < 100000) lines = ['EU (draft IVD-Germ Lines Directive Art. 4): elective provision pending national transposition; self-pay only.', 'UK (HFEA 2008 §3ZA): pre-treatment counselling and licensed-clinic registration required; waiting period 9–14 months.', 'Non-aligned regions: no reimbursement pathway; cross-border referral on case basis under channel code RA-2.'];
+  else if (usd < 150000) lines = ['EU (draft IVD-Germ Lines Directive Art. 7): post-market review required; provision restricted to designated reference centres.', 'UK (HFEA 2008 §3ZA, special-direction): eligibility conditional on documented clinical indication; channel code RA-3 review window 6 months.', 'Asia-Pacific: jurisdiction-dependent; cross-border referral subject to receiving-state HFEA-equivalent licensing.'];
+  else if (usd < 200000) lines = ['EU + UK (draft IVD-Germ Lines Directive Art. 9; HFEA 2008 §4A): restricted approval; pre-authorization by the national competent authority required.', 'Eligibility conditional on clinical-indication documentation and counselling completion; waiting list 14–22 months at HFEA-licensed reference centres.', 'Non-aligned regions: not provisioned under current channel-code RA-4 listing.'];
+  else                   lines = ['Multi-jurisdictional (Oviedo Convention Art. 13): heritable provisions outside current treaty scope; authorization pending or withheld.', 'UK + EU: not provisioned under HFEA 2008 or the draft IVD-Germ Lines Directive; eligibility unresolved.', 'De facto pathway: extraterritorial facilities outside Oviedo signatory jurisdiction.'];
+  if ((budget.cognition || 0) >= 6) lines.push('Cognitive optimization (CMP-2): EU partial restriction under the draft IVD-Germ Lines Directive Art. 6; UK HFEA review ongoing.');
+  if ((budget.emotional || 0) >= 6) lines.push('Affective-band editing (CMP-4): experimental authorization required; subject to HFEA-equivalent cohort follow-up.');
   host.hidden = false;
   host.innerHTML = `
     <h4>Regional Access &middot; channel code RA-${Math.min(5, Math.max(1, Math.floor(usd / 50000) + 1))}</h4>
@@ -5620,14 +5632,21 @@ function updateBudgetProjections(usedOverride) {
   const costEl   = $('#cost-est');
   const tierEl   = $('#access-tier');
   const usd      = used * 1000;
-  if (costEl) costEl.textContent = used === 0 ? '— (baseline cohort)' : `≈ $${(usd / 1000).toFixed(0)}K (fictional)`;
+  // Cost line carries an explicit "speculative" anchor. Current real-world
+  // baseline (IVF + PGD): ~$15–25K/cycle. Adult-mode credit pricing is a
+  // future-forward extrapolation, not a present quote.
+  if (costEl) costEl.textContent = used === 0
+    ? '— (baseline cohort · current IVF+PGD: ~$15–25K/cycle)'
+    : `≈ $${(usd / 1000).toFixed(0)}K · speculative future pricing (current IVF+PGD: ~$15–25K/cycle baseline)`;
   if (tierEl) {
+    // Access-friction framing: waiting periods and eligibility conditions,
+    // not class-quantified percentiles.
     let tier = 'Universal · baseline';
-    if      (usd >= 200000) tier = 'Top ~0.1% globally · Schedule III provisional listing';
-    else if (usd >= 150000) tier = 'Elite · top ~1% of households globally';
-    else if (usd >= 100000) tier = 'Premium · top ~5% globally';
-    else if (usd >=  50000) tier = 'Above-average · top ~20% globally';
-    else if (usd >       0) tier = 'Accessible · top ~50% of households globally';
+    if      (usd >= 200000) tier = 'Outside current treaty scope · authorization pending';
+    else if (usd >= 150000) tier = 'Restricted · pre-authorization required · 14–22mo waitlist';
+    else if (usd >= 100000) tier = 'Reference-centre only · 6mo review window · channel code RA-3';
+    else if (usd >=  50000) tier = 'Licensed-clinic only · 9–14mo waitlist · self-pay';
+    else if (usd >       0) tier = 'Indication-restricted · HFEA-equivalent licensed clinics';
     tierEl.textContent = tier;
   }
 
