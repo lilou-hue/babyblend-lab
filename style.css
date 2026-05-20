@@ -4219,13 +4219,31 @@ body.mode-reflection .lifetime-drift-panel h2 {
     rgba(126, 224, 255, 0.45) 12%,
     rgba(200, 155, 255, 0.45) 88%,
     rgba(200, 155, 255, 0.0));
+  transform-origin: top center;
+  transform: scaleY(0);
+  transition: transform 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s;
 }
+.intro-history.is-visible .intro-timeline::before { transform: scaleY(1); }
+
 .intro-event {
   display: grid;
   grid-template-columns: 90px 1fr;
   gap: 18px;
   position: relative;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
+/* Stagger each event in after the line begins drawing. */
+.intro-history.is-visible .intro-event { opacity: 1; transform: translateY(0); }
+.intro-history.is-visible .intro-event:nth-child(1) { transition-delay: 0.35s; }
+.intro-history.is-visible .intro-event:nth-child(2) { transition-delay: 0.55s; }
+.intro-history.is-visible .intro-event:nth-child(3) { transition-delay: 0.75s; }
+.intro-history.is-visible .intro-event:nth-child(4) { transition-delay: 0.95s; }
+.intro-history.is-visible .intro-event:nth-child(5) { transition-delay: 1.15s; }
+.intro-history.is-visible .intro-event:nth-child(6) { transition-delay: 1.35s; }
+.intro-history.is-visible .intro-event:nth-child(7) { transition-delay: 1.55s; }
+
 .intro-event::before {
   content: "";
   position: absolute;
@@ -4236,6 +4254,20 @@ body.mode-reflection .lifetime-drift-panel h2 {
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 12px rgba(126, 224, 255, 0.6);
+}
+/* 2018 — the contested edit. Warmer, slowly pulsing dot to weight the
+   moment visually without altering any prose. Restrained: amplitude is
+   small, period is long, so it reads as institutional unease rather
+   than alarm. */
+.intro-event:nth-child(4)::before {
+  background: var(--accent-warm);
+  box-shadow: 0 0 14px rgba(255, 210, 160, 0.65);
+  animation: contestedDotPulse 4.8s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+@keyframes contestedDotPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(255, 210, 160, 0.55); transform: scale(1); }
+  50%      { box-shadow: 0 0 22px rgba(255, 210, 160, 0.95); transform: scale(1.18); }
 }
 .intro-event-year {
   font-size: 18px;
@@ -4424,4 +4456,7 @@ body.mode-reflection .lifetime-drift-panel h2 {
   .intro-section.is-visible { opacity: 1; }
   .intro-scroll-prompt,
   .intro-hero .landing-mark { animation: none !important; }
+  .intro-timeline::before { transition: none !important; transform: scaleY(1) !important; }
+  .intro-event { transition: none !important; opacity: 1 !important; transform: none !important; }
+  .intro-event:nth-child(4)::before { animation: none !important; }
 }
