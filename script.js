@@ -391,6 +391,17 @@ function applyTranslations() {
   });
 }
 
+// Returns the active-language slice of a translated content pool. Each
+// pool below is either a plain array (English-only) or an object with
+// per-language arrays of identical length — equal lengths matter so that
+// seeded picks stay stable across language switches.
+function localList(pool) {
+  if (!pool) return [];
+  if (Array.isArray(pool)) return pool;
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  return pool[lang] || pool.en || [];
+}
+
 /* ---------- Trait ladders & color maps ---------- */
 
 const EYE_LADDER  = ['blue', 'green', 'hazel', 'brown', 'dark brown'];
@@ -577,24 +588,100 @@ const ANCESTRY_PRESETS = {
 
 // Behavioral tone — a single grounded descriptor per baby. Replaces the
 // older meme-titled "funny vibe" pool with calmer, more specific lines.
-const FUNNY_TITLES = [
-  'Quietly observant',
-  'Steady and warm',
-  'Sharp-witted, slow to share',
-  'Thoughtful, slightly self-conscious',
-  'Open-hearted but private',
-  'Restless in a precise way',
-  'Easy company, harder to know',
-  'Asks better questions than most',
-  'Holds opinions loosely; affections firmly',
-  'Quick to laugh, slower to forgive',
-  'Capable but rarely in a hurry',
-  'Curious without performing it',
-  'Generous with attention, careful with words',
-  'Reads people more than they read books',
-  'Carries small kindnesses without naming them',
-  'Watches longer than they speak'
-];
+// Localized in all 5 languages; arrays MUST stay the same length so the
+// seeded vibe-pick stays stable across language switches.
+const FUNNY_TITLES = {
+  en: [
+    'Quietly observant',
+    'Steady and warm',
+    'Sharp-witted, slow to share',
+    'Thoughtful, slightly self-conscious',
+    'Open-hearted but private',
+    'Restless in a precise way',
+    'Easy company, harder to know',
+    'Asks better questions than most',
+    'Holds opinions loosely; affections firmly',
+    'Quick to laugh, slower to forgive',
+    'Capable but rarely in a hurry',
+    'Curious without performing it',
+    'Generous with attention, careful with words',
+    'Reads people more than they read books',
+    'Carries small kindnesses without naming them',
+    'Watches longer than they speak'
+  ],
+  zh: [
+    '静静观察',
+    '沉稳而温暖',
+    '机敏,却慢于表露',
+    '细致,略带自省',
+    '心思开放却不外露',
+    '有种精确的不安分',
+    '相处轻松,深交不易',
+    '问题比大多数人更准',
+    '观点放得松,情谊握得紧',
+    '笑得快,原谅得慢',
+    '能干,却少有匆忙',
+    '好奇,但不张扬',
+    '在专注上慷慨,在言语上谨慎',
+    '读人胜于读书',
+    '默默承担小小的善意',
+    '看得久,说得少'
+  ],
+  ja: [
+    '静かに気づく人',
+    '穏やかで、あたたかい',
+    '頭が回るが、口は重い',
+    '思慮深く、少し自意識的',
+    '心は開いているが、口にはしない',
+    '正確なやり方で、落ち着かない',
+    '付き合いやすく、深く知るのは難しい',
+    '他の誰より、よい問いを立てる',
+    '意見はゆるく、情はしっかり',
+    'よく笑い、許すのには時間がかかる',
+    '有能だが、ほとんど急がない',
+    '誇張せずに、好奇心がある',
+    '注意は気前よく、言葉は慎重に',
+    '本を読むより、人を読む',
+    '名づけずに、小さな親切を運ぶ',
+    '話すよりも、長く見つめる'
+  ],
+  ko: [
+    '조용히 살피는 사람',
+    '꾸준하고 따뜻한 사람',
+    '재치 있지만, 천천히 드러내는',
+    '사려 깊고, 약간 자의식적인',
+    '마음은 열려 있으나 드러내지 않는',
+    '정확한 방식으로 안절부절못하는',
+    '함께 있긴 쉬워도, 알기는 어려운',
+    '대부분의 사람보다 좋은 질문을 하는',
+    '의견은 느슨하게, 정은 단단하게 쥐는',
+    '잘 웃고, 용서는 더디게 하는',
+    '능숙하지만 좀처럼 서두르지 않는',
+    '드러내지 않으면서도 호기심 많은',
+    '주의는 후하게, 말은 신중하게',
+    '책을 읽기보다 사람을 더 잘 읽는',
+    '이름 붙이지 않은 작은 친절을 안고 다니는',
+    '말하기보다 더 오래 바라보는'
+  ],
+  tr: [
+    'Sessizce gözlemleyen',
+    'İstikrarlı ve sıcak',
+    'Keskin zekâlı, ama paylaşmakta yavaş',
+    'Düşünceli, biraz kendinden çekingen',
+    'Açık yürekli ama mahrem',
+    'Belirgin bir biçimde huzursuz',
+    'Birlikteyken kolay, tanımakta zor',
+    'Çoğundan daha iyi sorular soran',
+    'Görüşleri gevşek tutan, sevgileri sıkı',
+    'Çabuk gülen, geç bağışlayan',
+    'Yetenekli, ama nadiren acelesi olan',
+    'Gösterişsiz biçimde meraklı',
+    'Dikkatte cömert, sözde dikkatli',
+    'Kitap okumaktan çok insan okuyan',
+    'Adlandırmadan küçük iyilikleri taşıyan',
+    'Konuşmaktan çok izleyen'
+  ]
+};
 
 // Future-path predictions, tagged with personality bias keys (O/C/E/A/N/athletic).
 // Tagging is loose — at runtime we pick from the full pool with the bias as a soft weight.
@@ -685,28 +772,118 @@ const ENV_FIELDS = [
 
 /* ---------- Ethics Mode pools ---------- */
 
-const REFLECTION_PROMPTS = [
-  'Why did you prioritize this particular trait?',
-  'Who decides which traits are "desirable"?',
-  'Would society pressure parents into enhancement?',
-  'What might be lost if everyone optimized the same traits?',
-  'Are the trade-offs you accepted worth it?',
-  'What if this child grows up wanting different traits than you chose?',
-  'How would access to choices like these affect inequality?',
-  'Whose definition of "better" did you use?',
-  'What can\'t these sliders measure?',
-  'Does choosing imply rejecting?',
-  'Would the same baby in a different country be seen the same way?',
-  'Is "average" a thing to design away from — or back toward?',
-  'If this child later asked, "why did you make me this way?" — what would you say?',
-  'Whose ideas of a "good life" are you smuggling in with each slider?',
-  'Would you be okay being someone else\'s design?',
-  'What kind of imperfection are you quietly editing out?',
-  'Who gets to opt out — and who doesn\'t?',
-  'Are you choosing for the child, or for the parent you want to be?',
-  'Which traits are you assuming will stay good across their whole life?',
-  'Whose grandparents shaped what you call "normal" today?'
-];
+const REFLECTION_PROMPTS = {
+  en: [
+    'Why did you prioritize this particular trait?',
+    'Who decides which traits are "desirable"?',
+    'Would society pressure parents into enhancement?',
+    'What might be lost if everyone optimized the same traits?',
+    'Are the trade-offs you accepted worth it?',
+    'What if this child grows up wanting different traits than you chose?',
+    'How would access to choices like these affect inequality?',
+    'Whose definition of "better" did you use?',
+    "What can't these sliders measure?",
+    'Does choosing imply rejecting?',
+    'Would the same baby in a different country be seen the same way?',
+    'Is "average" a thing to design away from — or back toward?',
+    'If this child later asked, "why did you make me this way?" — what would you say?',
+    'Whose ideas of a "good life" are you smuggling in with each slider?',
+    "Would you be okay being someone else's design?",
+    'What kind of imperfection are you quietly editing out?',
+    "Who gets to opt out — and who doesn't?",
+    'Are you choosing for the child, or for the parent you want to be?',
+    'Which traits are you assuming will stay good across their whole life?',
+    'Whose grandparents shaped what you call "normal" today?'
+  ],
+  zh: [
+    '你为何把这一项特征放在第一位?',
+    '谁来决定哪些特征是"值得拥有的"?',
+    '社会会不会把父母推向增强这条路?',
+    '如果所有人都优化同样的特征,什么会被悄悄丢掉?',
+    '你接受的那些取舍,真的值得吗?',
+    '如果这孩子长大后想要的,与你选的不一样,怎么办?',
+    '当这种选择只对部分人开放时,它会如何加剧不平等?',
+    '你用的是谁定义的"更好"?',
+    '这些滑块测不到的,是什么?',
+    '做出选择,是否就意味着放弃了别的?',
+    '同一个孩子在另一个国家,会被同样看待吗?',
+    '"普通"是要被设计走开的东西,还是要回归的东西?',
+    '若这孩子日后问"你为什么把我造成这样",你会怎么回答?',
+    '每一个滑块里,你都偷偷夹带了谁眼中的"好生活"?',
+    '你愿意自己是别人设计出来的吗?',
+    '你正在悄悄删去的是哪一种不完美?',
+    '谁有权说"我退出",而谁没有?',
+    '你是在为孩子选择,还是在为你想成为的那种父母选择?',
+    '你默认哪些特征,会一辈子都是优点?',
+    '今天你所谓的"正常",是被谁的祖辈塑造出来的?'
+  ],
+  ja: [
+    'なぜその特性を、ほかではなくその特性を優先したのですか。',
+    '何が「望ましい」特性なのか、誰が決めるのでしょう。',
+    '社会は親に、強化を促す圧をかけるでしょうか。',
+    'みなが同じ特性を最適化したら、何が失われるでしょう。',
+    'あなたが受け入れたその取り引きは、本当に見合ったものですか。',
+    'この子が、あなたの選んだのとは違う特性を望んで育ったら。',
+    'こうした選択へのアクセスは、不平等をどう形作るでしょう。',
+    '誰の定義する「より良い」を、あなたは使いましたか。',
+    'これらのスライダーが測れないものは、何でしょう。',
+    '選ぶことは、何かを退けることになりますか。',
+    '同じ子を別の国で見たら、同じように見られるでしょうか。',
+    '「平均」は遠ざけるべきもの? それとも、戻るべきもの?',
+    'もしこの子が後に「なぜ私をこう作ったの」と尋ねたら、何と答えますか。',
+    'スライダーごとに、誰の考える「よい人生」を、こっそり混ぜていますか。',
+    'あなた自身が、誰かの設計物であったら受け入れられますか。',
+    'あなたが静かに編集して消そうとしているのは、どんな不完全さですか。',
+    '抜け出せる人は誰で、抜け出せない人は誰ですか。',
+    '子のために選んでいますか、それともなりたい親のために選んでいますか。',
+    'どの特性は一生「よいまま」だと、暗黙のうちに見なしていますか。',
+    'いま「普通」と呼んでいるものを形作ったのは、誰の祖父母たちでしょう。'
+  ],
+  ko: [
+    '왜 하필 그 특성을 우선했나요?',
+    '어떤 특성이 "바람직"한지는 누가 결정하나요?',
+    '사회는 부모를 강화 쪽으로 떠밀까요?',
+    '모두가 같은 특성을 최적화한다면 무엇이 사라질까요?',
+    '받아들인 그 거래는 정말 가치 있는 것이었나요?',
+    '이 아이가 자라서 당신이 고른 것과 다른 특성을 원하게 된다면요?',
+    '이런 선택지에 대한 접근은 불평등을 어떻게 빚을까요?',
+    '"더 낫다"는 누구의 정의를 따른 것인가요?',
+    '이 슬라이더들이 측정하지 못하는 것은 무엇인가요?',
+    '선택한다는 것은 무언가를 거부한다는 뜻이기도 한가요?',
+    '같은 아이가 다른 나라에서도 같은 시선으로 보일까요?',
+    '"평균"이란 멀어져야 할 무엇인가요, 아니면 다시 돌아가야 할 무엇인가요?',
+    '훗날 이 아이가 "왜 나를 이렇게 만들었어요"라고 묻는다면 뭐라 답할 건가요?',
+    '슬라이더마다 누구의 "좋은 삶"이 슬며시 들어가 있나요?',
+    '당신은 누군가의 설계물로 살 수 있겠습니까?',
+    '당신이 조용히 지워내고 있는 불완전함은 어떤 종류인가요?',
+    '누구는 빠질 수 있고, 누구는 빠질 수 없게 될까요?',
+    '아이를 위해 고르는 건가요, 되고 싶은 부모를 위해 고르는 건가요?',
+    '평생 "좋은 것"으로 남아 있을 거라고 전제하는 특성은 어떤 것인가요?',
+    '오늘 당신이 "정상"이라 부르는 것은 누구의 조부모들이 빚어 놓은 것일까요?'
+  ],
+  tr: [
+    'Neden başka değil de bu özelliği önceliklendirdin?',
+    'Hangi özelliklerin "arzu edilir" olduğuna kim karar veriyor?',
+    'Toplum ebeveynleri geliştirmeye doğru iter mi?',
+    'Herkes aynı özellikleri optimize ederse ne kaybolur?',
+    'Kabul ettiğin ödünleşimler buna değer mi?',
+    'Bu çocuk büyüyüp senin seçtiğinden başka özellikler isterse ne olur?',
+    'Böyle seçeneklere erişim eşitsizliği nasıl şekillendirir?',
+    '"Daha iyi" tanımı kime ait?',
+    'Bu sürgüler neyi ölçmüyor?',
+    'Seçmek, başka şeyleri reddetmek anlamına da gelir mi?',
+    'Aynı çocuk başka bir ülkede aynı gözle görülür müydü?',
+    '"Ortalama" uzaklaşılacak bir şey mi, yoksa geri dönülecek bir şey mi?',
+    'Bu çocuk ileride "beni neden böyle yaptın" diye sorsa ne dersin?',
+    'Her sürgüye, hangi "iyi yaşam" tasavvurunu sessizce sıkıştırıyorsun?',
+    'Başkasının tasarımı olmaktan rahat eder miydin?',
+    'Sessizce sildiğin, hangi tür kusur?',
+    'Vazgeçme hakkı kime tanınacak, kime tanınmayacak?',
+    'Çocuk için mi seçiyorsun, yoksa olmak istediğin ebeveyn için mi?',
+    'Hangi özelliklerin bir ömür boyu iyi kalacağını varsayıyorsun?',
+    'Bugün "normal" dediğin şeyi kimin büyükanne-büyükbabaları biçimlendirdi?'
+  ]
+};
 
 // Short interpretive observations about this specific baby. Shown in
 // Reflection mode alongside the prompt so the ethics aren't a single
@@ -4354,18 +4531,28 @@ function renderSavedList() {
 
 function setupLanding() {
   const landing = $('#landing');
-  const begin   = $('#landing-begin');
-  if (!landing || !begin) return;
-  const dismiss = () => {
+  if (!landing) return;
+  const begin   = $('#intro-enter-btn') || $('#landing-begin');
+  const skip    = $('#intro-skip');
+  const dismiss = (e) => {
+    if (e) e.preventDefault();
     document.body.classList.add('has-entered');
+    // Free the page scroll once we're out — the intro had its own scroll container.
     setTimeout(() => { landing.style.display = 'none'; }, 700);
   };
-  begin.addEventListener('click', dismiss);
-  // Press Enter or Space (once) to dismiss without tabbing to the button.
-  window.addEventListener('keydown', e => {
-    if (landing.style.display === 'none') return;
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismiss(); }
-  }, { once: true });
+  if (begin) begin.addEventListener('click', dismiss);
+  if (skip)  skip.addEventListener('click', dismiss);
+
+  // Reveal each scroll section as it enters the viewport.
+  const sections = landing.querySelectorAll('.intro-section');
+  if (sections.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('is-visible'); });
+    }, { threshold: 0.18 });
+    sections.forEach(s => io.observe(s));
+  } else {
+    sections.forEach(s => s.classList.add('is-visible'));
+  }
 }
 
 function setupDetailsToggle() {

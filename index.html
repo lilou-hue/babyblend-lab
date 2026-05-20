@@ -9,26 +9,152 @@
 </head>
 <body class="mode-adult app-adult">
   <!-- Landing overlay (full-viewport, fades out on Enter) -->
-  <section class="landing" id="landing" aria-labelledby="landing-title">
-    <div class="landing-inner">
+  <section class="landing intro" id="landing" aria-labelledby="intro-title">
+    <a class="intro-skip" id="intro-skip" href="#intro-enter-btn">Skip intro →</a>
+
+    <!-- Section 1: Hero -->
+    <article class="intro-section intro-hero" data-section="1">
       <span class="landing-mark" aria-hidden="true">⌬</span>
-      <h1 class="landing-title" id="landing-title">BabyBlend Lab</h1>
-      <p class="landing-tagline" data-i18n="app.tagline">A fictional genetics-inspired simulator</p>
-      <p class="landing-desc">
-        <span data-i18n="landing.desc1">Build two parents. Adjust their environment.</span><br />
-        <span data-i18n="landing.desc2">See what a possible child might look like, think, and become.</span>
-      </p>
+      <h1 class="intro-title" id="intro-title">Some futures are inherited.<br><em>Others are selected.</em></h1>
+      <p class="intro-sub">A speculative simulation, grounded in real research.</p>
+      <div class="intro-scroll-prompt" aria-hidden="true">
+        <span>Scroll to continue</span>
+        <span class="intro-scroll-arrow">↓</span>
+      </div>
+    </article>
 
-      <ul class="landing-features" aria-label="What's inside">
-        <li data-i18n="landing.feature1">Polygenic-flavored inheritance</li>
-        <li data-i18n="landing.feature2">Big Five behavioral projection</li>
-        <li data-i18n="landing.feature3">Speculative adult trajectories</li>
-      </ul>
+    <!-- Section 2: The First Accepted Edits -->
+    <article class="intro-section intro-history" data-section="2">
+      <header class="intro-head">
+        <span class="intro-eyebrow">01 · Historical record</span>
+        <h2>The first accepted edits.</h2>
+        <p class="intro-lede">Modifying human inheritance is no longer hypothetical. The timeline is shorter than most people remember.</p>
+      </header>
+      <ol class="intro-timeline">
+        <li class="intro-event">
+          <span class="intro-event-year">1978</span>
+          <div class="intro-event-body">
+            <p>First successful birth from in vitro fertilization (Louise Brown, UK).</p>
+            <cite>Steptoe &amp; Edwards, <em>The Lancet</em>, 1978.</cite>
+          </div>
+        </li>
+        <li class="intro-event">
+          <span class="intro-event-year">1990</span>
+          <div class="intro-event-body">
+            <p>First clinical use of preimplantation genetic diagnosis to avoid X-linked disease.</p>
+            <cite>Handyside et al., <em>Nature</em>, 1990.</cite>
+          </div>
+        </li>
+        <li class="intro-event">
+          <span class="intro-event-year">2012</span>
+          <div class="intro-event-body">
+            <p>CRISPR-Cas9 demonstrated as a programmable genome editor.</p>
+            <cite>Jinek, Chylinski, Fonfara, Hauer, Doudna &amp; Charpentier, <em>Science</em>, 2012.</cite>
+          </div>
+        </li>
+        <li class="intro-event">
+          <span class="intro-event-year">2018</span>
+          <div class="intro-event-body">
+            <p>Twin girls born in China from CRISPR-edited embryos. Widely condemned by the scientific community.</p>
+            <cite>Cyranoski &amp; Ledford, <em>Nature</em> news, November 2018.</cite>
+          </div>
+        </li>
+        <li class="intro-event">
+          <span class="intro-event-year">2019</span>
+          <div class="intro-event-body">
+            <p>The lead scientist, He Jiankui, is sentenced to three years in prison in China.</p>
+            <cite>Xinhua / Reuters, December 2019.</cite>
+          </div>
+        </li>
+        <li class="intro-event">
+          <span class="intro-event-year">2020</span>
+          <div class="intro-event-body">
+            <p>Emmanuelle Charpentier and Jennifer Doudna awarded the Nobel Prize in Chemistry for CRISPR.</p>
+            <cite>Royal Swedish Academy of Sciences, 2020.</cite>
+          </div>
+        </li>
+        <li class="intro-event">
+          <span class="intro-event-year">2023</span>
+          <div class="intro-event-body">
+            <p>The United Kingdom approves the first CRISPR-based therapy (Casgevy / exa-cel) for sickle cell disease.</p>
+            <cite>Medicines and Healthcare products Regulatory Agency, November 2023.</cite>
+          </div>
+        </li>
+      </ol>
+    </article>
 
-      <button type="button" class="landing-begin" id="landing-begin" data-i18n="landing.begin">Enter the lab</button>
+    <!-- Section 3: Optimization Culture -->
+    <article class="intro-section intro-culture" data-section="3">
+      <header class="intro-head">
+        <span class="intro-eyebrow">02 · Cultural baseline</span>
+        <h2>Optimization is already routine.</h2>
+        <p class="intro-lede">Genetic editing is the new edge. Cosmetic editing has been mainstream for decades. The social logic carries forward.</p>
+      </header>
+      <div class="intro-stats">
+        <div class="intro-stat">
+          <span class="intro-stat-value">30M+</span>
+          <span class="intro-stat-label">Cosmetic procedures performed globally each year.</span>
+          <details class="intro-stat-source">
+            <summary>Source</summary>
+            <p>International Society of Aesthetic Plastic Surgery, Global Survey, 2022.</p>
+          </details>
+        </div>
+        <div class="intro-stat">
+          <span class="intro-stat-value">"Snapchat dysmorphia"</span>
+          <span class="intro-stat-label">A term coined by dermatologists in 2018 to describe patients seeking surgery to resemble filtered self-portraits.</span>
+          <details class="intro-stat-source">
+            <summary>Source</summary>
+            <p>Rajanala, Maymone &amp; Vashi, <em>JAMA Facial Plastic Surgery</em>, 2018.</p>
+          </details>
+        </div>
+        <div class="intro-stat">
+          <span class="intro-stat-value">~2%</span>
+          <span class="intro-stat-label">Estimated population prevalence of body dysmorphic disorder in adults.</span>
+          <details class="intro-stat-source">
+            <summary>Source</summary>
+            <p>Veale et al., systematic review, <em>Body Image</em>, 2016.</p>
+          </details>
+        </div>
+        <div class="intro-stat">
+          <span class="intro-stat-value">75+ countries</span>
+          <span class="intro-stat-label">Restrict heritable human genome editing through legislation, treaty, or policy.</span>
+          <details class="intro-stat-source">
+            <summary>Source</summary>
+            <p>Baylis, Darnovsky, Hasson &amp; Krahn, <em>The CRISPR Journal</em>, 2020.</p>
+          </details>
+        </div>
+      </div>
+    </article>
 
-      <p class="landing-disclaimer" data-i18n="landing.disclaimer">Fictional simulation. Not real medical or genetic advice.</p>
-    </div>
+    <!-- Section 4: Questions Without Answers -->
+    <article class="intro-section intro-questions" data-section="4">
+      <header class="intro-head">
+        <span class="intro-eyebrow">03 · Unresolved</span>
+      </header>
+      <div class="intro-questions-list">
+        <p>Who decides what counts as improvement?</p>
+        <p>Would unenhanced children face discrimination?</p>
+        <p>Should personality be editable?</p>
+        <p>What happens when beauty becomes measurable?</p>
+        <p>Can diversity survive optimization culture?</p>
+      </div>
+    </article>
+
+    <!-- Section 5: Enter the Lab -->
+    <article class="intro-section intro-enter" data-section="5">
+      <header class="intro-head">
+        <span class="intro-eyebrow">04 · The simulation</span>
+        <h2>Enter the lab.</h2>
+        <p class="intro-lede">What follows is a fictional consumer-product mock-up. The mechanics are speculative. The pressures are real.</p>
+      </header>
+      <div class="intro-notices" aria-label="System notices">
+        <div class="intro-notice"><span class="intro-notice-tag">[ SYSTEM NOTICE ]</span><span>Behavioral projections remain low-confidence.</span></div>
+        <div class="intro-notice"><span class="intro-notice-tag">[ ETHICS NOTICE ]</span><span>Optimization targets vary across cultures and eras.</span></div>
+        <div class="intro-notice"><span class="intro-notice-tag">[ REGULATORY NOTICE ]</span><span>Heritable genome editing remains restricted in many regions.</span></div>
+      </div>
+      <button type="button" class="intro-enter-btn landing-begin" id="intro-enter-btn">Enter BabyBlend Lab</button>
+      <p class="intro-disclaimer">Educational speculative simulation. Not medical advice.</p>
+    </article>
   </section>
 
   <!-- Floating gene bubbles (decorative) -->
