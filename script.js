@@ -648,6 +648,8 @@ const LABEL_I18N = {
   'Energy':              { zh: '活力', ja: 'エネルギー', ko: '활력', tr: 'Enerji' },
   'Focus':               { zh: '专注力', ja: '集中力', ko: '집중력', tr: 'Odak' },
   'Confidence':          { zh: '自信心', ja: '自信', ko: '자신감', tr: 'Özgüven' },
+  'Creativity':          { zh: '创造力', ja: '創造性', ko: '창의력', tr: 'Yaratıcılık' },
+  'Teamwork':            { zh: '团队合作', ja: 'チームワーク', ko: '협동심', tr: 'Takım çalışması' },
   // Stat section dividers
   'Big Five':            { zh: '大五人格', ja: 'ビッグファイブ', ko: '빅 파이브', tr: 'Beş Büyük' },
   'Personality':         { zh: '性格', ja: '性格', ko: '성격', tr: 'Kişilik' },
@@ -3457,7 +3459,7 @@ function buildParentForms() {
     card.dataset.parent = letter;
     card.innerHTML = `
       <div class="parent-card-head">
-        <h3>Parent ${letter}</h3>
+        <h3>${localLabel('Parent ' + letter)}</h3>
         <button type="button" class="parent-randomize-btn" data-parent="${letter}" aria-label="Randomize Parent ${letter}" title="Randomize Parent ${letter}">↻</button>
       </div>`;
     // Advanced-traits disclosure: OCEAN sliders fold into a per-parent
@@ -3486,11 +3488,11 @@ function buildParentForms() {
       field.className = 'field' + (f.type === 'range' ? ' field-range-wrap' : '');
       if (f.type === 'text') {
         field.innerHTML = `
-          <label for="${id}">${f.label}</label>
+          <label for="${id}">${localLabel(f.label)}</label>
           <input id="${id}" name="${f.key}" type="text" value="${def}" maxlength="20" />`;
       } else if (f.type === 'number') {
         field.innerHTML = `
-          <label for="${id}">${f.label}</label>
+          <label for="${id}">${localLabel(f.label)}</label>
           <input id="${id}" name="${f.key}" type="number" min="${f.min}" max="${f.max}" value="${def}" />`;
       } else if (f.type === 'select') {
         const opts = f.options.map(o => {
@@ -3498,14 +3500,14 @@ function buildParentForms() {
           return `<option value="${o}" ${o===def?'selected':''}>${lbl}</option>`;
         }).join('');
         field.innerHTML = `
-          <label for="${id}">${f.label}</label>
+          <label for="${id}">${localLabel(f.label)}</label>
           <select id="${id}" name="${f.key}">${opts}</select>`;
       } else if (f.type === 'range') {
         const sub = f.subtitle
           ? `<span class="field-subtitle">${f.subtitle}</span>`
           : `<span class="hint">(1–10)</span>`;
         field.innerHTML = `
-          <label for="${id}">${f.label} ${sub}</label>
+          <label for="${id}">${localLabel(f.label)} ${sub}</label>
           <div class="field-range">
             <input id="${id}" name="${f.key}" type="range" min="${f.min}" max="${f.max}" value="${def}" step="1" />
             <span class="val" id="${id}_val">${def}</span>
@@ -3582,7 +3584,7 @@ function buildEnvPanel() {
     const wrap = document.createElement('div');
     wrap.className = 'env-field';
     wrap.innerHTML = `
-      <label for="${id}">${f.label}</label>
+      <label for="${id}">${localLabel(f.label)}</label>
       <div class="field-range">
         <input id="${id}" type="range" min="${f.min}" max="${f.max}" step="1" value="${f.def}" />
         <span class="val" id="${id}_val">${f.def}</span>
@@ -3923,7 +3925,7 @@ function renderStandardSlider(def, ranges, container) {
 
   row.innerHTML = `
     <div class="slider-head">
-      <span class="slider-label">${def.label}${buildExplainerHTML(def.key)}</span>
+      <span class="slider-label">${localLabel(def.label)}${buildExplainerHTML(def.key)}</span>
       ${headValSpan}
     </div>
     <input type="range" id="s_${def.key}" min="${r.min}" max="${r.max}" step="${r.step}" value="${r.def}" />
@@ -3971,7 +3973,7 @@ function renderKidsPersonalitySlider(view, ranges, container) {
 
   row.innerHTML = `
     <div class="slider-head">
-      <span class="slider-label">${view.label}${buildExplainerHTML(view.kidsKey)}</span>
+      <span class="slider-label">${localLabel(view.label)}${buildExplainerHTML(view.kidsKey)}</span>
       <span class="slider-value" id="val_${view.kidsKey}"></span>
     </div>
     <input type="range" id="s_${view.kidsKey}" min="${dispMin}" max="${dispMax}" step="1" value="${dispDef}" />
@@ -4018,15 +4020,15 @@ function renderSliders(ranges) {
 function updateBabyPreview() {
   const b = state.baby;
 
-  // resolve display values
+  // resolve display values (ladder values localized through LADDER_I18N)
   const display = {
     height:    `${Math.round(b.height)} cm`,
     athletic:  `${b.athletic}/10`,
-    eyeColor:  titleCase(EYE_LADDER[b.eyeColor]  || 'unknown'),
-    hairColor: titleCase(HAIR_LADDER[b.hairColor] || 'unknown'),
-    hairType:  titleCase(TEX_LADDER[b.hairType]  || 'unknown'),
-    skinTone:  titleCase(SKIN_LADDER[b.skinTone] || 'unknown'),
-    faceShape: titleCase(FACE_LADDER[b.faceShape] || 'unknown'),
+    eyeColor:  localLadder('EYE',  b.eyeColor),
+    hairColor: localLadder('HAIR', b.hairColor),
+    hairType:  localLadder('TEX',  b.hairType),
+    skinTone:  localLadder('SKIN', b.skinTone),
+    faceShape: localLadder('FACE', b.faceShape),
     freckles:  `${b.freckles}%`,
     dimples:   `${b.dimples}%`,
     openness:          `${b.openness}/10`,
@@ -4071,26 +4073,26 @@ function updateBabyPreview() {
   // are hidden in Reflection / Kids (the constellation shows them
   // visually) and kept in Adult for the clinical-detail aesthetic.
   const physicalRows = `
-      <dt>Sex</dt>                <dd>${GENDER_LABEL[state.gender] || 'Surprise'}</dd>
-      <dt>Height</dt>             <dd>~ ${display.height}${conf('height')}</dd>
-      <dt>Athletic</dt>           <dd>${display.athletic}${conf('athletic')}</dd>
-      <dt>Eye color</dt>          <dd>${display.eyeColor}${conf('eyeColor')}</dd>
-      <dt>Hair color</dt>         <dd>${display.hairColor}${conf('hairColor')}</dd>
-      <dt>Hair texture</dt>       <dd>${display.hairType}${conf('hairType')}</dd>
-      <dt>Skin tone</dt>          <dd>${display.skinTone}${conf('skinTone')}</dd>
-      <dt>Face shape</dt>         <dd>${display.faceShape}${conf('faceShape')}</dd>
-      <dt>Freckles</dt>           <dd>${display.freckles}${conf('freckles')}</dd>
-      <dt>Dimples</dt>            <dd>${display.dimples}${conf('dimples')}</dd>
+      <dt>${localLabel('Sex')}</dt>           <dd>${localGender(state.gender) || localGender('surprise')}</dd>
+      <dt>${localLabel('Height')}</dt>        <dd>~ ${display.height}${conf('height')}</dd>
+      <dt>${localLabel('Athletic')}</dt>      <dd>${display.athletic}${conf('athletic')}</dd>
+      <dt>${localLabel('Eye color')}</dt>     <dd>${display.eyeColor}${conf('eyeColor')}</dd>
+      <dt>${localLabel('Hair color')}</dt>    <dd>${display.hairColor}${conf('hairColor')}</dd>
+      <dt>${localLabel('Hair texture')}</dt>  <dd>${display.hairType}${conf('hairType')}</dd>
+      <dt>${localLabel('Skin tone')}</dt>     <dd>${display.skinTone}${conf('skinTone')}</dd>
+      <dt>${localLabel('Face shape')}</dt>    <dd>${display.faceShape}${conf('faceShape')}</dd>
+      <dt>${localLabel('Freckles')}</dt>      <dd>${display.freckles}${conf('freckles')}</dd>
+      <dt>${localLabel('Dimples')}</dt>       <dd>${display.dimples}${conf('dimples')}</dd>
   `;
   let personalityRows = '';
   if (inAdult) {
     personalityRows = `
-      <dt class="ocean-sep">Behavioral Projection</dt> <dd></dd>
-      <dt>Openness</dt>           <dd>${display.openness}${conf('openness')}</dd>
-      <dt>Conscientiousness</dt>  <dd>${display.conscientiousness}${conf('conscientiousness')}</dd>
-      <dt>Extraversion</dt>       <dd>${display.extraversion}${conf('extraversion')}</dd>
-      <dt>Agreeableness</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
-      <dt>Neuroticism</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>`;
+      <dt class="ocean-sep">${localLabel('Behavioral Projection')}</dt> <dd></dd>
+      <dt>${localLabel('Openness')}</dt>           <dd>${display.openness}${conf('openness')}</dd>
+      <dt>${localLabel('Conscientiousness')}</dt>  <dd>${display.conscientiousness}${conf('conscientiousness')}</dd>
+      <dt>${localLabel('Extraversion')}</dt>       <dd>${display.extraversion}${conf('extraversion')}</dd>
+      <dt>${localLabel('Agreeableness')}</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
+      <dt>${localLabel('Neuroticism')}</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>`;
   }
   statsEl.innerHTML = physicalRows + personalityRows;
 
@@ -4365,6 +4367,12 @@ function renderKidsDerivedStats(b) {
   const cEl = $('#kids-creativity-stars');
   const tEl = $('#kids-teamwork-stars');
   if (!cEl || !tEl) return;
+  // Also re-write the preceding <dt> labels (Creativity / Teamwork) so
+  // they swap when the user changes language.
+  const cDt = cEl.previousElementSibling;
+  const tDt = tEl.previousElementSibling;
+  if (cDt && cDt.tagName === 'DT') cDt.textContent = localLabel('Creativity');
+  if (tDt && tDt.tagName === 'DT') tDt.textContent = localLabel('Teamwork');
   if (!isKids()) {
     cEl.textContent = '☆☆☆☆☆';
     tEl.textContent = '☆☆☆☆☆';
@@ -6809,6 +6817,46 @@ function init() {
       // History cards carry per-card i18n maps — re-render so the active
       // language's translated title/body appears immediately.
       buildHistorySection();
+      // Static surfaces built at init (parent forms, env panel) need
+      // to be rebuilt so localLabel() picks up the active language.
+      // Preserve their current values across the rebuild.
+      const parentVals = collectParentData();
+      const envVals    = (typeof collectEnvData === 'function') ? collectEnvData() : null;
+      const parentsEl  = $('#parents');
+      const envEl      = $('#env-grid');
+      if (parentsEl) parentsEl.innerHTML = '';
+      if (envEl)     envEl.innerHTML     = '';
+      buildParentForms();
+      buildEnvPanel();
+      // Restore values
+      ['A','B'].forEach(letter => {
+        Object.entries(parentVals[letter] || {}).forEach(([k, v]) => {
+          const el = $('#p' + letter + '_' + k);
+          if (el) {
+            el.value = v;
+            const valEl = $('#p' + letter + '_' + k + '_val');
+            if (valEl) valEl.textContent = String(v);
+          }
+        });
+      });
+      if (envVals) Object.entries(envVals).forEach(([k, v]) => {
+        const el = $('#env_' + k);
+        if (el) {
+          el.value = v;
+          const valEl = $('#env_' + k + '_val');
+          if (valEl) valEl.textContent = String(v);
+        }
+      });
+      // If sliders are showing, rebuild them too so trait labels swap.
+      if (state.codename && state.ranges) {
+        renderSliders(state.ranges);
+        // Restore current slider values from state.baby.
+        SLIDER_DEFS.forEach(def => {
+          if (typeof state.baby[def.key] === 'number') {
+            syncSliderDOMForOcean(def.key, state.baby[def.key]);
+          }
+        });
+      }
       // Re-derive content that was picked from now-translated pools at
       // generate-time, using the same seeded RNG so the same INDEX
       // resolves to a localized string of the same poetic register.
