@@ -871,13 +871,18 @@ const FUTURE_PATHS = [
   // At least one per tag; range across modes so timelines don't always
   // resolve neatly.
   { text: 'Eventually keeps two notebooks: one for the projects they\'ll finish, one for the ones that are really moods.', tag: 'OC-tension' },                                  // Integration
-  { text: 'In their forties, gives up explaining why the kitchen is reorganized again; the people who love them stop asking.', tag: 'OC-tension' },                                // Acceptance
+  { text: 'By forty, runs the household on a system only they can read; partner has stopped asking for the logic and started budgeting one extra hour to find anything.', tag: 'OC-tension' },                                // Acceptance
   { text: 'Hosts the dinner, then the next one, then the next one; somewhere along the way learns that the thank-you texts are part of the meal, not the bill.', tag: 'EN-tension' }, // Integration
-  { text: 'Burns out twice on the gather-then-vanish cycle; in their thirties stops gathering, and misses it for the rest of their life.', tag: 'EN-tension' },                       // Damage
+  { text: 'After the second burnout, stops hosting; keeps the long table in the garage for nine years before posting it to a neighbor for free.', tag: 'EN-tension' },                       // Damage
   { text: 'Learns to alternate: tight planning for the work that needs it, improvisation for the parts they want to enjoy; calls the second part "rest" without flinching.', tag: 'CO-rigidity' }, // Integration
-  { text: 'Still oscillates between planning and surrender at fifty; stops pretending to choose, and finds the oscillation is the shape of the life.', tag: 'CO-rigidity' },          // Acceptance
+  { text: 'At fifty, builds the calendar in tight blocks and the weekends in deliberate blanks; the blanks still cost an apology to whoever wanted to fill them.', tag: 'CO-rigidity' },          // Acceptance
   { text: 'After one bad year of saying yes to everything, learns to say "let me think about it" — and means it; the friendships that survive are the patient ones.', tag: 'AN-pleaser' }, // Integration
-  { text: 'Spends a decade covering for everyone; in their forties wakes up tired in a way sleep doesn\'t fix, and slowly, quietly, starts to disappoint people on purpose.', tag: 'AN-pleaser' } // Damage
+  { text: 'Spends a decade covering for everyone; in their forties wakes up tired in a way sleep doesn\'t fix, and slowly, quietly, starts to disappoint people on purpose.', tag: 'AN-pleaser' }, // Damage
+  // Round 4 revision: additional damage/maturation beats. One per tag, lived specificity.
+  { text: 'At thirty-seven, finishes a project nobody asked for and nobody wants; keeps the binder anyway, on the high shelf, and refers to it twice a year.', tag: 'OC-tension' }, // Maturation
+  { text: 'In their fifties hosts one Sunday a month, eight people, same start time; on the other Sundays does not answer the phone, and the eight people learn the rule.', tag: 'EN-tension' }, // Maturation
+  { text: 'Changes the morning routine for a partner who needs the kitchen by 7; resents it for a year, then stops noticing, then forgets the old routine existed.', tag: 'CO-rigidity' }, // Maturation
+  { text: 'Says yes to one favor too many in their late twenties; carries the cost for years, and only afterwards learns that the friend never expected the yes in the first place.', tag: 'AN-pleaser' } // Damage
 ];
 
 // Specific small life-events. Grounded register — these read like things a
@@ -2755,7 +2760,7 @@ const REGULATORY_NOTE_RULES = [
     id: 'GE-3-cognition',
     when: b => (b.cognition || 0) >= 5,
     severity: 'amber',
-    text: 'Draft IVD-Germ Lines Directive Art. 6: cognitive allocation above the intra-cohort variance threshold. Annual disclosure to admissions authorities required in 14 transposing jurisdictions.'
+    text: 'Draft IVD-Germ Lines Directive Art. 6: cognitive enhancement above the intra-cohort variance threshold. Annual disclosure to admissions authorities required in 14 transposing jurisdictions.'
   },
   {
     id: 'GE-3-cognition-high',
@@ -2767,7 +2772,7 @@ const REGULATORY_NOTE_RULES = [
     id: 'EM-stability',
     when: b => (b.emotional || 0) >= 6,
     severity: 'amber',
-    text: 'HFEA 2008 §3ZA (special-direction): affective-band allocation designated Class III. Quarterly reporting to the licensing authority required for the first 12 years.'
+    text: 'HFEA 2008 §3ZA (special-direction): affective-band intervention designated Class III. Quarterly reporting to the licensing authority required for the first 12 years.'
   },
   {
     id: 'RES-resilience-elevated',
@@ -2791,7 +2796,7 @@ const REGULATORY_NOTE_RULES = [
     id: 'multi-category',
     when: b => Object.values(b).filter(v => v >= 4).length >= 3,
     severity: 'red',
-    text: 'Multi-category allocation across three or more packages. Subject auto-enrolled in the ENH-2042 long-horizon cohort study under HFEA-equivalent licensing. Opt-out window: 30 days from authorization.'
+    text: 'Multi-category package spanning three or more domains. Subject auto-enrolled in the ENH-2042 long-horizon cohort study under HFEA-equivalent licensing. Opt-out window: 30 days from authorization.'
   },
   {
     id: 'total-spend-high',
