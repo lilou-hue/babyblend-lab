@@ -879,6 +879,19 @@ body.mode-adult .case-file:not([hidden]) {
 .case-file .case-tier {
   color: var(--accent);
 }
+/* First-render motion for the dossier opener — faint downward settle
+ * (translateY 4px → 0, opacity 0 → 1) keyed by .is-settling. Pacing
+ * micro-adjustment (R4): the case-file is the moment the Adult
+ * fascination → unease beat lands; a barely-there settle marks it as
+ * an opening rather than a static label, without animating loud. */
+.case-file.is-settling { animation: case-file-settle 0.6s ease both; }
+@keyframes case-file-settle {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-file.is-settling { animation: none !important; }
+}
 
 .avatar-stage {
   position: relative;
@@ -2686,6 +2699,64 @@ body.app-kids .slider-explain:hover {
 
 /* ---------- Environment Factors panel ---------- */
 .env-panel { margin-top: 0; }
+
+/* Env Modifiers <details> disclosure (R4 triage). In Adult mode, the
+ * env-grid sits between Parents and Enhancement Allocation, adding a
+ * fourth input layer before the user sees output. Collapsing it
+ * behind a summary keeps the inputs reachable without consuming
+ * attention. Default-open in Reflection/Kids, default-closed in
+ * Adult — applyAppModeClass() flips the `open` attribute when the
+ * mode toggle is used. Chevron + motion mirror .parent-advanced so
+ * the two read as one disclosure vocabulary. */
+.env-disclosure { width: 100%; }
+.env-disclosure > .env-disclosure-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 2px;
+  user-select: none;
+}
+.env-disclosure > .env-disclosure-summary::-webkit-details-marker { display: none; }
+.env-disclosure > .env-disclosure-summary h2 {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.env-disclosure > .env-disclosure-summary::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.45;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.35s ease;
+  margin-left: auto;
+  color: var(--ink-mute);
+}
+.env-disclosure[open] > .env-disclosure-summary::after {
+  transform: translateY(1px) rotate(225deg);
+  opacity: 0.8;
+}
+.env-disclosure-hint {
+  font-size: 10.5px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  opacity: 0.7;
+}
+.env-disclosure[open] > .subtle,
+.env-disclosure[open] > .env-grid {
+  animation: parent-advanced-reveal 0.45s ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .env-disclosure[open] > .subtle,
+  .env-disclosure[open] > .env-grid { animation: none !important; }
+}
+
 .env-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));

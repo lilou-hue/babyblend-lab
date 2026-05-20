@@ -45,6 +45,7 @@ const STRINGS = {
     'section.env.adult': 'Environmental Modifiers',
     'section.env.intro.playful': "Genes aren't destiny. Tweak the nurture side too.",
     'section.env.intro.adult': 'Adjust developmental modifiers to inform downstream projections.',
+    'section.env.hint.adult': 'optional · tweak to refine projection',
     'section.budget.heading': 'Enhancement Allocation',
     'section.budget.intro': 'Distribute credits across optimization categories. Allocations bias projected outcomes; tradeoffs are listed per package.',
     'section.sliders.playful': 'Baby Trait Sliders',
@@ -3099,6 +3100,7 @@ const state = {
   gender: 'surprise',  // 'female' | 'male' | 'surprise'
   genderExpression: 70, // 0–100; intensity of masculine/feminine styling cues. Ignored when gender = surprise.
   appMode: 'adult', // 'reflection' | 'kids' | 'adult' — the single mode dimension
+  envDisclosureTouched: false, // R4: once user toggles env-modifiers <details>, mode-switch stops overriding their choice
   chaos: false,        // amplifies slider ranges + surprise
   generateCount: 0,    // how many times Generate has been clicked
   consentAck: false,   // session-level: heritable-decision micro-ack (gates first non-zero allocation)
@@ -3172,6 +3174,20 @@ function applyAppModeClass() {
   document.body.classList.toggle('mode-adult',      m === 'adult');
   document.body.classList.toggle('mode-reflection', m === 'reflection');
   applyBudgetPanelGate();
+  applyEnvDisclosureMode();
+}
+
+// Env Modifiers triage (R4): Adult mode collapses env behind a <details>
+// to reduce the pre-output input load (parents → env → OCEAN → allocation
+// → consent → output is too many layers). Reflection / Kids keep it open
+// since env framing is part of the narrative they're learning. If the
+// user has manually toggled the disclosure this session, respect that
+// choice (envDisclosureTouched) instead of clobbering on mode-switch.
+function applyEnvDisclosureMode() {
+  const d = $('#env-disclosure');
+  if (!d) return;
+  if (state.envDisclosureTouched) return;
+  d.open = state.appMode !== 'adult';
 }
 
 // Enhancement Allocation is now visible from first load in Adult mode,
@@ -3395,6 +3411,14 @@ function buildEnvPanel() {
     const v = $('#' + r.id + '_val');
     r.addEventListener('input', () => { v.textContent = r.value; });
   });
+  // Track user intent on the env disclosure (R4 triage): once the user
+  // expands or collapses it themselves, mode-switches stop overriding
+  // their choice. The 'toggle' event fires on open/close.
+  const d = $('#env-disclosure');
+  if (d && !d.dataset.touchBound) {
+    d.dataset.touchBound = '1';
+    d.addEventListener('toggle', () => { state.envDisclosureTouched = true; });
+  }
 }
 
 function collectEnvData() {
@@ -4078,6 +4102,7 @@ function renderCaseFile() {
   if (!host) return;
   if (state.appMode !== 'adult' || !state.codename) {
     host.hidden = true;
+    host.classList.remove('is-settling');
     host.innerHTML = '';
     return;
   }
@@ -4095,7 +4120,17 @@ function renderCaseFile() {
   if (intensity > 0.85) tier = 'Tier IV · Boundary case — review required';
   const profileV = (state.generateCount || 0) + '.' + Math.floor((state.surprise || 0) / 10);
   const disclosure = intensity > 0.45 ? 'required' : 'not required';
+  // R4 pacing micro-adjustment: faint downward settle on first reveal of
+  // the dossier opener (the Adult fascination → unease beat). Re-apply on
+  // each hidden→visible transition so the settle marks an opening, not
+  // every slider drift. Reduced-motion users see a static fade via CSS.
+  const wasHidden = host.hidden;
   host.hidden = false;
+  if (wasHidden) {
+    host.classList.remove('is-settling');
+    void host.offsetWidth;
+    host.classList.add('is-settling');
+  }
   host.innerHTML = `
     <div class="case-row"><span class="case-label">Simulation Codename</span><span class="case-value">${state.codename}</span></div>
     <div class="case-row"><span class="case-label">Cohort</span><span class="case-value">ENH-2042 / Class II</span></div>

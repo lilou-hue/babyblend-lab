@@ -255,11 +255,21 @@
       <div class="parents" id="parents"></div>
     </section>
 
-    <!-- 1b. Environmental influences -->
+    <!-- 1b. Environmental influences — wrapped in a <details> disclosure so
+         Adult mode (which already loads 4 input layers before any output)
+         doesn't force env tweaks before the user sees a baby. Default-open
+         in Reflection/Kids (where env framing is part of the narrative),
+         default-closed in Adult (where math takes priority). Mode toggle in
+         applyAppModeClass() flips the `open` attribute. -->
     <section class="panel env-panel" aria-labelledby="env-heading">
-      <h2 id="env-heading"><span class="playful-text" data-i18n="section.env.playful">Environmental Influences</span><span class="adult-text" data-i18n="section.env.adult">Environmental Modifiers</span></h2>
-      <p class="subtle"><span class="playful-text" data-i18n="section.env.intro.playful">Genes aren't destiny. Tweak the nurture side too.</span><span class="adult-text" data-i18n="section.env.intro.adult">Adjust developmental modifiers to inform downstream projections.</span></p>
-      <div class="env-grid" id="env-grid"></div>
+      <details class="env-disclosure" id="env-disclosure">
+        <summary class="env-disclosure-summary">
+          <h2 id="env-heading"><span class="playful-text" data-i18n="section.env.playful">Environmental Influences</span><span class="adult-text" data-i18n="section.env.adult">Environmental Modifiers</span></h2>
+          <span class="env-disclosure-hint adult-text" data-i18n="section.env.hint.adult">optional · tweak to refine projection</span>
+        </summary>
+        <p class="subtle"><span class="playful-text" data-i18n="section.env.intro.playful">Genes aren't destiny. Tweak the nurture side too.</span><span class="adult-text" data-i18n="section.env.intro.adult">Adjust developmental modifiers to inform downstream projections.</span></p>
+        <div class="env-grid" id="env-grid"></div>
+      </details>
     </section>
 
     <!-- 1c. Enhancement Allocation (Adult mode only) -->
