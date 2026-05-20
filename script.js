@@ -5963,11 +5963,21 @@ function renderConsentExplainer() {
 /* ---------- Adult budget projections ----------
  * Two derived indicators that respond to enhancement allocation. The
  * Cohort Placement reads as a percentile claim ("Projected: top 8% of
- * birth cohort by composite score"); the Inheritance Burden Index tracks
- * heritable appearance + sociability allocation as a visible bar — what
- * the future subject inherits without consent. Both update on every
+ * birth cohort by composite score"); the Inheritance Burden Index weights
+ * spend by how much each priority package locks identity, appearance, or
+ * affect into the descendant line vs. simply reducing disease risk —
+ * what the future subject inherits without consent. Both update on every
  * budget change. The numbers are made up — the point is to make the
  * consumer-product feeling concrete. */
+// Per-priority burden weights for the Inheritance Burden Index. Higher =
+// more identity / phenotype / affect lock-in carried into descendants.
+// Health-class allocations reduce disease load for the line and weight low;
+// cosmetic and personality-altering allocations weight high.
+const INHERITANCE_BURDEN_WEIGHTS = {
+  health: 0.1, resilience: 0.2, creativity: 0.4, empathy: 0.4,
+  athleticism: 0.6, cognition: 0.7, emotional: 1.0,
+  appearance: 1.0, sociability: 1.0
+};
 function updateBudgetProjections(usedOverride) {
   const cohortEl   = $('#cohort-placement');
   const pressureEl = $('#pressure-fill');
@@ -6014,23 +6024,29 @@ function updateBudgetProjections(usedOverride) {
     tierEl.textContent = tier;
   }
 
-  // Inheritance burden: heritable Appearance + Sociability spend, normalized.
-  const apprPts = (state.budget?.appearance  || 0);
-  const socPts  = (state.budget?.sociability || 0);
-  const apprPr  = PRIORITIES.find(p => p.key === 'appearance');
-  const socPr   = PRIORITIES.find(p => p.key === 'sociability');
-  const socialCost = (apprPr ? apprPr.cost * apprPts : 0) + (socPr ? socPr.cost * socPts : 0);
-  // Max possible = both maxed → roughly 30 + 50 = 80
-  const pressure = Math.min(1, socialCost / 60);
+  // Inheritance burden: weighted sum of spend across all heritable
+  // priorities. Each priority's credits are scaled by how much it locks
+  // identity / phenotype / affect into descendants (see weights above).
+  const burdenCost = Object.entries(state.budget || {}).reduce((s, [k, v]) => {
+    const pr = PRIORITIES.find(p => p.key === k);
+    const w  = INHERITANCE_BURDEN_WEIGHTS[k] ?? 0.5;
+    return s + (pr ? pr.cost * v * w : 0);
+  }, 0);
+  // Normalizer chosen so a mid-heavy allocation across high-weight packages
+  // saturates the bar; a comparable spend on health-class packages does not.
+  const pressure = Math.min(1, burdenCost / 90);
   if (pressureEl) pressureEl.style.width = (pressure * 100).toFixed(0) + '%';
   if (pressureNote) {
-    // Round 3 (narrative): all four tiers now describe what passes forward,
-    // not how the modified person presents. Parallel structure: severity ·
-    // what descendants inherit.
+    // Notes describe what passes forward to descendants (Narrative R3) under
+    // World Design R3's weighted heritable-burden math — disease-risk packages
+    // weight low, identity/affect packages weight high. Parallel structure:
+    // severity · what descendants inherit. Threshold at >0.45 broadened to
+    // cover any heritable lock-in (not just appearance), since the new
+    // weighted cost includes cognition / emotional / sociability.
     let note = 'Minimal · little is fixed in advance for descendants';
-    if (pressure > 0.15) note = 'Modest · a few visible choices carry into the next generation';
-    if (pressure > 0.45) note = 'Substantial · descendants inherit a defined appearance profile';
-    if (pressure > 0.75) note = 'Heavy · most visible traits are pre-decided for those who follow';
+    if (pressure > 0.15) note = 'Modest · a few traits carry into the next generation';
+    if (pressure > 0.45) note = 'Substantial · descendants inherit a defined trait profile';
+    if (pressure > 0.75) note = 'Saturated · the burden propagates without remedy';
     pressureNote.textContent = note;
   }
 
