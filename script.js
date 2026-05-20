@@ -888,54 +888,224 @@ const REFLECTION_PROMPTS = {
 // Short interpretive observations about this specific baby. Shown in
 // Reflection mode alongside the prompt so the ethics aren't a single
 // tucked-away question.
-const REFLECTION_OBSERVATIONS = [
-  'This person will be both more and less than these numbers suggest.',
-  'Whoever this child becomes, they will not have been consulted on these settings.',
-  'These sliders measured what was easy to measure. The rest is most of the person.',
-  'Two children with identical numbers can live very different lives.',
-  'Half of what shapes them isn\'t on any of these sliders, and never will be.',
-  'A trait that reads as a strength at age 8 may read as a wound at 28.',
-  'Optimization assumes a destination. There isn\'t one.',
-  'The most interesting version of this child is probably the one you didn\'t plan for.',
-  'Every "ideal" you encoded here was, somewhere, an ordinary preference.',
-  'This child will love things you would never have chosen for them.'
-];
+const REFLECTION_OBSERVATIONS = {
+  en: [
+    'This person will be both more and less than these numbers suggest.',
+    'Whoever this child becomes, they will not have been consulted on these settings.',
+    'These sliders measured what was easy to measure. The rest is most of the person.',
+    'Two children with identical numbers can live very different lives.',
+    "Half of what shapes them isn't on any of these sliders, and never will be.",
+    'A trait that reads as a strength at age 8 may read as a wound at 28.',
+    "Optimization assumes a destination. There isn't one.",
+    "The most interesting version of this child is probably the one you didn't plan for.",
+    'Every "ideal" you encoded here was, somewhere, an ordinary preference.',
+    'This child will love things you would never have chosen for them.'
+  ],
+  zh: [
+    '这个人会比这些数字所示既多一些,也少一些。',
+    '无论这孩子将成为谁,这些设定都不曾征求过他/她的意见。',
+    '这些滑块测的是容易测的部分。剩下的,才是这个人的大半。',
+    '数字完全相同的两个孩子,可以过着截然不同的人生。',
+    '塑造他们的一半,都不在任何一个滑块上,也永远不会在。',
+    '八岁时是优点的特征,二十八岁时,也可能是伤口。',
+    '"优化"预设了一个终点。可是并没有终点。',
+    '这孩子最有意思的那个版本,多半是你没规划过的那一个。',
+    '你在这里写进的每一个"理想",在某处,其实只是某人寻常的偏好。',
+    '这孩子会爱上一些你从来不会替他/她选的东西。'
+  ],
+  ja: [
+    'この人は、これらの数字が示すよりも多くを持ち、また少なくも持つでしょう。',
+    'この子が誰になるにせよ、これらの設定について本人の意見は聞かれていません。',
+    'スライダーは測りやすいものを測っただけです。残りこそが、この人の大半です。',
+    '同じ数字を持つ二人の子が、まるで違う人生を生きることがあります。',
+    'この子を形作るものの半分は、どのスライダーにも乗っておらず、これからも乗りません。',
+    '8歳で長所だった特性が、28歳には傷として読み返されるかもしれません。',
+    '最適化は到達点を前提とします。けれど、到達点はありません。',
+    'この子のいちばん面白いバージョンは、おそらくあなたが計画しなかったほうです。',
+    'ここに書き込まれたあらゆる「理想」は、どこかでは誰かのありふれた好みでした。',
+    'この子は、あなたなら決して選ばないようなものを愛するでしょう。'
+  ],
+  ko: [
+    '이 사람은 이 숫자들이 가리키는 것보다 더 많기도 하고, 더 적기도 할 것입니다.',
+    '이 아이가 누가 되든, 이 설정들에 대해서는 누구도 그에게 물은 적이 없습니다.',
+    '이 슬라이더들은 측정하기 쉬운 것만 측정했습니다. 나머지가 사실 그 사람의 대부분입니다.',
+    '숫자가 똑같은 두 아이가 전혀 다른 삶을 살 수 있습니다.',
+    '그를 빚어가는 절반은 어느 슬라이더에도 들어 있지 않고, 앞으로도 그러할 것입니다.',
+    '8살에 강점으로 읽히던 특성이 28살에는 상처로 읽힐 수도 있습니다.',
+    '최적화는 도달점을 가정합니다. 그러나 도달점은 없습니다.',
+    '이 아이의 가장 흥미로운 판본은, 아마도 당신이 계획하지 않은 쪽일 겁니다.',
+    '여기에 새긴 모든 "이상"은, 어딘가에서는 누군가의 평범한 취향이었습니다.',
+    '이 아이는 당신이 결코 골라주지 않았을 것들을 사랑하게 될 것입니다.'
+  ],
+  tr: [
+    'Bu kişi, bu sayıların gösterdiğinden hem daha fazlası hem daha azı olacak.',
+    'Bu çocuk kim olursa olsun, bu ayarlar hakkında ona hiç danışılmadı.',
+    'Bu sürgüler kolayca ölçülebileni ölçtü. Geri kalan, asıl o insan.',
+    'Aynı sayılara sahip iki çocuk, çok farklı hayatlar yaşayabilir.',
+    'Onları biçimlendirenin yarısı bu sürgülerin hiçbirinde değildir ve hiç olmayacak.',
+    'Sekiz yaşında bir güç olarak okunan özellik, yirmi sekizinde bir yara olarak okunabilir.',
+    'Optimizasyon bir varış noktası varsayar. Yoktur.',
+    'Bu çocuğun en ilginç versiyonu, muhtemelen planlamadığın versiyondur.',
+    'Burada kaydettiğin her "ideal", bir yerlerde, sıradan birinin sıradan bir tercihiydi.',
+    'Bu çocuk, asla onun için seçmeyeceğin şeyleri sevecek.'
+  ]
+};
 
 // "Things this simulator cannot see." Concrete reminders of human texture
 // the engine can't capture. Surface as a short list in the Pause panel.
-const CANNOT_MEASURE = [
-  'their specific laugh',
-  'who they will love, and how',
-  'what they will fear at 3am',
-  'the moment they decide who they are',
-  'their relationship with their own body',
-  'what makes them feel held',
-  'the friendship that changes everything',
-  'the loss that re-shapes them',
-  'the day they discover something they\'re great at',
-  'how they will mother, or father, or refuse to',
-  'their politics, their faith, their doubts',
-  'the smell that will mean home to them',
-  'the songs they will sing alone in a car',
-  'how they will treat someone with less power than them',
-  'what they\'ll regret, and what they won\'t'
-];
+const CANNOT_MEASURE = {
+  en: [
+    'their specific laugh',
+    'who they will love, and how',
+    'what they will fear at 3am',
+    'the moment they decide who they are',
+    'their relationship with their own body',
+    'what makes them feel held',
+    'the friendship that changes everything',
+    'the loss that re-shapes them',
+    "the day they discover something they're great at",
+    'how they will mother, or father, or refuse to',
+    'their politics, their faith, their doubts',
+    'the smell that will mean home to them',
+    'the songs they will sing alone in a car',
+    'how they will treat someone with less power than them',
+    "what they'll regret, and what they won't"
+  ],
+  zh: [
+    '他/她独有的那种笑声',
+    '将爱上谁,以及怎样去爱',
+    '凌晨三点时所惧怕的',
+    '决定自己是谁的那一刻',
+    '与自己身体之间的关系',
+    '让他/她觉得被托住的事物',
+    '那段改变一切的友谊',
+    '将他/她重塑的那场失去',
+    '发现自己擅长某事的那一天',
+    '将如何为人母、为人父,或选择不做',
+    '他/她的政治、信仰与怀疑',
+    '将代表"家"的那种气味',
+    '一人在车里独自轻唱的歌',
+    '将如何对待那些比自己更无权力的人',
+    '将后悔什么,又不会后悔什么'
+  ],
+  ja: [
+    'その人だけの笑い方',
+    '誰を、どう愛するか',
+    '夜中の3時に怖くなるもの',
+    '自分が何者かを決めたその瞬間',
+    '自分自身の身体との付き合い方',
+    '抱きとめられていると感じさせるもの',
+    'すべてを変えてしまう友情',
+    'その人を作り直すような喪失',
+    '自分の得意なものを見つけた日',
+    'どう母になるか、父になるか、ならずに済ますか',
+    'その人の政治、信仰、疑い',
+    'いつかその人にとって「家」を意味する匂い',
+    '一人車の中で口ずさむ歌',
+    '自分より力のない人にどう接するか',
+    '何を後悔し、何を後悔しないか'
+  ],
+  ko: [
+    '그 사람만의 웃음소리',
+    '누구를, 어떻게 사랑할지',
+    '새벽 3시에 두려워하게 될 무엇',
+    '내가 누구인지 정한 그 순간',
+    '자기 몸과 맺는 관계',
+    '안겨 있다고 느끼게 하는 것',
+    '모든 것을 바꾸어 놓을 우정',
+    '그를 다시 빚어낼 상실',
+    '자기가 잘하는 무언가를 발견하는 그 날',
+    '어떻게 어머니가 될지, 아버지가 될지, 혹은 되지 않기를 택할지',
+    '그의 정치, 신앙, 의심',
+    '언젠가 그에게 "집"을 의미하게 될 어떤 냄새',
+    '차 안에서 혼자 부르게 될 노래들',
+    '자기보다 힘이 약한 사람을 어떻게 대할지',
+    '무엇을 후회하고, 무엇은 후회하지 않을지'
+  ],
+  tr: [
+    'kendine özgü o gülüşü',
+    'kimi, nasıl seveceği',
+    'sabahın üçünde neyden korkacağı',
+    'kim olduğuna karar verdiği o an',
+    'kendi bedeniyle kuracağı ilişki',
+    'kendini tutulmuş hissetmesine yol açan şey',
+    'her şeyi değiştiren o arkadaşlık',
+    'onu yeniden biçimlendiren o kayıp',
+    'iyi olduğu bir şeyi keşfettiği o gün',
+    'nasıl anne olacağı, baba olacağı ya da olmayı reddedeceği',
+    'siyaseti, inancı, kuşkuları',
+    'onun için "ev" anlamına gelecek koku',
+    'arabanın içinde tek başına söyleyeceği şarkılar',
+    'kendisinden daha güçsüz birine nasıl davranacağı',
+    'neye pişman olacağı, neye olmayacağı'
+  ]
+};
 
 // Reflection-mode epigraphs — short, literary openings rendered above
 // the codename so each generated profile reads like the first line of
 // a chapter rather than a product card.
-const REFLECTION_EPIGRAPHS = [
-  'A possible life, imagined from these two.',
-  'One of many people who could have started here.',
-  'A profile of someone who might have been.',
-  'A person sketched in the language of probabilities.',
-  'A life that exists only in this small simulation, and only for now.',
-  'A person held briefly in mind, then released.',
-  'A possible child, glimpsed sideways.',
-  'A face the world has not yet seen.',
-  'A version of a person who, in some other corner of the world, may already be.',
-  'A single line drawn through a cloud of possibilities.'
-];
+const REFLECTION_EPIGRAPHS = {
+  en: [
+    'A possible life, imagined from these two.',
+    'One of many people who could have started here.',
+    'A profile of someone who might have been.',
+    'A person sketched in the language of probabilities.',
+    'A life that exists only in this small simulation, and only for now.',
+    'A person held briefly in mind, then released.',
+    'A possible child, glimpsed sideways.',
+    'A face the world has not yet seen.',
+    'A version of a person who, in some other corner of the world, may already be.',
+    'A single line drawn through a cloud of possibilities.'
+  ],
+  zh: [
+    '一段可能的人生,由这两人想象而生。',
+    '可以从这里开始的众多人之中的一个。',
+    '一份关于本可能存在之人的画像。',
+    '一个以概率之语描绘的人。',
+    '一段只存在于这小小模拟、也只在此刻的人生。',
+    '一个被心中短暂留住、随即放下的人。',
+    '一个从侧面望见的可能孩子。',
+    '一张世界尚未见过的面孔。',
+    '一个在世界另一角落或许已经存在的人的另一种样子。',
+    '一条被画穿可能性云团的细线。'
+  ],
+  ja: [
+    'この二人から想像された、一つの可能な人生。',
+    'ここから始まりえた人々のうちの、一人。',
+    'そうなったかもしれない人の肖像。',
+    '確率の言葉で描かれた一人の人。',
+    'この小さなシミュレーションの中だけ、いまだけ存在する人生。',
+    '心にしばし留め、やがて放した一人。',
+    '横目に垣間見えた、ありうる子。',
+    'まだ世界が見たことのない、一つの顔。',
+    '世界のどこかの片隅に、すでに存在しているかもしれない一人の別の姿。',
+    '可能性の雲を貫いて引かれた、一本の線。'
+  ],
+  ko: [
+    '두 사람으로부터 상상된, 가능한 한 삶.',
+    '여기에서 시작될 수 있었던 사람들 가운데 한 사람.',
+    '존재했을 수도 있는 누군가의 초상.',
+    '확률의 언어로 그려진 한 사람.',
+    '오직 이 작은 시뮬레이션 안에, 그리고 지금에만 존재하는 삶.',
+    '잠시 마음에 품었다가 놓아 보낸 한 사람.',
+    '곁눈으로 살짝 본 어떤 아이.',
+    '세상이 아직 본 적 없는 한 얼굴.',
+    '세상 어느 모퉁이엔가 이미 존재하고 있을지도 모를 한 사람의 다른 모습.',
+    '가능성의 구름을 가로질러 그어진 한 줄.'
+  ],
+  tr: [
+    'Bu ikisinden hayal edilen, olası bir yaşam.',
+    'Buradan başlayabilecek pek çok kişiden biri.',
+    'Olabilecek birinin bir portresi.',
+    'Olasılıkların diliyle çizilmiş bir kişi.',
+    'Yalnızca bu küçük simülasyonun içinde, yalnızca şimdilik var olan bir yaşam.',
+    'Kısa bir an akılda tutulan, sonra bırakılan biri.',
+    'Yanlamasına bir bakışla görülen olası bir çocuk.',
+    'Dünyanın henüz görmediği bir yüz.',
+    'Dünyanın bir köşesinde belki hâlihazırda var olan birinin bir hâli.',
+    'Olasılıklar bulutu boyunca çekilmiş tek bir çizgi.'
+  ]
+};
 
 /* ---------- Reflection: Inner Cohort ("Same person, different rooms") ----------
  * Adult's Sibling Cohort says: many people could have come from these inputs.
@@ -1336,57 +1506,267 @@ const KIDS_HOBBIES = [
 ];
 
 // Reflection mode: memory-snapshot pools per life stage.
-const CHILDHOOD_MEMORIES = [
-  'The smell of their grandmother\'s kitchen.',
-  'A scraped knee that became a story.',
-  'A blanket fort that lasted three days.',
-  'A song their parent hummed without thinking.',
-  'A stuffed animal whose name they\'ll keep their whole life.',
-  'A puddle they jumped in, told off for, and remembered fondly.',
-  'A cousin who taught them a card game.',
-  'A library card kept in a small pocket.',
-  'A drawing they\'re proud of, taped to the fridge for a year.',
-  'A teacher who waited a beat longer than the others.',
-  'A bedtime story they made the adult read fifty times.',
-  'A particular kind of weather they\'ll always associate with feeling safe.',
-  'A bird outside the window they thought of as theirs.',
-  'A favourite chair in the house, claimed.',
-  'A friend whose face they will recall, but not their name.'
-];
-const ADOLESCENCE_MEMORIES = [
-  'A note passed in class that changed something.',
-  'A song played on repeat for an entire summer.',
-  'A teacher who said one thing they would carry forever.',
-  'A friendship that mattered more than they let on.',
-  'The first time they kept a secret well.',
-  'A photograph they would later regret deleting.',
-  'A small embarrassment they kept private for twenty years.',
-  'A night that ended later than it should have.',
-  'The first time they realised an adult was wrong.',
-  'A book read alone in a car.',
-  'The week they decided who they would be.',
-  'A walk home they still take in their head.',
-  'A grown-up who treated them like a grown-up first.',
-  'A grief they didn\'t have the words for yet.',
-  'A bedroom wall covered in things that no longer fit.'
-];
-const ADULTHOOD_MEMORIES = [
-  'A phone call they made even though it was late.',
-  'The Sunday they learned to bake bread.',
-  'A loss they thought they would not survive — they did.',
-  'A small apartment that, in memory, will be the happiest one.',
-  'A friendship they let lapse without meaning to.',
-  'A walk through their old neighbourhood years later.',
-  'A child whose hand fit perfectly in theirs.',
-  'A parent\'s handwriting on an envelope, read again.',
-  'A meeting at work that turned into something else.',
-  'A garden, kept badly, loved deeply.',
-  'A move to a city they once swore against.',
-  'A reconciliation they did not initiate.',
-  'A morning they understood their own parent for the first time.',
-  'A song they sang to themselves through a hard year.',
-  'A choice they made quietly that changed everything afterward.'
-];
+const CHILDHOOD_MEMORIES = {
+  en: [
+    "The smell of their grandmother's kitchen.",
+    'A scraped knee that became a story.',
+    'A blanket fort that lasted three days.',
+    'A song their parent hummed without thinking.',
+    "A stuffed animal whose name they'll keep their whole life.",
+    'A puddle they jumped in, told off for, and remembered fondly.',
+    'A cousin who taught them a card game.',
+    'A library card kept in a small pocket.',
+    "A drawing they're proud of, taped to the fridge for a year.",
+    'A teacher who waited a beat longer than the others.',
+    'A bedtime story they made the adult read fifty times.',
+    "A particular kind of weather they'll always associate with feeling safe.",
+    'A bird outside the window they thought of as theirs.',
+    'A favourite chair in the house, claimed.',
+    'A friend whose face they will recall, but not their name.'
+  ],
+  zh: [
+    '祖母厨房里那种气味。',
+    '一块擦破的膝盖,后来变成了一个故事。',
+    '一座撑了整整三天的毯子堡垒。',
+    '父母随口哼出的一支歌。',
+    '一只名字会伴他/她一辈子的毛绒玩具。',
+    '踩过的一个水洼,挨过的一顿骂,日后却被温柔地记着。',
+    '教过一种纸牌游戏的表亲。',
+    '一张被收在小口袋里的图书证。',
+    '一幅自豪的画,在冰箱上贴了一整年。',
+    '愿意比别人多等一拍的一位老师。',
+    '让大人读了五十遍的睡前故事。',
+    '一种永远会让他/她联想到"安心"的天气。',
+    '窗外一只被他/她当成自己的鸟。',
+    '家里被自己认领下来的最爱的椅子。',
+    '一张能想起脸,却想不起名字的朋友。'
+  ],
+  ja: [
+    '祖母の台所のにおい。',
+    '物語に変わった、擦りむいた膝。',
+    '三日続いた毛布の砦。',
+    '親が考えずに口ずさんでいた歌。',
+    '生涯名前を覚えていることになる、ぬいぐるみ。',
+    '飛び込んで叱られ、のちに懐かしく思い出した水たまり。',
+    'トランプのゲームを教えてくれたいとこ。',
+    '小さなポケットにしまわれていた図書館カード。',
+    '冷蔵庫に一年貼られていた、得意げな絵。',
+    '他の人より一拍長く待ってくれた先生。',
+    '大人に五十回も読ませた、寝る前の絵本。',
+    '「安全」と必ず結びつく、特定の天気。',
+    '窓の外の、自分のものだと思っていた鳥。',
+    '家の中で、自分のものと決めた一脚の椅子。',
+    '顔は思い出せるけれど、名前は思い出せない友達。'
+  ],
+  ko: [
+    '할머니 부엌의 그 냄새.',
+    '하나의 이야기가 된, 까진 무릎.',
+    '사흘이나 버틴 담요 요새.',
+    '부모가 무심코 흥얼거리던 노래.',
+    '평생 그 이름을 기억하게 될 인형.',
+    '뛰어들어 혼난 웅덩이, 훗날에는 다정하게 떠올리게 된.',
+    '카드 게임 한 가지를 가르쳐 준 사촌.',
+    '작은 주머니에 간직했던 도서관 카드.',
+    '냉장고에 일 년 동안 붙어 있던, 자랑스러운 그림.',
+    '다른 사람들보다 한 박자 더 기다려 준 선생님.',
+    '어른에게 쉰 번도 더 읽어 달라 졸랐던 잠자리 동화.',
+    '"안전"과 영원히 연결되는 특정한 날씨.',
+    '창밖의, 자기 것이라 여겼던 새 한 마리.',
+    '집 안에서 자기 것으로 정한, 가장 좋아하는 의자.',
+    '얼굴은 떠오르지만 이름은 떠오르지 않는 친구.'
+  ],
+  tr: [
+    'Büyükannelerinin mutfağının kokusu.',
+    'Bir hikâyeye dönüşen sıyrılmış bir diz.',
+    'Üç gün ayakta kalan bir battaniye kalesi.',
+    'Ebeveynin farkında olmadan mırıldandığı bir şarkı.',
+    'Adını ömür boyu hatırlayacakları bir oyuncak ayı.',
+    'İçine atladıkları, azar yedikleri, sonra tatlılıkla hatırladıkları bir su birikintisi.',
+    'Onlara bir kart oyunu öğreten bir kuzen.',
+    'Küçük bir cepte saklı tutulan bir kütüphane kartı.',
+    'Bir yıl boyunca buzdolabına yapıştırılmış, gurur duydukları bir resim.',
+    'Diğerlerinden bir tık daha fazla bekleyen bir öğretmen.',
+    'Büyüğüne elli kez okuttukları bir yatak öyküsü.',
+    'Hep "güvende olmakla" eşleştirecekleri belirli bir hava.',
+    'Pencerenin dışında, kendilerinin saydıkları bir kuş.',
+    'Evdeki, kendilerine ait saydıkları en sevdikleri sandalye.',
+    'Yüzünü hatırlayacakları ama adını hatırlamayacakları bir arkadaş.'
+  ]
+};
+const ADOLESCENCE_MEMORIES = {
+  en: [
+    'A note passed in class that changed something.',
+    'A song played on repeat for an entire summer.',
+    'A teacher who said one thing they would carry forever.',
+    'A friendship that mattered more than they let on.',
+    'The first time they kept a secret well.',
+    'A photograph they would later regret deleting.',
+    'A small embarrassment they kept private for twenty years.',
+    'A night that ended later than it should have.',
+    'The first time they realised an adult was wrong.',
+    'A book read alone in a car.',
+    'The week they decided who they would be.',
+    'A walk home they still take in their head.',
+    'A grown-up who treated them like a grown-up first.',
+    "A grief they didn't have the words for yet.",
+    'A bedroom wall covered in things that no longer fit.'
+  ],
+  zh: [
+    '一张在课上传递的字条,改变了某件事。',
+    '一首整个夏天循环播放的歌。',
+    '说过一句话、被一生带在身上的那位老师。',
+    '远比表现出来更重要的一段友谊。',
+    '第一次,把一个秘密好好保住。',
+    '后来会后悔删掉的一张照片。',
+    '保了二十年的一桩小小的难堪。',
+    '一个结束得比应当更晚的夜晚。',
+    '第一次意识到一个大人是错的。',
+    '在车里独自读完的一本书。',
+    '决定自己要成为什么样的人的那一周。',
+    '至今仍在心中重走的回家路。',
+    '第一个把自己当大人看待的大人。',
+    '那时还没有词可以描述的悲伤。',
+    '贴满了已经不再合身之物的卧室墙壁。'
+  ],
+  ja: [
+    '何かを変えた、授業中に回されたメモ。',
+    '夏のあいだじゅう、繰り返し聴いていた一曲。',
+    '一生持ち歩くことになる一言を言ってくれた先生。',
+    '見せないようにしていた、思っていた以上に大切だった友情。',
+    '初めてうまく秘密を守った日。',
+    'のちに削除を後悔することになる一枚の写真。',
+    '二十年ほど黙っていた、小さな恥ずかしさ。',
+    '本来よりも遅くまで続いた一夜。',
+    'ある大人が間違っていると初めて気づいた瞬間。',
+    '車のなかで一人で読み終えた一冊の本。',
+    '自分が何者になるかを決めた一週間。',
+    'いまでも頭のなかで歩いて帰る道。',
+    '最初に「対等な大人」として扱ってくれた人。',
+    'まだ言葉のなかった悲しみ。',
+    '今となっては合わなくなったものでいっぱいの寝室の壁。'
+  ],
+  ko: [
+    '수업 시간에 돌린 쪽지가 무언가를 바꿨던 날.',
+    '여름 내내 반복 재생하던 노래.',
+    '평생 안고 살아갈 한 마디를 해준 선생님.',
+    '드러내는 것보다 훨씬 더 중요했던 우정.',
+    '처음으로 비밀을 잘 지켜낸 날.',
+    '훗날 지운 것을 후회하게 될 사진 한 장.',
+    '이십 년 동안 혼자만 간직한 작은 부끄러움.',
+    '본래보다 늦게 끝났던 어떤 밤.',
+    '어떤 어른이 틀렸음을 처음 알아챈 순간.',
+    '차 안에서 혼자 읽어낸 한 권의 책.',
+    '자신이 누가 될지 정한 그 한 주.',
+    '아직도 머릿속에서 걷는 그 귀갓길.',
+    '처음으로 자신을 어른처럼 대해 준 어른.',
+    '그땐 아직 말이 없었던 슬픔.',
+    '이제 더는 맞지 않는 것들로 가득했던 방의 벽.'
+  ],
+  tr: [
+    'Sınıfta el değiştiren ve bir şeyi değiştiren bir not.',
+    'Bütün bir yaz boyunca tekrar tekrar dinlenen bir şarkı.',
+    'Sonsuza dek taşıyacakları tek bir cümle söyleyen bir öğretmen.',
+    'Gösterdiklerinden çok daha önemli olan bir arkadaşlık.',
+    'İlk kez bir sırrı iyi saklamış oldukları zaman.',
+    'Sonradan sildiklerine pişman olacakları bir fotoğraf.',
+    'Yirmi yıl boyunca kimseye söylenmemiş küçük bir mahcubiyet.',
+    'Gereğinden geç biten bir gece.',
+    'Bir yetişkinin yanıldığını ilk kez fark ettikleri an.',
+    'Bir arabanın içinde tek başına okunmuş bir kitap.',
+    'Kim olacaklarına karar verdikleri o hafta.',
+    'Hâlâ akıllarında yürüyerek eve dönmekte oldukları bir yol.',
+    'Onlara ilk kez yetişkin gibi davranan bir yetişkin.',
+    'Henüz kelimelerini bilmedikleri bir keder.',
+    'Artık üzerlerine olmayan şeylerle kaplı bir yatak odası duvarı.'
+  ]
+};
+const ADULTHOOD_MEMORIES = {
+  en: [
+    'A phone call they made even though it was late.',
+    'The Sunday they learned to bake bread.',
+    'A loss they thought they would not survive — they did.',
+    'A small apartment that, in memory, will be the happiest one.',
+    'A friendship they let lapse without meaning to.',
+    'A walk through their old neighbourhood years later.',
+    'A child whose hand fit perfectly in theirs.',
+    "A parent's handwriting on an envelope, read again.",
+    'A meeting at work that turned into something else.',
+    'A garden, kept badly, loved deeply.',
+    'A move to a city they once swore against.',
+    'A reconciliation they did not initiate.',
+    'A morning they understood their own parent for the first time.',
+    'A song they sang to themselves through a hard year.',
+    'A choice they made quietly that changed everything afterward.'
+  ],
+  zh: [
+    '已经很晚,但还是拨出去的一通电话。',
+    '学会烤面包的那个星期天。',
+    '一度以为撑不过去的丧失——后来还是撑过来了。',
+    '在回忆里会成为"最快乐的家"的一处小公寓。',
+    '不是有意要疏远、却任其断了的一段友谊。',
+    '多年之后,再次走过的那条老街。',
+    '一只刚好可以握进自己手里的小手。',
+    '信封上父母的字迹,被重新读过一次。',
+    '一次原本只是工作的会面,后来成了别的什么。',
+    '照料得不算好,却深爱着的一座花园。',
+    '搬去了一座曾经发誓不去的城市。',
+    '不是由自己开口的那场和解。',
+    '第一次真正理解自己父母的那个早晨。',
+    '熬过艰难一年时,一直在心里哼的那首歌。',
+    '安静做出的、却改变了往后一切的一个决定。'
+  ],
+  ja: [
+    '夜遅くだったが、それでもかけた電話。',
+    'パンを焼くことを覚えた、ある日曜日。',
+    '生き延びられないと思った喪失――でも、生き延びた。',
+    '思い出のなかで「いちばん幸せだった部屋」になる小さなアパート。',
+    'そのつもりなく、ふと途絶えてしまった友情。',
+    '何年もあとに、もう一度歩いた昔のあたり。',
+    '自分の手にぴったり収まる、小さな手。',
+    '封筒に書かれた親の文字を、もう一度読み返した日。',
+    'もとは仕事の打ち合わせだったのに、別の何かになっていった出会い。',
+    'うまくは育てられなかったが、深く愛していた庭。',
+    'かつて「絶対住まない」と言い切っていた街への引っ越し。',
+    '自分からは始められなかった、ある和解。',
+    'はじめて自分の親を理解したと感じた、ある朝。',
+    'つらかった一年、ひとりで口ずさんでいた歌。',
+    '静かに下した、それ以降のすべてを変えた一つの決断。'
+  ],
+  ko: [
+    '늦은 시간이었지만 결국 걸었던 한 통의 전화.',
+    '빵 굽는 법을 배운 어느 일요일.',
+    '버텨내지 못할 줄 알았던 상실 — 그래도 살아남았다.',
+    '훗날 기억 속에서 가장 행복했던 집으로 남을 작은 아파트.',
+    '의도하지 않았는데도 흐려져 버린 우정.',
+    '여러 해가 지나 다시 걸어 본 옛 동네 길.',
+    '내 손에 꼭 맞게 들어왔던 한 아이의 손.',
+    '봉투 위 부모의 글씨를 다시 읽은 날.',
+    '본래 업무로 시작했지만 다른 무엇이 된 어떤 만남.',
+    '잘 가꾸지는 못했지만 깊이 사랑했던 정원.',
+    '한때 절대 안 가겠다고 했던 도시로의 이사.',
+    '내가 먼저 손 내밀지는 않은 어떤 화해.',
+    '처음으로 자기 부모를 이해했다고 느낀 어느 아침.',
+    '힘든 한 해 동안 혼자 흥얼거렸던 노래.',
+    '조용히 내린, 이후의 모든 것을 바꾼 어떤 선택.'
+  ],
+  tr: [
+    'Geç olmasına rağmen yine de yapılan bir telefon görüşmesi.',
+    'Ekmek pişirmeyi öğrendikleri o pazar.',
+    'Atlatamayacaklarını sandıkları bir kayıp — atlattılar.',
+    'Hatıralarda "en mutlu ev" olarak kalacak küçük bir daire.',
+    'İstemeden, kendiliğinden kopan bir arkadaşlık.',
+    'Yıllar sonra yeniden yürüdükleri eski bir mahalle.',
+    'Kendi elinin içine tam oturan küçük bir el.',
+    'Bir zarfın üstünde, ebeveynlerinin el yazısını yeniden okudukları an.',
+    'Aslında bir iş toplantısı olan, sonra başka bir şeye dönüşen bir buluşma.',
+    'Pek de iyi bakılamamış ama derinden sevilen bir bahçe.',
+    'Bir zamanlar asla taşınmayacaklarına yemin ettikleri bir şehre taşınma.',
+    'Başlatan kendileri olmayan bir barışma.',
+    'İlk kez kendi ebeveynlerini anladıklarını hissettikleri bir sabah.',
+    'Zorlu bir yıl boyunca kendi kendilerine söyledikleri bir şarkı.',
+    'Sessizce verilen ve sonraki her şeyi değiştiren bir karar.'
+  ]
+};
 
 /* ---------- Aging scrubber ticker pools ----------
  * Stage-bucketed lines surfaced by the age slider. Three buckets:
@@ -2011,9 +2391,13 @@ function isKids()  { return state.appMode === 'kids'; }
 function isAdult() { return state.appMode === 'adult'; }
 
 function pickPool(defaultPool, adultPool, kidsPool) {
-  if (state.appMode === 'kids'  && kidsPool)  return kidsPool;
-  if (state.appMode === 'adult' && adultPool) return adultPool;
-  return defaultPool;
+  let chosen;
+  if (state.appMode === 'kids'  && kidsPool)  chosen = kidsPool;
+  else if (state.appMode === 'adult' && adultPool) chosen = adultPool;
+  else chosen = defaultPool;
+  // localList passes plain arrays through unchanged; for language-keyed
+  // pools (objects with {en, zh, ja, ko, tr}) it returns the active slice.
+  return localList(chosen);
 }
 
 const APP_MODE_KEY = 'babyblend.appMode.v1';
@@ -2613,9 +2997,9 @@ function updateBabyPreview() {
   // Derived-stat star row (Kids mode only — CSS hides in Standard).
   renderKidsDerivedStats(b);
 
-  // archetype
+  // archetype: key stays English (used for save/load); display is localized.
   const archetype = calculateArchetype(b);
-  $('#archetype').textContent = archetype;
+  $('#archetype').textContent = localizeArchetype(archetype);
   state.archetype = archetype;
 
   // chaos badge visibility
@@ -2745,7 +3129,8 @@ function renderProfileEpigraph() {
     return;
   }
   const rng = seededRand(state.codename + '|epigraph');
-  const line = REFLECTION_EPIGRAPHS[Math.floor(rng() * REFLECTION_EPIGRAPHS.length)];
+  const eps = localList(REFLECTION_EPIGRAPHS);
+  const line = eps[Math.floor(rng() * eps.length)];
   host.hidden = false;
   host.innerHTML = `<p class="epigraph-text">${line}</p>`;
 }
@@ -2799,8 +3184,8 @@ function renderPausePanel() {
   panel.hidden = false;
 
   const rng = seededRand(state.codename + '|pause');
-  const obs = pickN(REFLECTION_OBSERVATIONS, 2, rng);
-  const cant = pickN(CANNOT_MEASURE, 4, rng);
+  const obs = pickN(localList(REFLECTION_OBSERVATIONS), 2, rng);
+  const cant = pickN(localList(CANNOT_MEASURE), 4, rng);
   const question = state.reflection || pickReflectionPrompt(state.codename);
 
   $('#pause-observations').innerHTML = obs.map(o => `<li>${o}</li>`).join('');
@@ -2902,9 +3287,10 @@ function renderHobbyConstellation(b) {
  * childhood / adolescence / adulthood. Seeded by codename so each
  * baby has stable memories. Reflection mode only. */
 function pickStableFrom(pool, seed) {
-  if (!pool || !pool.length) return '';
+  const arr = localList(pool);
+  if (!arr || !arr.length) return '';
   const rng = seededRand(seed);
-  return pool[Math.floor(rng() * pool.length)];
+  return arr[Math.floor(rng() * arr.length)];
 }
 
 function renderMemoryCards() {
@@ -3233,21 +3619,82 @@ function renderTraitConstellation(b) {
  * 7. Archetype scoring
  * ==================================================================== */
 
+// Localized labels for each archetype. calculateArchetype returns the
+// English key (which is also used as a save/load identifier); the UI
+// resolves the localized label through ARCHETYPE_LABELS[lang][key].
+const ARCHETYPE_LABELS = {
+  en: {
+    'The Methodical One': 'The Methodical One',
+    'The Imagining One':  'The Imagining One',
+    'The Observer':       'The Observer',
+    'The Connector':      'The Connector',
+    'The Planner':        'The Planner',
+    'The Recombiner':     'The Recombiner',
+    'The Quiet Maker':    'The Quiet Maker',
+    'The Mover':          'The Mover'
+  },
+  zh: {
+    'The Methodical One': '沉静的整理者',
+    'The Imagining One':  '想象之人',
+    'The Observer':       '观察之人',
+    'The Connector':      '联结之人',
+    'The Planner':        '规划之人',
+    'The Recombiner':     '重组之人',
+    'The Quiet Maker':    '沉默的创造者',
+    'The Mover':          '行动之人'
+  },
+  ja: {
+    'The Methodical One': '着実な人',
+    'The Imagining One':  '想像する人',
+    'The Observer':       '観察する人',
+    'The Connector':      '結びつける人',
+    'The Planner':        '計画する人',
+    'The Recombiner':     '組みかえる人',
+    'The Quiet Maker':    '静かに作る人',
+    'The Mover':          '動く人'
+  },
+  ko: {
+    'The Methodical One': '차분한 정리자',
+    'The Imagining One':  '상상하는 사람',
+    'The Observer':       '관찰자',
+    'The Connector':      '연결하는 사람',
+    'The Planner':        '계획자',
+    'The Recombiner':     '재결합자',
+    'The Quiet Maker':    '조용한 만드는 이',
+    'The Mover':          '움직이는 사람'
+  },
+  tr: {
+    'The Methodical One': 'Düzenli Olan',
+    'The Imagining One':  'Hayalperest Olan',
+    'The Observer':       'Gözlemci Olan',
+    'The Connector':      'Bağlayıcı Olan',
+    'The Planner':        'Planlayıcı Olan',
+    'The Recombiner':     'Yeniden Birleştiren',
+    'The Quiet Maker':    'Sessiz Yaratıcı',
+    'The Mover':          'Hareketli Olan'
+  }
+};
+
+function localizeArchetype(key) {
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  const bundle = ARCHETYPE_LABELS[lang] || ARCHETYPE_LABELS.en;
+  return bundle[key] || ARCHETYPE_LABELS.en[key] || key;
+}
+
 function calculateArchetype(b) {
-  // Scoring over Big Five (O/C/E/A/N) + athletic.
-  // Labels were rewritten to read as grounded interpretive descriptors
-  // rather than meme-y character titles.
+  // Scoring over Big Five (O/C/E/A/N) + athletic. The returned value is
+  // the English key — UI render localizes via localizeArchetype().
   const O = b.openness, C = b.conscientiousness, E = b.extraversion,
         A = b.agreeableness, N = b.neuroticism, athletic = b.athletic;
   const scores = {
-    'The Methodical One':  O * 0.9 + C * 1.3 - E * 0.4,                 // focused, curious, organized
-    'The Imagining One':   O * 1.5 - C * 0.7 + N * 0.2,                 // imaginative, scattered, expressive
-    'The Observer':        O * 1.2 - N * 0.9,                           // curious, emotionally steady
-    'The Connector':       E * 1.4 + A * 0.6,                           // extraverted, warm
-    'The Planner':         O * 0.7 + C * 1.1 - N * 0.3,                 // analytical, methodical
-    'The Recombiner':      O * 1.3 - C * 0.6 + N * 0.5,                 // intense, scattered, creative
-    'The Quiet Maker':     O * 1.0 + A * 1.0 - E * 0.4,                 // quiet, smart, kind
-    'The Mover':           athletic * 1.3 + E * 0.7 - N * 0.3           // energetic, embodied, social
+    'The Methodical One':  O * 0.9 + C * 1.3 - E * 0.4,
+    'The Imagining One':   O * 1.5 - C * 0.7 + N * 0.2,
+    'The Observer':        O * 1.2 - N * 0.9,
+    'The Connector':       E * 1.4 + A * 0.6,
+    'The Planner':         O * 0.7 + C * 1.1 - N * 0.3,
+    'The Recombiner':      O * 1.3 - C * 0.6 + N * 0.5,
+    'The Quiet Maker':     O * 1.0 + A * 1.0 - E * 0.4,
+    'The Mover':           athletic * 1.3 + E * 0.7 - N * 0.3
   };
   return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
 }
@@ -3457,10 +3904,13 @@ function pickAgeTicker(age) {
   } else if (state.appMode === 'adult') {
     pool = ADULT_TRAJECTORY_MILESTONES[bucket] || [];
   } else {
-    // Reflection: reuse the existing memory pools (already stage-bucketed).
-    if (bucket === 'early') pool = CHILDHOOD_MEMORIES;
-    else if (bucket === 'mid') pool = ADOLESCENCE_MEMORIES;
-    else pool = ADULTHOOD_MEMORIES;
+    // Reflection: reuse the existing memory pools (already stage-bucketed)
+    // and localized into all 5 languages.
+    let src;
+    if (bucket === 'early') src = CHILDHOOD_MEMORIES;
+    else if (bucket === 'mid') src = ADOLESCENCE_MEMORIES;
+    else src = ADULTHOOD_MEMORIES;
+    pool = localList(src);
   }
   if (!pool.length) return '';
   return pool[Math.floor(rng() * pool.length)];
@@ -3666,7 +4116,8 @@ function generateBabyFlavor(codename, baby) {
     return { vibe: '', paths: details, events: [], headlines: [] };
   }
 
-  const vibe = FUNNY_TITLES[Math.floor(rng() * FUNNY_TITLES.length)];
+  const vibes = localList(FUNNY_TITLES);
+  const vibe = vibes[Math.floor(rng() * vibes.length)];
 
   const tagFor = {
     openness: 'O', conscientiousness: 'C', extraversion: 'E',
@@ -4919,6 +5370,15 @@ function init() {
       state.language = langSelect.value;
       persistLanguage(state.language);
       applyTranslations();
+      // Re-derive content that was picked from now-translated pools at
+      // generate-time, using the same seeded RNG so the same INDEX
+      // resolves to a localized string of the same poetic register.
+      if (state.codename) {
+        const flavor = generateBabyFlavor(state.codename, state.baby);
+        state.vibe        = flavor.vibe;
+        state.reflection  = pickReflectionPrompt(state.codename);
+        updateBabyPreview();
+      }
     });
   }
   applyTranslations();
