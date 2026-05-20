@@ -2454,15 +2454,17 @@ const REGULATORY_NOTE_RULES = [
 
 /* ---------- Consent framing (Adult mode, near Enhancement Allocation) ---------- */
 
-// Lead paragraph (Education): the canonical "why this is a consent question" copy.
-const CONSENT_EXPLAINER = 'Heritable modifications are chosen before the person who will live with them exists, so the subject cannot consent. Parents make many decisions for children, but heritable edits differ in one respect: they are written into the biology and passed forward. Medical-ethics frameworks and the Council of Europe Oviedo Convention (Article 13) treat heritable choices as a distinct consent class from somatic or environmental ones.';
+// Lead paragraph (Education + World Design): the canonical "why this is a consent
+// question" copy, front-loaded with the future person rather than the institution.
+const CONSENT_EXPLAINER = 'The person these allocations are for does not yet exist. Heritable modifications are decided before they are born — so they cannot consent, and they cannot opt out later. Parents make many decisions for children; heritable edits differ in one respect: they are written into the biology and passed forward. Medical-ethics frameworks and the Council of Europe Oviedo Convention (Article 13) treat heritable choices as a distinct consent class from somatic or environmental ones.';
 
-// Structured rows (World Design): rendered as labeled items below the lead.
+// Structured rows (World Design + Narrative): grounded prose, fixed cite, Access row.
 const CONSENT_IMPLICATIONS = [
   { label: 'Subject', body: 'The modified individual is, by definition, absent from this interface. Every allocation is a decision made on behalf of someone who does not yet exist and cannot be consulted.' },
   { label: 'Heritability', body: 'Anyone born from a heritable edit inherits the choice. Their children inherit it too, and so on. The decision made in this session reaches forward into people who are not here to weigh in.' },
   { label: 'Reversibility', body: 'Heritable edits cannot be taken back. A future person who would not have agreed has no way to undo or escape what was chosen for them.' },
-  { label: 'Standard of care', body: 'Institutional ethics frameworks (Oviedo Convention; UNESCO Universal Declaration on the Human Genome and Human Rights, Art. 5) require informed consent of the affected party. That standard is structurally unmet here.' }
+  { label: 'Standard of care', body: 'Institutional ethics frameworks (Oviedo Convention, Article 13 on heritable modifications; UNESCO International Bioethics Committee 2015 Report on the Human Genome) require informed consent of the affected party. That standard is structurally unmet here.' },
+  { label: 'Access', body: 'These modifications arrive unevenly. Wealth predicts access; future populations inherit that distributional imbalance alongside the edits themselves.' }
 ];
 
 /* ---------- History of Human Enhancement (educational cards) ---------- */
@@ -5776,10 +5778,11 @@ function renderConsentExplainer() {
 /* ---------- Adult budget projections ----------
  * Two derived indicators that respond to enhancement allocation. The
  * Cohort Placement reads as a percentile claim ("Projected: top 8% of
- * birth cohort by composite score"); the Social Pressure Index tracks
- * appearance + sociability allocation as a visible bar. Both update on
- * every budget change. The numbers are made up — the point is to make
- * the consumer-product feeling concrete. */
+ * birth cohort by composite score"); the Inheritance Burden Index tracks
+ * heritable appearance + sociability allocation as a visible bar — what
+ * the future subject inherits without consent. Both update on every
+ * budget change. The numbers are made up — the point is to make the
+ * consumer-product feeling concrete. */
 function updateBudgetProjections(usedOverride) {
   const cohortEl   = $('#cohort-placement');
   const pressureEl = $('#pressure-fill');
@@ -5826,7 +5829,7 @@ function updateBudgetProjections(usedOverride) {
     tierEl.textContent = tier;
   }
 
-  // Social pressure: Appearance + Sociability spend, normalized.
+  // Inheritance burden: heritable Appearance + Sociability spend, normalized.
   const apprPts = (state.budget?.appearance  || 0);
   const socPts  = (state.budget?.sociability || 0);
   const apprPr  = PRIORITIES.find(p => p.key === 'appearance');
@@ -5836,10 +5839,10 @@ function updateBudgetProjections(usedOverride) {
   const pressure = Math.min(1, socialCost / 60);
   if (pressureEl) pressureEl.style.width = (pressure * 100).toFixed(0) + '%';
   if (pressureNote) {
-    let note = 'Minimal';
-    if (pressure > 0.15) note = 'Above baseline';
-    if (pressure > 0.45) note = 'Considerable peer-comparison exposure';
-    if (pressure > 0.75) note = 'High visibility, elevated identity load';
+    let note = 'Minimal · few heritable visible traits';
+    if (pressure > 0.15) note = 'Above baseline · some traits carry forward';
+    if (pressure > 0.45) note = 'Substantial · heritable load on the next generation';
+    if (pressure > 0.75) note = 'Heavy · descendants inherit most visible choices';
     pressureNote.textContent = note;
   }
 

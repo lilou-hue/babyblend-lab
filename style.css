@@ -3038,7 +3038,7 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.3px;
 }
-/* Budget projections (Cohort Placement + Social Pressure) — Adult only. */
+/* Budget projections (Cohort Placement + Inheritance Burden) — Adult only. */
 .budget-projections {
   display: flex;
   flex-direction: column;
