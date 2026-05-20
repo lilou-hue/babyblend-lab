@@ -593,7 +593,8 @@ const ANCESTRY_PRESETS = {
 // LOOP_REQUEST(translator): EN entries below were rewritten away from aphoristic
 // "X loosely; Y firmly" patterns toward concrete, embodied details. The zh/ja/ko/tr
 // blocks still mirror the old aphorisms by index and should be re-translated to
-// match the new EN lines on a future pass.
+// match the new EN lines on a future pass. The last 6 entries in each language
+// (paradox/contradiction tail) were added in Round 1 rev — verify naturalness.
 const FUNNY_TITLES = {
   en: [
     'Quietly observant',
@@ -611,7 +612,13 @@ const FUNNY_TITLES = {
     'Knows the bus driver\'s name',
     'Re-reads the same five books every winter',
     'Stops to look at other people\'s gardens',
-    'Texts back the next morning, with a real answer'
+    'Texts back the next morning, with a real answer',
+    'Worries constantly about things they can\'t change',
+    'Stays late at parties they didn\'t want to attend',
+    'Argues passionately for restraint',
+    'Gives advice they cannot take themselves',
+    'Plans meticulously, then improvises in the moment',
+    'Defends in public the friend they criticize in private'
   ],
   zh: [
     '静静观察',
@@ -629,7 +636,13 @@ const FUNNY_TITLES = {
     '在专注上慷慨,在言语上谨慎',
     '读人胜于读书',
     '默默承担小小的善意',
-    '看得久,说得少'
+    '看得久,说得少',
+    '为无力改变的事情持续担忧',
+    '在不情愿出席的聚会上待到最后',
+    '热切地为节制辩护',
+    '给出自己做不到的建议',
+    '事无巨细地计划,临场又随性发挥',
+    '当众维护私下里批评的朋友'
   ],
   ja: [
     '静かに気づく人',
@@ -647,7 +660,13 @@ const FUNNY_TITLES = {
     '注意は気前よく、言葉は慎重に',
     '本を読むより、人を読む',
     '名づけずに、小さな親切を運ぶ',
-    '話すよりも、長く見つめる'
+    '話すよりも、長く見つめる',
+    '自分には変えられないことを、絶えず気に病む',
+    '行きたくなかった集まりに、なぜか最後まで残る',
+    '節度を、熱っぽく擁護する',
+    '自分には実行できない助言を、人には授ける',
+    '入念に計画してから、その場で即興する',
+    '陰で批判している友人を、人前では擁護する'
   ],
   ko: [
     '조용히 살피는 사람',
@@ -665,7 +684,13 @@ const FUNNY_TITLES = {
     '주의는 후하게, 말은 신중하게',
     '책을 읽기보다 사람을 더 잘 읽는',
     '이름 붙이지 않은 작은 친절을 안고 다니는',
-    '말하기보다 더 오래 바라보는'
+    '말하기보다 더 오래 바라보는',
+    '바꿀 수 없는 일을 끊임없이 걱정하는',
+    '가고 싶지 않았던 자리에 끝까지 남는',
+    '절제를 열렬히 옹호하는',
+    '스스로는 따르지 못할 조언을 건네는',
+    '꼼꼼히 계획한 뒤 그 자리에서 즉흥으로 바꾸는',
+    '뒤에서 비판하는 친구를 사람들 앞에서는 변호하는'
   ],
   tr: [
     'Sessizce gözlemleyen',
@@ -683,7 +708,13 @@ const FUNNY_TITLES = {
     'Dikkatte cömert, sözde dikkatli',
     'Kitap okumaktan çok insan okuyan',
     'Adlandırmadan küçük iyilikleri taşıyan',
-    'Konuşmaktan çok izleyen'
+    'Konuşmaktan çok izleyen',
+    'Değiştiremedikleri şeyler için sürekli kaygılanan',
+    'Gitmek istemedikleri partilerde en sona kadar kalan',
+    'Ölçülü olmayı tutkuyla savunan',
+    'Kendi tutamayacakları öğütleri başkalarına veren',
+    'Titizlikle plan yapıp anında doğaçlama yapan',
+    'Özel sohbette eleştirdiği arkadaşı toplum içinde savunan'
   ]
 };
 
@@ -1208,7 +1239,7 @@ const HUMANITY_REMINDERS = [
   'A person cannot be fully reduced to data.',
   'Perfection is culturally defined.',
   'Unexpected traits often become strengths.',
-  'Genes load the gun; environment pulls the trigger; choice writes the story.',
+  'Personality traits show roughly 40-50% heritability; most variation traces to lived experience.',
   'Diversity isn\'t a glitch — it\'s the feature.',
   'A trait\'s value depends on who, when, and where.',
   'Strengths and weaknesses are the same thing in different rooms.',
@@ -1220,7 +1251,7 @@ const NATURAL_VARIATION_MESSAGES = [
   'Human diversity preserved.',
   'Unpredictability is part of humanity.',
   'Not every trait needs improvement.',
-  'Variation is the soil future strengths grow from.',
+  'Difference is information, not error.',
   'Nature did not consult the optimization handbook.'
 ];
 
@@ -1368,46 +1399,46 @@ const ADULT_FUTURES_CLINICAL = [
 // routines, regrets, quiet attachments.
 const ADULT_TRACES = {
   en: [
-    'Still keeps notebooks from adolescence.',
-    'Changes career path twice before 30.',
-    'Avoids phone calls; writes thoughtful letters instead.',
+    'Notebooks from adolescence sit in a box that never quite gets unpacked.',
+    'Switches career path twice before turning 30.',
+    'Prefers a long letter to a phone call, and rarely apologizes for it.',
     'Tends to overprepare for social events.',
-    'Maintains the same three close friends across two decades.',
+    'The same three close friends remain in steady orbit across two decades.',
     'Drinks coffee well past the point of effect.',
     'Reads three books at once; finishes two.',
-    'Routinely arrives five minutes early.',
-    'Carries a long unread email backlog without anxiety.',
+    'Arrives five minutes early as a matter of principle.',
+    'Lives comfortably with a long unread email backlog.',
     "Holds a quietly considered opinion they've never shared publicly.",
     'Subscribes to two newsletters from people they no longer know.',
-    "Knows the names of every neighbor's pets.",
-    'Has an uncommon food allergy that shapes their dinner plans for life.',
+    "Every neighbor's pet is filed away by name, often before the owners' are.",
+    'A persistent food allergy quietly shapes every dinner reservation.',
     'Travels less than peers; more deliberately.',
-    'Has tried therapy twice. May return.',
+    'Tried therapy twice. May return.',
     'Owns more books than shelf space.',
-    'Is the first person friends call after a hard week.',
+    'Becomes the first person friends call after a hard week.',
     'Speaks with a grandparent weekly until that grandparent dies.',
     'Sustains a low-key creative project across years.',
-    'Still keeps a childhood stuffed animal on a shelf in the closet.',
+    'A childhood stuffed animal still waits on a closet shelf, slightly faded.',
     'Replays small interactions in their head for days afterward.',
-    'Changes friend groups dramatically after age 19.',
+    'Friend groups shift dramatically once they leave home for good.',
     'Learns one recipe extremely well; serves it for the rest of their life.',
-    'Has an old conversation thread they still re-read sometimes.',
-    'Develops obscure interests unexpectedly in their thirties.',
-    'Quietly identifies as the family member who keeps everyone in touch.',
-    'Carries one specific song to every difficult moment.',
-    'Saves voicemails from people who have died.',
-    'Has a desk drawer of small objects no one else would want.',
-    'Knows exactly which photographs to put away when relatives visit.',
-    'Has a specific kind of laughter their family recognizes across rooms.',
-    'Takes long walks alone at night, and considers this a personality trait.',
-    'Keeps unfinished projects for years; some, eventually, finish themselves.',
-    'Saves handwritten notes in books, then forgets which books.',
-    'Has a place in one specific city they consider theirs.',
-    'Will, at some point, take care of a parent and not make it a story.',
-    "Knows their grandparents' handwriting at a glance.",
-    "Has one private vocabulary for moods they don't share with anyone.",
-    'Repeats one phrase a teacher said to them, decades later, to a stranger.',
-    'Becomes, late in life, a person their younger self would have liked.'
+    'One old conversation thread gets quietly reopened every few months.',
+    'Discovers obscure interests unexpectedly in their thirties.',
+    'Quietly becomes the family member who keeps everyone in touch.',
+    'One particular song accompanies every difficult moment.',
+    'Voicemails from people who have died stay archived, untouched, for decades.',
+    'A desk drawer fills slowly with small objects no one else would want.',
+    'When relatives visit, certain photographs come down without comment.',
+    'Their laugh is the kind a family recognizes from across rooms.',
+    'Walks alone at night, late, and counts this as a personality trait.',
+    'Some unfinished projects, given enough years, eventually finish themselves.',
+    'Handwritten notes get tucked into books, then lost with the books themselves.',
+    'One specific city becomes theirs, even if they only ever visit.',
+    'Care for a parent arrives, at some point, without being made into a story.',
+    "A grandparent's handwriting stays recognizable at a glance for life.",
+    "Keeps one private vocabulary for moods that never gets shared with anyone.",
+    'Decades later, repeats a single phrase a teacher once said, to a stranger.',
+    'Late in life, becomes a person their younger self would have liked.'
   ],
   zh: [
     '青春期留下的笔记本,至今还保留着。',
@@ -2218,30 +2249,30 @@ const KIDS_AGE_TICKERS = {
 
 const ADULT_TRAJECTORY_MILESTONES = {
   early: [
-    'Phenotype expression stable. Pre-cognitive markers within projected range.',
-    'Developmental milestones tracked on schedule.',
-    'No deviation from cohort baseline in motor-coordination indices.',
-    'Verbal-acquisition curve consistent with predicted range.',
-    'Subject enrolled in standard early-developmental tracking program.',
-    'Cognitive-enhancement vector beginning to differentiate from baseline cohort.'
+    'Motor coordination on track; gross and fine skills consolidating as expected.',
+    'Verbal acquisition within typical range; vocabulary expanding steadily.',
+    'Temperament profile observable; sleep and feeding rhythms stabilizing.',
+    'Attachment patterns forming with primary caregivers.',
+    'Early curiosity emerging around objects, sound, and faces.',
+    'Pre-literacy markers present; symbolic play beginning to appear.'
   ],
   mid: [
-    'Academic-track placement consistent with allocation profile.',
-    'Cohort visibility elevated. Peer-comparison exposure rising as projected.',
-    'Behavioral projection band narrowing. Three primary archetypes remain viable.',
-    'Identity-formation phase: stable signals expected through ages 17-22.',
-    'First formal performance evaluation complete. Profile classification confirmed.',
-    'Voluntary opt-out window for cohort study has now closed.',
-    'Early career signals consistent with allocation-bias forecast.'
+    'Enters formal schooling; academic strengths and challenges emerging.',
+    'Peer-group identification forming; friendships gain weight against family.',
+    'Three or four candidate identities tried on before adolescence settles.',
+    'High school identity solidifying; adult interests beginning to clarify.',
+    'First experiences of independent decision-making and its consequences.',
+    'Romantic and social self gaining definition through trial and feedback.',
+    'Early career signals appearing through chosen courses and side pursuits.'
   ],
   later: [
-    'Adult profile stable. Long-term trait expression within projected range.',
-    'Cohort follow-up confirms allocation-bias retention through midlife.',
-    'Long-horizon outcome metrics now eligible for cohort-wide aggregation.',
-    'Subject continues quarterly trajectory reporting. No flags raised.',
-    'Affective-stability indices declining slightly within expected senescence band.',
-    'Final allocation-outcome correlation report scheduled at next decadal review.',
-    'Subject offspring (n=0-2 projected) will be assessed under LH-2070 framework.'
+    'Adult personality largely stable; growth continues at slower pace.',
+    'Mid-career arc established; strengths and limits both well-known to self.',
+    'Long-term relationships and chosen family settle into recognizable shape.',
+    'Health and energy patterns shifting; routines accommodate the change.',
+    'Affective range often narrows somewhat with age, alongside more equanimity.',
+    'Reflection on choices made and not made becomes more frequent.',
+    'Whether or not children arrive, the next generation enters their orbit.'
   ]
 };
 
@@ -2446,6 +2477,11 @@ const KIDS_EXPLAINERS = {
   focus:      'Focus grows with age, sleep, practice, and finding something that feels exciting.',
   confidence: 'Confidence changes a LOT as people grow up. Bumpy days are normal.'
 };
+
+// LOOP_REQUEST(ux-flow): inject KIDS_FUTURES_PREAMBLE as intro copy before the
+// Kids-mode futures rendering (e.g. inside #future-block or above #future-tree)
+// so the predictive framing is softened before the list appears.
+const KIDS_FUTURES_PREAMBLE = "These are just stories of *possible* lives. Your real one might be completely different — and that's what makes it exciting.";
 
 const KIDS_FUTURE_PATHS = [
   { text: 'Might love building things.',                            tag: 'O' },
