@@ -2617,31 +2617,32 @@ const BUDGET_TOTAL = 200;
 // a near-future regulatory disclosure UI.
 const REGULATORY_NOTE_RULES = [
   {
-    // Fires on the first non-zero enhancement allocation. Frames the
-    // structural-disadvantage externality as compliance text rather than
-    // editorial. Stays single-line and dry, matching adjacent notes.
+    // Fires on the first non-zero enhancement allocation. Reconciles the
+    // institutional voice with `renderRegionalAccess` by citing a real
+    // instrument (Oviedo Art. 13, Recital 6) instead of narrating the
+    // structural-disadvantage externality. Stays single-line and dry.
     id: 'first-allocation',
     when: (b, total) => total > 0,
     severity: 'amber',
-    text: 'Notice: enhancement allocations establish heritable advantage. Unenhanced cohorts may experience structural disadvantage.'
+    text: 'Per Oviedo Convention Art. 13 (Recital 6): heritable allocation creates a non-reversible advantage in the descendant line; unallocated cohorts retain no equivalent remedy.'
   },
   {
     id: 'GE-3-cognition',
     when: b => (b.cognition || 0) >= 5,
     severity: 'amber',
-    text: 'GE-3 Compliance: cognitive enhancement exceeds intra-cohort variance threshold. Annual disclosure to school admissions bodies required in 14 jurisdictions.'
+    text: 'Draft IVD-Germ Lines Directive Art. 6: cognitive allocation above the intra-cohort variance threshold. Annual disclosure to admissions authorities required in 14 transposing jurisdictions.'
   },
   {
     id: 'GE-3-cognition-high',
     when: b => (b.cognition || 0) >= 9,
     severity: 'red',
-    text: 'Class II modification flagged. Enrollment in the multi-decade outcome registry is mandatory.'
+    text: 'Draft IVD-Germ Lines Directive Art. 9: allocation designated Class II. Enrolment in the ENH-2042 outcome registry is mandatory for the duration of the cohort study.'
   },
   {
     id: 'EM-stability',
     when: b => (b.emotional || 0) >= 6,
     severity: 'amber',
-    text: 'Emotional Stability allocation triggers Class III monitoring. Quarterly affective-band reporting required for the first 12 years.'
+    text: 'HFEA 2008 §3ZA (special-direction): affective-band allocation designated Class III. Quarterly reporting to the licensing authority required for the first 12 years.'
   },
   {
     id: 'RES-resilience-elevated',
@@ -2665,13 +2666,13 @@ const REGULATORY_NOTE_RULES = [
     id: 'multi-category',
     when: b => Object.values(b).filter(v => v >= 4).length >= 3,
     severity: 'red',
-    text: 'Multi-category enhancement profile detected. Subject will be auto-enrolled in the federal long-horizon cohort study (LH-2042). Opt-out window: 30 days.'
+    text: 'Multi-category allocation across three or more packages. Subject auto-enrolled in the ENH-2042 long-horizon cohort study under HFEA-equivalent licensing. Opt-out window: 30 days from authorization.'
   },
   {
     id: 'total-spend-high',
     when: (b, total) => total >= BUDGET_TOTAL * 0.7,
     severity: 'red',
-    text: 'Aggregate allocation exceeds 70% of platform budget. Identity-document watermark required in the Premium-Tier Disclosure Schedule.'
+    text: 'Aggregate allocation ≥ 70% of platform budget. Cosmetic-modification disclosure required on identity documents in all Oviedo signatory jurisdictions (Art. 13, transposed instruments).'
   },
   {
     id: 'empathy-low',
