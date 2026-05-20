@@ -387,42 +387,65 @@ main {
 .parent-randomize-btn.spinning { transform: rotate(360deg); }
 
 /* Advanced-traits disclosure — collapses OCEAN sliders behind a single
- * toggle per parent card so the default view stays appearance-focused. */
+ * toggle per parent card. Motion is tuned to the page's slow-fade
+ * vocabulary (introSectionIn, historyOpen): downward settle, opacity
+ * lead, eased over ~0.45s so the reveal reads as part of the
+ * atmosphere rather than a UI affordance. */
 .parent-advanced {
-  margin-top: 6px;
-  border-top: 1px dashed rgba(126, 224, 255, 0.12);
-  padding-top: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(126, 224, 255, 0.10);
+}
+.parent-card[data-parent="B"] .parent-advanced {
+  border-top-color: rgba(200, 155, 255, 0.10);
 }
 .parent-advanced-summary {
   cursor: pointer;
   list-style: none;
-  font-size: 12px;
-  letter-spacing: 1.2px;
+  font-size: 11px;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: var(--ink-soft);
-  padding: 4px 2px;
+  color: var(--ink-mute);
+  padding: 2px 2px;
   user-select: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  transition: color 0.15s;
+  gap: 8px;
+  transition: color 0.25s ease, letter-spacing 0.25s ease;
 }
 .parent-advanced-summary::-webkit-details-marker { display: none; }
 .parent-advanced-summary::after {
-  content: '▾';
-  font-size: 10px;
-  opacity: 0.7;
-  transition: transform 0.18s ease;
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.55;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.35s ease;
 }
-.parent-advanced[open] > .parent-advanced-summary::after { transform: rotate(180deg); }
-.parent-advanced-summary:hover { color: var(--ink); }
+.parent-advanced[open] > .parent-advanced-summary::after {
+  transform: translateY(1px) rotate(225deg);
+  opacity: 0.85;
+}
+.parent-advanced-summary:hover,
+.parent-advanced[open] > .parent-advanced-summary { color: var(--ink-soft); }
 .parent-advanced-body {
-  margin-top: 10px;
-  animation: parent-advanced-reveal 0.22s ease-out;
+  margin-top: 12px;
+  animation: parent-advanced-reveal 0.45s ease both;
 }
 @keyframes parent-advanced-reveal {
-  from { opacity: 0; transform: translateY(-2px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 720px) {
+  .parent-advanced { margin-top: 8px; padding-top: 8px; }
+  .parent-advanced-body { margin-top: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .parent-advanced-summary,
+  .parent-advanced-summary::after { transition: none !important; }
+  .parent-advanced-body { animation: none !important; }
 }
 
 .field {
