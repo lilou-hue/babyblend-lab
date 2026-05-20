@@ -474,14 +474,17 @@ const BIGSMILE_MOUTH = [
 // Big Smile has no eyesColor — vary eye expression by eye-color slider instead.
 const BIGSMILE_EYES = ['normal','cheery','winking','starstruck','sleepy'];
 
-// Lorelei hair: variants curated by length within each texture bucket
-// (measured by max-Y of the hair path's bounding box).
+// Lorelei hair: variants curated by length within each texture bucket.
+// Female lists exclude any variant that renders bald/buzz/cropped — the
+// bounding-box heuristic that originally produced these lists treated some
+// hairline-only sprites as "long" and put them on the female list, so the
+// lists below are hand-checked against the DiceBear preview PNGs instead.
 const LORELEI_HAIR_BY_GENDER = {
   female: {
-    straight: ['variant05','variant01','variant09'],
-    wavy:     ['variant17','variant16','variant18','variant23','variant22'],
-    curly:    ['variant30','variant35','variant32','variant29','variant25'],
-    coily:    ['variant44','variant48','variant42','variant47','variant37']
+    straight: ['variant05','variant06','variant10','variant11','variant12'],
+    wavy:     ['variant13','variant14','variant15','variant16','variant17','variant18','variant19','variant21','variant23','variant24'],
+    curly:    ['variant29','variant30','variant31','variant32','variant33','variant35'],
+    coily:    ['variant37','variant38','variant40','variant41','variant42','variant45','variant48']
   },
   male: {
     straight: ['variant04','variant02','variant12','variant06','variant08'],
@@ -3204,6 +3207,7 @@ function buildAvatarSvg(b, styleName, g, seedHint) {
     options.frecklesProbability = 0;
     options.beardProbability   = 0; // babies don't have beards
     options.glassesProbability = 0; // or glasses
+    options.hairProbability    = 100; // ensure hair always renders — DiceBear can otherwise omit hair entirely
 
     // Eyebrows: conscientiousness picks within a 1–13 range, but gender +
     // intensity narrows that range. Male leans toward the lower-numbered
