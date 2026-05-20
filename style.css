@@ -4060,9 +4060,10 @@ body.mode-reflection .lifetime-drift-panel h2 {
   padding: 0;
   overflow-y: auto;
   scroll-behavior: smooth;
-  /* Gentle scroll-snap so sections settle without feeling forced. */
-  scroll-snap-type: y proximity;
   -webkit-overflow-scrolling: touch;
+  /* No scroll-snap: tall sections (like the historical timeline) need
+     natural scrolling. Snap was catching scroll mid-section and reading
+     as "stuck." */
 }
 /* Don't run the old landing-inner fade-in animation on the new intro. */
 .landing.intro .landing-inner { animation: none; }
@@ -4100,7 +4101,6 @@ body.mode-reflection .lifetime-drift-panel h2 {
   padding: 80px 24px 80px;
   max-width: 1080px;
   margin: 0 auto;
-  scroll-snap-align: start;
   position: relative;
 
   opacity: 0;
