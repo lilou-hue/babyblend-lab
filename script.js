@@ -3232,9 +3232,14 @@ const PARENT_FIELDS = [
 /* ---------- Slider definitions ---------- */
 /* Each baby slider is built dynamically with a min/max/default derived from parents. */
 
+// Base σ for polygenic sliders on the 1–10 scale. Single source of truth so
+// the OCEAN bell-width fallback (used when a parent pair is missing) can't
+// silently drift from the SLIDER_DEFS entries that drive range computation.
+const PERSONALITY_SIGMA = 1.75;
+
 const SLIDER_DEFS = [
   { key: 'height',     label: 'Height potential',  unit: 'cm',     kind: 'continuous', hardMin: 140, hardMax: 210, expand: 5  },
-  { key: 'athletic',   label: 'Athletic tendency',    unit: '/10', kind: 'polygenic',  hardMin: 1,   hardMax: 10, sigma: 1.75 },
+  { key: 'athletic',   label: 'Athletic tendency',    unit: '/10', kind: 'polygenic',  hardMin: 1,   hardMax: 10, sigma: PERSONALITY_SIGMA },
   { key: 'eyeColor',   label: 'Eye color blend',                   kind: 'ladder', ladder: EYE_LADDER  },
   { key: 'hairColor',  label: 'Hair color blend',                  kind: 'ladder', ladder: HAIR_LADDER },
   { key: 'hairType',   label: 'Hair texture blend',                kind: 'ladder', ladder: TEX_LADDER  },
@@ -3243,11 +3248,11 @@ const SLIDER_DEFS = [
   { key: 'freckles',   label: 'Freckles likelihood',  unit: '%',   kind: 'likelihood', parentKey: 'freckles', ladder: FRECK_LADDER },
   { key: 'dimples',    label: 'Dimples likelihood',   unit: '%',   kind: 'likelihood', parentKey: 'dimples',  ladder: DIMPLE_LADDER },
   // Big Five (OCEAN) — child ≈ midparent ± 2σ (~95% interval at ~50% heritability)
-  { key: 'openness',          label: 'Openness',          unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 },
-  { key: 'conscientiousness', label: 'Conscientiousness', unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 },
-  { key: 'extraversion',      label: 'Extraversion',      unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 },
-  { key: 'agreeableness',     label: 'Agreeableness',     unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 },
-  { key: 'neuroticism',       label: 'Neuroticism',       unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: 1.75 }
+  { key: 'openness',          label: 'Openness',          unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: PERSONALITY_SIGMA },
+  { key: 'conscientiousness', label: 'Conscientiousness', unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: PERSONALITY_SIGMA },
+  { key: 'extraversion',      label: 'Extraversion',      unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: PERSONALITY_SIGMA },
+  { key: 'agreeableness',     label: 'Agreeableness',     unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: PERSONALITY_SIGMA },
+  { key: 'neuroticism',       label: 'Neuroticism',       unit: '/10', kind: 'polygenic', hardMin: 1, hardMax: 10, sigma: PERSONALITY_SIGMA }
 ];
 
 /* ---------- Application state ---------- */
@@ -3884,9 +3889,6 @@ function updateBandMarker(rangeKey, currentDisplayed, r) {
   marker.setAttribute('x1', x.toFixed(2));
   marker.setAttribute('x2', x.toFixed(2));
 }
-
-// Sigma for personality polygenic sliders (matches SLIDER_DEFS).
-const PERSONALITY_SIGMA = 1.75;
 
 function bindExplainer(row) {
   const btn = row.querySelector('.slider-explain');
