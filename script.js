@@ -619,6 +619,74 @@ function localGender(g) {
   return (map[lang] && map[lang][g]) || map.en[g] || g;
 }
 
+/* ---------- Label translations ----------
+ * Lookup-by-English-string for the profile/stat/slider/parent/env
+ * labels that updateBabyPreview, renderStandardSlider, buildParentForms
+ * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
+ * section that's safe from concurrent edits. */
+const LABEL_I18N = {
+  // Stat-panel labels
+  'Sex':                 { zh: '性别', ja: '性別', ko: '성별', tr: 'Cinsiyet' },
+  'Height':              { zh: '身高', ja: '身長', ko: '신장', tr: 'Boy' },
+  'Athletic':            { zh: '运动能力', ja: '運動能力', ko: '운동성', tr: 'Atletik' },
+  'Eye color':           { zh: '眼睛颜色', ja: '目の色', ko: '눈 색', tr: 'Göz rengi' },
+  'Hair color':          { zh: '发色', ja: '髪の色', ko: '머리 색', tr: 'Saç rengi' },
+  'Hair texture':        { zh: '发质', ja: '髪質', ko: '머릿결', tr: 'Saç dokusu' },
+  'Hair type':           { zh: '发质', ja: '髪質', ko: '머릿결', tr: 'Saç tipi' },
+  'Skin tone':           { zh: '肤色', ja: '肌の色', ko: '피부 톤', tr: 'Ten rengi' },
+  'Face shape':          { zh: '脸型', ja: '顔の形', ko: '얼굴형', tr: 'Yüz şekli' },
+  'Freckles':            { zh: '雀斑', ja: 'そばかす', ko: '주근깨', tr: 'Çiller' },
+  'Dimples':             { zh: '酒窝', ja: 'えくぼ', ko: '보조개', tr: 'Gamzeler' },
+  // OCEAN + Kids personality
+  'Openness':            { zh: '开放性', ja: '開放性', ko: '개방성', tr: 'Açıklık' },
+  'Conscientiousness':   { zh: '尽责性', ja: '誠実性', ko: '성실성', tr: 'Sorumluluk' },
+  'Extraversion':        { zh: '外向性', ja: '外向性', ko: '외향성', tr: 'Dışadönüklük' },
+  'Agreeableness':       { zh: '宜人性', ja: '協調性', ko: '친화성', tr: 'Uyumluluk' },
+  'Neuroticism':         { zh: '神经质', ja: '神経症傾向', ko: '신경성', tr: 'Nevrotiklik' },
+  'Curiosity':           { zh: '好奇心', ja: '好奇心', ko: '호기심', tr: 'Merak' },
+  'Kindness':            { zh: '善良', ja: 'やさしさ', ko: '다정함', tr: 'İyilik' },
+  'Energy':              { zh: '活力', ja: 'エネルギー', ko: '활력', tr: 'Enerji' },
+  'Focus':               { zh: '专注力', ja: '集中力', ko: '집중력', tr: 'Odak' },
+  'Confidence':          { zh: '自信心', ja: '自信', ko: '자신감', tr: 'Özgüven' },
+  // Stat section dividers
+  'Big Five':            { zh: '大五人格', ja: 'ビッグファイブ', ko: '빅 파이브', tr: 'Beş Büyük' },
+  'Personality':         { zh: '性格', ja: '性格', ko: '성격', tr: 'Kişilik' },
+  'Behavioral Projection': { zh: '行为投射', ja: '行動投射', ko: '행동 투영', tr: 'Davranış Projeksiyonu' },
+  // Slider labels (trait sliders panel)
+  'Height potential':    { zh: '潜在身高', ja: '身長の可能性', ko: '신장 잠재력', tr: 'Boy potansiyeli' },
+  'Athletic tendency':   { zh: '运动倾向', ja: '運動傾向', ko: '운동 성향', tr: 'Atletik eğilim' },
+  'Eye color blend':     { zh: '眼睛颜色融合', ja: '目の色のブレンド', ko: '눈 색 혼합', tr: 'Göz rengi karışımı' },
+  'Hair color blend':    { zh: '发色融合', ja: '髪の色のブレンド', ko: '머리 색 혼합', tr: 'Saç rengi karışımı' },
+  'Hair texture blend':  { zh: '发质融合', ja: '髪質のブレンド', ko: '머릿결 혼합', tr: 'Saç dokusu karışımı' },
+  'Skin tone blend':     { zh: '肤色融合', ja: '肌の色のブレンド', ko: '피부 톤 혼합', tr: 'Ten rengi karışımı' },
+  'Face shape blend':    { zh: '脸型融合', ja: '顔の形のブレンド', ko: '얼굴형 혼합', tr: 'Yüz şekli karışımı' },
+  'Freckles likelihood': { zh: '雀斑概率', ja: 'そばかすの確率', ko: '주근깨 확률', tr: 'Çil olasılığı' },
+  'Dimples likelihood':  { zh: '酒窝概率', ja: 'えくぼの確率', ko: '보조개 확률', tr: 'Gamze olasılığı' },
+  // Parent panel
+  'Parent A':            { zh: '父母 A', ja: '親 A', ko: '부모 A', tr: 'Ebeveyn A' },
+  'Parent B':            { zh: '父母 B', ja: '親 B', ko: '부모 B', tr: 'Ebeveyn B' },
+  'Name':                { zh: '姓名', ja: '名前', ko: '이름', tr: 'İsim' },
+  'Ancestry':            { zh: '祖籍', ja: '祖先', ko: '혈통', tr: 'Soy' },
+  'Height (cm)':         { zh: '身高(厘米)', ja: '身長 (cm)', ko: '신장 (cm)', tr: 'Boy (cm)' },
+  // Env panel (use full English labels)
+  'Supportive family':       { zh: '家庭支持度', ja: '支えてくれる家族', ko: '지지적인 가족', tr: 'Destekleyici aile' },
+  'Educational access':      { zh: '教育机会', ja: '教育へのアクセス', ko: '교육 기회', tr: 'Eğitime erişim' },
+  'Economic stability':      { zh: '经济稳定度', ja: '経済的安定', ko: '경제적 안정', tr: 'Ekonomik istikrar' },
+  'Healthcare access':       { zh: '医疗资源', ja: '医療へのアクセス', ko: '의료 접근성', tr: 'Sağlık hizmetlerine erişim' },
+  'Social pressure':         { zh: '社会压力', ja: '社会的プレッシャー', ko: '사회적 압력', tr: 'Sosyal baskı' },
+  'Internet exposure':       { zh: '上网接触度', ja: 'インターネット接触', ko: '인터넷 노출', tr: 'İnternet maruziyeti' },
+  'Multilingual upbringing': { zh: '多语言成长环境', ja: '多言語環境での養育', ko: '다중언어 양육', tr: 'Çokdilli yetişme' },
+  'Urban (1) ↔ Rural (10)':  { zh: '城市(1) ↔ 乡村(10)', ja: '都市 (1) ↔ 田舎 (10)', ko: '도시 (1) ↔ 시골 (10)', tr: 'Kentsel (1) ↔ Kırsal (10)' }
+};
+function localLabel(en) {
+  if (!en) return en;
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  if (lang === 'en') return en;
+  const entry = LABEL_I18N[en];
+  if (!entry) return en;
+  return entry[lang] || en;
+}
+
 /* ---------- Ancestry presets ----------
  * Each preset describes the typical *range* of trait values seen in that
  * ancestry — not a fixed look. Picking an ancestry rolls one trait out of
