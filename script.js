@@ -5050,19 +5050,16 @@ function generateBabyFlavor(codename, baby) {
 
   // FUNNY_TITLES entries may be plain strings or tagged objects ({text, tag}).
   // Paradox entries (last 6 in each language) carry conflict tags. When any
-  // conflict is active AND matching tagged entries exist, pick from the
-  // matching subset ~60% of the time so the vibe and the conflict FUTURE_PATH
-  // compound rather than duplicate. Otherwise: uniform random over the list.
-  // LOOP_REQUEST(systems): invert the conflict-tag preference here — when
-  // conflicts are active, AVOID conflict-tagged FUNNY_TITLES (don't prefer
-  // them). The conflict-tagged FUTURE_PATHS already carry the friction;
-  // FUNNY_TITLES that name the same contradiction read as gaslight-coherence.
+  // conflict is active, AVOID conflict-tagged vibes that name the same
+  // contradiction — the conflict FUTURE_PATHS already carry the friction, so a
+  // matching vibe reads as coping-as-coherence (quirk instead of tension).
+  // When no conflict is active, sample uniformly over the whole list.
   const vibes = localList(FUNNY_TITLES);
-  const matchingVibes = conflictTags.length
-    ? vibes.filter(v => v && typeof v === 'object' && v.tag && conflictTags.includes(v.tag))
-    : [];
-  const vibePool = (matchingVibes.length && rng() < 0.6) ? matchingVibes : vibes;
-  const vibePick = vibePool[Math.floor(rng() * vibePool.length)];
+  const vibePool = conflictTags.length
+    ? vibes.filter(v => !(v && typeof v === 'object' && v.tag && conflictTags.includes(v.tag)))
+    : vibes;
+  const pickFrom = vibePool.length ? vibePool : vibes;
+  const vibePick = pickFrom[Math.floor(rng() * pickFrom.length)];
   const vibe = (vibePick && typeof vibePick === 'object') ? vibePick.text : vibePick;
 
   const tagFor = {
