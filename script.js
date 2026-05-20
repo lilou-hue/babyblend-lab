@@ -590,11 +590,11 @@ const ANCESTRY_PRESETS = {
 // older meme-titled "funny vibe" pool with calmer, more specific lines.
 // Localized in all 5 languages; arrays MUST stay the same length so the
 // seeded vibe-pick stays stable across language switches.
-// LOOP_REQUEST(translator): EN entries below were rewritten away from aphoristic
-// "X loosely; Y firmly" patterns toward concrete, embodied details. The zh/ja/ko/tr
-// blocks still mirror the old aphorisms by index and should be re-translated to
-// match the new EN lines on a future pass. The last 6 entries in each language
-// (paradox/contradiction tail) were added in Round 1 rev — verify naturalness.
+// Translator note: EN entries here were rewritten in Round 1 away from aphoristic
+// "X loosely; Y firmly" patterns toward concrete, embodied details. The leading
+// 16 zh/ja/ko/tr entries still mirror the OLD aphorisms by index and remain a
+// future pass. The trailing 6 paradox/contradiction entries were translated in
+// Round 2 to preserve psychological texture over literal wording.
 const FUNNY_TITLES = {
   en: [
     'Quietly observant',
@@ -637,12 +637,12 @@ const FUNNY_TITLES = {
     '读人胜于读书',
     '默默承担小小的善意',
     '看得久,说得少',
-    '为无力改变的事情持续担忧',
-    '在不情愿出席的聚会上待到最后',
-    '热切地为节制辩护',
-    '给出自己做不到的建议',
-    '事无巨细地计划,临场又随性发挥',
-    '当众维护私下里批评的朋友'
+    '为自己改变不了的事反复纠结',
+    '不想去的聚会,偏偏待到最后',
+    '为「克制」据理力争',
+    '把自己做不到的道理讲给别人听',
+    '计划写得密密麻麻,临场又全凭直觉',
+    '私下吐槽的朋友,当众第一个出来维护'
   ],
   ja: [
     '静かに気づく人',
@@ -661,12 +661,12 @@ const FUNNY_TITLES = {
     '本を読むより、人を読む',
     '名づけずに、小さな親切を運ぶ',
     '話すよりも、長く見つめる',
-    '自分には変えられないことを、絶えず気に病む',
-    '行きたくなかった集まりに、なぜか最後まで残る',
-    '節度を、熱っぽく擁護する',
-    '自分には実行できない助言を、人には授ける',
-    '入念に計画してから、その場で即興する',
-    '陰で批判している友人を、人前では擁護する'
+    '自分ではどうにもならないことを、いつまでも気に病む',
+    '気が進まなかった飲み会に、結局いちばん最後まで残る',
+    '「ほどほどに」と、誰よりも熱く語る',
+    '自分には守れない助言を、ひとには真顔で渡す',
+    '綿密に計画を立ててから、当日にそれを全部ひっくり返す',
+    '陰では文句を言う相手を、表ではいちばんに庇う'
   ],
   ko: [
     '조용히 살피는 사람',
@@ -685,12 +685,12 @@ const FUNNY_TITLES = {
     '책을 읽기보다 사람을 더 잘 읽는',
     '이름 붙이지 않은 작은 친절을 안고 다니는',
     '말하기보다 더 오래 바라보는',
-    '바꿀 수 없는 일을 끊임없이 걱정하는',
-    '가고 싶지 않았던 자리에 끝까지 남는',
-    '절제를 열렬히 옹호하는',
-    '스스로는 따르지 못할 조언을 건네는',
-    '꼼꼼히 계획한 뒤 그 자리에서 즉흥으로 바꾸는',
-    '뒤에서 비판하는 친구를 사람들 앞에서는 변호하는'
+    '어쩔 수 없는 일을 두고두고 곱씹는',
+    '가기 싫었던 자리에 끝까지 남아 있는',
+    '「적당히」를 누구보다 뜨겁게 주장하는',
+    '본인은 못 지킬 조언을 정색하고 건네는',
+    '꼼꼼히 계획해두고 막상 그 자리에서 다 바꾸는',
+    '뒤에서는 흉보던 친구를 앞에서는 제일 먼저 편드는'
   ],
   tr: [
     'Sessizce gözlemleyen',
@@ -709,12 +709,12 @@ const FUNNY_TITLES = {
     'Kitap okumaktan çok insan okuyan',
     'Adlandırmadan küçük iyilikleri taşıyan',
     'Konuşmaktan çok izleyen',
-    'Değiştiremedikleri şeyler için sürekli kaygılanan',
-    'Gitmek istemedikleri partilerde en sona kadar kalan',
-    'Ölçülü olmayı tutkuyla savunan',
-    'Kendi tutamayacakları öğütleri başkalarına veren',
-    'Titizlikle plan yapıp anında doğaçlama yapan',
-    'Özel sohbette eleştirdiği arkadaşı toplum içinde savunan'
+    'Elinden hiçbir şey gelmeyen meseleleri içinde günlerce evirip çeviren',
+    'Gitmek istemediği davette en son ayrılan',
+    '«Ölçülü olalım» derken kimseden ölçülü olmayan',
+    'Kendi tutamadığı öğüdü başkasına ciddi ciddi veren',
+    'Her şeyi planlayıp son anda hepsini içgüdüyle değiştiren',
+    'Arkasından şikâyet ettiği arkadaşı, ortamda ilk savunan'
   ]
 };
 
@@ -756,7 +756,18 @@ const FUTURE_PATHS = [
   { text: 'Has a specific spot in one specific park they consider theirs.',                  tag: 'O' },
   { text: 'Learns one instrument badly and another well; never tells anyone which is which.', tag: 'O' },
   { text: 'Saves voicemails from people who have died.',                                     tag: 'A' },
-  { text: 'Knows their grandparents\' handwriting at a glance.',                             tag: 'A' }
+  { text: 'Knows their grandparents\' handwriting at a glance.',                             tag: 'A' },
+  // Conflict-tagged entries (Round 2): contradictions, not aphorisms. Systems
+  // uses tags like OC-tension, EN-tension, CO-rigidity, AN-pleaser to surface
+  // these when the matching pressure pattern is present in the baby.
+  { text: 'Starts three projects in a month; finishes none; regrets only the one they did finish.', tag: 'OC-tension' },
+  { text: 'Reorganizes the kitchen at midnight, then forgets where they put the cumin for a year.',  tag: 'OC-tension' },
+  { text: 'Hosts the dinner everyone loved; lies awake afterwards re-running every conversation.',   tag: 'EN-tension' },
+  { text: 'Becomes the friend who pulls people together, then disappears for two weeks to recover.',  tag: 'EN-tension' },
+  { text: 'Plans the trip in five-tab detail; never books the flight.',                              tag: 'CO-rigidity' },
+  { text: 'Keeps the same morning routine for a decade and resents the one week it has to change.',  tag: 'CO-rigidity' },
+  { text: 'Says yes to favors they can\'t afford; quietly resents the friends who asked.',          tag: 'AN-pleaser' },
+  { text: 'Covers for a coworker once, then for two years, then in a letter they never send.',       tag: 'AN-pleaser' }
 ];
 
 // Specific small life-events. Grounded register — these read like things a
@@ -2921,11 +2932,12 @@ function buildParentForms() {
       </div>`;
     // Advanced-traits disclosure: OCEAN sliders fold into a per-parent
     // <details> so the default view shows appearance-only inputs.
-    // LOOP_REQUEST(narrative): refine OCEAN-disclosure toggle label
+    // Label "Temperament dials" — speculative-lab register: warm enough for
+    // Kids/Reflection, dry enough for Adult, no clinical jargon.
     const advanced = document.createElement('details');
     advanced.className = 'parent-advanced';
     advanced.dataset.parent = letter;
-    advanced.innerHTML = `<summary class="parent-advanced-summary">Advanced traits</summary>`;
+    advanced.innerHTML = `<summary class="parent-advanced-summary">Temperament dials</summary>`;
     const advancedBody = document.createElement('div');
     advancedBody.className = 'parent-advanced-body';
     advanced.appendChild(advancedBody);
