@@ -4994,16 +4994,22 @@ function setupLanding() {
   if (begin) begin.addEventListener('click', dismiss);
   if (skip)  skip.addEventListener('click', dismiss);
 
-  // Reveal each scroll section as it enters the viewport.
+  // Reveal each scroll section as it enters the visible portion of the
+  // intro container. The default IntersectionObserver root is the
+  // document viewport, which doesn't account for ancestor overflow — so
+  // explicitly set the landing as the root.
   const sections = landing.querySelectorAll('.intro-section');
   if (sections.length && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver(entries => {
       entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('is-visible'); });
-    }, { threshold: 0.18 });
+    }, { root: landing, threshold: 0.12 });
     sections.forEach(s => io.observe(s));
   } else {
     sections.forEach(s => s.classList.add('is-visible'));
   }
+  // Failsafe: reveal everything after 5s in case an observer quirk
+  // leaves later sections hidden.
+  setTimeout(() => sections.forEach(s => s.classList.add('is-visible')), 5000);
 }
 
 function setupDetailsToggle() {
