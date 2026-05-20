@@ -2680,7 +2680,28 @@ const REGULATORY_CARDS = [
   { title: 'Phenotype vs. behavior confidence.', body: 'Confidence in physical-trait prediction substantially exceeds confidence in behavioral or cognitive outcome prediction.' },
   { title: 'Cultural variability of targets.',  body: 'Trait desirability shows significant variation across regions and historical periods. Optimization targets are not culturally stable.' },
   { title: 'Long-horizon outcome data.',         body: 'Multi-decade follow-up studies on early-modified cohorts do not yet exist at scale.' },
-  { title: 'Burden ≠ heritability.',              body: 'The Inheritance Burden Index does not measure how heritable a trait is — it measures how much choice the allocation removes from a future person. Health-class allocations weight low because their effects shift with environment; identity-class allocations weight high because they self-perpetuate down the line.' }
+  {
+    title: 'Burden ≠ heritability.',
+    body: 'The Inheritance Burden Index measures how widely an allocation\'s effects propagate into descendants — not how heritable a trait is, and not whether the allocation is "less wrong". Every heritable choice removes consent equally. Low-weighted classes (like health) shift with environment; high-weighted classes (identity, affect) lock in across generations.',
+    i18n: {
+      zh: {
+        title: '负担 ≠ 遗传率。',
+        body: '遗传负担指数衡量的是一个分配在后代中影响传播的广度——而不是某个性状的遗传率有多高，也不是该分配是否"罪轻一些"。任何可遗传的选择都同等地剥夺了同意权。低权重的类别（如健康）会随环境而变化；高权重的类别（身份、情感）则会在世代间锁定。'
+      },
+      ja: {
+        title: '負担 ≠ 遺伝率。',
+        body: '遺伝負担指数が測るのは、ある選択の影響が子孫にどれだけ広く波及するかであって、形質の遺伝率の高さでも、その選択が「まだましかどうか」でもありません。遺伝に関わる選択は、どれも等しく同意を奪います。低重み付けの領域（健康など）は環境とともに揺らぎますが、高重み付けの領域（アイデンティティ、情動）は世代を越えて固定されます。'
+      },
+      ko: {
+        title: '부담 ≠ 유전율.',
+        body: '유전 부담 지수가 측정하는 것은 어떤 선택의 영향이 후손에게 얼마나 널리 전파되는가이지, 형질의 유전율이 얼마나 높은지도, 그 선택이 "덜 잘못된" 것인지도 아닙니다. 유전 가능한 선택은 모두 동등하게 동의를 박탈합니다. 가중치가 낮은 영역(건강 등)은 환경에 따라 달라지지만, 가중치가 높은 영역(정체성, 정동)은 세대에 걸쳐 고착됩니다.'
+      },
+      tr: {
+        title: 'Yük ≠ kalıtsallık.',
+        body: 'Kalıtsal Yük Endeksi, bir seçimin etkilerinin torunlara ne kadar geniş biçimde yayıldığını ölçer — bir özelliğin ne kadar kalıtsal olduğunu ya da seçimin "daha az yanlış" olup olmadığını değil. Kalıtsal olan her seçim rızayı eşit ölçüde elinden alır. Düşük ağırlıklı sınıflar (sağlık gibi) çevreyle birlikte değişir; yüksek ağırlıklı sınıflar (kimlik, duygulanım) kuşaklar boyunca yerleşir.'
+      }
+    }
+  }
 ];
 
 /* ---------- Enhancement Budget (Adult mode centerpiece) ---------- */
@@ -6611,12 +6632,21 @@ function buildHistorySection() {
   const content = $('#history-content');
   if (!content) return;
   const cards = state.appMode === 'adult' ? REGULATORY_CARDS : HISTORY_CARDS;
-  content.innerHTML = cards.map(c => `
+  // Per-card i18n: if a card carries an `i18n` map keyed by lang code, use the
+  // localized title/body for the active language; otherwise fall back to the
+  // card's default (English) fields. LOOP_REQUEST(narrative-or-systems): only
+  // the "Burden ≠ heritability" REGULATORY_CARDS entry is currently translated
+  // to zh/ja/ko/tr — the remaining cards still need translations.
+  const lang = (state && state.language) ? state.language : 'en';
+  content.innerHTML = cards.map(c => {
+    const loc = (c.i18n && c.i18n[lang]) || {};
+    return `
     <div class="history-card">
-      <h3>${c.title}</h3>
-      <p>${c.body}</p>
+      <h3>${loc.title || c.title}</h3>
+      <p>${loc.body || c.body}</p>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function setupHistoryToggle() {
@@ -6703,6 +6733,9 @@ function init() {
       state.language = langSelect.value;
       persistLanguage(state.language);
       applyTranslations();
+      // History cards carry per-card i18n maps — re-render so the active
+      // language's translated title/body appears immediately.
+      buildHistorySection();
       // Re-derive content that was picked from now-translated pools at
       // generate-time, using the same seeded RNG so the same INDEX
       // resolves to a localized string of the same poetic register.
