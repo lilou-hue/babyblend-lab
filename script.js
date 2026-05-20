@@ -1312,6 +1312,7 @@ const state = {
   surprise: 0,
   style: 'lorelei',    // 'lorelei' | 'bigSmile'
   gender: 'surprise',  // 'female' | 'male' | 'surprise'
+  genderExpression: 70, // 0–100; intensity of masculine/feminine styling cues. Ignored when gender = surprise.
   appMode: 'adult', // 'reflection' | 'kids' | 'adult' — the single mode dimension
   chaos: false,        // amplifies slider ranges + surprise
   generateCount: 0,    // how many times Generate has been clicked
@@ -1995,10 +1996,11 @@ function updateBabyPreview() {
   const futureBlock = $('#future-block');
   if (futureBlock) futureBlock.hidden = !(state.futurePaths && state.futurePaths.length);
 
-  // Societal Outcomes Brief + divergence + historical drift (Adult mode)
+  // Societal Outcomes Brief + divergence + history + sibling cohort (Adult)
   renderSocialResponse();
   renderDivergence();
   renderTraitHistory();
+  renderSiblingCohort();
 
   // Trait conflicts (tradeoff chips)
   const conflictsEl = $('#trait-conflicts');
@@ -2654,11 +2656,21 @@ function embedAvatarSvg(svgString, x, y, w, h) {
 function buildAvatarSvg(b, styleName, g, seedHint) {
   const cfg = DICEBEAR_STYLES[styleName] || DICEBEAR_STYLES.lorelei;
 
-  const skinHex = SKIN_HEX[SKIN_LADDER[b.skinTone]].replace('#','');
-  const hairHex = HAIR_HEX[HAIR_LADDER[b.hairColor]].replace('#','');
-  const eyeHex  = EYE_HEX[EYE_LADDER[b.eyeColor]].replace('#','');
+  // Defensive ladder lookups — saved timelines stored before the ladders
+  // were widened may carry indices outside the new ranges.
+  const skinIdx = Math.max(0, Math.min(SKIN_LADDER.length - 1, b.skinTone  || 0));
+  const hairIdx = Math.max(0, Math.min(HAIR_LADDER.length - 1, b.hairColor || 0));
+  const eyeIdx  = Math.max(0, Math.min(EYE_LADDER.length - 1,  b.eyeColor  || 0));
+  const skinHex = SKIN_HEX[SKIN_LADDER[skinIdx]].replace('#','');
+  const hairHex = HAIR_HEX[HAIR_LADDER[hairIdx]].replace('#','');
+  const eyeHex  = EYE_HEX[EYE_LADDER[eyeIdx]].replace('#','');
   const texName  = TEX_LADDER[b.hairType];
   const faceName = FACE_LADDER[b.faceShape];
+
+  // Gender-expression intensity (0–1). Surprise → 0 (no biasing).
+  const gExpr = (g === 'female' || g === 'male')
+    ? Math.max(0, Math.min(1, (state.genderExpression ?? 0) / 100))
+    : 0;
 
   // Universal — every numeric slider drives a visible avatar feature.
   const scaleVal  = Math.round(92 + ((b.height - 140) / 70) * 22);            // height → 92–114
@@ -2700,7 +2712,16 @@ function buildAvatarSvg(b, styleName, g, seedHint) {
 
   if (styleName === 'lorelei') {
     options.eyesColor = [eyeHex];
-    options.head  = [LORELEI_HEAD[faceName] || 'variant02'];
+    // Face shape: above 50% intensity, override toward the gendered
+    // archetype (female → heart, male → square). Below that, respect the
+    // baby's faceShape slider. The Lorelei pack only ships 4 head variants,
+    // so this is the strongest face-shape lever available.
+    let headVariant = LORELEI_HEAD[faceName] || 'variant02';
+    if (gExpr > 0.5) {
+      if (g === 'female') headVariant = LORELEI_HEAD['heart'];   // variant03
+      else if (g === 'male') headVariant = LORELEI_HEAD['square']; // variant04
+    }
+    options.head  = [headVariant];
     options.mouth = [LORELEI_MOUTH[b.extraversion] || 'happy09'];
     // Native Lorelei freckles are binary (on/off by seed) — disable, we draw
     // our own continuous-density overlay instead.
@@ -2708,16 +2729,27 @@ function buildAvatarSvg(b, styleName, g, seedHint) {
     options.beardProbability   = 0; // babies don't have beards
     options.glassesProbability = 0; // or glasses
 
-    // Conscientiousness → eyebrows variant (1–13)
-    const browIdx = Math.max(1, Math.min(13, Math.round((b.conscientiousness - 1) / 9 * 12) + 1));
+    // Eyebrows: conscientiousness picks within a 1–13 range, but gender +
+    // intensity narrows that range. Male leans toward the lower-numbered
+    // (heavier) variants; female toward the higher-numbered (softer) ones.
+    // At gExpr=0 we use the full 1–13; at gExpr=1 we use the gendered half.
+    let browLo = 1, browHi = 13;
+    if (g === 'male') {
+      browHi = Math.round(13 - gExpr * 7); // 13 → 6
+    } else if (g === 'female') {
+      browLo = Math.round(1 + gExpr * 7);  // 1 → 8
+    }
+    const browSpan = browHi - browLo;
+    const browIdx = Math.max(browLo, Math.min(browHi,
+      Math.round((b.conscientiousness - 1) / 9 * browSpan) + browLo));
     options.eyebrows = [`variant${String(browIdx).padStart(2, '0')}`];
 
     if (g === 'female') {
-      options.hairAccessoriesProbability = 100;
-      options.earringsProbability = 100;
+      options.hairAccessoriesProbability = Math.round(35 + gExpr * 65); // 35→100
+      options.earringsProbability        = Math.round(20 + gExpr * 80); // 20→100
     } else if (g === 'male') {
-      options.hairAccessoriesProbability = 0;
-      options.earringsProbability = 0;
+      options.hairAccessoriesProbability = Math.round(35 - gExpr * 35); // 35→0
+      options.earringsProbability        = Math.round(20 - gExpr * 20); // 20→0
     } else {
       options.hairAccessoriesProbability = 35;
       options.earringsProbability = 20;
@@ -2726,8 +2758,10 @@ function buildAvatarSvg(b, styleName, g, seedHint) {
     options.mouth = [BIGSMILE_MOUTH[b.extraversion] || 'gapSmile'];
     options.eyes  = [BIGSMILE_EYES[b.eyeColor] || 'normal'];
     if (g === 'female') {
-      options.accessoriesProbability = 40;
+      options.accessoriesProbability = Math.round(10 + gExpr * 80); // 10→90
       options.accessories = ['sailormoonCrown'];
+    } else if (g === 'male') {
+      options.accessoriesProbability = 0;
     } else {
       options.accessoriesProbability = 0;
     }
@@ -3190,6 +3224,99 @@ function renderDivergence() {
   el.querySelector('[data-act="reroll"]').addEventListener('click', () => rollDivergence());
 }
 
+/* ---------- Sibling Cohort (Adult mode) ---------- */
+function generateSiblingCohort() {
+  if (!state.codename || !state.ranges) { state.siblings = []; return; }
+  const COUNT = 5;
+  const rng = seededRand(state.codename + '|siblings|' + state.generateCount);
+  const sibs = [];
+  for (let i = 0; i < COUNT; i++) {
+    const baby = {};
+    SLIDER_DEFS.forEach(def => {
+      const r = state.ranges[def.key];
+      if (!r) return;
+      baby[def.key] = Math.floor(rng() * (r.max - r.min + 1)) + r.min;
+    });
+    let codename;
+    if (state.appMode === 'adult') {
+      const num    = Math.floor(rng() * 9000 + 1000);
+      const letter = String.fromCharCode(65 + Math.floor(rng() * 6));
+      codename = `Projection-${num}-${letter}`;
+    } else {
+      const aLet = ((state.parents.A?.name || 'A')[0] || 'A').toUpperCase();
+      const bLet = ((state.parents.B?.name || 'B')[0] || 'B').toUpperCase();
+      codename = `Tiny Prototype ${aLet}${bLet}-${String(Math.floor(rng() * 99) + 1).padStart(2, '0')}`;
+    }
+    const archetype = calculateArchetype(baby);
+    const keys = ['openness','conscientiousness','extraversion','agreeableness','neuroticism','athletic'];
+    const diffs = keys
+      .map(k => ({ k, d: (baby[k] || 0) - (state.baby[k] || 0) }))
+      .filter(x => Math.abs(x.d) >= 2)
+      .sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
+    let divergence = '';
+    if (diffs.length) {
+      const top = diffs[0];
+      const sign = top.d > 0 ? '+' : '';
+      divergence = `${sign}${top.d} ${top.k}`;
+    }
+    sibs.push({ baby, codename, archetype, divergence });
+  }
+  state.siblings = sibs;
+}
+
+function renderSiblingCohort() {
+  const panel = $('#sibling-cohort-panel');
+  if (!panel) return;
+  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0) {
+    panel.hidden = true;
+    return;
+  }
+  const cards = state.siblings.map((sib, i) => {
+    const svg = buildAvatarSvg(sib.baby, state.style, state.gender, sib.codename);
+    return `
+      <article class="sibling-card" data-index="${i}">
+        <div class="sibling-avatar">${svg}</div>
+        <div class="sibling-id">${sib.codename}</div>
+        <div class="sibling-archetype">${sib.archetype}</div>
+        ${sib.divergence
+          ? `<div class="sibling-divergence">Δ ${sib.divergence}</div>`
+          : `<div class="sibling-divergence is-baseline">within projection band</div>`}
+      </article>`;
+  }).join('');
+  panel.innerHTML = `
+    <header class="sibling-head">
+      <h2>Sibling Cohort · Variance Distribution <span class="beta-tag">Beta</span></h2>
+      <p class="subtle">Five equally-probable outcomes from identical parental inputs and allocation. The variance IS the projection's confidence interval, rendered as people.</p>
+    </header>
+    <div class="sibling-strip">${cards}</div>`;
+  panel.hidden = false;
+}
+
+/* ---------- Regional Access Context (Adult mode) ---------- */
+function renderRegionalAccess(usedCredits) {
+  const host = $('#regional-access');
+  if (!host) return;
+  if (state.appMode !== 'adult' || !usedCredits) {
+    host.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  const budget = state.budget || {};
+  const usd = usedCredits * 1000;
+  let lines;
+  if      (usd < 50000)  lines = ['EU: partially subsidized for specific conditions.', 'US: insurance coverage uneven; out-of-pocket common.', 'Lower-income regions: largely inaccessible.'];
+  else if (usd < 100000) lines = ['EU: out-of-pocket; some conditions waived.', 'US: above-median household income required.', 'Most lower-income regions: effectively inaccessible.'];
+  else if (usd < 150000) lines = ['EU: elective allocation under regulatory review.', 'US: top ~5% by income; clinic networks limited.', 'Asia-Pacific: variable, jurisdiction-dependent.'];
+  else if (usd < 200000) lines = ['EU + UK: restricted regulatory approval pathways.', 'US: top ~1%; concierge clinic networks only.', 'Global south: not commercially available.'];
+  else                   lines = ['Global: top ~0.1% of households by wealth.', 'Multiple jurisdictions: pending or prohibited.', 'De facto: private offshore clinics.'];
+  if ((budget.cognition || 0) >= 6) lines.push('Cognitive optimization: EU partial ban; US Phase III review (fictional).');
+  if ((budget.emotional || 0) >= 6) lines.push('Emotional-regulation editing: experimental authorization required in most jurisdictions.');
+  host.hidden = false;
+  host.innerHTML = `
+    <h4>Regional Access (modeled)</h4>
+    <ul class="regional-list">${lines.slice(0, 4).map(l => `<li>${l}</li>`).join('')}</ul>`;
+}
+
 /* ---------- Trait Popularity Through History ---------- */
 function renderTraitHistory() {
   const panel = $('#trait-history-panel');
@@ -3381,6 +3508,10 @@ function generate() {
     rollDivergence();
   }
 
+  // Sibling cohort: five equally-probable variants from the same inputs.
+  // Sampled at generation time; persists until next Generate.
+  generateSiblingCohort();
+
   updateBabyPreview();      // refresh display with new flavor (also renders divergence + history)
 
   // Quietly remind users this is a person, not a profile, every few generations.
@@ -3413,6 +3544,27 @@ function setupPillToggle(btnSelector, stateKey, onChange) {
       if (onChange) onChange(state[stateKey]);
     });
   });
+}
+
+function setupGenderExpression() {
+  const slider = $('#gender-expression');
+  const valEl  = $('#gender-expression-val');
+  if (!slider) return;
+  slider.value = state.genderExpression;
+  if (valEl) valEl.textContent = state.genderExpression + '%';
+  applyGenderExpressionState();
+  slider.addEventListener('input', () => {
+    state.genderExpression = Number(slider.value) || 0;
+    if (valEl) valEl.textContent = state.genderExpression + '%';
+    if (state.codename) updateAvatar(state.baby);
+  });
+}
+
+function applyGenderExpressionState() {
+  const row = $('#gender-expression-row');
+  if (!row) return;
+  // The slider has no effect when sex is "surprise" — fade it to signal that.
+  row.classList.toggle('is-disabled', state.gender === 'surprise');
 }
 
 function preserveNaturalVariation() {
@@ -3484,6 +3636,13 @@ function randomizeOneParent(letter) {
     el.value = val;
     el.dispatchEvent(new Event('input', { bubbles: true }));
   });
+  // After random fields are set, snap skin/hair/eye/texture into a plausible
+  // bundle if the rolled ancestry has a preset. Without this, randomize
+  // produces incoherent looks (e.g. European ancestry with deep brown skin).
+  const ancestrySel = $('#p' + letter + '_ancestry');
+  if (ancestrySel && ANCESTRY_PRESETS[ancestrySel.value]) {
+    applyAncestryPreset(letter, ancestrySel.value);
+  }
 }
 
 function randomizeParents() {
@@ -3532,6 +3691,7 @@ function saveCurrentTimeline() {
     archetype: state.archetype,
     style:    state.style,
     gender:   state.gender,
+    genderExpression: state.genderExpression,
     chaos:    state.chaos,
     surprise: state.surprise
   });
@@ -3570,7 +3730,15 @@ function loadTimeline(id) {
 
   state.style  = entry.style  || 'lorelei';
   state.gender = entry.gender || 'surprise';
+  state.genderExpression = (typeof entry.genderExpression === 'number') ? entry.genderExpression : 70;
   state.chaos  = !!entry.chaos;
+  const gxSlider = $('#gender-expression');
+  if (gxSlider) {
+    gxSlider.value = state.genderExpression;
+    const v = $('#gender-expression-val');
+    if (v) v.textContent = state.genderExpression + '%';
+  }
+  applyGenderExpressionState();
   $$('.style-btn').forEach(b => {
     const active = b.dataset.style === state.style;
     b.classList.toggle('is-active', active);
@@ -3829,6 +3997,7 @@ function updateBudgetProjections(usedOverride) {
   }
 
   renderRegulatoryNotes();
+  renderRegionalAccess(used);
 }
 
 /* ---------- Adult: Regulatory Context notes ----------
@@ -4023,7 +4192,8 @@ function init() {
   setupAppModeToggle();
   applyChaosPillLabel();
   setupPillToggle('.style-btn', 'style');
-  setupPillToggle('.gender-btn', 'gender');
+  setupPillToggle('.gender-btn', 'gender', () => applyGenderExpressionState());
+  setupGenderExpression();
   setupChaosToggle();
   setupDetailsToggle();
   setupLanding();

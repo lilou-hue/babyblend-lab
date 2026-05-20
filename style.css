@@ -3675,3 +3675,122 @@ body.mode-adult .societal-brief-panel:not([hidden]) {
   .trait-history-timeline { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
   .trait-history-timeline::before { display: none; }
 }
+
+/* ====================================================================
+ * Sibling Cohort — Adult-mode variance row
+ * Five mini avatars side-by-side. The variance is the projection's
+ * confidence interval, rendered as people.
+ * ==================================================================== */
+.sibling-cohort-panel {
+  padding: 26px 22px 22px;
+}
+.sibling-head { margin-bottom: 14px; }
+.sibling-cohort-panel h2 {
+  font-size: 19px;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+}
+.sibling-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.sibling-card {
+  padding: 12px 8px 10px;
+  background: rgba(7, 9, 30, 0.42);
+  border: 1px solid rgba(126, 224, 255, 0.14);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.sibling-card:hover {
+  border-color: rgba(126, 224, 255, 0.42);
+  background: rgba(7, 9, 30, 0.55);
+  transform: translateY(-1px);
+}
+.sibling-avatar {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sibling-avatar svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.35));
+}
+.sibling-id {
+  font-size: 9.5px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+.sibling-archetype {
+  font-size: 11.5px;
+  color: var(--ink);
+  letter-spacing: 0.2px;
+  line-height: 1.3;
+}
+.sibling-divergence {
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.3px;
+  color: var(--accent-warm);
+  margin-top: 2px;
+}
+.sibling-divergence.is-baseline {
+  color: var(--ink-mute);
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 880px) {
+  .sibling-strip { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+}
+
+/* ====================================================================
+ * Regional Access — small note under the cost/tier rows
+ * ==================================================================== */
+.regional-access {
+  margin-top: 12px;
+  padding: 10px 14px 12px;
+  background: rgba(20, 22, 55, 0.32);
+  border: 1px solid rgba(255, 210, 138, 0.22);
+  border-radius: 10px;
+}
+.regional-access h4 {
+  margin: 0 0 6px;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+}
+.regional-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.regional-list li {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  padding-left: 12px;
+  position: relative;
+}
+.regional-list li::before {
+  content: "·";
+  position: absolute;
+  left: 2px;
+  color: var(--accent-warm);
+  font-weight: 700;
+}
