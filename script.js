@@ -4292,7 +4292,9 @@ function computeSocietalOutcomes(baby, budget, env) {
 function renderSocietalBrief() {
   const panel = $('#societal-brief-panel');
   if (!panel) return;
-  if (state.appMode !== 'adult' || !state.codename) {
+  // Gate analytical machinery until the second Generate: the first
+  // projection should feel like one imagined baby, not a cohort report.
+  if (state.appMode !== 'adult' || !state.codename || (state.generateCount || 0) < 2) {
     panel.hidden = true;
     return;
   }
@@ -4451,7 +4453,9 @@ function generateSiblingCohort() {
 function renderSiblingCohort() {
   const panel = $('#sibling-cohort-panel');
   if (!panel) return;
-  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0) {
+  // Same gating: variance-as-people lands harder once the user has
+  // already met the one baby it's "varying" against.
+  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0 || (state.generateCount || 0) < 2) {
     panel.hidden = true;
     return;
   }
@@ -4508,7 +4512,9 @@ function renderRegionalAccess(usedCredits) {
 function renderTraitHistory() {
   const panel = $('#trait-history-panel');
   if (!panel) return;
-  if (state.appMode !== 'adult') {
+  // Same gating: historical drift critique reads as a finger-wag if it
+  // shows up before the user has even seen their first projection settle.
+  if (state.appMode !== 'adult' || (state.generateCount || 0) < 2) {
     panel.hidden = true;
     return;
   }
