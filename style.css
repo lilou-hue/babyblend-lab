@@ -722,6 +722,28 @@ body.mode-adult .slider-row .confidence-band-svg .current-marker {
   stroke-dasharray: none;
 }
 
+/* Speculative band (OCEAN traits) — visually distinct inheritance category.
+   Lower-opacity fill + warm violet shift + dashed outline reads as
+   "less-confident / behavioral" without overpowering the layout.
+   Phenotypic bands keep the original solid look (no override). */
+.slider-row .confidence-band-svg[data-uncertainty="speculative"] { opacity: 0.7; }
+.slider-row .confidence-band-svg[data-uncertainty="speculative"] .band-fill {
+  fill: var(--accent-2);
+  opacity: 0.10;
+  stroke: var(--accent-2);
+  stroke-width: 0.6;
+  stroke-dasharray: 2 2.5;
+  stroke-opacity: 0.55;
+}
+body.mode-adult .slider-row .confidence-band-svg[data-uncertainty="speculative"] .band-fill {
+  fill: rgba(200, 155, 255, 0.14);
+  stroke: rgba(200, 155, 255, 0.55);
+  stroke-dasharray: 1.5 2;
+}
+@media (prefers-reduced-motion: reduce) {
+  .slider-row .confidence-band-svg[data-uncertainty="speculative"] .band-fill { animation: none !important; }
+}
+
 /* ---------- Surprise meter ---------- */
 .surprise-wrap {
   margin-top: 22px;
@@ -3733,6 +3755,26 @@ body.mode-adult .societal-brief-panel:not([hidden]) {
   border-left: 2px solid rgba(255, 210, 138, 0.25);
   padding-left: 10px;
 }
+
+/* ---------- Adult-mode panel-triplet hierarchy ----------
+   Three surfaces — Enhancement Allocation (action) → Consent Implications
+   (cost) → Inheritance Burden Index (projection) — read as one story.
+   The consent panel anchors the chain with a warm left border (Round 2);
+   here we tighten the chain by:
+   (a) repeating that warm accent on the burden-row at lower opacity, so the
+       projection surface visibly echoes the cost surface;
+   (b) lifting the burden-row off the cost/access pair with a hair more top
+       margin + a faint divider, so it reads as the chain's terminus;
+   (c) collapsing the gap from consent-panel into whatever follows so the
+       triplet groups visually.
+   No literal arrows/lines — just shared accent + spacing. */
+.budget-projections .projection-row.burden-row {
+  margin-top: 6px; padding-top: 8px;
+  border-top: 1px solid rgba(255, 210, 138, 0.10);
+  border-left: 2px solid rgba(255, 210, 138, 0.18);
+  padding-left: 10px;
+}
+.consent-panel + .primary-action { margin-top: 12px; }
 
 /* ====================================================================
  * Divergence banner — Adult-mode warning that the projection is void
