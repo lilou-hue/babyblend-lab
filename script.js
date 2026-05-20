@@ -2835,6 +2835,7 @@ const state = {
   appMode: 'adult', // 'reflection' | 'kids' | 'adult' — the single mode dimension
   chaos: false,        // amplifies slider ranges + surprise
   generateCount: 0,    // how many times Generate has been clicked
+  consentAck: false,   // session-level: heritable-decision micro-ack (gates first non-zero allocation)
   alternates: [],      // generated alternate-baby cards
   futures: [],         // generated adult-life future cards (for current baby)
   age: 17,             // current age on the aging-scrubber slider (0..80)
@@ -2907,18 +2908,66 @@ function applyAppModeClass() {
   applyBudgetPanelGate();
 }
 
-// Same generateCount>=2 gate the analytical Adult panels use. Budget
-// allocation only reads as meaningful once the user has felt the
-// baseline projection, so we keep #budget-panel out of the first pass.
+// Enhancement Allocation is now visible from first load in Adult mode,
+// but interaction is GATED on generateCount>=1 (lock copy explains why).
+// Consent Implications still gates on generateCount>=2 AND total credits
+// allocated >= 50 — the heavier reframing only fully reveals once the
+// user has committed real allocation weight.
 function applyBudgetPanelGate() {
   const panel = $('#budget-panel');
   const consent = $('#consent-panel');
-  const ready = state.appMode === 'adult' && (state.generateCount || 0) >= 2;
-  if (panel) panel.hidden = !ready;
-  // Consent Implications mirrors the budget panel's gate; the reframing
-  // is meaningless without the panel it qualifies.
-  if (consent) consent.hidden = !ready;
-  if (ready) renderConsentExplainer();
+  const isAdult = state.appMode === 'adult';
+  const gen = state.generateCount || 0;
+  // Budget panel: always visible in Adult mode; locked until first generation.
+  if (panel) {
+    panel.hidden = !isAdult;
+    const interactionReady = isAdult && gen >= 1;
+    panel.classList.toggle('panel-locked', isAdult && !interactionReady);
+    applyBudgetInteractionLock(!interactionReady);
+    ensureBudgetLockNotice(isAdult && !interactionReady);
+  }
+  // Consent Implications: visible only after Gen 2 AND ≥50 credits allocated.
+  const allocated = computeBudgetUsed();
+  const consentReady = isAdult && gen >= 2 && allocated >= 50;
+  if (consent) consent.hidden = !consentReady;
+  if (consentReady) renderConsentExplainer();
+}
+
+// Returns sum of cost*value across all current budget allocations.
+function computeBudgetUsed() {
+  return Object.entries(state.budget || {}).reduce((s, [k, v]) => {
+    const pr = (typeof PRIORITIES !== 'undefined') ? PRIORITIES.find(x => x.key === k) : null;
+    return s + (pr ? pr.cost * v : 0);
+  }, 0);
+}
+
+// Disable every range input inside #budget-panel without hiding the panel.
+function applyBudgetInteractionLock(locked) {
+  const panel = $('#budget-panel');
+  if (!panel) return;
+  panel.querySelectorAll('input[type="range"]').forEach(r => {
+    r.disabled = !!locked;
+    if (locked) r.setAttribute('aria-disabled', 'true'); else r.removeAttribute('aria-disabled');
+  });
+}
+
+// Lazy-inject a single lock-copy notice inside #budget-panel. Removed when unlocked.
+function ensureBudgetLockNotice(showLock) {
+  const panel = $('#budget-panel');
+  if (!panel) return;
+  let notice = panel.querySelector('.budget-lock-notice');
+  if (showLock) {
+    if (!notice) {
+      notice = document.createElement('p');
+      notice.className = 'budget-lock-notice';
+      notice.textContent = 'Enhancement packages unlock after your first generation.';
+      const intro = panel.querySelector('.subtle');
+      if (intro && intro.nextSibling) panel.insertBefore(notice, intro.nextSibling);
+      else panel.appendChild(notice);
+    }
+  } else if (notice) {
+    notice.remove();
+  }
 }
 
 /* ====================================================================
@@ -3591,14 +3640,21 @@ function updateBabyPreview() {
   if (futureBlock) {
     futureBlock.hidden = !(state.futurePaths && state.futurePaths.length);
     // Closes LOOP_REQUEST(ux-flow): soften the Kids-mode futures framing
-    // with KIDS_FUTURES_PREAMBLE injected above the tree/list. One <p>,
-    // created lazily, removed in other modes so it never leaks copy.
+    // with KIDS_FUTURES_PREAMBLE injected directly after the h3 heading.
+    // One <p>, created lazily, removed in other modes so it never leaks copy.
     let preamble = futureBlock.querySelector('.kids-futures-preamble');
     if (isKids() && !futureBlock.hidden) {
       if (!preamble) {
         preamble = document.createElement('p');
         preamble.className = 'kids-futures-preamble';
-        futureBlock.insertBefore(preamble, futureBlock.firstChild);
+        const heading = futureBlock.querySelector('#future-block-heading');
+        if (heading && heading.nextSibling) {
+          futureBlock.insertBefore(preamble, heading.nextSibling);
+        } else if (heading) {
+          futureBlock.appendChild(preamble);
+        } else {
+          futureBlock.insertBefore(preamble, futureBlock.firstChild);
+        }
       }
       preamble.textContent = KIDS_FUTURES_PREAMBLE;
     } else if (preamble) {
@@ -3616,12 +3672,19 @@ function updateBabyPreview() {
   renderInnerCohort();
   renderLifetimeDrift();
 
-  // Trait conflicts (tradeoff chips)
+  // Trait conflicts (tradeoff chips). In Adult mode after Gen 1, prepend a
+  // one-line consent-awareness note — the early beat of the two-beat
+  // consent rhythm. LOOP_REQUEST(narrative): refine Gen-1 consent-awareness
+  // one-liner copy.
   const conflictsEl = $('#trait-conflicts');
   if (conflictsEl) {
+    const awarenessHtml = (state.appMode === 'adult' && (state.generateCount || 0) >= 1)
+      ? `<p class="consent-awareness-note">Every allocation above affects someone who cannot consent to it.</p>`
+      : '';
     if (state.conflicts && state.conflicts.length) {
       conflictsEl.hidden = false;
       conflictsEl.innerHTML = `
+        ${awarenessHtml}
         <h3>Trait tradeoffs</h3>
         <div class="conflict-chips">
           ${state.conflicts.map(c => `
@@ -3630,6 +3693,9 @@ function updateBabyPreview() {
               <span class="conflict-note">${c.note}</span>
             </div>`).join('')}
         </div>`;
+    } else if (awarenessHtml) {
+      conflictsEl.hidden = false;
+      conflictsEl.innerHTML = awarenessHtml;
     } else {
       conflictsEl.hidden = true;
       conflictsEl.innerHTML = '';
@@ -5712,6 +5778,16 @@ function buildEnhancementBudget() {
     const valEl = row.querySelector('.val');
     input.addEventListener('input', () => {
       const requested = Number(input.value);
+      // Two-beat consent rhythm: the FIRST non-zero allocation in this
+      // session is held until a one-time micro-acknowledgment fires.
+      // Until acknowledged, any non-zero input is rejected back to 0.
+      if (requested > 0 && !state.consentAck) {
+        input.value = 0;
+        state.budget[p.key] = 0;
+        valEl.textContent = 0;
+        showConsentAckPrompt();
+        return;
+      }
       const otherCost = Object.entries(state.budget).reduce((sum, [k, v]) => {
         if (k === p.key) return sum;
         const pr = PRIORITIES.find(x => x.key === k);
@@ -5727,6 +5803,8 @@ function buildEnhancementBudget() {
       state.budget[p.key] = allowed;
       valEl.textContent = allowed;
       updateBudgetBar();
+      // Total-allocated threshold may have crossed 50 → refresh consent gate.
+      applyBudgetPanelGate();
       if (state.codename && state.appMode === 'adult') {
         renderSocialResponse();
         updateBabyPreview();
@@ -5734,6 +5812,31 @@ function buildEnhancementBudget() {
     });
   });
   updateBudgetBar();
+}
+
+// One-time micro-acknowledgment for the first non-zero allocation. Lazily
+// injects a small acknowledge button inside #budget-panel. Once clicked,
+// state.consentAck flips true for the rest of the session and the prompt
+// removes itself. Persists per session via state (not localStorage).
+function showConsentAckPrompt() {
+  const panel = $('#budget-panel');
+  if (!panel || state.consentAck) return;
+  let prompt = panel.querySelector('.consent-ack-prompt');
+  if (!prompt) {
+    prompt = document.createElement('div');
+    prompt.className = 'consent-ack-prompt';
+    prompt.innerHTML = `
+      <p class="consent-ack-copy">I understand this is a heritable decision.</p>
+      <button type="button" class="btn btn-small consent-ack-btn">Acknowledge & continue</button>`;
+    const grid = panel.querySelector('#budget-grid');
+    if (grid && grid.parentNode) grid.parentNode.insertBefore(prompt, grid);
+    else panel.appendChild(prompt);
+    const btn = prompt.querySelector('.consent-ack-btn');
+    if (btn) btn.addEventListener('click', () => {
+      state.consentAck = true;
+      prompt.remove();
+    });
+  }
 }
 
 function updateBudgetBar() {
@@ -5745,11 +5848,12 @@ function updateBudgetBar() {
   const text = $('#budget-text');
   if (bar) bar.style.width = Math.min(100, (used / BUDGET_TOTAL) * 100) + '%';
   if (text) text.textContent = `${used} / ${BUDGET_TOTAL} credits`;
-  // Heritable-consent badge: any non-zero allocation triggers the
-  // header tag. Compliance-style, not alarming — matches the .beta-tag
-  // register adjacent to it.
+  // Heritable-consent badge: only fully reveals after Gen 2 AND total
+  // allocated credits >= 50, matching the Consent Implications panel
+  // gate. Below that threshold the badge stays hidden so the early
+  // experience isn't carrying the full compliance frame.
   const badge = $('#consent-badge');
-  if (badge) badge.hidden = !(used > 0);
+  if (badge) badge.hidden = !((state.generateCount || 0) >= 2 && used >= 50);
   updateBudgetProjections(used);
   // Recompute the unified opt-intensity (drift + budget).
   updateOptIntensity();

@@ -3187,6 +3187,36 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
 }
 .consent-badge[hidden] { display: none; }
 
+/* Visibly-locked state for #budget-panel before first generation.
+ * Visible but interaction-disabled; sliders are also disabled in JS. */
+.budget-panel.panel-locked { opacity: 0.62; }
+.budget-panel.panel-locked .budget-grid,
+.budget-panel.panel-locked .budget-projections { filter: grayscale(35%); }
+.budget-panel .budget-lock-notice {
+  margin: 6px 0 10px; padding: 8px 12px;
+  font-size: 12px; color: var(--ink-mute);
+  background: rgba(7, 9, 30, 0.55);
+  border: 1px dashed rgba(140, 180, 220, 0.28); border-radius: 6px;
+}
+.budget-panel input[type="range"][disabled] { cursor: not-allowed; opacity: 0.55; }
+
+/* Gen-1 consent-awareness one-liner above the trait-conflicts chips. */
+.consent-awareness-note {
+  margin: 0 0 10px; padding: 6px 10px;
+  font-size: 12px; font-style: italic; color: rgba(255, 220, 170, 0.92);
+  border-left: 2px solid rgba(255, 210, 138, 0.4);
+}
+
+/* One-time heritable-decision micro-acknowledgment prompt. */
+.consent-ack-prompt {
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-start;
+  margin: 12px 0; padding: 12px 14px;
+  background: rgba(7, 9, 30, 0.6);
+  border: 1px solid rgba(255, 210, 138, 0.35); border-radius: 8px;
+}
+.consent-ack-prompt .consent-ack-copy { margin: 0; font-size: 13px; color: rgba(255, 220, 170, 0.95); }
+.consent-ack-prompt .consent-ack-btn { padding: 6px 12px; font-size: 12px; }
+
 /* One-line compliance footnote under the budget intro. */
 .budget-panel .compliance-footnote {
   margin: -2px 0 10px; font-family: ui-monospace, "SF Mono", Menlo, monospace;
