@@ -590,24 +590,28 @@ const ANCESTRY_PRESETS = {
 // older meme-titled "funny vibe" pool with calmer, more specific lines.
 // Localized in all 5 languages; arrays MUST stay the same length so the
 // seeded vibe-pick stays stable across language switches.
+// LOOP_REQUEST(translator): EN entries below were rewritten away from aphoristic
+// "X loosely; Y firmly" patterns toward concrete, embodied details. The zh/ja/ko/tr
+// blocks still mirror the old aphorisms by index and should be re-translated to
+// match the new EN lines on a future pass.
 const FUNNY_TITLES = {
   en: [
     'Quietly observant',
     'Steady and warm',
-    'Sharp-witted, slow to share',
+    'The one who fixes things without being asked',
     'Thoughtful, slightly self-conscious',
-    'Open-hearted but private',
+    'Remembers everyone\'s coffee order',
     'Restless in a precise way',
-    'Easy company, harder to know',
-    'Asks better questions than most',
-    'Holds opinions loosely; affections firmly',
-    'Quick to laugh, slower to forgive',
+    'Takes the long way home on purpose',
+    'Asks where the bathroom is in three languages',
+    'Forwards articles their friends will actually read',
+    'Will reroute the whole evening for a dog',
     'Capable but rarely in a hurry',
-    'Curious without performing it',
-    'Generous with attention, careful with words',
-    'Reads people more than they read books',
-    'Carries small kindnesses without naming them',
-    'Watches longer than they speak'
+    'Owns one good knife and uses it for everything',
+    'Knows the bus driver\'s name',
+    'Re-reads the same five books every winter',
+    'Stops to look at other people\'s gardens',
+    'Texts back the next morning, with a real answer'
   ],
   zh: [
     '静静观察',
