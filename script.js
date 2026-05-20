@@ -2575,7 +2575,8 @@ const REGULATORY_CARDS = [
   { title: 'Access and equity modeling.',       body: 'Distribution modeling consistently projects uneven access across socioeconomic lines.' },
   { title: 'Phenotype vs. behavior confidence.', body: 'Confidence in physical-trait prediction substantially exceeds confidence in behavioral or cognitive outcome prediction.' },
   { title: 'Cultural variability of targets.',  body: 'Trait desirability shows significant variation across regions and historical periods. Optimization targets are not culturally stable.' },
-  { title: 'Long-horizon outcome data.',         body: 'Multi-decade follow-up studies on early-modified cohorts do not yet exist at scale.' }
+  { title: 'Long-horizon outcome data.',         body: 'Multi-decade follow-up studies on early-modified cohorts do not yet exist at scale.' },
+  { title: 'Burden ≠ heritability.',              body: 'The Inheritance Burden Index does not measure how heritable a trait is — it measures how much choice the allocation removes from a future person. Health-class allocations weight low because their effects shift with environment; identity-class allocations weight high because they self-perpetuate down the line.' }
 ];
 
 /* ---------- Enhancement Budget (Adult mode centerpiece) ---------- */
