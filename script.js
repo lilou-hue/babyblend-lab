@@ -4718,6 +4718,20 @@ function init() {
   state.appMode = loadAppMode();
   applyAppModeClass();
 
+  // i18n: hydrate language from localStorage, reflect in selector,
+  // apply translations to the DOM, and listen for language changes.
+  state.language = loadLanguage();
+  const langSelect = $('#lang-select');
+  if (langSelect) {
+    langSelect.value = state.language;
+    langSelect.addEventListener('change', () => {
+      state.language = langSelect.value;
+      persistLanguage(state.language);
+      applyTranslations();
+    });
+  }
+  applyTranslations();
+
   buildParentForms();
   buildEnvPanel();
   buildEnhancementBudget();

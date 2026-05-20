@@ -13,21 +13,21 @@
     <div class="landing-inner">
       <span class="landing-mark" aria-hidden="true">⌬</span>
       <h1 class="landing-title" id="landing-title">BabyBlend Lab</h1>
-      <p class="landing-tagline">A fictional genetics-inspired simulator</p>
+      <p class="landing-tagline" data-i18n="app.tagline">A fictional genetics-inspired simulator</p>
       <p class="landing-desc">
-        Build two parents. Adjust their environment.<br />
-        See what a possible child might look like, think, and become.
+        <span data-i18n="landing.desc1">Build two parents. Adjust their environment.</span><br />
+        <span data-i18n="landing.desc2">See what a possible child might look like, think, and become.</span>
       </p>
 
       <ul class="landing-features" aria-label="What's inside">
-        <li>Polygenic-flavored inheritance</li>
-        <li>Big Five behavioral projection</li>
-        <li>Speculative adult trajectories</li>
+        <li data-i18n="landing.feature1">Polygenic-flavored inheritance</li>
+        <li data-i18n="landing.feature2">Big Five behavioral projection</li>
+        <li data-i18n="landing.feature3">Speculative adult trajectories</li>
       </ul>
 
-      <button type="button" class="landing-begin" id="landing-begin">Enter the lab</button>
+      <button type="button" class="landing-begin" id="landing-begin" data-i18n="landing.begin">Enter the lab</button>
 
-      <p class="landing-disclaimer">Fictional simulation. Not real medical or genetic advice.</p>
+      <p class="landing-disclaimer" data-i18n="landing.disclaimer">Fictional simulation. Not real medical or genetic advice.</p>
     </div>
   </section>
 
@@ -327,9 +327,9 @@
 
         <div class="future-block" id="future-block" hidden>
           <h3 id="future-block-heading">
-            <span class="playful-text">Future paths</span>
-            <span class="reflection-text">Future glimpses</span>
-            <span class="adult-text">Behavioral Trace Notes</span>
+            <span class="playful-text"    data-i18n="section.future.playful">Future paths</span>
+            <span class="reflection-text" data-i18n="section.future.reflection">Future glimpses</span>
+            <span class="adult-text"      data-i18n="section.future.adult">Behavioral Trace Notes</span>
           </h3>
           <div class="future-tree" id="future-tree" aria-hidden="true"></div>
           <ul class="future-paths" id="future-paths" hidden></ul>
@@ -354,14 +354,14 @@
 
     <section class="lineage-panel panel" id="lineage-panel" hidden aria-labelledby="lineage-heading">
       <h2 id="lineage-heading">
-        <span class="playful-text">Family lineage</span>
-        <span class="reflection-text">Across the generations</span>
-        <span class="adult-text">Generational Cascade</span>
+        <span class="playful-text"    data-i18n="section.lineage.playful">Family lineage</span>
+        <span class="reflection-text" data-i18n="section.lineage.reflection">Across the generations</span>
+        <span class="adult-text"      data-i18n="section.lineage.adult">Generational Cascade</span>
       </h2>
       <p class="subtle">
-        <span class="playful-text">Three generations. The choices made here ripple forward.</span>
-        <span class="reflection-text">Three lives, briefly: the people who came before, the person imagined here, the people who might come after.</span>
-        <span class="adult-text">Three-generation cascade. Trait inheritance shown across vertical axis; downstream projections are speculative.</span>
+        <span class="playful-text"    data-i18n="section.lineage.intro.playful">Three generations. The choices made here ripple forward.</span>
+        <span class="reflection-text" data-i18n="section.lineage.intro.reflection">Three lives, briefly: the people who came before, the person imagined here, the people who might come after.</span>
+        <span class="adult-text"      data-i18n="section.lineage.intro.adult">Three-generation cascade. Trait inheritance shown across vertical axis; downstream projections are speculative.</span>
       </p>
       <div class="lineage-tree" id="lineage-tree" aria-hidden="true"></div>
     </section>

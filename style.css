@@ -199,7 +199,51 @@ main,
 .site-header {
   text-align: center;
   padding: 48px 24px 24px;
+  position: relative;
 }
+
+/* Language selector: small pill in the top-right of the header. */
+.lang-selector-wrap {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+.lang-label {
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(10, 14, 40, 0.55);
+  color: var(--ink);
+  border: 1px solid rgba(126, 224, 255, 0.22);
+  border-radius: 999px;
+  padding: 4px 22px 4px 12px;
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%),
+                    linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+  background-position: calc(100% - 11px) 50%, calc(100% - 7px) 50%;
+  background-size: 4px 4px;
+  background-repeat: no-repeat;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.lang-select:hover { border-color: rgba(126, 224, 255, 0.5); }
+.lang-select:focus { outline: none; box-shadow: 0 0 0 3px rgba(126, 224, 255, 0.18); }
+@media (max-width: 540px) {
+  .lang-selector-wrap { top: 8px; right: 10px; }
+  .lang-label { display: none; }
+}
+
 .site-header h1 {
   margin: 0;
   font-size: clamp(28px, 4vw, 42px);
