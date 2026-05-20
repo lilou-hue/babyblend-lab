@@ -6085,6 +6085,37 @@ function updateBudgetProjections(usedOverride) {
     pressureNote.textContent = note;
   }
 
+  // R3 revision: at higher burden tiers, append a single line of
+  // institutional voice that names the limit of compliance remedy —
+  // procedural language (post-market review, registry enrolment,
+  // disclosure schedules) manages risk to the institution; it does not
+  // give the future subject a way to have consented. Polish: once any
+  // allocation exists, also surface a one-line access-compounding
+  // footnote under the Access Tier row (mechanism = uneven access stacked
+  // across generations, not biological determinism).
+  const projHost = $('#budget-projections');
+  if (projHost) {
+    let gapNote = projHost.querySelector('.consent-gap-note');
+    if (pressure > 0.45) {
+      if (!gapNote) { gapNote = document.createElement('p'); gapNote.className = 'consent-gap-note'; projHost.appendChild(gapNote); }
+      gapNote.textContent = pressure > 0.75
+        ? 'Footnote: at this burden tier, compliance language (post-market review, registry enrolment, disclosure schedules) manages institutional risk; it does not restore the future subject’s consent. No instrument in this stack can.'
+        : 'Footnote: compliance language manages institutional risk; it does not restore the future subject’s consent.';
+    } else if (gapNote) { gapNote.remove(); }
+    let accessFoot = projHost.querySelector('.access-compound-foot');
+    if (used > 0) {
+      if (!accessFoot) {
+        accessFoot = document.createElement('p');
+        accessFoot.className = 'access-compound-foot';
+        accessFoot.textContent = 'Footnote: inheritance compounds via access — cohorts able to allocate carry advantages forward; cohorts that cannot do not catch up by genetics alone.';
+        const tierRow = projHost.querySelector('#access-tier');
+        const anchor = tierRow ? tierRow.closest('.projection-row') : null;
+        if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(accessFoot, anchor.nextSibling);
+        else projHost.appendChild(accessFoot);
+      }
+    } else if (accessFoot) { accessFoot.remove(); }
+  }
+
   renderRegulatoryNotes();
   renderRegionalAccess(used);
 }

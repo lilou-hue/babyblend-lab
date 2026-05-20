@@ -3841,6 +3841,28 @@ body.mode-adult .societal-brief-panel:not([hidden]) {
 }
 .consent-panel + .primary-action { margin-top: 12px; }
 
+/* R3 revision: institutional voice footnotes inside #budget-projections.
+   Dry, muted, single-line; sit below their referent row without competing
+   with the bar/value pair. The consent-gap-note appears at higher burden
+   tiers (>0.45); the access-compound-foot appears once any allocation
+   exists and is anchored under the Access Tier row. */
+.budget-projections .access-compound-foot,
+.budget-projections .consent-gap-note {
+  grid-column: 1 / -1;
+  margin: 4px 0 0;
+  padding: 0 0 0 10px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--ink-mute);
+  font-style: italic;
+  border-left: 2px solid rgba(255, 210, 138, 0.18);
+}
+.budget-projections .consent-gap-note {
+  margin-top: 8px;
+  color: var(--ink);
+  font-style: normal;
+}
+
 /* ====================================================================
  * Divergence banner — Adult-mode warning that the projection is void
  * ==================================================================== */
