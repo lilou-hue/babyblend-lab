@@ -4566,3 +4566,137 @@ body.mode-reflection .lifetime-drift-panel h2 {
   .intro-event:nth-child(5)::before,
   .intro-event:nth-child(7)::before { animation: none !important; }
 }
+
+/* ====================================================================
+ * Decision Log — Adult-mode allocation audit trail
+ *
+ * Session-scope record of every released allocation move. The order is
+ * the point; the log shows what the user reached for, in what
+ * sequence. Audit-trail framing — no judgment in the copy.
+ * ==================================================================== */
+.decision-log {
+  margin-top: 12px;
+  padding: 12px 14px 10px;
+  background: rgba(10, 14, 40, 0.45);
+  border: 1px solid rgba(126, 224, 255, 0.18);
+  border-left: 2px solid rgba(126, 224, 255, 0.5);
+  border-radius: 10px;
+}
+.decision-log-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.decision-log h4 {
+  margin: 0;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.decision-count {
+  margin-left: 8px;
+  font-size: 10.5px;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+}
+.decision-clear {
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(126, 224, 255, 0.25);
+  color: var(--ink-mute);
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.decision-clear:hover {
+  color: var(--ink);
+  border-color: rgba(126, 224, 255, 0.6);
+  background: rgba(126, 224, 255, 0.06);
+}
+
+.decision-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+/* Subtle scrollbar styling — keeps the log scroll-area contained */
+.decision-list::-webkit-scrollbar { width: 6px; }
+.decision-list::-webkit-scrollbar-thumb {
+  background: rgba(126, 224, 255, 0.18);
+  border-radius: 999px;
+}
+
+.decision-row {
+  display: grid;
+  grid-template-columns: 28px 38px 1fr auto;
+  align-items: baseline;
+  gap: 10px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.12s;
+}
+.decision-row:hover { background: rgba(126, 224, 255, 0.05); }
+.decision-index {
+  color: var(--ink-mute);
+  font-size: 10.5px;
+  letter-spacing: 0.4px;
+}
+.decision-delta {
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-align: center;
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 11.5px;
+}
+.decision-delta.is-pos {
+  color: rgb(150, 230, 200);
+  background: rgba(110, 220, 170, 0.10);
+}
+.decision-delta.is-neg {
+  color: rgb(255, 190, 150);
+  background: rgba(255, 170, 110, 0.10);
+}
+.decision-label {
+  color: var(--ink);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.decision-total {
+  color: var(--ink-mute);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+}
+/* Tier-tinted left edge so premium / experimental moves stand out
+   without being loud. */
+.decision-row[data-tier="premium"]      { box-shadow: inset 2px 0 0 rgba(200, 155, 255, 0.40); }
+.decision-row[data-tier="experimental"] { box-shadow: inset 2px 0 0 rgba(255, 155, 210, 0.45); }
+.decision-row[data-tier="entry"]        { box-shadow: inset 2px 0 0 rgba(126, 224, 255, 0.35); }
+
+.decision-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--ink-mute);
+  font-style: italic;
+  letter-spacing: 0.2px;
+  text-align: right;
+}

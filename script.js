@@ -5878,6 +5878,7 @@ function setupAppModeToggle() {
         updateBabyPreview();
         renderEnhancementBudget();
         renderSocialResponse();
+        renderDecisionLog();
       }
     });
   });
