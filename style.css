@@ -386,6 +386,45 @@ main {
 }
 .parent-randomize-btn.spinning { transform: rotate(360deg); }
 
+/* Advanced-traits disclosure — collapses OCEAN sliders behind a single
+ * toggle per parent card so the default view stays appearance-focused. */
+.parent-advanced {
+  margin-top: 6px;
+  border-top: 1px dashed rgba(126, 224, 255, 0.12);
+  padding-top: 8px;
+}
+.parent-advanced-summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 4px 2px;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+.parent-advanced-summary::-webkit-details-marker { display: none; }
+.parent-advanced-summary::after {
+  content: '▾';
+  font-size: 10px;
+  opacity: 0.7;
+  transition: transform 0.18s ease;
+}
+.parent-advanced[open] > .parent-advanced-summary::after { transform: rotate(180deg); }
+.parent-advanced-summary:hover { color: var(--ink); }
+.parent-advanced-body {
+  margin-top: 10px;
+  animation: parent-advanced-reveal 0.22s ease-out;
+}
+@keyframes parent-advanced-reveal {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .field {
   display: flex;
   flex-direction: column;
@@ -2833,6 +2872,9 @@ body.mode-reflection *:has(> .reflection-text) > .playful-text { display: none; 
 /* Mode-conditional whole-block visibility */
 .adult-only { display: none; }
 body.mode-adult .adult-only { display: revert; }
+/* JS-driven gating (e.g. #budget-panel waiting on generateCount>=2)
+ * must still hide adult-only panels via the [hidden] attribute. */
+body.mode-adult .adult-only[hidden] { display: none; }
 body.mode-adult .playful-only { display: none !important; }
 
 /* Beta-tag inline label */

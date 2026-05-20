@@ -2876,11 +2876,29 @@ function applyAppModeClass() {
   document.body.classList.toggle('app-kids',        m === 'kids');
   document.body.classList.toggle('mode-adult',      m === 'adult');
   document.body.classList.toggle('mode-reflection', m === 'reflection');
+  applyBudgetPanelGate();
+}
+
+// Same generateCount>=2 gate the analytical Adult panels use. Budget
+// allocation only reads as meaningful once the user has felt the
+// baseline projection, so we keep #budget-panel out of the first pass.
+function applyBudgetPanelGate() {
+  const panel = $('#budget-panel');
+  if (!panel) return;
+  const ready = state.appMode === 'adult' && (state.generateCount || 0) >= 2;
+  panel.hidden = !ready;
 }
 
 /* ====================================================================
  * 1. Build parent forms
  * ==================================================================== */
+
+// Keys collapsed behind the "Advanced traits" disclosure in each parent
+// card. Keeping the list local rather than tagging PARENT_FIELDS keeps
+// this UX-shaped concern out of the data shape.
+const PARENT_ADVANCED_KEYS = new Set([
+  'openness', 'conscientiousness', 'extraversion', 'agreeableness', 'neuroticism'
+]);
 
 function buildParentForms() {
   const container = $('#parents');
@@ -2893,6 +2911,16 @@ function buildParentForms() {
         <h3>Parent ${letter}</h3>
         <button type="button" class="parent-randomize-btn" data-parent="${letter}" aria-label="Randomize Parent ${letter}" title="Randomize Parent ${letter}">↻</button>
       </div>`;
+    // Advanced-traits disclosure: OCEAN sliders fold into a per-parent
+    // <details> so the default view shows appearance-only inputs.
+    // LOOP_REQUEST(narrative): refine OCEAN-disclosure toggle label
+    const advanced = document.createElement('details');
+    advanced.className = 'parent-advanced';
+    advanced.dataset.parent = letter;
+    advanced.innerHTML = `<summary class="parent-advanced-summary">Advanced traits</summary>`;
+    const advancedBody = document.createElement('div');
+    advancedBody.className = 'parent-advanced-body';
+    advanced.appendChild(advancedBody);
     PARENT_FIELDS.forEach(f => {
       const id = `p${letter}_${f.key}`;
       const def = letter === 'A' ? f.defA : f.defB;
@@ -2925,8 +2953,13 @@ function buildParentForms() {
             <span class="val" id="${id}_val">${def}</span>
           </div>`;
       }
-      card.appendChild(field);
+      if (PARENT_ADVANCED_KEYS.has(f.key)) {
+        advancedBody.appendChild(field);
+      } else {
+        card.appendChild(field);
+      }
     });
+    card.appendChild(advanced);
     container.appendChild(card);
     const rb = card.querySelector('.parent-randomize-btn');
     if (rb) rb.addEventListener('click', () => {
@@ -4791,7 +4824,11 @@ function rollDivergence() {
 function renderDivergence() {
   const el = $('#divergence-banner');
   if (!el) return;
-  if (state.appMode !== 'adult' || !state.divergence) {
+  // Same gating as the analytical Adult panels: a divergence beat needs a
+  // baseline projection to push against, so wait until the second Generate
+  // before letting the banner appear. Guard here so all callers (initial
+  // render, dismiss, reroll, rollDivergence) respect it.
+  if (state.appMode !== 'adult' || !state.divergence || (state.generateCount || 0) < 2) {
     el.hidden = true;
     el.innerHTML = '';
     return;
@@ -5141,6 +5178,7 @@ function generate() {
   state.surprise = computeSurprise(state.parents);
   state.codename = generateCodename(state.parents);
   state.generateCount += 1;
+  applyBudgetPanelGate();
 
   $('#codename').textContent = state.codename;
   renderSliders(state.ranges);
@@ -5236,6 +5274,7 @@ function preserveNaturalVariation() {
   state.surprise = computeSurprise(state.parents);
   state.codename = generateCodename(state.parents);
   state.generateCount += 1;
+  applyBudgetPanelGate();
 
   $('#codename').textContent = state.codename;
   renderSliders(state.ranges);
