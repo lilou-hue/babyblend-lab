@@ -4625,15 +4625,45 @@ function generateCodename(parents) {
   return `Tiny Prototype ${aLet}${bLet}-${num}`;
 }
 
+/* Trait-conflict rules. Real people contradict themselves — high openness
+ * paired with low conscientiousness shouldn't always pick exploratory
+ * paths; sometimes the friction itself is the story. Each rule maps a
+ * predicate over baby traits to a conflict tag that future-path content
+ * can opt into.
+ * LOOP_REQUEST(narrative): add FUTURE_PATHS entries with tag fields
+ * including 'OC-tension', 'EN-tension', 'CO-rigidity', 'AN-pleaser'
+ * (and KIDS_FUTURE_PATHS / adult-mode equivalents) so the conflict
+ * branch below has content to surface. */
+const TRAIT_CONFLICT_RULES = [
+  { key: 'OC-tension',  when: b => (b.openness        || 0) >= 8 && (b.conscientiousness || 0) <= 4, tag: 'OC-tension'  },
+  { key: 'EN-tension',  when: b => (b.extraversion    || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'EN-tension'  },
+  { key: 'CO-rigidity', when: b => (b.conscientiousness || 0) >= 8 && (b.openness        || 0) <= 4, tag: 'CO-rigidity' },
+  { key: 'AN-pleaser',  when: b => (b.agreeableness   || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'AN-pleaser'  }
+];
+
+function activeConflictTags(b) {
+  return TRAIT_CONFLICT_RULES.filter(r => r.when(b || {})).map(r => r.tag);
+}
+
 function generateBabyFlavor(codename, baby) {
   const inAdult = state.appMode === 'adult';
   const rng = seededRand(codename + '|flavor' + (state.chaos ? '|c' : '') + (inAdult ? '|adult' : ''));
+
+  const conflictTags = activeConflictTags(baby);
 
   if (inAdult) {
     // Adult mode: no funny vibe / events / headlines. Show grounded
     // microdetails instead — they\'re also surfaced separately as
     // behavioral-trace cards below the avatar.
-    const details = pickN(localList(ADULT_TRACES), 4, rng);
+    // Reserve ~1 of 4 trace slots for conflict-tagged entries when
+    // available; fall back silently otherwise.
+    const tracePool = localList(ADULT_TRACES);
+    const conflictTraces = conflictTags.length
+      ? tracePool.filter(t => t && t.tag && conflictTags.includes(t.tag))
+      : [];
+    const reserved = conflictTraces.length ? pickN(conflictTraces, 1, rng) : [];
+    const remaining = pickN(tracePool.filter(t => !reserved.includes(t)), 4 - reserved.length, rng);
+    const details = reserved.concat(remaining);
     return { vibe: '', paths: details, events: [], headlines: [] };
   }
 
@@ -4650,10 +4680,26 @@ function generateBabyFlavor(codename, baby) {
   const topTag = tagFor[top.k];
 
   const pathsPool = pickPool(FUTURE_PATHS, FUTURE_PATHS, KIDS_FUTURE_PATHS);
-  const weighted = pathsPool.map(p => ({
+
+  // Reserve ~25-40% of future picks (1 of 3) for conflict-tagged entries
+  // when any conflict is active and matching content exists. Otherwise
+  // fall back to the existing topTag-weighted selection.
+  const TOTAL_PATHS = 3;
+  const reservedPaths = [];
+  if (conflictTags.length) {
+    const matches = pathsPool.filter(p => p.tag && conflictTags.includes(p.tag));
+    if (matches.length) {
+      const reserveCount = Math.max(1, Math.round(TOTAL_PATHS * 0.33));
+      const shuffled = matches.map(p => ({ p, w: rng() })).sort((a, b) => b.w - a.w);
+      for (const x of shuffled.slice(0, reserveCount)) reservedPaths.push(x.p);
+    }
+  }
+  const remainingPool = pathsPool.filter(p => !reservedPaths.includes(p));
+  const weighted = remainingPool.map(p => ({
     p, w: rng() + (p.tag === topTag ? 1.0 : 0)
   })).sort((a, b) => b.w - a.w);
-  const paths = weighted.slice(0, 3).map(x => x.p.text);
+  const filler = weighted.slice(0, TOTAL_PATHS - reservedPaths.length).map(x => x.p);
+  const paths = reservedPaths.concat(filler).map(p => p.text);
 
   const eventCount = state.chaos ? 2 : (rng() > 0.4 ? 1 : (rng() > 0.6 ? 2 : 0));
   const events = pickN(pickPool(RANDOM_EVENTS, RANDOM_EVENTS, KIDS_RANDOM_EVENTS), eventCount, rng);
