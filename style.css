@@ -1045,6 +1045,45 @@ body.mode-adult .lineage-svg .node-grandchild svg { opacity: 0.55; filter: satur
   font-weight: 700;
   box-shadow: 0 0 14px rgba(255,155,210,0.32);
 }
+.gender-expression {
+  max-width: 340px;
+  margin: 6px auto 14px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 155, 210, 0.18);
+  transition: opacity 0.2s ease;
+}
+.gender-expression > label {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.4px;
+  color: var(--ink);
+  text-align: left;
+  margin-bottom: 6px;
+}
+.gender-expression .field-subtitle {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.7;
+  font-weight: 400;
+}
+.gender-expression .field-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gender-expression input[type="range"] { flex: 1; }
+.gender-expression .val {
+  min-width: 38px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+}
+.gender-expression.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
 .archetype-tag {
   display: inline-block;
   padding: 6px 14px;
@@ -3793,4 +3832,169 @@ body.mode-adult .societal-brief-panel:not([hidden]) {
   left: 2px;
   color: var(--accent-warm);
   font-weight: 700;
+}
+
+/* ====================================================================
+ * Reflection arc: Inner Cohort + Lifetime Drift
+ *
+ * Reflection mode's equivalent of Adult's Sibling Cohort and Historical
+ * Drift. Same thesis, different angle: identity is unmappable.
+ * ==================================================================== */
+
+/* ---------- Inner Cohort — same person, different rooms ---------- */
+.inner-cohort-panel { padding: 28px 24px 24px; }
+.inner-cohort-head { margin-bottom: 16px; }
+.inner-cohort-panel h2 {
+  font-size: 21px;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+body.mode-reflection .inner-cohort-panel h2 {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--ink);
+  -webkit-text-fill-color: transparent;
+}
+.inner-cohort-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.inner-context {
+  padding: 18px 18px 16px;
+  background: rgba(7, 9, 30, 0.42);
+  border: 1px solid rgba(200, 155, 255, 0.18);
+  border-radius: 14px;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+.inner-context:hover {
+  border-color: rgba(200, 155, 255, 0.45);
+  background: rgba(7, 9, 30, 0.55);
+  transform: translateY(-1px);
+}
+.inner-context-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(200, 155, 255, 0.15);
+}
+.inner-context-icon {
+  font-size: 18px;
+  color: var(--accent-2);
+  line-height: 1;
+}
+.inner-context-label {
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  font-weight: 600;
+}
+.inner-context-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.inner-context-lines li {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  font-style: italic;
+  padding-left: 0;
+  position: relative;
+}
+
+@media (max-width: 720px) {
+  .inner-cohort-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Lifetime Drift — one life, different decades ---------- */
+.lifetime-drift-panel { padding: 28px 24px 26px; }
+.lifetime-drift-head { margin-bottom: 16px; }
+.lifetime-drift-panel h2 {
+  font-size: 21px;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+body.mode-reflection .lifetime-drift-panel h2 {
+  background: linear-gradient(90deg, var(--accent-warm), var(--accent-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--ink);
+  -webkit-text-fill-color: transparent;
+}
+.lifetime-drift-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  position: relative;
+}
+.lifetime-drift-row::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 28px;
+  right: 28px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(255, 210, 138, 0.0),
+    rgba(255, 210, 138, 0.4) 20%,
+    rgba(255, 155, 210, 0.4) 80%,
+    rgba(255, 155, 210, 0.0));
+  pointer-events: none;
+}
+.drift-stage {
+  position: relative;
+  padding: 30px 14px 16px;
+  background: rgba(7, 9, 30, 0.40);
+  border: 1px solid rgba(255, 210, 138, 0.18);
+  border-radius: 12px;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+.drift-stage::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 210, 138, 0.7);
+  box-shadow: 0 0 8px rgba(255, 210, 138, 0.7);
+}
+.drift-stage:hover {
+  border-color: rgba(255, 210, 138, 0.5);
+  background: rgba(7, 9, 30, 0.55);
+  transform: translateY(-1px);
+}
+.drift-age {
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--accent-warm);
+  letter-spacing: 0.6px;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.drift-line {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink);
+  line-height: 1.55;
+  font-style: italic;
+}
+
+@media (max-width: 880px) {
+  .lifetime-drift-row { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .lifetime-drift-row::before { display: none; }
 }

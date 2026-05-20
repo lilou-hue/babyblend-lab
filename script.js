@@ -12,6 +12,385 @@ const DICEBEAR_STYLES = {
   bigSmile: { module: bigSmileStyle, label: 'Big Smile', supportsFreckles: false }
 };
 
+/* ====================================================================
+ * i18n
+ *
+ * Translates the UI chrome (header, mode labels, section headings,
+ * action button labels, panel intros, landing copy). Content pools
+ * (memories, traces, future paths, headlines, etc.) intentionally
+ * stay in English in this pass — they're carefully-tuned poetic /
+ * clinical strings that deserve a native-speaker translation pass.
+ * ==================================================================== */
+
+const LANGUAGES  = ['en', 'zh', 'ja', 'ko', 'tr'];
+const LANG_NAMES = { en: 'English', zh: '中文', ja: '日本語', ko: '한국어', tr: 'Türkçe' };
+
+const STRINGS = {
+  en: {
+    'app.tagline': 'A fictional genetics-inspired simulator',
+    'app.disclaimer': 'Not real medical or genetic advice — just a playful what-if.',
+    'mode.reflection': 'Reflection',
+    'mode.kids': 'Kids',
+    'mode.adult': 'Adult',
+    'landing.desc1': 'Build two parents. Adjust their environment.',
+    'landing.desc2': 'See what a possible child might look like, think, and become.',
+    'landing.feature1': 'Polygenic-flavored inheritance',
+    'landing.feature2': 'Big Five behavioral projection',
+    'landing.feature3': 'Speculative adult trajectories',
+    'landing.begin': 'Enter the lab',
+    'landing.disclaimer': 'Fictional simulation. Not real medical or genetic advice.',
+    'section.parents': 'Parent Profiles',
+    'section.env.playful': 'Environmental Influences',
+    'section.env.adult': 'Environmental Modifiers',
+    'section.env.intro.playful': "Genes aren't destiny. Tweak the nurture side too.",
+    'section.env.intro.adult': 'Adjust developmental modifiers to inform downstream projections.',
+    'section.budget.heading': 'Enhancement Allocation',
+    'section.budget.intro': 'Distribute credits across optimization categories. Allocations bias projected outcomes; tradeoffs are listed per package.',
+    'section.sliders.playful': 'Baby Trait Sliders',
+    'section.sliders.adult': 'Projected Outcomes',
+    'section.sliders.intro.playful': 'Ranges are inspired by both parents. Slide to explore possibilities. Personality sliders use the Big Five (OCEAN) model — inspired by, not predictive of, real psychology.',
+    'section.sliders.intro.adult': 'Ranges derived from midparent inheritance and allocation bias. Behavioral projections have lower confidence than phenotypic.',
+    'section.baby.playful': 'Baby Preview',
+    'section.baby.reflection': 'A profile, imagined',
+    'section.baby.adult': 'Behavioral Projection',
+    'section.future.playful': 'Future paths',
+    'section.future.reflection': 'Future glimpses',
+    'section.future.adult': 'Behavioral Trace Notes',
+    'section.lineage.playful': 'Family lineage',
+    'section.lineage.reflection': 'Across the generations',
+    'section.lineage.adult': 'Generational Cascade',
+    'section.lineage.intro.playful': 'Three generations. The choices made here ripple forward.',
+    'section.lineage.intro.reflection': 'Three lives, briefly: the people who came before, the person imagined here, the people who might come after.',
+    'section.lineage.intro.adult': 'Three-generation cascade. Trait inheritance shown across vertical axis; downstream projections are speculative.',
+    'surprise.playful': 'Genetic surprise factor',
+    'surprise.adult': 'Outcome variance index',
+    'btn.randomize_parents.playful': '🎲 Randomize Parents',
+    'btn.randomize_parents.reflection': 'Imagine new parents',
+    'btn.randomize_parents.adult': 'Randomize Inputs',
+    'btn.preserve.playful': '🌱 Preserve Natural Variation',
+    'btn.preserve.reflection': 'Honor natural variation',
+    'btn.preserve.adult': 'Reset to Natural Variation',
+    'btn.generate.playful': 'Generate Baby Possibilities',
+    'btn.generate.reflection': 'Imagine a possible life',
+    'btn.generate.adult': 'Generate Projection',
+    'btn.randomize.playful': '🎲 Randomize Within Parent Range',
+    'btn.randomize.reflection': 'Try a different version',
+    'btn.randomize.adult': 'Re-sample Within Range',
+    'btn.reset.playful': '↺ Reset to Parent Average',
+    'btn.reset.reflection': 'Return to the middle',
+    'btn.reset.adult': 'Reset to Midparent',
+    'btn.copy.playful': '⧉ Copy Baby Profile',
+    'btn.copy.reflection': 'Copy this profile',
+    'btn.copy.adult': 'Export Projection',
+    'btn.save.playful': '💾 Save Timeline',
+    'btn.save.reflection': 'Hold this life',
+    'btn.save.adult': 'Save Projection',
+    'btn.futures.playful': '🪐 Show Possible Adult Futures',
+    'btn.futures.reflection': 'Glimpse the later years',
+    'btn.futures.adult': 'Generate Trajectory Set',
+    'btn.alternates.playful': '🌌 Generate Alternate Timelines',
+    'btn.alternates.reflection': 'Imagine other lives from the same beginnings',
+    'btn.alternates.adult': 'Generate Alternate Projections',
+    'language.label': 'Language'
+  },
+
+  zh: {
+    'app.tagline': '一款受遗传学启发的虚构模拟器',
+    'app.disclaimer': '并非真实的医疗或遗传建议——只是一种俏皮的设想。',
+    'mode.reflection': '沉思',
+    'mode.kids': '儿童',
+    'mode.adult': '成人',
+    'landing.desc1': '构建两位父母。调整他们的环境。',
+    'landing.desc2': '看看一个可能的孩子会是什么样子,会如何思考,又会成为怎样的人。',
+    'landing.feature1': '多基因风格的遗传机制',
+    'landing.feature2': '大五人格行为投射',
+    'landing.feature3': '推测性成人轨迹',
+    'landing.begin': '进入实验室',
+    'landing.disclaimer': '虚构模拟。并非真实的医疗或遗传建议。',
+    'section.parents': '父母资料',
+    'section.env.playful': '环境影响',
+    'section.env.adult': '发展调节因子',
+    'section.env.intro.playful': '基因并非命运。也调整一下后天的因素吧。',
+    'section.env.intro.adult': '调整发展调节因子,为下游预测提供依据。',
+    'section.budget.heading': '增强分配',
+    'section.budget.intro': '在各优化类别之间分配积分。分配会影响预测结果;每项的权衡列于相应说明中。',
+    'section.sliders.playful': '宝宝特征滑块',
+    'section.sliders.adult': '预测结果',
+    'section.sliders.intro.playful': '范围参考了双亲。拖动滑块以探索可能性。人格滑块基于大五人格(OCEAN)模型——受其启发,而非真实心理学的预测。',
+    'section.sliders.intro.adult': '范围来源于双亲中值遗传与分配偏差。行为投射的可信度低于表型预测。',
+    'section.baby.playful': '宝宝预览',
+    'section.baby.reflection': '一份被想象的画像',
+    'section.baby.adult': '行为投射',
+    'section.future.playful': '未来路径',
+    'section.future.reflection': '未来一瞥',
+    'section.future.adult': '行为追踪笔记',
+    'section.lineage.playful': '家族传承',
+    'section.lineage.reflection': '穿越世代',
+    'section.lineage.adult': '世代级联',
+    'section.lineage.intro.playful': '三代人。此刻所做的选择会向前波及。',
+    'section.lineage.intro.reflection': '简而言之,三段生命:走在前面的人、此处所想象的人、可能走在后面的人。',
+    'section.lineage.intro.adult': '三代级联。纵轴显示特征遗传;下游预测仅为推测。',
+    'surprise.playful': '基因惊喜因子',
+    'surprise.adult': '结果方差指数',
+    'btn.randomize_parents.playful': '🎲 随机父母',
+    'btn.randomize_parents.reflection': '想象新的父母',
+    'btn.randomize_parents.adult': '随机化输入',
+    'btn.preserve.playful': '🌱 保留自然变异',
+    'btn.preserve.reflection': '尊重自然变异',
+    'btn.preserve.adult': '重置为自然变异',
+    'btn.generate.playful': '生成宝宝可能性',
+    'btn.generate.reflection': '想象一段可能的人生',
+    'btn.generate.adult': '生成投射',
+    'btn.randomize.playful': '🎲 在父母范围内随机',
+    'btn.randomize.reflection': '换一种版本试试',
+    'btn.randomize.adult': '在范围内重新取样',
+    'btn.reset.playful': '↺ 重置为父母平均',
+    'btn.reset.reflection': '回到中间',
+    'btn.reset.adult': '重置为双亲中值',
+    'btn.copy.playful': '⧉ 复制宝宝档案',
+    'btn.copy.reflection': '复制这份画像',
+    'btn.copy.adult': '导出投射',
+    'btn.save.playful': '💾 保存时间线',
+    'btn.save.reflection': '留住这段人生',
+    'btn.save.adult': '保存投射',
+    'btn.futures.playful': '🪐 展示可能的成人未来',
+    'btn.futures.reflection': '一瞥往后的岁月',
+    'btn.futures.adult': '生成轨迹组',
+    'btn.alternates.playful': '🌌 生成平行时间线',
+    'btn.alternates.reflection': '从同一开端想象其他人生',
+    'btn.alternates.adult': '生成替代投射',
+    'language.label': '语言'
+  },
+
+  ja: {
+    'app.tagline': '遺伝学にインスパイアされた架空のシミュレーター',
+    'app.disclaimer': '実際の医療や遺伝のアドバイスではありません ― ささやかな思考実験です。',
+    'mode.reflection': '内省',
+    'mode.kids': 'キッズ',
+    'mode.adult': 'アダルト',
+    'landing.desc1': '2人の親を作成し、環境を調整します。',
+    'landing.desc2': '生まれてくるかもしれない子どもの姿、思考、未来を覗いてみてください。',
+    'landing.feature1': 'ポリジーン的な遺伝表現',
+    'landing.feature2': 'ビッグファイブの行動投射',
+    'landing.feature3': '推測的な成人後の軌跡',
+    'landing.begin': 'ラボに入る',
+    'landing.disclaimer': '架空のシミュレーション。実際の医療や遺伝のアドバイスではありません。',
+    'section.parents': '親プロフィール',
+    'section.env.playful': '環境の影響',
+    'section.env.adult': '発達調整因子',
+    'section.env.intro.playful': '遺伝は運命ではありません。育つ環境も少しいじってみましょう。',
+    'section.env.intro.adult': '発達調整因子を変えて、下流の予測に反映させます。',
+    'section.budget.heading': '強化アロケーション',
+    'section.budget.intro': '最適化カテゴリーにクレジットを配分してください。配分は予測結果に偏りを与えます。トレードオフは各パッケージに記載されています。',
+    'section.sliders.playful': '赤ちゃんの特性スライダー',
+    'section.sliders.adult': '予測アウトカム',
+    'section.sliders.intro.playful': '両親をもとにした範囲です。スライドして可能性を探ってください。性格スライダーはビッグファイブ(OCEAN)モデルに着想を得ています ― 現実の心理学的予測ではありません。',
+    'section.sliders.intro.adult': '範囲は中央親値の遺伝とアロケーション偏差から導出されます。行動投射は表現型より信頼度が低めです。',
+    'section.baby.playful': '赤ちゃんプレビュー',
+    'section.baby.reflection': '想像された一人の肖像',
+    'section.baby.adult': '行動投射',
+    'section.future.playful': '未来の道筋',
+    'section.future.reflection': '未来のかいま見',
+    'section.future.adult': '行動トレースノート',
+    'section.lineage.playful': '家族の系譜',
+    'section.lineage.reflection': '世代を越えて',
+    'section.lineage.adult': '世代カスケード',
+    'section.lineage.intro.playful': '三世代。ここでの選択は先へと波及していきます。',
+    'section.lineage.intro.reflection': '三つの人生を、ごく短く――先に生きた人々、ここに想像される人、そして後を生きるかもしれない人々。',
+    'section.lineage.intro.adult': '三世代のカスケード。縦軸に特性遺伝を表示。下流の投射は推測値です。',
+    'surprise.playful': '遺伝サプライズ係数',
+    'surprise.adult': 'アウトカム分散指数',
+    'btn.randomize_parents.playful': '🎲 親をランダムに',
+    'btn.randomize_parents.reflection': '新しい親を思い描く',
+    'btn.randomize_parents.adult': '入力をランダム化',
+    'btn.preserve.playful': '🌱 自然なばらつきを残す',
+    'btn.preserve.reflection': '自然なばらつきを尊ぶ',
+    'btn.preserve.adult': '自然変動にリセット',
+    'btn.generate.playful': '赤ちゃんの可能性を生成',
+    'btn.generate.reflection': 'ありうる人生を想像する',
+    'btn.generate.adult': '投射を生成',
+    'btn.randomize.playful': '🎲 親の範囲内でランダム',
+    'btn.randomize.reflection': '別のバージョンを試す',
+    'btn.randomize.adult': '範囲内で再サンプリング',
+    'btn.reset.playful': '↺ 親の平均にリセット',
+    'btn.reset.reflection': '真ん中に戻る',
+    'btn.reset.adult': '中央親値にリセット',
+    'btn.copy.playful': '⧉ 赤ちゃんプロファイルをコピー',
+    'btn.copy.reflection': 'この肖像をコピー',
+    'btn.copy.adult': '投射をエクスポート',
+    'btn.save.playful': '💾 タイムラインを保存',
+    'btn.save.reflection': 'この人生を残す',
+    'btn.save.adult': '投射を保存',
+    'btn.futures.playful': '🪐 ありうる成人の未来を表示',
+    'btn.futures.reflection': '後の年月をかいま見る',
+    'btn.futures.adult': '軌跡セットを生成',
+    'btn.alternates.playful': '🌌 別のタイムラインを生成',
+    'btn.alternates.reflection': '同じ始まりから、別の人生を想像する',
+    'btn.alternates.adult': '代替投射を生成',
+    'language.label': '言語'
+  },
+
+  ko: {
+    'app.tagline': '유전학에서 영감을 받은 가상의 시뮬레이터',
+    'app.disclaimer': '실제 의료 혹은 유전 자문이 아닙니다 — 가벼운 가정 실험일 뿐입니다.',
+    'mode.reflection': '성찰',
+    'mode.kids': '키즈',
+    'mode.adult': '어덜트',
+    'landing.desc1': '두 명의 부모를 만들고, 환경을 조정해 보세요.',
+    'landing.desc2': '태어날 수 있는 아이가 어떻게 생기고, 무엇을 생각하며, 누가 될지를 들여다보세요.',
+    'landing.feature1': '다유전자적 색채의 유전',
+    'landing.feature2': '빅 파이브 행동 투영',
+    'landing.feature3': '추측적인 성인기 경로',
+    'landing.begin': '실험실에 들어가기',
+    'landing.disclaimer': '가상의 시뮬레이션입니다. 실제 의료나 유전 자문이 아닙니다.',
+    'section.parents': '부모 프로필',
+    'section.env.playful': '환경 영향',
+    'section.env.adult': '발달 조절 변수',
+    'section.env.intro.playful': '유전자가 운명은 아닙니다. 양육 측면도 함께 조정해 보세요.',
+    'section.env.intro.adult': '발달 조절 변수를 조정하여 후속 예측에 반영합니다.',
+    'section.budget.heading': '강화 할당',
+    'section.budget.intro': '최적화 범주 사이에 크레딧을 배분하세요. 할당은 예측 결과에 편향을 줍니다. 패키지별 트레이드오프가 함께 표시됩니다.',
+    'section.sliders.playful': '아기 특성 슬라이더',
+    'section.sliders.adult': '예측 결과',
+    'section.sliders.intro.playful': '범위는 양친에서 영감을 받았습니다. 슬라이더를 움직여 가능성을 탐색해 보세요. 성격 슬라이더는 빅 파이브(OCEAN) 모델에서 영감을 얻었으며, 실제 심리학적 예측이 아닙니다.',
+    'section.sliders.intro.adult': '범위는 중간 친 값 유전과 할당 편향에서 도출됩니다. 행동 투영은 표현형보다 신뢰도가 낮습니다.',
+    'section.baby.playful': '아기 미리보기',
+    'section.baby.reflection': '상상된 한 사람의 초상',
+    'section.baby.adult': '행동 투영',
+    'section.future.playful': '미래의 길',
+    'section.future.reflection': '미래의 한 자락',
+    'section.future.adult': '행동 추적 노트',
+    'section.lineage.playful': '가족 계보',
+    'section.lineage.reflection': '세대를 가로질러',
+    'section.lineage.adult': '세대 캐스케이드',
+    'section.lineage.intro.playful': '세 세대. 지금의 선택은 앞으로도 파문을 일으킵니다.',
+    'section.lineage.intro.reflection': '간단히 말해, 세 개의 삶 ― 먼저 살았던 사람들, 여기서 상상된 사람, 그리고 뒤에 올 수도 있는 사람들.',
+    'section.lineage.intro.adult': '3세대 캐스케이드. 수직축에 특성 유전 표시. 하류 예측은 추정치입니다.',
+    'surprise.playful': '유전적 서프라이즈 지수',
+    'surprise.adult': '결과 분산 지수',
+    'btn.randomize_parents.playful': '🎲 부모 무작위',
+    'btn.randomize_parents.reflection': '새로운 부모를 상상하기',
+    'btn.randomize_parents.adult': '입력 무작위화',
+    'btn.preserve.playful': '🌱 자연 변이 보존',
+    'btn.preserve.reflection': '자연 변이를 존중하기',
+    'btn.preserve.adult': '자연 변이로 리셋',
+    'btn.generate.playful': '아기 가능성 생성',
+    'btn.generate.reflection': '가능한 한 삶을 상상하기',
+    'btn.generate.adult': '투영 생성',
+    'btn.randomize.playful': '🎲 부모 범위 내 무작위',
+    'btn.randomize.reflection': '다른 버전 시도',
+    'btn.randomize.adult': '범위 내 재샘플링',
+    'btn.reset.playful': '↺ 부모 평균으로 리셋',
+    'btn.reset.reflection': '가운데로 돌아가기',
+    'btn.reset.adult': '중간 친 값으로 리셋',
+    'btn.copy.playful': '⧉ 아기 프로필 복사',
+    'btn.copy.reflection': '이 초상 복사',
+    'btn.copy.adult': '투영 내보내기',
+    'btn.save.playful': '💾 타임라인 저장',
+    'btn.save.reflection': '이 삶을 간직하기',
+    'btn.save.adult': '투영 저장',
+    'btn.futures.playful': '🪐 가능한 성인기 보기',
+    'btn.futures.reflection': '훗날의 세월 들여다보기',
+    'btn.futures.adult': '궤적 세트 생성',
+    'btn.alternates.playful': '🌌 대체 타임라인 생성',
+    'btn.alternates.reflection': '같은 출발에서 다른 삶을 상상하기',
+    'btn.alternates.adult': '대체 투영 생성',
+    'language.label': '언어'
+  },
+
+  tr: {
+    'app.tagline': 'Genetikten esinlenmiş kurgusal bir simülatör',
+    'app.disclaimer': 'Gerçek tıbbi ya da genetik tavsiye değildir — yalnızca eğlenceli bir varsayım.',
+    'mode.reflection': 'Düşünüm',
+    'mode.kids': 'Çocuk',
+    'mode.adult': 'Yetişkin',
+    'landing.desc1': 'İki ebeveyn oluştur. Çevrelerini ayarla.',
+    'landing.desc2': 'Olası bir çocuğun nasıl görünebileceğini, ne düşünebileceğini ve kim olabileceğini gör.',
+    'landing.feature1': 'Çok genli karakter kalıtımı',
+    'landing.feature2': 'Beş Büyük davranış izdüşümü',
+    'landing.feature3': 'Spekülatif yetişkin yörüngeleri',
+    'landing.begin': 'Laboratuvara gir',
+    'landing.disclaimer': 'Kurgusal bir simülasyondur. Gerçek tıbbi ya da genetik tavsiye değildir.',
+    'section.parents': 'Ebeveyn Profilleri',
+    'section.env.playful': 'Çevresel Etkiler',
+    'section.env.adult': 'Gelişimsel Düzenleyiciler',
+    'section.env.intro.playful': 'Genler kader değildir. Yetiştirme tarafını da ayarlayabilirsin.',
+    'section.env.intro.adult': 'Gelişimsel düzenleyicileri ayarlayarak alt akış projeksiyonlarını besleyin.',
+    'section.budget.heading': 'Geliştirme Tahsisi',
+    'section.budget.intro': 'Optimizasyon kategorileri arasında kredileri dağıt. Tahsisler beklenen sonuçları etkiler; ödünleşimler her paket altında listelenir.',
+    'section.sliders.playful': 'Bebek Karakter Sürgüleri',
+    'section.sliders.adult': 'Beklenen Sonuçlar',
+    'section.sliders.intro.playful': 'Aralıklar her iki ebeveyne dayanır. Olasılıkları keşfetmek için sürgüleri kaydır. Kişilik sürgüleri Beş Büyük (OCEAN) modelinden esinlenmiştir — bilimsel öngörü değildir.',
+    'section.sliders.intro.adult': 'Aralıklar ebeveyn ortalaması mirasından ve tahsis sapmasından türetilir. Davranışsal projeksiyonların güveni fenotipikten daha düşüktür.',
+    'section.baby.playful': 'Bebek Önizleme',
+    'section.baby.reflection': 'Hayal edilmiş bir portre',
+    'section.baby.adult': 'Davranış Projeksiyonu',
+    'section.future.playful': 'Gelecek yolları',
+    'section.future.reflection': 'Geleceğin bir parçası',
+    'section.future.adult': 'Davranış İzlem Notları',
+    'section.lineage.playful': 'Aile soyu',
+    'section.lineage.reflection': 'Kuşakların ötesinde',
+    'section.lineage.adult': 'Kuşaklar Arası Yayılım',
+    'section.lineage.intro.playful': 'Üç kuşak. Burada verilen seçimler ileri doğru dalgalanır.',
+    'section.lineage.intro.reflection': 'Kısaca üç yaşam: önce gelenler, burada hayal edilen kişi ve sonra gelebilecek olanlar.',
+    'section.lineage.intro.adult': 'Üç kuşak yayılımı. Dikey eksende karakter kalıtımı. Alt akış projeksiyonları spekülatiftir.',
+    'surprise.playful': 'Genetik sürpriz katsayısı',
+    'surprise.adult': 'Sonuç varyans indeksi',
+    'btn.randomize_parents.playful': '🎲 Ebeveynleri Rastgele Yap',
+    'btn.randomize_parents.reflection': 'Yeni ebeveynler hayal et',
+    'btn.randomize_parents.adult': 'Girdileri Rastgele Yap',
+    'btn.preserve.playful': '🌱 Doğal Çeşitliliği Koru',
+    'btn.preserve.reflection': 'Doğal çeşitliliğe saygı göster',
+    'btn.preserve.adult': 'Doğal Varyasyona Sıfırla',
+    'btn.generate.playful': 'Bebek Olasılıklarını Üret',
+    'btn.generate.reflection': 'Olası bir yaşam hayal et',
+    'btn.generate.adult': 'Projeksiyon Üret',
+    'btn.randomize.playful': '🎲 Ebeveyn Aralığı İçinde Rastgele',
+    'btn.randomize.reflection': 'Farklı bir sürüm dene',
+    'btn.randomize.adult': 'Aralık İçinde Yeniden Örnekle',
+    'btn.reset.playful': '↺ Ebeveyn Ortalamasına Dön',
+    'btn.reset.reflection': 'Ortaya geri dön',
+    'btn.reset.adult': 'Ebeveyn Ortalamasına Sıfırla',
+    'btn.copy.playful': '⧉ Bebek Profilini Kopyala',
+    'btn.copy.reflection': 'Bu portreyi kopyala',
+    'btn.copy.adult': 'Projeksiyonu Dışa Aktar',
+    'btn.save.playful': '💾 Zaman Çizgisini Kaydet',
+    'btn.save.reflection': 'Bu yaşamı sakla',
+    'btn.save.adult': 'Projeksiyonu Kaydet',
+    'btn.futures.playful': '🪐 Olası Yetişkin Gelecekleri',
+    'btn.futures.reflection': 'İleriki yıllara bir bakış',
+    'btn.futures.adult': 'Yörünge Seti Üret',
+    'btn.alternates.playful': '🌌 Alternatif Zaman Çizgileri Üret',
+    'btn.alternates.reflection': 'Aynı başlangıçtan başka yaşamlar hayal et',
+    'btn.alternates.adult': 'Alternatif Projeksiyonlar Üret',
+    'language.label': 'Dil'
+  }
+};
+
+const LANG_KEY = 'babyblend.language.v1';
+
+function loadLanguage() {
+  try {
+    const v = localStorage.getItem(LANG_KEY);
+    return LANGUAGES.includes(v) ? v : 'en';
+  } catch { return 'en'; }
+}
+function persistLanguage(l) {
+  try { localStorage.setItem(LANG_KEY, l); } catch {}
+}
+
+function t(key) {
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  const bundle = STRINGS[lang] || STRINGS.en;
+  return bundle[key] || STRINGS.en[key] || key;
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+}
+
 /* ---------- Trait ladders & color maps ---------- */
 
 const EYE_LADDER  = ['blue', 'green', 'hazel', 'brown', 'dark brown'];
@@ -377,6 +756,98 @@ const REFLECTION_EPIGRAPHS = [
   'A version of a person who, in some other corner of the world, may already be.',
   'A single line drawn through a cloud of possibilities.'
 ];
+
+/* ---------- Reflection: Inner Cohort ("Same person, different rooms") ----------
+ * Adult's Sibling Cohort says: many people could have come from these inputs.
+ * Inner Cohort says: the one person who does is already many people. Same
+ * identity, different rooms, different versions. Deterministic per codename. */
+const INNER_COHORT_CONTEXTS = [
+  { key: 'work',    label: 'At work',                       icon: '⌬', pool: [
+    'Slightly more composed than they really are.',
+    'Carries a notebook they only sometimes use.',
+    'Arrives a few minutes early to most things.',
+    'Closer to one colleague than the others, without naming it.',
+    'Holds a low-key opinion they have never voiced in a meeting.',
+    'Eats lunch the same way for years.',
+    'Says "no problem" more than they intend to.',
+    'Quiet when the room is loud; thoughtful when it isn\'t.'
+  ]},
+  { key: 'family',  label: 'With their family of origin',   icon: '⎈', pool: [
+    'Becomes younger again, gradually, every time they visit.',
+    'Speaks a private sibling language only the family follows.',
+    'Loses an argument they could have won.',
+    'Eats food they would not order in a restaurant.',
+    'Defers in ways their friends would not recognize.',
+    'Smiles at a joke they have heard fifty times.',
+    'Sleeps in a room that has not changed in twenty years.',
+    'Notices their parent has gotten older only in passing.'
+  ]},
+  { key: 'late',    label: 'Alone at 2am',                  icon: '☾', pool: [
+    'Re-reads the same paragraph in a book.',
+    'Replays a 2008 song from a memory they thought they had lost.',
+    'Opens the fridge without intending to eat.',
+    'Composes a text they will not send.',
+    'Decides something quietly that will reshape next year.',
+    'Lets a single thought spiral and then forgives themselves for it.',
+    'Notices the wallpaper.',
+    'Hears a sound and decides it is nothing.'
+  ]},
+  { key: 'beloved', label: 'With someone they love',        icon: '☉', pool: [
+    'Becomes someone slightly luminous.',
+    'Forgives faster than they would for anyone else.',
+    'Confuses their own preferences with the other person\'s.',
+    'Says things they would not write down.',
+    'Laughs at something only the two of them find funny.',
+    'Is more tired and less guarded.',
+    'Carries the other person\'s small habits home with them.',
+    'Hears their own voice get a little softer.'
+  ]}
+];
+
+/* ---------- Reflection: Lifetime Drift ("Same person, different decades") ----------
+ * Adult's Historical Drift says: the targets shift across eras. Lifetime
+ * Drift says: the person shifts across their own life. Same person, four
+ * snapshots, four different people. Picked deterministically per codename. */
+const LIFETIME_DRIFT = {
+  ages: [
+    { label: 'At 7',  pool: [
+      'Collects something specific that nobody understands.',
+      'Has a recurring dream they do not mention.',
+      'Treats one stuffed animal as a person.',
+      'Defends a friend who is being teased.',
+      'Will lie about something small for years.',
+      'Has a favorite word they say aloud just to hear it.',
+      'Is convinced of one thing that is not true.'
+    ]},
+    { label: 'At 17', pool: [
+      'Argues with a parent about something neither will remember in a decade.',
+      'Has a friendship that feels too intense to last — and will not.',
+      'Writes things down they would die if anyone read.',
+      'Disappoints a teacher they admire.',
+      'Falls in love with an idea before a person.',
+      'Believes their own future is already obvious.',
+      'Stays up late for something that will feel small at 27.'
+    ]},
+    { label: 'At 35', pool: [
+      'Has not given up on a project that is mostly finished.',
+      'Lives within driving distance of one parent.',
+      'Sleeps better some weeks than others.',
+      'Has stopped trying to like a certain food.',
+      'Quietly maintains a friendship through monthly texts.',
+      'Knows what they are afraid of and works around it.',
+      'Owns one piece of furniture they bought too young.'
+    ]},
+    { label: 'At 70', pool: [
+      'Tells a story about being 11 that may be partly invented.',
+      'Has outlived at least one person they expected to grow old with.',
+      'Notices birds.',
+      'Holds a small grudge that no longer matters.',
+      'Surprises themselves with what they remember.',
+      'Has changed their mind about something they were certain of at 30.',
+      'Speaks to a grandchild about something nobody else knows.'
+    ]}
+  ]
+};
 
 const HUMANITY_REMINDERS = [
   'Humans are more than predicted traits.',
@@ -1318,7 +1789,8 @@ const state = {
   generateCount: 0,    // how many times Generate has been clicked
   alternates: [],      // generated alternate-baby cards
   futures: [],         // generated adult-life future cards (for current baby)
-  age: 17              // current age on the aging-scrubber slider (0..80)
+  age: 17,             // current age on the aging-scrubber slider (0..80)
+  language: 'en'       // 'en' | 'zh' | 'ja' | 'ko' | 'tr' — UI chrome only
 };
 
 /* ---------- Helpers ---------- */
@@ -2001,6 +2473,10 @@ function updateBabyPreview() {
   renderDivergence();
   renderTraitHistory();
   renderSiblingCohort();
+
+  // Reflection-mode arc: same person, different rooms / decades.
+  renderInnerCohort();
+  renderLifetimeDrift();
 
   // Trait conflicts (tradeoff chips)
   const conflictsEl = $('#trait-conflicts');
@@ -3222,6 +3698,64 @@ function renderDivergence() {
     renderDivergence();
   });
   el.querySelector('[data-act="reroll"]').addEventListener('click', () => rollDivergence());
+}
+
+/* ---------- Reflection: Inner Cohort renderer ---------- */
+function renderInnerCohort() {
+  const panel = $('#inner-cohort-panel');
+  if (!panel) return;
+  if (state.appMode !== 'reflection' || !state.codename) {
+    panel.hidden = true;
+    return;
+  }
+  const rng = seededRand(state.codename + '|inner-cohort');
+  const cards = INNER_COHORT_CONTEXTS.map(ctx => {
+    const picks = pickN(ctx.pool, 2, rng);
+    return `
+      <article class="inner-context" data-ctx="${ctx.key}">
+        <header class="inner-context-head">
+          <span class="inner-context-icon" aria-hidden="true">${ctx.icon}</span>
+          <span class="inner-context-label">${ctx.label}</span>
+        </header>
+        <ul class="inner-context-lines">${picks.map(p => `<li>${p}</li>`).join('')}</ul>
+      </article>`;
+  }).join('');
+  panel.innerHTML = `
+    <header class="inner-cohort-head">
+      <h2>Same person, different rooms</h2>
+      <p class="subtle">Four contexts. One person each. The identity sliders did not model any of them.</p>
+    </header>
+    <div class="inner-cohort-grid">${cards}</div>`;
+  panel.hidden = false;
+}
+
+/* ---------- Reflection: Lifetime Drift renderer ---------- */
+function renderLifetimeDrift() {
+  const panel = $('#lifetime-drift-panel');
+  if (!panel) return;
+  if (state.appMode !== 'reflection' || !state.codename) {
+    panel.hidden = true;
+    return;
+  }
+  const rng = seededRand(state.codename + '|drift');
+  const cards = LIFETIME_DRIFT.ages.map((age, i) => {
+    const idx  = Math.floor(rng() * age.pool.length);
+    const line = age.pool[idx];
+    return `
+      <article class="drift-stage" data-stage="${i}">
+        <header class="drift-stage-head">
+          <span class="drift-age">${age.label}</span>
+        </header>
+        <p class="drift-line">${line}</p>
+      </article>`;
+  }).join('');
+  panel.innerHTML = `
+    <header class="lifetime-drift-head">
+      <h2>One life, different decades</h2>
+      <p class="subtle">The same person at four ages. The optimization targets you chose will look like different things at each.</p>
+    </header>
+    <div class="lifetime-drift-row">${cards}</div>`;
+  panel.hidden = false;
 }
 
 /* ---------- Sibling Cohort (Adult mode) ---------- */

@@ -99,13 +99,23 @@
   </svg>
 
   <header class="site-header">
+    <div class="lang-selector-wrap">
+      <label for="lang-select" class="lang-label" data-i18n="language.label">Language</label>
+      <select class="lang-select" id="lang-select" aria-labelledby="lang-label">
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="tr">Türkçe</option>
+      </select>
+    </div>
     <h1><span class="logo-mark">⌬</span> BabyBlend Lab</h1>
-    <p class="tagline">A fictional genetics-inspired simulator</p>
-    <p class="disclaimer">Not real medical or genetic advice — just a playful what-if.</p>
+    <p class="tagline" data-i18n="app.tagline">A fictional genetics-inspired simulator</p>
+    <p class="disclaimer" data-i18n="app.disclaimer">Not real medical or genetic advice — just a playful what-if.</p>
     <div class="app-mode-toggle" role="tablist" aria-label="App experience">
-      <button type="button" class="app-mode-btn"           data-app-mode="reflection" role="tab" aria-selected="false">🪞 Reflection</button>
-      <button type="button" class="app-mode-btn"           data-app-mode="kids"       role="tab" aria-selected="false">✺ Kids</button>
-      <button type="button" class="app-mode-btn is-active" data-app-mode="adult"      role="tab" aria-selected="true">◐ Adult</button>
+      <button type="button" class="app-mode-btn"           data-app-mode="reflection" role="tab" aria-selected="false">🪞 <span data-i18n="mode.reflection">Reflection</span></button>
+      <button type="button" class="app-mode-btn"           data-app-mode="kids"       role="tab" aria-selected="false">✺ <span data-i18n="mode.kids">Kids</span></button>
+      <button type="button" class="app-mode-btn is-active" data-app-mode="adult"      role="tab" aria-selected="true">◐ <span data-i18n="mode.adult">Adult</span></button>
     </div>
   </header>
 
@@ -114,21 +124,21 @@
   <main>
     <!-- 1. Parent forms -->
     <section class="panel parent-panel" aria-labelledby="parents-heading">
-      <h2 id="parents-heading">Parent Profiles</h2>
+      <h2 id="parents-heading" data-i18n="section.parents">Parent Profiles</h2>
       <div class="parents" id="parents"></div>
     </section>
 
     <!-- 1b. Environmental influences -->
     <section class="panel env-panel" aria-labelledby="env-heading">
-      <h2 id="env-heading"><span class="playful-text">Environmental Influences</span><span class="adult-text">Environmental Modifiers</span></h2>
-      <p class="subtle"><span class="playful-text">Genes aren't destiny. Tweak the nurture side too.</span><span class="adult-text">Adjust developmental modifiers to inform downstream projections.</span></p>
+      <h2 id="env-heading"><span class="playful-text" data-i18n="section.env.playful">Environmental Influences</span><span class="adult-text" data-i18n="section.env.adult">Environmental Modifiers</span></h2>
+      <p class="subtle"><span class="playful-text" data-i18n="section.env.intro.playful">Genes aren't destiny. Tweak the nurture side too.</span><span class="adult-text" data-i18n="section.env.intro.adult">Adjust developmental modifiers to inform downstream projections.</span></p>
       <div class="env-grid" id="env-grid"></div>
     </section>
 
     <!-- 1c. Enhancement Allocation (Adult mode only) -->
     <section class="panel budget-panel adult-only" id="budget-panel" aria-labelledby="budget-heading">
-      <h2 id="budget-heading">Enhancement Allocation <span class="beta-tag">Beta</span></h2>
-      <p class="subtle">Distribute credits across optimization categories. Allocations bias projected outcomes; tradeoffs are listed per package.</p>
+      <h2 id="budget-heading"><span data-i18n="section.budget.heading">Enhancement Allocation</span> <span class="beta-tag">Beta</span></h2>
+      <p class="subtle" data-i18n="section.budget.intro">Distribute credits across optimization categories. Allocations bias projected outcomes; tradeoffs are listed per package.</p>
       <div class="budget-bar" aria-label="Budget usage">
         <span class="budget-fill" id="budget-fill"></span>
         <span class="budget-text" id="budget-text">0 / 200 credits</span>
@@ -159,19 +169,19 @@
 
     <div class="primary-action">
       <button id="randomize-parents-btn" class="btn">
-        <span class="playful-text">🎲 Randomize Parents</span>
-        <span class="reflection-text">Imagine new parents</span>
-        <span class="adult-text">Randomize Inputs</span>
+        <span class="playful-text"    data-i18n="btn.randomize_parents.playful">🎲 Randomize Parents</span>
+        <span class="reflection-text" data-i18n="btn.randomize_parents.reflection">Imagine new parents</span>
+        <span class="adult-text"      data-i18n="btn.randomize_parents.adult">Randomize Inputs</span>
       </button>
       <button id="natural-variation-btn" class="btn">
-        <span class="playful-text">🌱 Preserve Natural Variation</span>
-        <span class="reflection-text">Honor natural variation</span>
-        <span class="adult-text">Reset to Natural Variation</span>
+        <span class="playful-text"    data-i18n="btn.preserve.playful">🌱 Preserve Natural Variation</span>
+        <span class="reflection-text" data-i18n="btn.preserve.reflection">Honor natural variation</span>
+        <span class="adult-text"      data-i18n="btn.preserve.adult">Reset to Natural Variation</span>
       </button>
       <button id="generate-btn" class="btn btn-primary">
-        <span class="playful-text">Generate Baby Possibilities</span>
-        <span class="reflection-text">Imagine a possible life</span>
-        <span class="adult-text">Generate Projection</span>
+        <span class="playful-text"    data-i18n="btn.generate.playful">Generate Baby Possibilities</span>
+        <span class="reflection-text" data-i18n="btn.generate.reflection">Imagine a possible life</span>
+        <span class="adult-text"      data-i18n="btn.generate.adult">Generate Projection</span>
       </button>
     </div>
 
@@ -179,18 +189,18 @@
     <section class="results" id="results" hidden>
       <div class="panel sliders-panel" aria-labelledby="sliders-heading">
         <h2 id="sliders-heading">
-          <span class="playful-text">Baby Trait Sliders</span>
-          <span class="adult-text">Projected Outcomes <span class="beta-tag">Beta</span></span>
+          <span class="playful-text" data-i18n="section.sliders.playful">Baby Trait Sliders</span>
+          <span class="adult-text"><span data-i18n="section.sliders.adult">Projected Outcomes</span> <span class="beta-tag">Beta</span></span>
         </h2>
         <p class="subtle">
-          <span class="playful-text">Ranges are inspired by both parents. Slide to explore possibilities. Personality sliders use the Big Five (OCEAN) model — inspired by, not predictive of, real psychology.</span>
-          <span class="adult-text">Ranges derived from midparent inheritance and allocation bias. Behavioral projections have lower confidence than phenotypic.</span>
+          <span class="playful-text" data-i18n="section.sliders.intro.playful">Ranges are inspired by both parents. Slide to explore possibilities. Personality sliders use the Big Five (OCEAN) model — inspired by, not predictive of, real psychology.</span>
+          <span class="adult-text" data-i18n="section.sliders.intro.adult">Ranges derived from midparent inheritance and allocation bias. Behavioral projections have lower confidence than phenotypic.</span>
         </p>
         <div id="sliders" class="sliders"></div>
 
         <div class="surprise-wrap">
           <div class="surprise">
-            <span class="surprise-label"><span class="playful-text">Genetic surprise factor</span><span class="adult-text">Outcome variance index</span></span>
+            <span class="surprise-label"><span class="playful-text" data-i18n="surprise.playful">Genetic surprise factor</span><span class="adult-text" data-i18n="surprise.adult">Outcome variance index</span></span>
             <span class="surprise-bar"><span class="surprise-bar-fill" id="surprise-fill"></span></span>
             <span class="surprise-pct" id="surprise-pct">0%</span>
           </div>
@@ -199,34 +209,34 @@
 
         <div class="actions">
           <button id="randomize-btn" class="btn">
-            <span class="playful-text">🎲 Randomize Within Parent Range</span>
-            <span class="reflection-text">Try a different version</span>
-            <span class="adult-text">Re-sample Within Range</span>
+            <span class="playful-text"    data-i18n="btn.randomize.playful">🎲 Randomize Within Parent Range</span>
+            <span class="reflection-text" data-i18n="btn.randomize.reflection">Try a different version</span>
+            <span class="adult-text"      data-i18n="btn.randomize.adult">Re-sample Within Range</span>
           </button>
           <button id="reset-btn" class="btn">
-            <span class="playful-text">↺ Reset to Parent Average</span>
-            <span class="reflection-text">Return to the middle</span>
-            <span class="adult-text">Reset to Midparent</span>
+            <span class="playful-text"    data-i18n="btn.reset.playful">↺ Reset to Parent Average</span>
+            <span class="reflection-text" data-i18n="btn.reset.reflection">Return to the middle</span>
+            <span class="adult-text"      data-i18n="btn.reset.adult">Reset to Midparent</span>
           </button>
           <button id="copy-btn" class="btn">
-            <span class="playful-text">⧉ Copy Baby Profile</span>
-            <span class="reflection-text">Copy this profile</span>
-            <span class="adult-text">Export Projection</span>
+            <span class="playful-text"    data-i18n="btn.copy.playful">⧉ Copy Baby Profile</span>
+            <span class="reflection-text" data-i18n="btn.copy.reflection">Copy this profile</span>
+            <span class="adult-text"      data-i18n="btn.copy.adult">Export Projection</span>
           </button>
           <button id="save-btn" class="btn">
-            <span class="playful-text">💾 Save Timeline</span>
-            <span class="reflection-text">Hold this life</span>
-            <span class="adult-text">Save Projection</span>
+            <span class="playful-text"    data-i18n="btn.save.playful">💾 Save Timeline</span>
+            <span class="reflection-text" data-i18n="btn.save.reflection">Hold this life</span>
+            <span class="adult-text"      data-i18n="btn.save.adult">Save Projection</span>
           </button>
           <button id="futures-btn" class="btn">
-            <span class="playful-text">🪐 Show Possible Adult Futures</span>
-            <span class="reflection-text">Glimpse the later years</span>
-            <span class="adult-text">Generate Trajectory Set</span>
+            <span class="playful-text"    data-i18n="btn.futures.playful">🪐 Show Possible Adult Futures</span>
+            <span class="reflection-text" data-i18n="btn.futures.reflection">Glimpse the later years</span>
+            <span class="adult-text"      data-i18n="btn.futures.adult">Generate Trajectory Set</span>
           </button>
           <button id="alternates-btn" class="btn">
-            <span class="playful-text">🌌 Generate Alternate Timelines</span>
-            <span class="reflection-text">Imagine other lives from the same beginnings</span>
-            <span class="adult-text">Generate Alternate Projections</span>
+            <span class="playful-text"    data-i18n="btn.alternates.playful">🌌 Generate Alternate Timelines</span>
+            <span class="reflection-text" data-i18n="btn.alternates.reflection">Imagine other lives from the same beginnings</span>
+            <span class="adult-text"      data-i18n="btn.alternates.adult">Generate Alternate Projections</span>
           </button>
         </div>
         <div class="copy-status" id="copy-status" role="status" aria-live="polite"></div>
@@ -235,9 +245,9 @@
 
       <aside class="panel baby-panel" aria-labelledby="baby-heading">
         <h2 id="baby-heading">
-          <span class="playful-text">Baby Preview</span>
-          <span class="reflection-text">A profile, imagined</span>
-          <span class="adult-text">Behavioral Projection <span class="beta-tag">Beta</span></span>
+          <span class="playful-text"    data-i18n="section.baby.playful">Baby Preview</span>
+          <span class="reflection-text" data-i18n="section.baby.reflection">A profile, imagined</span>
+          <span class="adult-text"><span data-i18n="section.baby.adult">Behavioral Projection</span> <span class="beta-tag">Beta</span></span>
         </h2>
 
         <aside class="profile-epigraph" id="profile-epigraph" hidden></aside>
@@ -355,6 +365,10 @@
       </p>
       <div class="lineage-tree" id="lineage-tree" aria-hidden="true"></div>
     </section>
+
+    <!-- Reflection-mode arc: same person, different rooms / decades -->
+    <section class="inner-cohort-panel panel reflection-only" id="inner-cohort-panel" hidden></section>
+    <section class="lifetime-drift-panel panel reflection-only" id="lifetime-drift-panel" hidden></section>
 
     <!-- Divergence banner (Adult mode, intermittent) -->
     <div class="divergence-banner adult-only" id="divergence-banner" hidden></div>
