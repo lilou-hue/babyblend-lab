@@ -3401,3 +3401,199 @@ body.mode-adult .societal-brief-panel:not([hidden]) {
   border-left: 2px solid rgba(255, 210, 138, 0.25);
   padding-left: 10px;
 }
+
+/* ====================================================================
+ * Divergence banner — Adult-mode warning that the projection is void
+ * ==================================================================== */
+.divergence-banner {
+  margin: 16px 0 -4px;
+  padding: 14px 18px 12px;
+  background: rgba(40, 18, 6, 0.55);
+  border: 1px solid rgba(255, 184, 110, 0.45);
+  border-left: 3px solid rgba(255, 184, 110, 0.85);
+  border-radius: 10px;
+  color: var(--ink);
+  position: relative;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 24px rgba(255, 184, 110, 0.10);
+  animation: divergenceIn 0.45s ease;
+}
+@keyframes divergenceIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.divergence-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.divergence-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgb(255, 200, 130);
+}
+.divergence-actions { display: flex; gap: 4px; }
+.divergence-reroll,
+.divergence-dismiss {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 184, 110, 0.35);
+  background: transparent;
+  color: rgba(255, 220, 180, 0.85);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.divergence-reroll:hover,
+.divergence-dismiss:hover {
+  background: rgba(255, 184, 110, 0.10);
+  border-color: rgba(255, 184, 110, 0.7);
+  color: var(--ink);
+}
+.divergence-body {
+  margin: 4px 0 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.divergence-note {
+  margin: 0;
+  font-size: 11.5px;
+  color: rgba(255, 220, 180, 0.75);
+  letter-spacing: 0.2px;
+  font-style: italic;
+}
+
+/* ====================================================================
+ * Trait Popularity Through History timeline
+ * ==================================================================== */
+.trait-history-panel {
+  padding: 26px 24px 24px;
+}
+.trait-history-head { margin-bottom: 14px; }
+.trait-history-panel h2 {
+  font-size: 19px;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+}
+.trait-history-timeline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  position: relative;
+}
+.trait-history-timeline::before {
+  content: "";
+  position: absolute;
+  top: 18px; left: 24px; right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(126, 224, 255, 0.0),
+    rgba(126, 224, 255, 0.4) 20%,
+    rgba(200, 155, 255, 0.4) 80%,
+    rgba(200, 155, 255, 0.0));
+  pointer-events: none;
+}
+.history-era {
+  position: relative;
+  padding: 30px 12px 14px;
+  background: rgba(7, 9, 30, 0.4);
+  border: 1px solid rgba(126, 224, 255, 0.14);
+  border-radius: 10px;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.history-era::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(126, 224, 255, 0.65);
+  box-shadow: 0 0 8px rgba(126, 224, 255, 0.7);
+}
+.history-era:hover {
+  border-color: rgba(126, 224, 255, 0.42);
+  background: rgba(7, 9, 30, 0.6);
+  transform: translateY(-1px);
+}
+.history-era.is-present {
+  border-color: rgba(126, 224, 255, 0.55);
+  background: rgba(10, 20, 50, 0.6);
+}
+.history-era.is-present::before {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+.history-era.is-speculative {
+  border-style: dashed;
+  border-color: rgba(200, 155, 255, 0.3);
+  background: rgba(20, 14, 40, 0.4);
+}
+.history-era.is-speculative::before {
+  background: var(--accent-2);
+  box-shadow: 0 0 8px var(--accent-2);
+  border: 1px dashed rgba(200, 155, 255, 0.7);
+}
+.era-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.era-year {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.4px;
+  font-variant-numeric: tabular-nums;
+}
+.era-label {
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 2px;
+}
+.history-era.is-present .era-label    { color: var(--accent); }
+.history-era.is-speculative .era-label { color: var(--accent-2); font-style: italic; }
+.era-traits {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.era-traits li {
+  font-size: 11.5px;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.era-note {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  font-style: italic;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+/* Smaller screens: timeline wraps to fewer columns. */
+@media (max-width: 880px) {
+  .trait-history-timeline { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .trait-history-timeline::before { display: none; }
+}

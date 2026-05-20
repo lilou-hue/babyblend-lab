@@ -1832,8 +1832,10 @@ function updateBabyPreview() {
   const futureBlock = $('#future-block');
   if (futureBlock) futureBlock.hidden = !(state.futurePaths && state.futurePaths.length);
 
-  // Social Response projection (Adult mode)
+  // Societal Outcomes Brief + divergence + historical drift (Adult mode)
   renderSocialResponse();
+  renderDivergence();
+  renderTraitHistory();
 
   // Trait conflicts (tradeoff chips)
   const conflictsEl = $('#trait-conflicts');
@@ -2769,6 +2771,48 @@ function computeTraitConflicts(b) {
  * reacts to the modeled child. Fires from specific budget + trait + env
  * combinations so the brief feels causal, not generic. Replaces the
  * old flat "Projected Social Response" list. */
+/* ---------- Divergence Events (Adult mode) ----------
+ * Rare life events that override the modeled projection. The thesis is
+ * 'humans cannot fully be engineered'; the divergence makes it concrete
+ * by invalidating the brief with one ordinary biographical fact. */
+const DIVERGENCE_EVENTS = [
+  "Grandparent's death at age 14 quietly reshapes their emotional architecture.",
+  "Falls hard for a high-school teacher who teaches them Russian poetry. Career bends.",
+  "Develops a chronic illness at 26. Identity reorganizes around it.",
+  "A close friend dies young. They become unrecognizable for a decade.",
+  "One book — encountered at 19 — recalibrates everything.",
+  "A mentor takes unexpected interest. Trajectory accelerates in a direction nobody modeled.",
+  "Loses their first job during a recession. Quietly chooses art.",
+  "Has a child earlier than projected. Time pivots.",
+  "Survives a near-fatal accident at 31. Reorganizes around the survival.",
+  "Falls in love with a partner who lives six time zones away. Geography rewrites the projection.",
+  "Develops an obsession with a single craft that compounds over twenty years.",
+  "A sibling becomes seriously ill. Caregiving rewrites their twenties.",
+  "Moves to a country they have never been to and stays.",
+  "Joins a small movement at 22. The movement becomes their life.",
+  "Reads an obituary that names them as second cousin. Family arrives.",
+  "Is the only person present at a stranger's emergency. Career changes within a year.",
+  "A teacher's offhand comment at age 9 quietly anchors their adult identity.",
+  "Comes out at 34. Everything before reads differently afterward.",
+  "Inherits a small piece of property from a relative they barely knew. It anchors them.",
+  "Finds a single piece of art at 17 that determines what they want to do with their hands.",
+  "Becomes briefly internet-famous for an accident at 22. Recovers slowly.",
+  "Loses their faith. Or finds one. Either way, the projection bends.",
+  "Adopts a child late in life. Resists every model that called this implausible."
+];
+
+/* ---------- Trait Popularity Through History (Adult mode) ----------
+ * Five eras showing what each decade idealized as a 'desirable' trait.
+ * Makes the cultural-stability question visible: the present is not
+ * universal, it's just recent. */
+const TRAIT_HISTORY = [
+  { era: '1950s', label: 'Mid-century',  traits: ['Obedience', 'Deference', 'Conformity'],            note: 'Idealized in employment, schooling, family roles.' },
+  { era: '1980s', label: 'Late-century', traits: ['Competitiveness', 'Ambition', 'Self-reliance'],     note: 'Optimization read as economic value.' },
+  { era: '2000s', label: 'Early-2000s',  traits: ['Confidence', 'Charisma', 'Multitasking'],           note: 'Network-economy demands.' },
+  { era: '2020s', label: 'Present',      traits: ['Resilience', 'Attractiveness', 'Productivity'],     note: 'Algorithm-mediated visibility.', isPresent: true },
+  { era: '2040s', label: 'Speculative',  traits: ['Emotional regulation', 'Cognitive endurance', 'Network sensitivity'], note: 'Modeled extension; subject to drift.', isSpeculative: true }
+];
+
 const SOCIETAL_RULES = {
   academic: {
     title: 'Academic tracking',
@@ -2872,6 +2916,72 @@ function renderSocietalBrief() {
 
 // Back-compat shim — older call sites still expect renderSocialResponse.
 const renderSocialResponse = renderSocietalBrief;
+
+/* ---------- Divergence rendering ---------- */
+function rollDivergence() {
+  const rng = seededRand((state.codename || 'baby') + '|divergence|' + Date.now());
+  state.divergence = DIVERGENCE_EVENTS[Math.floor(rng() * DIVERGENCE_EVENTS.length)];
+  renderDivergence();
+}
+
+function renderDivergence() {
+  const el = $('#divergence-banner');
+  if (!el) return;
+  if (state.appMode !== 'adult' || !state.divergence) {
+    el.hidden = true;
+    el.innerHTML = '';
+    return;
+  }
+  el.hidden = false;
+  el.innerHTML = `
+    <div class="divergence-head">
+      <span class="divergence-label">⚠ Projection divergence detected</span>
+      <div class="divergence-actions">
+        <button type="button" class="divergence-reroll" data-act="reroll" aria-label="Roll a different divergence">↻</button>
+        <button type="button" class="divergence-dismiss" data-act="dismiss" aria-label="Dismiss">×</button>
+      </div>
+    </div>
+    <p class="divergence-body">${state.divergence}</p>
+    <p class="divergence-note">Outcome trajectory no longer matches the modeled projection. Reprojection recommended.</p>`;
+  el.querySelector('[data-act="dismiss"]').addEventListener('click', () => {
+    state.divergence = null;
+    renderDivergence();
+  });
+  el.querySelector('[data-act="reroll"]').addEventListener('click', () => rollDivergence());
+}
+
+/* ---------- Trait Popularity Through History ---------- */
+function renderTraitHistory() {
+  const panel = $('#trait-history-panel');
+  if (!panel) return;
+  if (state.appMode !== 'adult') {
+    panel.hidden = true;
+    return;
+  }
+  const cards = TRAIT_HISTORY.map(era => {
+    const cls = [
+      'history-era',
+      era.isPresent ? 'is-present' : '',
+      era.isSpeculative ? 'is-speculative' : ''
+    ].filter(Boolean).join(' ');
+    return `
+      <article class="${cls}">
+        <header class="era-head">
+          <span class="era-year">${era.era}</span>
+          <span class="era-label">${era.label}</span>
+        </header>
+        <ul class="era-traits">${era.traits.map(t => `<li>${t}</li>`).join('')}</ul>
+        <p class="era-note">${era.note}</p>
+      </article>`;
+  }).join('');
+  panel.innerHTML = `
+    <header class="trait-history-head">
+      <h2>Trait Popularity · Historical Drift <span class="beta-tag">Beta</span></h2>
+      <p class="subtle">What gets called a 'desirable' trait drifts across eras. Optimization targets are not culturally stable.</p>
+    </header>
+    <div class="trait-history-timeline">${cards}</div>`;
+  panel.hidden = false;
+}
 
 function pickReflectionPrompt(seed) {
   const rng = seededRand(seed + '|reflection');
@@ -3022,7 +3132,16 @@ function generate() {
   state.reflection  = pickReflectionPrompt(state.codename);
 
   renderSurprise(state.surprise);
-  updateBabyPreview();      // refresh display with new flavor
+
+  // Divergence: in Adult mode, ~25% of generations get overridden by an
+  // ordinary biographical event the model couldn't predict. Cleared
+  // otherwise so each generation starts from a clean projection.
+  state.divergence = null;
+  if (state.appMode === 'adult' && Math.random() < 0.25) {
+    rollDivergence();
+  }
+
+  updateBabyPreview();      // refresh display with new flavor (also renders divergence + history)
 
   // Quietly remind users this is a person, not a profile, every few generations.
   if (state.generateCount % 3 === 0 || state.appMode === 'reflection') {
