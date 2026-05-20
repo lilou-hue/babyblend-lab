@@ -3001,19 +3001,26 @@ function generateSliderRanges(parents) {
       };
     } else if (def.kind === 'polygenic') {
       // Polygenic-flavored: child ≈ midparent + Gaussian(σ_eff), ~50% heritability.
-      // Segregational variance grows with parental disparity (Falconer-flavored):
-      //   σ_eff² = σ_base² + k·(|a−b| / span)²·span²   (k ≈ 0.06)
-      // so identical parents give a tight band and far-apart parents give a wider
-      // one — consistent with how computeSurprise reads parental disparity.
       // Slider range ≈ midparent ± 2σ_eff (~95% interval).
       // Chaos mode widens to the full hardMin/hardMax range.
       // In Adult mode, Enhancement Allocation biases the center of the band.
+      //
+      // Segregational-variance (Falconer-flavored) disparity scaling:
+      //   σ_eff² = σ_base² + k·(|a−b| / span)²·span²   (k ≈ 0.06)
+      // is appropriate for additive-polygenic *physical* traits (e.g. athletic
+      // tendency) but NOT for Big Five personality, where heritability is lower,
+      // gene–environment interaction dominates, and treating parental disparity
+      // as additive segregational variance overclaims what the model can say.
+      // For OCEAN keys we therefore hold σ at the base value and let the band
+      // read as a fixed uncertainty window rather than a parent-disparity signal.
       const a = parents.A[def.key], b = parents.B[def.key];
       const baseCenter = (a + b) / 2;
       const center = applyBudgetBias(baseCenter, def.key);
       const span = def.hardMax - def.hardMin;
-      const disparityFrac = span > 0 ? Math.abs(a - b) / span : 0;
+      const isOcean = PERSONALITY_OCEAN_KEYS.has(def.key);
+      const disparityFrac = (!isOcean && span > 0) ? Math.abs(a - b) / span : 0;
       // 0.06 keeps the effect modest: at max disparity sigma widens ~60%.
+      // For OCEAN, disparityFrac is forced to 0 so σ_eff = σ_base.
       const sigmaEff = Math.sqrt(def.sigma * def.sigma + 0.06 * disparityFrac * disparityFrac * span * span);
       const half = chaos ? span : (2 * sigmaEff);
       const lo = clamp(Math.floor(center - half), def.hardMin, def.hardMax);
