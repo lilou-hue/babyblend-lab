@@ -40,8 +40,8 @@ const STRINGS = {
     'landing.begin': 'Enter the lab',
     'landing.disclaimer': 'Fictional simulation. Not real medical or genetic advice.',
     'section.parents': 'Parent Profiles',
-    // LOOP_REQUEST(translator): translate `section.parents.defaults_note` for zh/ja/ko/tr.
-    'section.parents.defaults_note': 'Defaults shown are one starting point; use ↻ on a parent card — or 🎲 Randomize Parents below — to explore others.',
+    // LOOP_REQUEST(translator): re-translate `section.parents.defaults_note` for zh/ja/ko/tr — copy was expanded in Round 3 revision to name the ancestry baseline explicitly.
+    'section.parents.defaults_note': 'Defaults shown represent one ancestry baseline. Use Ancestry on a parent card, ↻ to reroll, 🎲 Randomize Parents, or 🌍 Reset to global phenotype range to explore others.',
     'section.env.playful': 'Environmental Influences',
     'section.env.adult': 'Environmental Modifiers',
     'section.env.intro.playful': "Genes aren't destiny. Tweak the nurture side too.",
@@ -72,6 +72,10 @@ const STRINGS = {
     'btn.preserve.playful': '🌱 Preserve Natural Variation',
     'btn.preserve.reflection': 'Honor natural variation',
     'btn.preserve.adult': 'Reset to Natural Variation',
+    // LOOP_REQUEST(translator): translate `btn.diversify_defaults.*` for zh/ja/ko/tr.
+    'btn.diversify_defaults.playful': '🌍 Reset to global phenotype range',
+    'btn.diversify_defaults.reflection': 'Step outside the default range',
+    'btn.diversify_defaults.adult': 'Reset to global phenotype range',
     'btn.generate.playful': 'Generate Baby Possibilities',
     'btn.generate.reflection': 'Imagine a possible life',
     'btn.generate.adult': 'Generate Projection',
@@ -2918,9 +2922,12 @@ function applyAppModeClass() {
 
 // Enhancement Allocation is now visible from first load in Adult mode,
 // but interaction is GATED on generateCount>=1 (lock copy explains why).
-// Consent Implications still gates on generateCount>=2 AND total credits
-// allocated >= 50 — the heavier reframing only fully reveals once the
-// user has committed real allocation weight.
+// Consent Implications now reveals purely on allocation weight (>=50
+// credits) — the gen-2 co-gate was redundant once allocation is the
+// signal that the user has committed to an optimization frame, and was
+// blocking the consent reframing during the most teachable moment.
+// Other analytical Adult panels (Societal Brief, Sibling Cohort, Trait
+// Popularity) keep the gen requirement as their own reveal gate.
 function applyBudgetPanelGate() {
   const panel = $('#budget-panel');
   const consent = $('#consent-panel');
@@ -2934,11 +2941,12 @@ function applyBudgetPanelGate() {
     applyBudgetInteractionLock(!interactionReady);
     ensureBudgetLockNotice(isAdult && !interactionReady);
   }
-  // Consent Implications: visible only after Gen 2 AND ≥50 credits allocated.
-  // First reveal uses the same downward-settle motion as the OCEAN/advanced
-  // disclosure (translateY 6px → 0, 0.45s) so the two read as one system.
+  // Consent Implications: visible once ≥50 credits are allocated in Adult
+  // mode. First reveal uses the same downward-settle motion as the OCEAN
+  // /advanced disclosure (translateY 6px → 0, 0.45s) so the two read as
+  // one system.
   const allocated = computeBudgetUsed();
-  const consentReady = isAdult && gen >= 2 && allocated >= 50;
+  const consentReady = isAdult && allocated >= 50;
   if (consent) {
     const wasHidden = consent.hidden;
     consent.hidden = !consentReady;
@@ -5943,12 +5951,18 @@ function updateBudgetBar() {
   const text = $('#budget-text');
   if (bar) bar.style.width = Math.min(100, (used / BUDGET_TOTAL) * 100) + '%';
   if (text) text.textContent = `${used} / ${BUDGET_TOTAL} credits`;
-  // Heritable-consent badge: only fully reveals after Gen 2 AND total
-  // allocated credits >= 50, matching the Consent Implications panel
-  // gate. Below that threshold the badge stays hidden so the early
-  // experience isn't carrying the full compliance frame.
+  // Heritable-consent badge: reveals on >=50 credits allocated, matching
+  // the Consent Implications panel gate. Below that threshold the badge
+  // stays hidden so the early experience isn't carrying the full
+  // compliance frame.
   const badge = $('#consent-badge');
-  if (badge) badge.hidden = !((state.generateCount || 0) >= 2 && used >= 50);
+  if (badge) badge.hidden = !(used >= 50);
+  // Inline ethics flags: visible at any allocation > 0, BEFORE the full
+  // Consent Implications panel unlocks at 50 credits. Acts as a faint
+  // ambient signal so the reversibility/absent-subject framing isn't
+  // delayed until the heavy panel reveals.
+  const flags = $('#budget-ethics-flags');
+  if (flags) flags.hidden = !(used > 0);
   // If the micro-ack already fired, keep the progress hint in sync; it
   // auto-removes once threshold (50) is reached.
   if (state.consentAck) ensureConsentProgressHint();

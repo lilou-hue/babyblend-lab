@@ -3065,6 +3065,28 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.3px;
 }
+/* Inline ethics flags — appear under the budget bar at any allocation
+   > 0, BEFORE the full Consent Implications panel unlocks at 50 credits.
+   Two short text spans, no widget. Kept faint so they read as ambient
+   labels rather than a second compliance frame. */
+.budget-ethics-flags {
+  margin: -8px 0 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.4px;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+.budget-ethics-flags .ethics-flag strong {
+  color: rgba(255, 210, 138, 0.88);
+  font-weight: 600;
+}
+.budget-ethics-flags .ethics-flag-sep {
+  opacity: 0.5;
+}
 /* Budget projections (Cohort Placement + Inheritance Burden) — Adult only. */
 .budget-projections {
   display: flex;

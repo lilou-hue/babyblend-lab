@@ -251,7 +251,7 @@
     <!-- 1. Parent forms -->
     <section class="panel parent-panel" aria-labelledby="parents-heading">
       <h2 id="parents-heading" data-i18n="section.parents">Parent Profiles</h2>
-      <p class="parents-defaults-note" data-i18n="section.parents.defaults_note">Defaults shown are one starting point; use ↻ on a parent card — or 🎲 Randomize Parents below — to explore others.</p>
+      <p class="parents-defaults-note" data-i18n="section.parents.defaults_note">Defaults shown represent one ancestry baseline. Use Ancestry on a parent card, ↻ to reroll, 🎲 Randomize Parents, or 🌍 Reset to global phenotype range to explore others.</p>
       <div class="parents" id="parents"></div>
     </section>
 
@@ -271,6 +271,14 @@
         <span class="budget-fill" id="budget-fill"></span>
         <span class="budget-text" id="budget-text">0 / 200 credits</span>
       </div>
+      <!-- Inline ethics flags — visible at any allocation > 0, BEFORE the
+           full Consent Implications panel unlocks at 50 credits. Two
+           static text spans, no interactive widget; auto-hides at 0. -->
+      <p class="budget-ethics-flags" id="budget-ethics-flags" hidden aria-live="polite">
+        <span class="ethics-flag">Reversibility: <strong>No</strong></span>
+        <span class="ethics-flag-sep">·</span>
+        <span class="ethics-flag">Subject absent: <strong>Yes</strong></span>
+      </p>
       <div class="budget-projections" id="budget-projections" aria-live="polite">
         <div class="projection-row">
           <span class="projection-label">Projected Cohort Placement</span>
@@ -317,8 +325,11 @@
            ANCESTRY_PRESETS without touching the Ancestry SELECT itself.
            Sociology Reviewer round 1+2 deferral resolved here (option i). -->
       <button id="diversify-defaults-btn" class="btn"
-              title="Re-roll appearance defaults across ancestry presets (does not change Ancestry).">
-        Diversify Defaults
+              aria-label="Reset parent appearance defaults to a globally diverse phenotype range"
+              title="Reset appearance defaults to a globally diverse phenotype range instead of the Northern European baseline">
+        <span class="playful-text"    data-i18n="btn.diversify_defaults.playful">🌍 Reset to global phenotype range</span>
+        <span class="reflection-text" data-i18n="btn.diversify_defaults.reflection">Step outside the default range</span>
+        <span class="adult-text"      data-i18n="btn.diversify_defaults.adult">Reset to global phenotype range</span>
       </button>
       <button id="natural-variation-btn" class="btn">
         <span class="playful-text"    data-i18n="btn.preserve.playful">🌱 Preserve Natural Variation</span>
