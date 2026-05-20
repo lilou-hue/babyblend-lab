@@ -1,34 +1,35 @@
 # Loop State
 
 ```
-current_round: 3
-rounds_remaining_in_batch: 3
+current_round: 4
+rounds_remaining_in_batch: 2
 status: ready
-last_round_completed: 2
+last_round_completed: 3
 last_round_completed_at: 2026-05-20
 ```
 
-## Next round focus (Round 3)
+## Next round focus (Round 4)
 
-Synthesized from `loop/rounds/round-02/summary.md`'s "What Round 3 should focus on":
+Synthesized from `loop/rounds/round-03/summary.md`:
 
-1. **Close new LOOP_REQUESTs:**
-   - `LOOP_REQUEST(frontend)` — style `[data-uncertainty="speculative"]` band differently (the data attribute is wired; visual differentiation is not).
-   - `LOOP_REQUEST(systems)` — prefer FUNNY_TITLES whose tag matches active conflict tags (the tag field exists; the picker doesn't consume it yet).
-   - `LOOP_REQUEST(narrative)` — refine the Gen-1 consent-awareness one-liner ("Every allocation above affects someone who cannot consent to it" is the placeholder).
-2. **Adult-mode pacing pass** on the two-beat consent rhythm. Gen-1 awareness → first-allocation micro-ack → ≥50-credit panel reveal currently fires as three independent gates. Owners: Narrative Design + UX Flow + Frontend should make the transitions feel intentional.
-3. **Phenotype-baseline defaults question.** Twice deferred. Round 3 should land a decision (the existing disclosure note + randomize controls is current; reviewer chorus still flags this).
-4. **Visual hierarchy across Adult-mode panel triplet** (Enhancement Allocation + Consent Implications + Inheritance Burden Index). Three panels now overlap conceptually; Visual Director should propose one ordered layout that reads as a single story, not three sections.
-5. **"Inheritance Burden Index" label verification.** World Design renamed it; the rendered output may still describe appearance/sociability terms that read oddly under the new label. Sociology + Writing should re-check.
+1. **Close `LOOP_REQUEST(systems)`** — invert the vibe-picker conflict preference: AVOID tag-matched FUNNY_TITLES when conflicts are active (Psychology's gaslight-coherence critique). Systems.
+2. **Close `LOOP_REQUEST(translator)`** — translate the new `btn.diversify_defaults.*` keys and the expanded `section.parents.defaults_note` into zh/ja/ko/tr. Narrative.
+3. **Resolution-trajectory beats** on conflict FUTURE_PATHS (deferred Psychology MAJOR from R3). Add 1 maturation / acceptance / damage variant per conflict tag (OC-tension, EN-tension, CO-rigidity, AN-pleaser). Narrative.
+4. **Env Modifiers triage** (deferred Product MAJOR from R3). The Adult-mode triplet visually groups Enhancement → Consent → Inheritance Burden; Env Modifiers sits BEFORE this. Either collapse it behind a disclosure pre-Generate (move full editor post-Generate as "Refine Projection"), or accept the placement and verify it doesn't compete for attention. UX Flow.
+5. **Adult-flow pacing pass** — 5 surfaces (parents, env, OCEAN, enhancement, consent). Now that micro-pacing is solid, evaluate macro-pacing: does the user's emotional arc curiosity → engagement → fascination → unease → reflection actually land across the whole Adult flow, or do certain transitions collapse? Narrative Design + UX Flow joint task.
+6. **Final visual coherence pass** on the Adult-mode triplet now that World Design added 3 dynamic footnotes. Frontend should verify the footnotes don't break the chained reading. Frontend.
 
 ## History
 
+### Round 3 (2026-05-20) — completed
+- 6 builders, 13 reviewers, 6 revision builders. 13 commits on `main` (Phase 1: `15ef66c`/`8098c46`/`519eacb`/`c164d2d`/`2405693`/`e716fd5`; Phase 4: `43de1d4`/`0a9dd16`/`3dd7c36`/`7cd4335`/`2093b23`/`d060ec4`).
+- Two cherry-pick conflicts resolved (Narrative + UX Flow on consent awareness gating; Narrative + World Design on burden tier notes). All `node --check` passed.
+- Big landings: vibe picker now conflict-aware, weighted Inheritance Burden Index + docstring framing as narrative modeling not heritability, consent-rhythm transitions, Diversify Defaults dignified, gen-2 gate dropped on Consent panel, three institutional footnotes acknowledging compliance limits.
+- Open `LOOP_REQUEST`s carried forward: systems (invert vibe-picker preference), translator (new diversify keys + extended defaults-note).
+- See `loop/rounds/round-03/{critiques,priorities,summary}.md`.
+
 ### Round 2 (2026-05-20) — completed
-- 6 builders, 13 reviewers, 6 revision builders. 12 commits on `main` (Phase 1: `6d5d718`/`bd4bc1f`/`4a1807a`/`9ec8acd`/`1fe21ae`/`8c6744f`; Phase 4: `b39a466`/`de1acc8`/`be30c3a`/`3190aca`/`c303e6c`/`452ebc5`).
-- One cherry-pick conflict resolved (CONSENT_EXPLAINER + CONSENT_IMPLICATIONS — Education vs World Design vs Narrative). All `node --check` passed.
-- Big landings: Trait-conflict-aware future selection, consent reframing (visible-but-locked allocation + Gen-1 awareness + threshold gate + first-allocation micro-ack), "Heritable vs. somatic" trimmed + correctly framed, Access row added, UNESCO cite fixed, paradox titles tagged for compounding.
-- Open `LOOP_REQUEST`s carried forward: frontend (band style), systems (consume FUNNY_TITLES tags), narrative (consent-awareness one-liner copy).
-- See `loop/rounds/round-02/{critiques,priorities,summary}.md`.
+- See `loop/rounds/round-02/summary.md`.
 
 ### Round 1 (2026-05-20) — completed
 - See `loop/rounds/round-01/summary.md`.
