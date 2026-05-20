@@ -1250,7 +1250,11 @@ function buildParentForms() {
     const card = document.createElement('div');
     card.className = 'parent-card';
     card.dataset.parent = letter;
-    card.innerHTML = `<h3>Parent ${letter}</h3>`;
+    card.innerHTML = `
+      <div class="parent-card-head">
+        <h3>Parent ${letter}</h3>
+        <button type="button" class="parent-randomize-btn" data-parent="${letter}" aria-label="Randomize Parent ${letter}" title="Randomize Parent ${letter}">↻</button>
+      </div>`;
     PARENT_FIELDS.forEach(f => {
       const id = `p${letter}_${f.key}`;
       const def = letter === 'A' ? f.defA : f.defB;
@@ -1283,6 +1287,12 @@ function buildParentForms() {
       card.appendChild(field);
     });
     container.appendChild(card);
+    const rb = card.querySelector('.parent-randomize-btn');
+    if (rb) rb.addEventListener('click', () => {
+      rb.classList.add('spinning');
+      setTimeout(() => rb.classList.remove('spinning'), 500);
+      randomizeOneParent(letter);
+    });
   });
 
   // Live update of range value displays in the parent form
@@ -2891,25 +2901,28 @@ function preserveNaturalVariation() {
   flashWarming();
 }
 
-function randomizeParents() {
-  ['A', 'B'].forEach(letter => {
-    PARENT_FIELDS.forEach(f => {
-      const el = $('#p' + letter + '_' + f.key);
-      if (!el) return;
-      let val;
-      if (f.type === 'text') {
-        val = FUN_NAMES[Math.floor(Math.random() * FUN_NAMES.length)];
-      } else if (f.type === 'number') {
-        val = Math.round(f.min + Math.random() * (f.max - f.min));
-      } else if (f.type === 'range') {
-        val = Math.floor(f.min + Math.random() * (f.max - f.min + 1));
-      } else if (f.type === 'select') {
-        val = f.options[Math.floor(Math.random() * f.options.length)];
-      }
-      el.value = val;
-      el.dispatchEvent(new Event('input', { bubbles: true }));
-    });
+function randomizeOneParent(letter) {
+  PARENT_FIELDS.forEach(f => {
+    const el = $('#p' + letter + '_' + f.key);
+    if (!el) return;
+    let val;
+    if (f.type === 'text') {
+      val = FUN_NAMES[Math.floor(Math.random() * FUN_NAMES.length)];
+    } else if (f.type === 'number') {
+      val = Math.round(f.min + Math.random() * (f.max - f.min));
+    } else if (f.type === 'range') {
+      val = Math.floor(f.min + Math.random() * (f.max - f.min + 1));
+    } else if (f.type === 'select') {
+      val = f.options[Math.floor(Math.random() * f.options.length)];
+    }
+    el.value = val;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
   });
+}
+
+function randomizeParents() {
+  randomizeOneParent('A');
+  randomizeOneParent('B');
   // Also randomize the environmental factors so the whole context shifts.
   ENV_FIELDS.forEach(f => {
     const el = $('#env_' + f.key);
