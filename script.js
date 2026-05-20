@@ -2760,19 +2760,19 @@ const REGULATORY_NOTE_RULES = [
     id: 'GE-3-cognition',
     when: b => (b.cognition || 0) >= 5,
     severity: 'amber',
-    text: 'Draft IVD-Germ Lines Directive Art. 6: cognitive enhancement above the intra-cohort variance threshold. Annual disclosure to admissions authorities required in 14 transposing jurisdictions.'
+    text: 'HFEA 2008 Schedule 2: cognitive enhancement outside standard licensed purposes. Annual reporting to the licensing authority and disclosure to admissions authorities required in transposing jurisdictions.'
   },
   {
     id: 'GE-3-cognition-high',
     when: b => (b.cognition || 0) >= 9,
     severity: 'red',
-    text: 'Draft IVD-Germ Lines Directive Art. 9: allocation designated Class II. Enrolment in the ENH-2042 outcome registry is mandatory for the duration of the cohort study.'
+    text: 'HFEA 1990/2008 s.3(2) prohibits placing a non-permitted embryo in a woman; allocation at this band falls outside any Schedule 2 licensed activity. Enrolment in a long-term outcome registry would be a condition of any exceptional authorization.'
   },
   {
     id: 'EM-stability',
     when: b => (b.emotional || 0) >= 6,
     severity: 'amber',
-    text: 'HFEA 2008 §3ZA (special-direction): affective-band intervention designated Class III. Quarterly reporting to the licensing authority required for the first 12 years.'
+    text: 'HFEA 2008 Schedule 2 para. 3 (treatment licences): affective-band intervention outside standard licensed purposes. Periodic reporting to the licensing authority would be a condition of any special-direction grant.'
   },
   {
     id: 'RES-resilience-elevated',
@@ -2796,7 +2796,7 @@ const REGULATORY_NOTE_RULES = [
     id: 'multi-category',
     when: b => Object.values(b).filter(v => v >= 4).length >= 3,
     severity: 'red',
-    text: 'Multi-category package spanning three or more domains. Subject auto-enrolled in the ENH-2042 long-horizon cohort study under HFEA-equivalent licensing. Opt-out window: 30 days from authorization.'
+    text: 'Multi-category package spanning three or more domains. Subject auto-enrolled in long-term outcome follow-up as a condition of HFEA-equivalent licensing. Opt-out window: 30 days from authorization.'
   },
   {
     id: 'total-spend-high',
