@@ -2764,43 +2764,114 @@ function computeTraitConflicts(b) {
   return pool.filter(c => c.when(b)).map(c => ({ tag: c.tag, note: c.note }));
 }
 
-function computeSocialResponse(b, budget, env) {
-  const out = [];
-  const get = k => budget[k] || 0;
-  if (get('cognition')   >= 5) out.push('Elevated parental academic expectations.');
-  if (get('cognition')   >= 8) out.push('Acceleration-track placement probable in K–12 systems.');
-  if (get('appearance')  >= 5) out.push('Appearance-based social attention above baseline.');
-  if (get('athleticism') >= 5) out.push('Athletic-program identification likely.');
-  if (get('athleticism') >= 8) out.push('Identity-attachment to athletic performance possible.');
-  if (get('sociability') >= 6) out.push('Above-average peer-group reach probable.');
-  if (get('emotional')   >= 7) out.push('Reduced emotional reactivity may complicate peer bonding (ages 4–9).');
-  if (get('resilience')  >= 7) out.push('Delayed help-seeking behavior possible under stress.');
-  if (get('empathy')     >= 7) out.push('Empathic-load fatigue probable in caregiving contexts.');
-  if (b.openness >= 8 && b.conscientiousness <= 4)
-    out.push('Risk: trait-profile misclassification in highly structured education environments.');
-  const totalAlloc = Object.values(budget).reduce((s, v) => s + v, 0);
-  if ((env.economy || 5) <= 4 && totalAlloc >= 8)
-    out.push('Allocation/environment mismatch: visibility of enhancement profile elevated.');
-  if (out.length === 0)
-    out.push('No notable deviation from baseline social-dynamics projection.');
-  return out.slice(0, 6);
+/* ---------- Societal Outcomes Brief (Adult mode, hero panel) ----------
+ * Each category collects condition-driven lines describing how society
+ * reacts to the modeled child. Fires from specific budget + trait + env
+ * combinations so the brief feels causal, not generic. Replaces the
+ * old flat "Projected Social Response" list. */
+const SOCIETAL_RULES = {
+  academic: {
+    title: 'Academic tracking',
+    rules: [
+      { when: c => c.budget.cognition   >= 5, line: 'Elevated parental academic expectations from early ages.' },
+      { when: c => c.budget.cognition   >= 8, line: 'Acceleration-track placement probable in K–12 systems.' },
+      { when: c => c.budget.cognition   >= 8 && (c.env.education || 5) >= 7, line: 'Gifted-program identification very likely; caregiver advocacy expected.' },
+      { when: c => c.budget.cognition   >= 6 && c.budget.creativity >= 6, line: 'Cross-discipline placement common; standardized assessment may mis-classify.' },
+      { when: c => c.baby.openness      >= 8 && c.baby.conscientiousness <= 4, line: 'Trait profile may be mis-read as attention disorder in structured settings.' },
+      { when: c => c.budget.athleticism >= 7 && (c.env.education || 5) >= 6, line: 'Dual-track athletic + academic placement plausible.' },
+      { when: c => c.budget.cognition   >= 7 && (c.env.education || 5) <= 3, line: 'Capability/access mismatch: under-placement risk despite high projection.' }
+    ]
+  },
+  peer: {
+    title: 'Peer dynamics',
+    rules: [
+      { when: c => c.budget.appearance  >= 5, line: 'Above-baseline social attention from age 5 onward.' },
+      { when: c => c.budget.appearance  >= 8, line: 'Higher base rate of appearance-based feedback in early adolescence.' },
+      { when: c => c.budget.sociability >= 6, line: 'Wide peer reach; reduced solitary-skill development possible.' },
+      { when: c => c.budget.sociability <= 2 && (c.baby.extraversion || 5) <= 4, line: 'Smaller, deeper peer cohort. Compatibility-dependent.' },
+      { when: c => c.budget.emotional   >= 7, line: 'May be perceived as "cool" or "cold" by emotionally expressive peers.' },
+      { when: c => c.budget.empathy     >= 7, line: 'Frequent emotional-caregiver role in peer groups.' },
+      { when: c => c.totalAlloc         >= 10 && (c.env.economy || 5) <= 4, line: 'Visibility of enhancement profile may stratify against non-modified peers.' }
+    ]
+  },
+  identity: {
+    title: 'Identity risk',
+    rules: [
+      { when: c => c.budget.athleticism >= 8, line: 'Identity attachment to physical performance probable. Post-career risk elevated.' },
+      { when: c => c.budget.cognition   >= 8, line: 'Intellectual-performance identity dependency likely.' },
+      { when: c => c.budget.appearance  >= 7, line: 'Cosmetic-maintenance normalization through adolescence.' },
+      { when: c => c.budget.emotional   >= 8, line: 'Reduced emotional reactivity may complicate grief processing and intimacy.' },
+      { when: c => c.budget.resilience  >= 8, line: 'High pain-tolerance correlate may delay help-seeking.' },
+      { when: c => c.budget.empathy     >= 8 && c.budget.resilience <= 4, line: 'Empathic overload without buffer: identity-fatigue risk.' }
+    ]
+  },
+  stress: {
+    title: 'Stress & burnout',
+    rules: [
+      { when: c => (c.baby.conscientiousness || 0) >= 7 && (c.baby.neuroticism || 0) >= 6, line: 'Burnout risk elevated: care-runs-hot profile.' },
+      { when: c => c.budget.cognition   >= 7 && c.budget.resilience >= 6, line: 'Achievement-driven stress accumulation; symptom-masking probable.' },
+      { when: c => c.budget.emotional   >= 7, line: 'Grief integration may be slow or incomplete; clinical follow-up indicated.' },
+      { when: c => (c.baby.extraversion || 0) >= 8 && (c.baby.neuroticism || 0) >= 6, line: 'Performance-recovery cycles; post-event depletion above baseline.' },
+      { when: c => (c.env.social || 5)  >= 7 && c.totalAlloc >= 15, line: 'High-social-pressure environment + heavy allocation: compounding stress load.' }
+    ]
+  },
+  career: {
+    title: 'Career & financial',
+    rules: [
+      { when: c => c.budget.cognition   >= 7 && (c.env.economy || 5) >= 6, line: 'Credentialed-career placement above 80th percentile projected by age 30.' },
+      { when: c => c.budget.cognition   >= 7 && (c.env.economy || 5) <= 3, line: 'Access mismatch: capability above environment. Underemployment risk.' },
+      { when: c => c.budget.creativity  >= 7, line: 'Non-stable income paths over-represented; multiple career changes plausible.' },
+      { when: c => (c.baby.agreeableness || 0) >= 8, line: 'Compensation tends to lag peer benchmarks; negotiation reluctance modeled.' },
+      { when: c => c.budget.athleticism >= 8 && (c.env.economy || 5) <= 4, line: 'Scholarship-dependent trajectory; injury-period collapse risk.' },
+      { when: c => c.budget.appearance  >= 7, line: 'Appearance-correlated compensation premiums modeled in customer-facing roles.' }
+    ]
+  }
+};
+
+function computeSocietalOutcomes(baby, budget, env) {
+  const ctx = {
+    baby:  baby   || {},
+    budget: budget || {},
+    env:   env    || {},
+    totalAlloc: Object.values(budget || {}).reduce((s, v) => s + v, 0)
+  };
+  const out = {};
+  for (const [key, def] of Object.entries(SOCIETAL_RULES)) {
+    const fired = def.rules.filter(r => { try { return r.when(ctx); } catch { return false; } });
+    out[key] = fired.length
+      ? fired.slice(0, 3).map(r => r.line)
+      : ['Within projected baseline range.'];
+  }
+  return out;
 }
 
-function renderSocialResponse() {
-  const section = $('#social-response');
-  if (!section) return;
+function renderSocietalBrief() {
+  const panel = $('#societal-brief-panel');
+  if (!panel) return;
   if (state.appMode !== 'adult' || !state.codename) {
-    section.hidden = true;
+    panel.hidden = true;
     return;
   }
-  state.socialResponse = computeSocialResponse(state.baby, state.budget, state.env);
-  section.hidden = false;
-  section.innerHTML = `
-    <h3>Projected Social Response</h3>
-    <ul class="social-list">
-      ${state.socialResponse.map(s => `<li>${s}</li>`).join('')}
-    </ul>`;
+  const outcomes = computeSocietalOutcomes(state.baby, state.budget, state.env);
+  state.socialResponse = outcomes;  // kept for save/restore compatibility
+
+  const sections = Object.entries(SOCIETAL_RULES).map(([key, def]) => `
+    <article class="societal-category" data-cat="${key}">
+      <h3>${def.title}</h3>
+      <ul>${outcomes[key].map(l => `<li>${l}</li>`).join('')}</ul>
+    </article>`).join('');
+
+  panel.innerHTML = `
+    <header class="societal-brief-head">
+      <h2>Societal Outcomes Brief <span class="beta-tag">Beta</span></h2>
+      <p class="subtle">Modeled societal response to this projection. Each line fires from a specific allocation, trait, or environment combination — not a generic readout.</p>
+    </header>
+    <div class="societal-grid">${sections}</div>`;
+  panel.hidden = false;
 }
+
+// Back-compat shim — older call sites still expect renderSocialResponse.
+const renderSocialResponse = renderSocietalBrief;
 
 function pickReflectionPrompt(seed) {
   const rng = seededRand(seed + '|reflection');
@@ -2905,13 +2976,22 @@ function copyProfile() {
 function renderSurprise(pct) {
   $('#surprise-pct').textContent = pct + '%';
   $('#surprise-fill').style.width = pct + '%';
-  const note = pct < 25
-    ? 'Parents are similar across most traits — fewer wild blends.'
-    : pct < 55
-      ? 'A balanced mix — expect some traits to lean toward either parent.'
-      : pct < 80
-        ? 'Parents are quite different — many possible blends.'
-        : 'Wildly different parents — almost anything goes within this space.';
+  const adult = state.appMode === 'adult';
+  const note = adult
+    ? (pct < 25
+        ? 'Low variance: parental inputs converge across most loci.'
+        : pct < 55
+          ? 'Moderate variance: outcomes plausibly lean toward either parent.'
+          : pct < 80
+            ? 'High variance: substantial divergence from midparent baseline expected.'
+            : 'Extreme variance: outcomes span the full plausible distribution.')
+    : (pct < 25
+        ? 'Parents are similar across most traits — fewer wild blends.'
+        : pct < 55
+          ? 'A balanced mix — expect some traits to lean toward either parent.'
+          : pct < 80
+            ? 'Parents are quite different — many possible blends.'
+            : 'Wildly different parents — almost anything goes within this space.');
   $('#surprise-note').textContent = note;
 }
 
@@ -3355,6 +3435,22 @@ function updateBudgetProjections(usedOverride) {
     cohortText = `Projected: top ${top}% of birth cohort`;
   }
   cohortEl.textContent = cohortText;
+
+  // Cost + access tier. Credits are treated as fictional $1,000 each so the
+  // dollar figure feels real ('≈ $96K') while staying obviously hypothetical.
+  const costEl   = $('#cost-est');
+  const tierEl   = $('#access-tier');
+  const usd      = used * 1000;
+  if (costEl) costEl.textContent = used === 0 ? '— (baseline cohort)' : `≈ $${(usd / 1000).toFixed(0)}K (fictional)`;
+  if (tierEl) {
+    let tier = 'Universal · baseline';
+    if      (usd >= 200000) tier = 'Top ~0.1% globally · approaching regulatory grey zone';
+    else if (usd >= 150000) tier = 'Elite · top ~1% of households globally';
+    else if (usd >= 100000) tier = 'Premium · top ~5% globally';
+    else if (usd >=  50000) tier = 'Above-average · top ~20% globally';
+    else if (usd >       0) tier = 'Accessible · top ~50% of households globally';
+    tierEl.textContent = tier;
+  }
 
   // Social pressure: Appearance + Sociability spend, normalized.
   const apprPts = (state.budget?.appearance  || 0);

@@ -45,6 +45,25 @@
     <span style="--x:35%; --d:8s;  --s:22s; --size:24px;"></span>
   </div>
 
+  <!-- Mode-specific atmospheric layer (warm orbs / cheerful shapes / cold dust motes) -->
+  <div class="atmosphere" aria-hidden="true">
+    <span style="--x:7%;  --y:88%; --d:0s;   --s:30s;"></span>
+    <span style="--x:14%; --y:24%; --d:3s;   --s:36s;"></span>
+    <span style="--x:22%; --y:70%; --d:7s;   --s:28s;"></span>
+    <span style="--x:31%; --y:12%; --d:2s;   --s:32s;"></span>
+    <span style="--x:38%; --y:54%; --d:9s;   --s:40s;"></span>
+    <span style="--x:46%; --y:30%; --d:5s;   --s:34s;"></span>
+    <span style="--x:53%; --y:80%; --d:0.5s; --s:28s;"></span>
+    <span style="--x:61%; --y:18%; --d:6s;   --s:38s;"></span>
+    <span style="--x:68%; --y:60%; --d:11s;  --s:32s;"></span>
+    <span style="--x:75%; --y:36%; --d:4s;   --s:36s;"></span>
+    <span style="--x:82%; --y:74%; --d:8s;   --s:30s;"></span>
+    <span style="--x:89%; --y:14%; --d:1s;   --s:42s;"></span>
+    <span style="--x:95%; --y:50%; --d:13s;  --s:34s;"></span>
+    <span style="--x:42%; --y:90%; --d:10s;  --s:38s;"></span>
+    <span style="--x:58%; --y:6%;  --d:12s;  --s:30s;"></span>
+  </div>
+
   <!-- DNA helix decoration -->
   <svg class="dna-decor dna-left" viewBox="0 0 60 400" aria-hidden="true">
     <g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round">
@@ -120,6 +139,14 @@
           <span class="projection-value" id="cohort-placement">Untouched · baseline cohort</span>
         </div>
         <div class="projection-row">
+          <span class="projection-label">Estimated Cost</span>
+          <span class="projection-value" id="cost-est">— (baseline cohort)</span>
+        </div>
+        <div class="projection-row">
+          <span class="projection-label">Projected Access Tier</span>
+          <span class="projection-value" id="access-tier">Universal · baseline</span>
+        </div>
+        <div class="projection-row">
           <span class="projection-label">Social Pressure Index</span>
           <div class="projection-bar"><span class="projection-bar-fill" id="pressure-fill"></span></div>
           <span class="projection-value pressure-note" id="pressure-note">Minimal</span>
@@ -132,14 +159,17 @@
     <div class="primary-action">
       <button id="randomize-parents-btn" class="btn">
         <span class="playful-text">🎲 Randomize Parents</span>
+        <span class="reflection-text">Imagine new parents</span>
         <span class="adult-text">Randomize Inputs</span>
       </button>
       <button id="natural-variation-btn" class="btn">
         <span class="playful-text">🌱 Preserve Natural Variation</span>
+        <span class="reflection-text">Honor natural variation</span>
         <span class="adult-text">Reset to Natural Variation</span>
       </button>
       <button id="generate-btn" class="btn btn-primary">
         <span class="playful-text">Generate Baby Possibilities</span>
+        <span class="reflection-text">Imagine a possible life</span>
         <span class="adult-text">Generate Projection</span>
       </button>
     </div>
@@ -169,26 +199,32 @@
         <div class="actions">
           <button id="randomize-btn" class="btn">
             <span class="playful-text">🎲 Randomize Within Parent Range</span>
+            <span class="reflection-text">Try a different version</span>
             <span class="adult-text">Re-sample Within Range</span>
           </button>
           <button id="reset-btn" class="btn">
             <span class="playful-text">↺ Reset to Parent Average</span>
+            <span class="reflection-text">Return to the middle</span>
             <span class="adult-text">Reset to Midparent</span>
           </button>
           <button id="copy-btn" class="btn">
             <span class="playful-text">⧉ Copy Baby Profile</span>
+            <span class="reflection-text">Copy this profile</span>
             <span class="adult-text">Export Projection</span>
           </button>
           <button id="save-btn" class="btn">
             <span class="playful-text">💾 Save Timeline</span>
+            <span class="reflection-text">Hold this life</span>
             <span class="adult-text">Save Projection</span>
           </button>
           <button id="futures-btn" class="btn">
             <span class="playful-text">🪐 Show Possible Adult Futures</span>
+            <span class="reflection-text">Glimpse the later years</span>
             <span class="adult-text">Generate Trajectory Set</span>
           </button>
           <button id="alternates-btn" class="btn">
             <span class="playful-text">🌌 Generate Alternate Timelines</span>
+            <span class="reflection-text">Imagine other lives from the same beginnings</span>
             <span class="adult-text">Generate Alternate Projections</span>
           </button>
         </div>
@@ -199,6 +235,7 @@
       <aside class="panel baby-panel" aria-labelledby="baby-heading">
         <h2 id="baby-heading">
           <span class="playful-text">Baby Preview</span>
+          <span class="reflection-text">A profile, imagined</span>
           <span class="adult-text">Behavioral Projection <span class="beta-tag">Beta</span></span>
         </h2>
 
@@ -260,6 +297,7 @@
         <div class="future-block" id="future-block" hidden>
           <h3 id="future-block-heading">
             <span class="playful-text">Future paths</span>
+            <span class="reflection-text">Future glimpses</span>
             <span class="adult-text">Behavioral Trace Notes</span>
           </h3>
           <div class="future-tree" id="future-tree" aria-hidden="true"></div>
@@ -286,14 +324,19 @@
     <section class="lineage-panel panel" id="lineage-panel" hidden aria-labelledby="lineage-heading">
       <h2 id="lineage-heading">
         <span class="playful-text">Family lineage</span>
+        <span class="reflection-text">Across the generations</span>
         <span class="adult-text">Generational Cascade</span>
       </h2>
       <p class="subtle">
         <span class="playful-text">Three generations. The choices made here ripple forward.</span>
+        <span class="reflection-text">Three lives, briefly: the people who came before, the person imagined here, the people who might come after.</span>
         <span class="adult-text">Three-generation cascade. Trait inheritance shown across vertical axis; downstream projections are speculative.</span>
       </p>
       <div class="lineage-tree" id="lineage-tree" aria-hidden="true"></div>
     </section>
+
+    <!-- Societal Outcomes Brief (Adult mode, hero panel) -->
+    <section class="societal-brief-panel panel adult-only" id="societal-brief-panel" hidden></section>
 
     <section class="futures-panel panel" id="futures-panel" hidden>
       <h2>

@@ -87,6 +87,108 @@ body {
   100% { transform: translateY(-105vh) translateX(-10px) scale(0.95); opacity: 0; }
 }
 
+/* ---------- Mode-specific atmospheric layer ----------
+   A second decorative layer on top of gene-bubbles. Each mode styles
+   it as its own ambient texture: warm drifting orbs in Reflection,
+   cheerful floating shapes in Kids, cold dust motes in Adult. */
+.atmosphere {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.atmosphere span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+/* Reflection: warm slow orbs drifting upward like dust in evening light. */
+body.mode-reflection .atmosphere span {
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle, rgba(245, 184, 176, 0.65), rgba(245, 184, 176, 0) 70%);
+  filter: blur(0.4px);
+  animation: warmOrbDrift var(--s) ease-in-out infinite;
+  animation-delay: var(--d);
+}
+body.mode-reflection .atmosphere span:nth-child(3n) {
+  background: radial-gradient(circle, rgba(238, 196, 220, 0.55), rgba(238, 196, 220, 0) 70%);
+  width: 5px; height: 5px;
+}
+body.mode-reflection .atmosphere span:nth-child(5n) {
+  background: radial-gradient(circle, rgba(255, 210, 160, 0.5), rgba(255, 210, 160, 0) 70%);
+  width: 9px; height: 9px;
+}
+@keyframes warmOrbDrift {
+  0%, 100% { opacity: 0; transform: translate3d(0, 0, 0); }
+  15%      { opacity: 0.45; }
+  50%      { opacity: 0.55; transform: translate3d(8px, -22px, 0); }
+  85%      { opacity: 0.45; transform: translate3d(-4px, -38px, 0); }
+}
+
+/* Kids: cheerful floating shapes — small squares + circles. */
+body.app-kids .atmosphere span {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-3);
+  border-radius: 50%;
+  opacity: 0.4;
+  filter: drop-shadow(0 0 4px var(--accent-3));
+  animation: kidsShapeFloat var(--s) ease-in-out infinite;
+  animation-delay: var(--d);
+}
+body.app-kids .atmosphere span:nth-child(2n) {
+  background: var(--accent);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  width: 7px; height: 7px;
+}
+body.app-kids .atmosphere span:nth-child(3n) {
+  background: var(--accent-warm);
+  width: 6px; height: 6px;
+}
+@keyframes kidsShapeFloat {
+  0%, 100% { opacity: 0; transform: translate3d(0, 0, 0); }
+  20%      { opacity: 0.5; }
+  50%      { opacity: 0.55; transform: translate3d(-6px, -14px, 0); }
+  80%      { opacity: 0.5; transform: translate3d(6px, -22px, 0); }
+}
+
+/* Adult: cold dust motes falling slowly — barely there, surveillance-light. */
+body.mode-adult .atmosphere span {
+  width: 2px;
+  height: 2px;
+  background: rgba(126, 192, 224, 0.55);
+  border-radius: 50%;
+  opacity: 0;
+  animation: coldDustFall var(--s) linear infinite;
+  animation-delay: var(--d);
+}
+body.mode-adult .atmosphere span:nth-child(3n) {
+  width: 1.5px; height: 1.5px;
+  background: rgba(160, 172, 196, 0.5);
+}
+body.mode-adult .atmosphere span:nth-child(5n) {
+  width: 2.5px; height: 2.5px;
+  background: rgba(126, 192, 224, 0.4);
+}
+@keyframes coldDustFall {
+  0%   { transform: translate3d(0, -20px, 0); opacity: 0; }
+  8%   { opacity: 0.22; }
+  92%  { opacity: 0.22; }
+  100% { transform: translate3d(-12px, 105vh, 0); opacity: 0; }
+}
+
+/* On reduced motion, kill the atmosphere entirely. */
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere span { animation: none !important; opacity: 0 !important; }
+}
+
 /* ---------- Layout ---------- */
 .site-header,
 main,
@@ -2542,9 +2644,19 @@ body { --opt-intensity: 0; }  /* set by JS from budget usage */
 
 /* Mode-conditional text visibility */
 .adult-text { display: none; }
+.reflection-text { display: none; }
 .playful-text { display: inline; }
 body.mode-adult .adult-text { display: inline; }
 body.mode-adult .playful-text { display: none; }
+body.mode-adult .reflection-text { display: none; }
+
+/* In Reflection mode: prefer .reflection-text when present, fall back
+   to .playful-text otherwise. The :has() selector lets us hide the
+   playful sibling only when a reflection-text alternative exists in
+   the same parent — buttons / headings without a reflection variant
+   continue to read their playful copy. */
+body.mode-reflection .reflection-text { display: inline; }
+body.mode-reflection *:has(> .reflection-text) > .playful-text { display: none; }
 
 /* Mode-conditional whole-block visibility */
 .adult-only { display: none; }
@@ -3185,4 +3297,107 @@ body.has-entered .landing {
   .landing-inner,
   .landing-mark { animation: none !important; }
   .landing { transition: opacity 0.2s ease !important; }
+}
+
+/* ====================================================================
+ * Societal Outcomes Brief — Adult-mode hero panel
+ *
+ * Visual hierarchy upgrade. The brief is the headline insight in Adult
+ * mode, so it gets bigger heading, generous padding, and a stronger
+ * accent stripe. Categories sit in a responsive grid with breathing
+ * room between them.
+ * ==================================================================== */
+.societal-brief-panel {
+  position: relative;
+  padding: 30px 28px 28px;
+  margin-top: 4px;
+}
+.societal-brief-panel::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 22px; right: 22px;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(126, 224, 255, 0.0),
+    rgba(126, 224, 255, 0.65) 30%,
+    rgba(200, 155, 255, 0.65) 70%,
+    rgba(255, 155, 210, 0.0));
+  border-radius: 999px;
+}
+.societal-brief-head { margin-bottom: 18px; }
+.societal-brief-panel h2 {
+  font-size: 22px;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+}
+.societal-brief-panel .subtle {
+  margin-bottom: 0;
+  max-width: 640px;
+}
+.societal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px 22px;
+  margin-top: 16px;
+}
+.societal-category {
+  padding: 16px 16px 14px;
+  background: rgba(7, 9, 30, 0.42);
+  border: 1px solid rgba(126, 224, 255, 0.14);
+  border-radius: 12px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.societal-category:hover {
+  border-color: rgba(126, 224, 255, 0.32);
+  background: rgba(7, 9, 30, 0.55);
+}
+.societal-category h3 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.societal-category[data-cat="identity"] h3 { color: var(--accent-3); }
+.societal-category[data-cat="stress"]   h3 { color: var(--accent-warm); }
+.societal-category[data-cat="career"]   h3 { color: var(--accent-2); }
+.societal-category ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.societal-category li {
+  padding: 0 0 0 14px;
+  position: relative;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.societal-category li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* In Adult mode, give the brief stronger visual weight than surrounding
+   panels — but only when it has content (not hidden). */
+body.mode-adult .societal-brief-panel:not([hidden]) {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 24px 70px rgba(0, 0, 0, 0.55),
+    0 0 38px rgba(126, 224, 255, 0.07);
+}
+
+/* Estimated cost + access tier: nudge them visually so they read as a
+   pair separate from the more abstract Cohort/Pressure rows above. */
+.projection-row:has(#cost-est),
+.projection-row:has(#access-tier) {
+  border-left: 2px solid rgba(255, 210, 138, 0.25);
+  padding-left: 10px;
 }
