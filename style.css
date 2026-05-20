@@ -760,6 +760,70 @@ body.mode-adult .life-stage-label {
 }
 body.mode-adult .life-stage[data-age="47"] .life-stage-avatar svg { filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45)) saturate(0.7); }
 
+/* ---------- Generational lineage cascade ----------
+   Lives in its own panel below the baby panel. SVG shows parents
+   (top), the baby (highlighted), and two hypothetical grandchildren
+   (silhouettes, dashed connectors). Mode-aware styling. */
+.lineage-panel { margin-top: 22px; }
+.lineage-tree {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.lineage-tree:empty { display: none; }
+.lineage-svg {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  overflow: visible;
+}
+.lineage-svg .lineage-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+.lineage-svg .grandchild-line {
+  stroke-dasharray: 2 4;
+  opacity: 0.55;
+}
+.lineage-svg .lineage-label {
+  font-size: 9.5px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  fill: var(--ink-mute);
+}
+.lineage-svg .lineage-label.baby-label { fill: var(--accent); font-weight: 700; }
+.lineage-svg .lineage-label.grandchild { fill: var(--ink-mute); font-style: italic; }
+.lineage-svg .node-baby svg { filter: drop-shadow(0 0 12px var(--accent)); }
+.lineage-svg .node-grandchild svg { opacity: 0.65; filter: saturate(0.7) drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+.lineage-svg .node-parent svg { filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3)); }
+
+/* Reflection: warm violet/peach, soft glows, italic serif labels. */
+body.mode-reflection .lineage-svg .lineage-line { stroke: var(--accent-3); }
+body.mode-reflection .lineage-svg .grandchild-line { stroke: var(--accent-2); }
+body.mode-reflection .lineage-svg .lineage-label { fill: var(--accent-3); font-family: var(--reflection-serif, Georgia, serif); font-style: italic; text-transform: none; letter-spacing: 0.3px; font-size: 11.5px; }
+body.mode-reflection .lineage-svg .lineage-label.baby-label { fill: var(--accent); font-weight: 700; font-style: italic; }
+body.mode-reflection .lineage-svg .node-baby svg { filter: drop-shadow(0 0 14px var(--accent-3)); }
+
+/* Kids: warm coral/gold tones, friendly thicker branches. */
+body.app-kids .lineage-svg .lineage-line { stroke: var(--accent); stroke-width: 1.6; opacity: 0.85; }
+body.app-kids .lineage-svg .grandchild-line { stroke: var(--accent-3); stroke-dasharray: 4 4; }
+body.app-kids .lineage-svg .lineage-label { fill: var(--ink); font-size: 11px; letter-spacing: 0.6px; text-transform: none; font-weight: 600; }
+body.app-kids .lineage-svg .lineage-label.baby-label { fill: var(--accent); }
+body.app-kids .lineage-svg .node-baby svg { filter: drop-shadow(0 0 12px var(--accent-3)); }
+
+/* Adult: clinical lineage diagram, straight lines, monospace labels. */
+body.mode-adult .lineage-svg .lineage-line { stroke: rgba(126, 192, 224, 0.55); stroke-width: 0.8; }
+body.mode-adult .lineage-svg .grandchild-line { stroke: rgba(126, 192, 224, 0.45); stroke-dasharray: 3 3; }
+body.mode-adult .lineage-svg .lineage-label { fill: var(--ink-soft); font-family: var(--adult-mono, ui-monospace, monospace); font-size: 9px; letter-spacing: 1.4px; }
+body.mode-adult .lineage-svg .lineage-label.baby-label { fill: var(--accent); }
+body.mode-adult .lineage-svg .lineage-label.grandchild { font-style: normal; fill: var(--ink-mute); }
+body.mode-adult .lineage-svg .node-baby svg { filter: none; }
+body.mode-adult .lineage-svg .node-grandchild svg { opacity: 0.55; filter: saturate(0.4) drop-shadow(0 1px 2px rgba(0,0,0,0.4)); }
+/* Subject ID hint over each node could be added; kept minimal for now. */
+
 /* Segmented controls (style + gender) */
 .style-toggle,
 .gender-toggle {

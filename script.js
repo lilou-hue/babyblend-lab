@@ -1890,6 +1890,10 @@ function updateBabyPreview() {
   // alongside the main one so the person reads across time.
   renderLifeStageStrip(b);
 
+  // Generational lineage cascade (parents → baby → hypothetical
+  // grandchildren). Lives in its own panel below the baby panel.
+  renderLineageTree(b);
+
   // Recompute the cool/warm UI evolution based on slider drift.
   updateOptIntensity();
 
@@ -2145,6 +2149,76 @@ function renderLifeStageStrip(b) {
   }).join('');
 }
 
+/* ---------- Generational lineage tree ----------
+ * SVG showing 3 generations: parents at top, the baby in the middle
+ * (highlighted), and 2 hypothetical grandchildren as faint silhouettes
+ * with dashed connectors. The point is to make the "you are choosing
+ * for a chain" angle visible. Each mode styles it distinctively. */
+function renderLineageTree(b) {
+  const panel = $('#lineage-panel');
+  const host  = $('#lineage-tree');
+  if (!panel || !host) return;
+  if (!state.codename || !state.parents?.A || typeof state.parents.A.openness !== 'number') {
+    panel.hidden = true;
+    host.innerHTML = '';
+    return;
+  }
+  panel.hidden = false;
+
+  const pA = parentToBabyState(state.parents.A);
+  const pB = parentToBabyState(state.parents.B);
+  const style = state.style;
+  const gender = state.gender;
+
+  const seed = state.codename + '|lineage';
+  const rngGrand = seededRand(seed + '|grand');
+  const gc1 = synthGrandchild(b, rngGrand);
+  const gc2 = synthGrandchild(b, rngGrand);
+
+  const aSvg = buildAvatarSvg(pA, style, 'surprise', seed + '|pA');
+  const bSvgA = buildAvatarSvg(pB, style, 'surprise', seed + '|pB');
+  const babySvg = buildAvatarSvg(b, style, gender, seed + '|baby');
+  const gc1Svg = buildAvatarSvg(gc1, style, 'surprise', seed + '|gc1');
+  const gc2Svg = buildAvatarSvg(gc2, style, 'surprise', seed + '|gc2');
+
+  const W = 420, H = 320;
+  const pos = {
+    pA:   { x: 60,  y: 25,  s: 64, cx: 92,  cy: 89  },
+    pB:   { x: 296, y: 25,  s: 64, cx: 328, cy: 89  },
+    baby: { x: 178, y: 130, s: 64, cx: 210, cy: 194 },
+    gc1:  { x: 82,  y: 235, s: 54, cx: 109, cy: 289 },
+    gc2:  { x: 284, y: 235, s: 54, cx: 311, cy: 289 }
+  };
+
+  const branches = `
+    <path d="M ${pos.pA.cx} ${pos.pA.cy} C ${pos.pA.cx} ${pos.baby.y - 18}, ${pos.baby.cx} ${pos.baby.y - 18}, ${pos.baby.cx} ${pos.baby.y}" class="lineage-line parent-line" />
+    <path d="M ${pos.pB.cx} ${pos.pB.cy} C ${pos.pB.cx} ${pos.baby.y - 18}, ${pos.baby.cx} ${pos.baby.y - 18}, ${pos.baby.cx} ${pos.baby.y}" class="lineage-line parent-line" />
+    <path d="M ${pos.baby.cx} ${pos.baby.cy} C ${pos.baby.cx} ${pos.gc1.y - 18}, ${pos.gc1.cx} ${pos.gc1.y - 18}, ${pos.gc1.cx} ${pos.gc1.y}" class="lineage-line grandchild-line" />
+    <path d="M ${pos.baby.cx} ${pos.baby.cy} C ${pos.baby.cx} ${pos.gc2.y - 18}, ${pos.gc2.cx} ${pos.gc2.y - 18}, ${pos.gc2.cx} ${pos.gc2.y}" class="lineage-line grandchild-line" />
+  `;
+
+  const labels = `
+    <text class="lineage-label"            x="${pos.pA.cx}"   y="${pos.pA.y - 8}"   text-anchor="middle">Parent A</text>
+    <text class="lineage-label"            x="${pos.pB.cx}"   y="${pos.pB.y - 8}"   text-anchor="middle">Parent B</text>
+    <text class="lineage-label baby-label" x="${pos.baby.cx}" y="${pos.baby.y - 8}" text-anchor="middle">This baby</text>
+    <text class="lineage-label grandchild" x="${pos.gc1.cx}"  y="${pos.gc1.y - 6}"  text-anchor="middle">Hypothetical</text>
+    <text class="lineage-label grandchild" x="${pos.gc2.cx}"  y="${pos.gc2.y - 6}"  text-anchor="middle">Hypothetical</text>
+  `;
+
+  host.innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" class="lineage-svg" role="img" aria-label="Three-generation lineage">
+      <g class="lineage-lines">${branches}</g>
+      <g class="lineage-nodes">
+        <g class="node node-parent">${embedAvatarSvg(aSvg,    pos.pA.x,   pos.pA.y,   pos.pA.s,   pos.pA.s)}</g>
+        <g class="node node-parent">${embedAvatarSvg(bSvgA,   pos.pB.x,   pos.pB.y,   pos.pB.s,   pos.pB.s)}</g>
+        <g class="node node-baby">${embedAvatarSvg(babySvg,   pos.baby.x, pos.baby.y, pos.baby.s, pos.baby.s)}</g>
+        <g class="node node-grandchild">${embedAvatarSvg(gc1Svg, pos.gc1.x, pos.gc1.y, pos.gc1.s, pos.gc1.s)}</g>
+        <g class="node node-grandchild">${embedAvatarSvg(gc2Svg, pos.gc2.x, pos.gc2.y, pos.gc2.s, pos.gc2.s)}</g>
+      </g>
+      <g class="lineage-labels">${labels}</g>
+    </svg>`;
+}
+
 /* ---------- Behavioral Trace Notes ----------
  * Small, specific human details rendered as a 2×2 card grid below the
  * avatar. Different pool per mode; same renderer, same DOM hook.
@@ -2348,6 +2422,59 @@ function calculateArchetype(b) {
     'The Mover':           athletic * 1.3 + E * 0.7 - N * 0.3           // energetic, embodied, social
   };
   return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+}
+
+/* ---------- Generational lineage helpers ----------
+ * Convert parent form data into the baby-state shape that
+ * buildAvatarSvg expects, synthesize a hypothetical grandchild from
+ * the current baby + a random partner, and inject x/y/width/height
+ * into a DiceBear SVG string so it can be nested inside a parent SVG.
+ */
+function parentToBabyState(p) {
+  if (!p) return null;
+  return {
+    height:    p.height ?? 170,
+    athletic:  p.athletic ?? 5,
+    eyeColor:  Math.max(0, EYE_LADDER.indexOf(p.eyeColor || 'brown')),
+    hairColor: Math.max(0, HAIR_LADDER.indexOf(p.hairColor || 'brown')),
+    hairType:  Math.max(0, TEX_LADDER.indexOf(p.hairType || 'straight')),
+    skinTone:  Math.max(0, SKIN_LADDER.indexOf(p.skinTone || 'medium')),
+    faceShape: Math.max(0, FACE_LADDER.indexOf(p.faceShape || 'oval')),
+    freckles:  p.freckles === 'lots' ? 80 : (p.freckles === 'light' ? 40 : 0),
+    dimples:   p.dimples === 'yes' ? 100 : 0,
+    openness:          p.openness          ?? 5,
+    conscientiousness: p.conscientiousness ?? 5,
+    extraversion:      p.extraversion      ?? 5,
+    agreeableness:     p.agreeableness     ?? 5,
+    neuroticism:       p.neuroticism       ?? 5
+  };
+}
+
+function synthGrandchild(b, rng) {
+  const oceanKeys = ['openness','conscientiousness','extraversion','agreeableness','neuroticism','athletic'];
+  const out = {};
+  oceanKeys.forEach(k => {
+    const partner = 1 + Math.floor(rng() * 10);
+    out[k] = Math.max(1, Math.min(10, Math.round(((b[k] || 5) + partner) / 2)));
+  });
+  out.height = Math.round(((b.height || 170) + 140 + rng() * 70) / 2);
+  // Ladder mixes: random partner index averaged with baby's.
+  out.eyeColor  = Math.max(0, Math.min(EYE_LADDER.length - 1,  Math.round(((b.eyeColor  || 0) + Math.floor(rng() * EYE_LADDER.length))  / 2)));
+  out.hairColor = Math.max(0, Math.min(HAIR_LADDER.length - 1, Math.round(((b.hairColor || 0) + Math.floor(rng() * HAIR_LADDER.length)) / 2)));
+  out.hairType  = Math.max(0, Math.min(TEX_LADDER.length - 1,  Math.round(((b.hairType  || 0) + Math.floor(rng() * TEX_LADDER.length))  / 2)));
+  out.skinTone  = Math.max(0, Math.min(SKIN_LADDER.length - 1, Math.round(((b.skinTone  || 0) + Math.floor(rng() * SKIN_LADDER.length)) / 2)));
+  out.faceShape = Math.max(0, Math.min(FACE_LADDER.length - 1, Math.round(((b.faceShape || 0) + Math.floor(rng() * FACE_LADDER.length)) / 2)));
+  out.freckles  = Math.max(0, Math.min(100, Math.round(((b.freckles || 0) + Math.floor(rng() * 100)) / 2)));
+  out.dimples   = Math.max(0, Math.min(100, Math.round(((b.dimples  || 0) + Math.floor(rng() * 100)) / 2)));
+  return out;
+}
+
+// Nest a DiceBear-produced <svg ...> string inside a parent SVG by
+// injecting x/y/width/height attributes onto the outer tag. The
+// browser treats nested <svg> elements as sub-viewports.
+function embedAvatarSvg(svgString, x, y, w, h) {
+  if (!svgString) return '';
+  return svgString.replace(/^<svg(\s)/, `<svg x="${x}" y="${y}" width="${w}" height="${h}"$1`);
 }
 
 /* ====================================================================
