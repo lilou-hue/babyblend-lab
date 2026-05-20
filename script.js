@@ -3134,13 +3134,18 @@ function generateSliderRanges(parents) {
       const half = chaos ? span : (2 * sigmaEff);
       const lo = clamp(Math.floor(center - half), def.hardMin, def.hardMax);
       const hi = clamp(Math.ceil (center + half), def.hardMin, def.hardMax);
+      // Tag the uncertainty category so confidence-band rendering can vary
+      // its visual treatment: OCEAN bands are 'speculative' (low-heritability,
+      // gene–environment-dominated) while physical polygenic traits like
+      // athletic tendency are 'phenotypic' (additive-polygenic).
       ranges[def.key] = {
         kind: 'polygenic',
         min: lo, max: hi,
         step: 1,
         def: clamp(Math.round(center), lo, hi),
         sigma: sigmaEff,
-        unit: def.unit || ''
+        unit: def.unit || '',
+        uncertaintyClass: isOcean ? 'speculative' : 'phenotypic'
       };
     } else if (def.kind === 'ladder') {
       const ladder = def.ladder;
@@ -3308,7 +3313,14 @@ function buildConfidenceBandHTML(rangeKey, displayMid, displaySigma, r, currentD
   const sigmaX = (displaySigma / span) * W;
   const d = bellPath(W, H, midX, sigmaX);
   const cur = Math.max(0, Math.min(W, ((currentDisplayed - r.min) / span) * W));
-  return `<svg class="confidence-band-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+  // Surface the range's uncertainty category (speculative for OCEAN,
+  // phenotypic for physical polygenic) so CSS can style the band fill
+  // differently per category. No visual change wired here yet.
+  // LOOP_REQUEST(frontend): style [data-uncertainty="speculative"] band
+  // differently (e.g. dashed pattern) so OCEAN bands read as a different
+  // inheritance category.
+  const uncertainty = r.uncertaintyClass || 'phenotypic';
+  return `<svg class="confidence-band-svg" data-uncertainty="${uncertainty}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
     <path d="${d}" class="band-fill" />
     <line class="midparent-marker" x1="${midX.toFixed(2)}" y1="2" x2="${midX.toFixed(2)}" y2="${H}" />
     <line class="current-marker"   x1="${cur.toFixed(2)}"  y1="0" x2="${cur.toFixed(2)}"  y2="${H}" data-band="${rangeKey}" />
@@ -3407,7 +3419,7 @@ function renderKidsPersonalitySlider(view, ranges, container) {
   if (state.parents?.A && state.parents?.B) {
     const midOcean = (state.parents.A[view.oceanKey] + state.parents.B[view.oceanKey]) / 2;
     const midDisplay = view.invert ? (11 - midOcean) : midOcean;
-    const displayR = { min: dispMin, max: dispMax, def: dispDef };
+    const displayR = { min: dispMin, max: dispMax, def: dispDef, uncertaintyClass: r.uncertaintyClass };
     // Effective sigma is symmetric under the invert flip — reuse the value
     // generateSliderRanges computed for this trait.
     bandHTML = buildConfidenceBandHTML(view.kidsKey, midDisplay, r.sigma ?? PERSONALITY_SIGMA, displayR, dispDef);
