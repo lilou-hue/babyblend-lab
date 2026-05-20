@@ -3222,22 +3222,60 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
 }
 .budget-panel input[type="range"][disabled] { cursor: not-allowed; opacity: 0.55; }
 
-/* Gen-1 consent-awareness one-liner above the trait-conflicts chips. */
+/* Gen-1 consent-awareness one-liner above the trait-conflicts chips.
+   Cross-fades out on micro-ack so the same screen-space hands off to the
+   intensity-progress hint (two-beat consent rhythm). */
 .consent-awareness-note {
   margin: 0 0 10px; padding: 6px 10px;
   font-size: 12px; font-style: italic; color: rgba(255, 220, 170, 0.92);
   border-left: 2px solid rgba(255, 210, 138, 0.4);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
+.consent-awareness-note.is-leaving { opacity: 0; transform: translateY(-4px); pointer-events: none; }
 
-/* One-time heritable-decision micro-acknowledgment prompt. */
+/* One-time heritable-decision micro-acknowledgment prompt. Fades on click. */
 .consent-ack-prompt {
   display: flex; flex-direction: column; gap: 8px; align-items: flex-start;
   margin: 12px 0; padding: 12px 14px;
   background: rgba(7, 9, 30, 0.6);
   border: 1px solid rgba(255, 210, 138, 0.35); border-radius: 8px;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
+.consent-ack-prompt.is-leaving { opacity: 0; transform: translateY(-4px); pointer-events: none; }
 .consent-ack-prompt .consent-ack-copy { margin: 0; font-size: 13px; color: rgba(255, 220, 170, 0.95); }
 .consent-ack-prompt .consent-ack-btn { padding: 6px 12px; font-size: 12px; }
+
+/* Faint progress hint toward the next consent-intensity threshold (50
+   credits) — appears after the micro-ack to bridge the two beats into one
+   journey. Auto-removes once the threshold is reached. */
+.consent-progress-hint {
+  margin: 10px 0 14px; padding: 6px 0 0;
+  animation: parent-advanced-reveal 0.45s ease both;
+}
+.consent-progress-copy {
+  margin: 0 0 6px; font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10.5px; letter-spacing: 0.4px; color: var(--ink-mute); text-transform: uppercase;
+}
+.consent-progress-track {
+  height: 3px; border-radius: 2px; background: rgba(255, 210, 138, 0.12); overflow: hidden;
+}
+.consent-progress-fill {
+  height: 100%; width: 0; background: rgba(255, 210, 138, 0.55);
+  transition: width 0.35s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .consent-awareness-note, .consent-ack-prompt, .consent-progress-hint, .consent-progress-fill {
+    transition: none !important; animation: none !important;
+  }
+}
+
+/* Cohesive reveal motion for the Consent Implications panel — matches the
+   parent-advanced (OCEAN) disclosure (translateY 6px → 0, 0.45s) so the
+   two systems read as one. Applied via .is-revealing on first unhide. */
+.consent-panel.is-revealing { animation: parent-advanced-reveal 0.45s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  .consent-panel.is-revealing { animation: none !important; }
+}
 
 /* One-line compliance footnote under the budget intro. */
 .budget-panel .compliance-footnote {

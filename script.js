@@ -2928,9 +2928,20 @@ function applyBudgetPanelGate() {
     ensureBudgetLockNotice(isAdult && !interactionReady);
   }
   // Consent Implications: visible only after Gen 2 AND ≥50 credits allocated.
+  // First reveal uses the same downward-settle motion as the OCEAN/advanced
+  // disclosure (translateY 6px → 0, 0.45s) so the two read as one system.
   const allocated = computeBudgetUsed();
   const consentReady = isAdult && gen >= 2 && allocated >= 50;
-  if (consent) consent.hidden = !consentReady;
+  if (consent) {
+    const wasHidden = consent.hidden;
+    consent.hidden = !consentReady;
+    if (consentReady && wasHidden) {
+      consent.classList.remove('is-revealing');
+      // Force reflow so the animation re-runs on first reveal.
+      void consent.offsetWidth;
+      consent.classList.add('is-revealing');
+    }
+  }
   if (consentReady) renderConsentExplainer();
 }
 
@@ -3676,13 +3687,15 @@ function updateBabyPreview() {
   // Trait conflicts (tradeoff chips). In Adult mode after Gen 1, prepend a
   // one-line consent-awareness note — the early beat of the two-beat
   // consent rhythm. Round 3 (narrative): chosen line lands as a quiet
-  // spatial note rather than an ethical claim; alternates kept for
-  // future A/B swap.
+  // spatial note rather than an ethical claim. The note cross-fades OUT
+  // once consentAck flips true so the same screen-space hands off to the
+  // micro-ack / progress hint.
   //   alt-A: 'These allocations will be carried by someone not yet present to weigh in on them.'
   //   alt-B: 'Whatever balance you choose here will be lived in by someone with no vote in the matter.'
   const conflictsEl = $('#trait-conflicts');
   if (conflictsEl) {
-    const awarenessHtml = (state.appMode === 'adult' && (state.generateCount || 0) >= 1)
+    const showAwareness = (state.appMode === 'adult' && (state.generateCount || 0) >= 1 && !state.consentAck);
+    const awarenessHtml = showAwareness
       ? `<p class="consent-awareness-note">The person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`
       : '';
     if (state.conflicts && state.conflicts.length) {
@@ -5542,6 +5555,30 @@ function randomizeParents() {
   });
 }
 
+// Diversify only the appearance fields (skin / hair / eye / hair type) by
+// drawing each parent from a randomly-picked phenotype preset in
+// ANCESTRY_LADDER. Leaves the ancestry SELECT and every non-appearance
+// field untouched — so this is a one-click escape from the Northern-
+// European phenotype baseline encoded in PARENT_FIELDS' defA/defB without
+// imposing any new default on the user. LOOP_REQUEST(narrative): refine
+// "Diversify defaults" button copy + tooltip phrasing.
+// LOOP_REQUEST(translator): translate 'btn.diversify_defaults.*' once copy
+// settles in en-US.
+function diversifyParentDefaults() {
+  const ladder = Object.keys(ANCESTRY_PRESETS).filter(k => ANCESTRY_PRESETS[k]);
+  if (!ladder.length) return;
+  ['A', 'B'].forEach(letter => {
+    const preset = ANCESTRY_PRESETS[ladder[Math.floor(Math.random() * ladder.length)]];
+    if (!preset) return;
+    Object.entries(preset).forEach(([key, options]) => {
+      const el = $('#p' + letter + '_' + key);
+      if (!el) return;
+      el.value = options[Math.floor(Math.random() * options.length)];
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  });
+}
+
 /* ---------- Saved Timelines (localStorage) ---------- */
 
 const SAVED_KEY = 'babyblend.saved.v1';
@@ -5841,9 +5878,43 @@ function showConsentAckPrompt() {
     const btn = prompt.querySelector('.consent-ack-btn');
     if (btn) btn.addEventListener('click', () => {
       state.consentAck = true;
-      prompt.remove();
+      // Fade the prompt out, then remove it on transition end.
+      prompt.classList.add('is-leaving');
+      const cleanup = () => { prompt.remove(); ensureConsentProgressHint(); };
+      prompt.addEventListener('transitionend', cleanup, { once: true });
+      setTimeout(cleanup, 500); // fallback if transitionend doesn't fire
+      // Cross-fade the Gen-1 consent-awareness note: its hand-off partner
+      // (the micro-ack) just fired, so the early beat retires.
+      const note = document.querySelector('.consent-awareness-note');
+      if (note) {
+        note.classList.add('is-leaving');
+        note.addEventListener('transitionend', () => note.remove(), { once: true });
+        setTimeout(() => note.remove(), 500);
+      }
     });
   }
+}
+
+// Faint progress hint toward the next consent-intensity threshold (50 credits).
+// Lives just under the budget bar; auto-removes once threshold reached.
+function ensureConsentProgressHint() {
+  const panel = $('#budget-panel');
+  if (!panel) return;
+  const used = computeBudgetUsed();
+  let hint = panel.querySelector('.consent-progress-hint');
+  if (used >= 50) { if (hint) hint.remove(); return; }
+  if (!hint) {
+    hint = document.createElement('div');
+    hint.className = 'consent-progress-hint';
+    hint.innerHTML = `
+      <p class="consent-progress-copy">Consent context expands at 50 credits.</p>
+      <div class="consent-progress-track"><div class="consent-progress-fill"></div></div>`;
+    const grid = panel.querySelector('#budget-grid');
+    if (grid && grid.parentNode) grid.parentNode.insertBefore(hint, grid);
+    else panel.appendChild(hint);
+  }
+  const fill = hint.querySelector('.consent-progress-fill');
+  if (fill) fill.style.width = Math.min(100, (used / 50) * 100) + '%';
 }
 
 function updateBudgetBar() {
@@ -5861,6 +5932,9 @@ function updateBudgetBar() {
   // experience isn't carrying the full compliance frame.
   const badge = $('#consent-badge');
   if (badge) badge.hidden = !((state.generateCount || 0) >= 2 && used >= 50);
+  // If the micro-ack already fired, keep the progress hint in sync; it
+  // auto-removes once threshold (50) is reached.
+  if (state.consentAck) ensureConsentProgressHint();
   updateBudgetProjections(used);
   // Recompute the unified opt-intensity (drift + budget).
   updateOptIntensity();
@@ -6189,6 +6263,8 @@ function init() {
   setupDetailsToggle();
   setupLanding();
   $('#randomize-parents-btn').addEventListener('click', randomizeParents);
+  const divBtn = $('#diversify-defaults-btn');
+  if (divBtn) divBtn.addEventListener('click', diversifyParentDefaults);
   $('#natural-variation-btn').addEventListener('click', preserveNaturalVariation);
   $('#generate-btn').addEventListener('click', generate);
   $('#randomize-btn').addEventListener('click', randomizeBaby);
