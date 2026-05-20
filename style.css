@@ -547,7 +547,12 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
 .primary-action {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .primary-action .btn { padding: 12px 18px; }
 }
 .btn {
   appearance: none;
@@ -3229,7 +3234,7 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   margin: 0 0 10px; padding: 6px 10px;
   font-size: 12px; font-style: italic; color: rgba(255, 220, 170, 0.92);
   border-left: 2px solid rgba(255, 210, 138, 0.4);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.45s ease, transform 0.45s ease;
 }
 .consent-awareness-note.is-leaving { opacity: 0; transform: translateY(-4px); pointer-events: none; }
 
@@ -3250,17 +3255,17 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
    journey. Auto-removes once the threshold is reached. */
 .consent-progress-hint {
   margin: 10px 0 14px; padding: 6px 0 0;
-  animation: parent-advanced-reveal 0.45s ease both;
+  animation: parent-advanced-reveal 0.45s ease 0.04s both;
 }
 .consent-progress-copy {
   margin: 0 0 6px; font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 10.5px; letter-spacing: 0.4px; color: var(--ink-mute); text-transform: uppercase;
 }
 .consent-progress-track {
-  height: 3px; border-radius: 2px; background: rgba(255, 210, 138, 0.12); overflow: hidden;
+  height: 3px; border-radius: 2px; background: rgba(255, 210, 138, 0.20); overflow: hidden;
 }
 .consent-progress-fill {
-  height: 100%; width: 0; background: rgba(255, 210, 138, 0.55);
+  height: 100%; width: 0; background: rgba(255, 210, 138, 0.70);
   transition: width 0.35s ease;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3288,7 +3293,7 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
    Warm-tinted left border echoes the heritable-allocation badge; negative
    margin tightens the gap with the budget panel above so the two read as a
    grouped pair rather than two equally-weighted sections. */
-#budget-panel + .consent-panel { margin-top: -10px; }
+#budget-panel + .consent-panel { margin-top: -6px; }
 .consent-panel { border-left: 3px solid rgba(255, 210, 138, 0.4); }
 .consent-panel > .subtle { font-size: 13px; }
 .consent-panel .consent-explainer { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
@@ -3807,7 +3812,7 @@ body.mode-adult .societal-brief-panel:not([hidden]) {
        triplet groups visually.
    No literal arrows/lines — just shared accent + spacing. */
 .budget-projections .projection-row.burden-row {
-  margin-top: 6px; padding-top: 8px;
+  margin-top: 12px; padding-top: 10px;
   border-top: 1px solid rgba(255, 210, 138, 0.10);
   border-left: 2px solid rgba(255, 210, 138, 0.18);
   padding-left: 10px;
