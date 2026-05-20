@@ -2521,6 +2521,13 @@ const KIDS_EXPLAINERS = {
 // above the future-tree by the render path (see #future-block handling).
 const KIDS_FUTURES_PREAMBLE = "These are just stories of *possible* lives. Your real one might be completely different — and that's what makes it exciting.";
 
+// One-line, dry framing appended to the popover on the 5 OCEAN-mapped Kids
+// sliders (curiosity/kindness/energy/focus/confidence). Explains WHY their
+// confidence bands are wider than the physical sliders': gene-environment
+// interaction means heritability for personality is roughly 0.4–0.5.
+// Surfaced through buildExplainerHTML for any kidsKey in KIDS_TRAIT_VIEW.
+const KIDS_OCEAN_TOOLTIP = "Personality is shaped more by life experience, friendships, and luck than by genes alone. Genes matter, but they're roughly half the story.";
+
 const KIDS_FUTURE_PATHS = [
   { text: 'Might love building things.',                            tag: 'O' },
   { text: 'Could become really good at storytelling.',              tag: 'O' },
@@ -3342,10 +3349,16 @@ function syncSliderDOMForOcean(oceanKey, oceanValue) {
 function buildExplainerHTML(key) {
   const text = KIDS_EXPLAINERS[key];
   if (!text || !isKids()) return '';
+  // For the 5 OCEAN-mapped Kids sliders, append the gene-environment
+  // one-liner so users see WHY personality bands are speculative.
+  const isOceanKidsKey = KIDS_TRAIT_VIEW.some(v => v.kidsKey === key);
+  const body = isOceanKidsKey
+    ? `${text} <span class="slider-popover-aside">${KIDS_OCEAN_TOOLTIP}</span>`
+    : text;
   return `
     <button type="button" class="slider-explain" aria-expanded="false"
             data-target="exp_${key}" title="How does this work?">?</button>
-    <div class="slider-popover" id="exp_${key}">${text}</div>`;
+    <div class="slider-popover" id="exp_${key}">${body}</div>`;
 }
 
 /* ---------- Confidence band SVG ----------
