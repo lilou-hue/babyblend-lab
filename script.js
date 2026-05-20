@@ -1997,7 +1997,8 @@ const HISTORY_CARDS = [
   { title: 'Gene editing today.',                 body: 'CRISPR can edit DNA in a Petri dish or a person. Where the line falls — diseases? height? mood? — is something we\'re answering as a species, mostly without asking it out loud.' },
   { title: 'Access is the harder question.',     body: 'Even if "designer babies" worked, they\'d almost certainly arrive unevenly. The wealthy modify; everyone else inherits. A new axis of inequality stacked on the old ones.' },
   { title: 'Who measures "improvement"?',        body: 'Traits cast as flaws in one era (sensitivity, atypical minds, certain bodies) are cast as strengths in another. The measurer changes; the trait doesn\'t.' },
-  { title: 'Genes ≠ destiny.',                    body: 'Twin studies put most personality traits in the 40–60% heritable range. The rest is environment, chance, and the choices of the person themselves — none of which a slider can model.' }
+  { title: 'Genes ≠ destiny.',                    body: 'Twin studies put Big Five personality traits at roughly 40–50% heritable (Polderman et al., 2015, meta-analyzed ~17,800 traits). Most of the rest tracks non-shared environment — the unique experiences, peer groups, and accidents that even identical twins don\'t share. Shared family environment explains less of adult personality than people expect.' },
+  { title: 'Heritability is not "fixed in you".', body: 'A heritability of 50% means about half the variation between people in a population traces to genetic differences. It does not mean half of any one person\'s trait is genetic, and it does not mean the trait is unchangeable. Heritability estimates also shift with context: height is ~80% heritable when everyone is well-fed, much less in populations where childhood nutrition varies.' }
 ];
 
 /* ====================================================================
