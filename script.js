@@ -6029,6 +6029,9 @@ function init() {
       if (state.codename) {
         const flavor = generateBabyFlavor(state.codename, state.baby);
         state.vibe        = flavor.vibe;
+        state.futurePaths = flavor.paths;
+        state.events      = flavor.events;
+        state.headlines   = flavor.headlines;
         state.reflection  = pickReflectionPrompt(state.codename);
         updateBabyPreview();
       }
