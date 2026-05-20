@@ -264,8 +264,9 @@
 
     <!-- 1c. Enhancement Allocation (Adult mode only) -->
     <section class="panel budget-panel adult-only" id="budget-panel" aria-labelledby="budget-heading">
-      <h2 id="budget-heading"><span data-i18n="section.budget.heading">Enhancement Allocation</span> <span class="beta-tag">Beta</span></h2>
+      <h2 id="budget-heading"><span data-i18n="section.budget.heading">Enhancement Allocation</span> <span class="beta-tag">Beta</span> <span class="consent-badge" id="consent-badge" hidden aria-live="polite">Consent affected: heritable</span></h2>
       <p class="subtle" data-i18n="section.budget.intro">Distribute credits across optimization categories. Allocations bias projected outcomes; tradeoffs are listed per package.</p>
+      <p class="compliance-footnote">Compliance reference: Oviedo Convention Art. 13 (heritable-germline restriction); medical-ethics principle of non-maleficence.</p>
       <div class="budget-bar" aria-label="Budget usage">
         <span class="budget-fill" id="budget-fill"></span>
         <span class="budget-text" id="budget-text">0 / 200 credits</span>
@@ -293,6 +294,15 @@
       <div class="regulatory-notes" id="regulatory-notes" hidden></div>
       <div class="regional-access" id="regional-access" hidden></div>
       <div class="decision-log" id="decision-log" hidden></div>
+    </section>
+
+    <!-- 1c-ii. Consent Implications (Adult mode only) — sits next to the
+         Enhancement Allocation panel and frames child-autonomy as a
+         consent dimension, not a parental-optimization variable. -->
+    <section class="panel consent-panel adult-only" id="consent-panel" aria-labelledby="consent-heading">
+      <h2 id="consent-heading">Consent Implications <span class="beta-tag">Adjacent</span></h2>
+      <p class="subtle">The subject of every allocation above cannot consent to it. The notes below state, in institutional terms, what that means.</p>
+      <div class="consent-explainer" id="consent-explainer"></div>
     </section>
 
     <div class="primary-action">

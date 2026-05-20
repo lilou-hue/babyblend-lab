@@ -2454,10 +2454,16 @@ const REGULATORY_NOTE_RULES = [
 
 /* ---------- Consent framing (Adult mode, near Enhancement Allocation) ---------- */
 
-// LOOP_REQUEST(world-design): position the consent explainer near the
-// Enhancement Allocation panel — element id 'consent-explainer'. Adult mode
-// only. Reveal-on-click is fine; do not make it modal. Plain paragraph.
+// Lead paragraph (Education): the canonical "why this is a consent question" copy.
 const CONSENT_EXPLAINER = 'Heritable modifications are chosen before the person who will live with them exists, so the subject cannot consent. Parents make many decisions for children, but heritable edits differ in one respect: they are written into the biology and passed forward. Medical-ethics frameworks (Council of Europe Oviedo Convention, Article 13; the principle of non-maleficence) treat heritable choices as a distinct consent class from somatic or environmental ones.';
+
+// Structured rows (World Design): rendered as labeled items below the lead.
+const CONSENT_IMPLICATIONS = [
+  { label: 'Subject', body: 'The modified individual is, by definition, absent from this interface. Every allocation is a decision made on behalf of someone who does not yet exist and cannot be consulted.' },
+  { label: 'Heritability', body: 'Germline modifications propagate to descendants. The consent gap extends across generations: subsequent persons inherit allocations selected in this session.' },
+  { label: 'Reversibility', body: 'Heritable edits are not retractable post-hoc. A future subject who would not have consented has no procedural remedy available to them.' },
+  { label: 'Standard of care', body: 'Institutional ethics frameworks (Oviedo Convention; UNESCO Universal Declaration on the Human Genome and Human Rights, Art. 5) require informed consent of the affected party. That standard is structurally unmet here.' }
+];
 
 /* ---------- History of Human Enhancement (educational cards) ---------- */
 
@@ -2904,9 +2910,13 @@ function applyAppModeClass() {
 // baseline projection, so we keep #budget-panel out of the first pass.
 function applyBudgetPanelGate() {
   const panel = $('#budget-panel');
-  if (!panel) return;
+  const consent = $('#consent-panel');
   const ready = state.appMode === 'adult' && (state.generateCount || 0) >= 2;
-  panel.hidden = !ready;
+  if (panel) panel.hidden = !ready;
+  // Consent Implications mirrors the budget panel's gate; the reframing
+  // is meaningless without the panel it qualifies.
+  if (consent) consent.hidden = !ready;
+  if (ready) renderConsentExplainer();
 }
 
 /* ====================================================================
@@ -5714,9 +5724,34 @@ function updateBudgetBar() {
   const text = $('#budget-text');
   if (bar) bar.style.width = Math.min(100, (used / BUDGET_TOTAL) * 100) + '%';
   if (text) text.textContent = `${used} / ${BUDGET_TOTAL} credits`;
+  // Heritable-consent badge: any non-zero allocation triggers the
+  // header tag. Compliance-style, not alarming — matches the .beta-tag
+  // register adjacent to it.
+  const badge = $('#consent-badge');
+  if (badge) badge.hidden = !(used > 0);
   updateBudgetProjections(used);
   // Recompute the unified opt-intensity (drift + budget).
   updateOptIntensity();
+}
+
+/* ---------- Render Consent Implications panel ----------
+ * Populates #consent-explainer from CONSENT_EXPLAINER. Static content;
+ * does not react to budget state (the point is that the consent
+ * structure is invariant under allocation choice). */
+function renderConsentExplainer() {
+  const host = $('#consent-explainer');
+  if (!host || host.dataset.rendered === '1') return;
+  const lead = typeof CONSENT_EXPLAINER === 'string' ? CONSENT_EXPLAINER : '';
+  const rows = Array.isArray(CONSENT_IMPLICATIONS) ? CONSENT_IMPLICATIONS : [];
+  if (!lead && !rows.length) return;
+  const leadHtml = lead ? `<p class="consent-line">${lead}</p>` : '';
+  const rowsHtml = rows.map(it => {
+    const label = (it && it.label) ? it.label : '';
+    const body  = (it && it.body)  ? it.body  : '';
+    return `<div class="consent-row"><span class="consent-label">${label}</span><span class="consent-body">${body}</span></div>`;
+  }).join('');
+  host.innerHTML = leadHtml + rowsHtml;
+  host.dataset.rendered = '1';
 }
 
 /* ---------- Adult budget projections ----------
