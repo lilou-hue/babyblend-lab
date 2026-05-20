@@ -3675,12 +3675,15 @@ function updateBabyPreview() {
 
   // Trait conflicts (tradeoff chips). In Adult mode after Gen 1, prepend a
   // one-line consent-awareness note — the early beat of the two-beat
-  // consent rhythm. LOOP_REQUEST(narrative): refine Gen-1 consent-awareness
-  // one-liner copy.
+  // consent rhythm. Round 3 (narrative): chosen line lands as a quiet
+  // spatial note rather than an ethical claim; alternates kept for
+  // future A/B swap.
+  //   alt-A: 'These allocations will be carried by someone not yet present to weigh in on them.'
+  //   alt-B: 'Whatever balance you choose here will be lived in by someone with no vote in the matter.'
   const conflictsEl = $('#trait-conflicts');
   if (conflictsEl) {
     const awarenessHtml = (state.appMode === 'adult' && (state.generateCount || 0) >= 1)
-      ? `<p class="consent-awareness-note">Every allocation above affects someone who cannot consent to it.</p>`
+      ? `<p class="consent-awareness-note">The person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`
       : '';
     if (state.conflicts && state.conflicts.length) {
       conflictsEl.hidden = false;
@@ -5947,10 +5950,13 @@ function updateBudgetProjections(usedOverride) {
   const pressure = Math.min(1, socialCost / 60);
   if (pressureEl) pressureEl.style.width = (pressure * 100).toFixed(0) + '%';
   if (pressureNote) {
-    let note = 'Minimal · few heritable visible traits';
-    if (pressure > 0.15) note = 'Above baseline · some traits carry forward';
-    if (pressure > 0.45) note = 'Substantial · heritable load on the next generation';
-    if (pressure > 0.75) note = 'Heavy · descendants inherit most visible choices';
+    // Round 3 (narrative): all four tiers now describe what passes forward,
+    // not how the modified person presents. Parallel structure: severity ·
+    // what descendants inherit.
+    let note = 'Minimal · little is fixed in advance for descendants';
+    if (pressure > 0.15) note = 'Modest · a few visible choices carry into the next generation';
+    if (pressure > 0.45) note = 'Substantial · descendants inherit a defined appearance profile';
+    if (pressure > 0.75) note = 'Heavy · most visible traits are pre-decided for those who follow';
     pressureNote.textContent = note;
   }
 
