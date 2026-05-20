@@ -3185,6 +3185,44 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
 .budget-ethics-flags .ethics-flag-sep {
   opacity: 0.5;
 }
+/* R5: compact env summary (3 short tokens) shown only when the
+   #env-disclosure <details> is closed in Adult mode — surfaces the
+   hidden dependency near the burden bar without re-opening the panel.
+   Faint, monospace, label-style so it reads as ambient context, not
+   another projection row. */
+.env-summary-tokens {
+  margin: -4px 0 12px;
+  padding: 4px 0 4px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.4px;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  border-left: 2px solid rgba(126, 224, 255, 0.18);
+}
+.env-summary-tokens .env-token {
+  white-space: nowrap;
+}
+.env-summary-tokens .env-token-sep {
+  opacity: 0.5;
+}
+/* R5: burden disclaimer 1-liner above the burden bar — names that the
+   index measures propagation of an already-equal loss, not whether the
+   allocation is "less wrong". Faint italic so it reads as a frame, not a
+   competing projection value. */
+.budget-projections .burden-disclaimer {
+  grid-column: 1 / -1;
+  margin: 6px 0 -2px;
+  padding: 2px 0 2px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--ink-mute);
+  border-left: 2px solid rgba(255, 210, 138, 0.16);
+}
 /* Budget projections (Cohort Placement + Inheritance Burden) — Adult only. */
 .budget-projections {
   display: flex;

@@ -289,6 +289,10 @@
         <span class="ethics-flag-sep">·</span>
         <span class="ethics-flag">Subject absent: <strong>Yes</strong></span>
       </p>
+      <!-- R5: compact env summary (3 tokens) shown only when env-disclosure
+           is closed in Adult mode, so the hidden dependency surfaces near the
+           projection it influences. Populated by renderEnvSummaryTokens(). -->
+      <p class="env-summary-tokens" id="env-summary-tokens" hidden aria-live="polite"></p>
       <div class="budget-projections" id="budget-projections" aria-live="polite">
         <div class="projection-row">
           <span class="projection-label">Projected Cohort Placement</span>
@@ -302,6 +306,10 @@
           <span class="projection-label">Projected Access Tier</span>
           <span class="projection-value" id="access-tier">Universal · baseline</span>
         </div>
+        <!-- R5: 1-liner above the burden bar making explicit that the index
+             measures propagation of an already-equal loss of choice, not
+             whether the allocation is "less wrong". -->
+        <p class="burden-disclaimer" id="burden-disclaimer">All allocations remove the future subject's choice equally; the weight measures how widely the loss propagates, not whether it occurs.</p>
         <div class="projection-row burden-row" id="inheritance-burden-row">
           <span class="projection-label">Inheritance Burden Index</span>
           <div class="projection-bar"><span class="projection-bar-fill" id="pressure-fill"></span></div>

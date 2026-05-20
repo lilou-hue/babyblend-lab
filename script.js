@@ -3372,6 +3372,37 @@ function applyEnvDisclosureMode() {
   if (!d) return;
   if (state.envDisclosureTouched) return;
   d.open = state.appMode !== 'adult';
+  renderEnvSummaryTokens();
+}
+
+// R5 (Product): when #env-disclosure is CLOSED in Adult mode, surface a
+// compact 3-token summary (home / school / locale) near the burden bar
+// so the env context driving the projection is visible at a glance —
+// closes the R4 hidden-dependency gap. Reads live #env_* values; no new
+// state fields. Hidden whenever the disclosure is open or mode != adult.
+function renderEnvSummaryTokens() {
+  const host = $('#env-summary-tokens');
+  if (!host) return;
+  const d = $('#env-disclosure');
+  const isAdult = state.appMode === 'adult';
+  if (!(isAdult && d && !d.open)) { host.hidden = true; host.innerHTML = ''; return; }
+  const read = (key) => {
+    const el = $('#env_' + key);
+    if (el) return Number(el.value);
+    const f = ENV_FIELDS.find(x => x.key === key);
+    return f ? f.def : 5;
+  };
+  const family = read('family');
+  const home = family >= 8 ? 'Stable home' : family >= 5 ? 'Mixed home' : 'Unstable home';
+  const education = read('education');
+  const school = education >= 8 ? 'Strong school' : education >= 5 ? 'Average school' : 'Under-resourced school';
+  const ur = read('urbanRural');  // 1 = urban, 10 = rural
+  const locale = ur <= 3 ? 'Urban' : ur <= 6 ? 'Suburban' : 'Rural';
+  host.hidden = false;
+  host.innerHTML =
+    `<span class="env-token">${home}</span><span class="env-token-sep">·</span>` +
+    `<span class="env-token">${school}</span><span class="env-token-sep">·</span>` +
+    `<span class="env-token">${locale}</span>`;
 }
 
 // Enhancement Allocation is visible from first load in Adult mode as a
@@ -3398,6 +3429,11 @@ function applyBudgetPanelGate() {
   // mode. First reveal uses the same downward-settle motion as the OCEAN
   // /advanced disclosure (translateY 6px → 0, 0.45s) so the two read as
   // one system.
+  // R5 (narrative): if the Gen-1 awareness note is currently fading out
+  // (cross-fade fires from showConsentAckPrompt → 0.45s), defer the
+  // consent panel reveal motion by ~200ms past the fade end so the
+  // cascade reads sequentially instead of overlapping. The panel is
+  // still UN-hidden immediately; only the animated settle is deferred.
   const allocated = computeBudgetUsed();
   const consentReady = isAdult && allocated >= 50;
   if (consent) {
@@ -3405,9 +3441,19 @@ function applyBudgetPanelGate() {
     consent.hidden = !consentReady;
     if (consentReady && wasHidden) {
       consent.classList.remove('is-revealing');
-      // Force reflow so the animation re-runs on first reveal.
-      void consent.offsetWidth;
-      consent.classList.add('is-revealing');
+      const leavingNote = document.querySelector('.consent-awareness-note.is-leaving');
+      const applyReveal = () => {
+        // Force reflow so the animation re-runs on first reveal.
+        void consent.offsetWidth;
+        consent.classList.add('is-revealing');
+      };
+      if (leavingNote) {
+        // Awareness fade is 450ms; add a 200ms gap so the consent
+        // motion starts after the note has fully resolved.
+        setTimeout(applyReveal, 650);
+      } else {
+        applyReveal();
+      }
     }
   }
   if (consentReady) renderConsentExplainer();
@@ -3614,8 +3660,24 @@ function buildEnvPanel() {
   const d = $('#env-disclosure');
   if (d && !d.dataset.touchBound) {
     d.dataset.touchBound = '1';
-    d.addEventListener('toggle', () => { state.envDisclosureTouched = true; });
+    d.addEventListener('toggle', () => {
+      state.envDisclosureTouched = true;
+      // R5: refresh the 3-token summary visibility when the user toggles
+      // the disclosure — visible only while it's closed in Adult mode.
+      renderEnvSummaryTokens();
+    });
   }
+  // R5: keep the compact env summary in sync with slider edits so a user
+  // tweaking a value while the disclosure is open then re-collapsing it
+  // sees the current tokens rather than stale ones.
+  ENV_FIELDS.forEach(f => {
+    const el = $('#env_' + f.key);
+    if (el && !el.dataset.envSumBound) {
+      el.dataset.envSumBound = '1';
+      el.addEventListener('input', renderEnvSummaryTokens);
+    }
+  });
+  renderEnvSummaryTokens();
 }
 
 function collectEnvData() {
@@ -4298,6 +4360,10 @@ function renderCaseFile() {
     host.hidden = true;
     host.classList.remove('is-settling');
     host.innerHTML = '';
+    // R5: clear the last-rendered tier/codename when leaving Adult mode
+    // so the next entry re-runs the settle motion on a fresh opening.
+    host.dataset.lastTier = '';
+    host.dataset.lastCodename = '';
     return;
   }
   const ts = new Date();
@@ -4315,16 +4381,27 @@ function renderCaseFile() {
   const profileV = (state.generateCount || 0) + '.' + Math.floor((state.surprise || 0) / 10);
   const disclosure = intensity > 0.45 ? 'required' : 'not required';
   // R4 pacing micro-adjustment: faint downward settle on first reveal of
-  // the dossier opener (the Adult fascination → unease beat). Re-apply on
-  // each hidden→visible transition so the settle marks an opening, not
-  // every slider drift. Reduced-motion users see a static fade via CSS.
+  // the dossier opener (the Adult fascination → unease beat).
+  // R5 (UX polish): only re-fire the settle when the tier OR codename
+  // actually changed — not on every render (slider drift, generation
+  // count tick, timestamp refresh). Track the last applied tier+codename
+  // via dataset attributes so the motion marks a meaningful step
+  // change, not background re-renders. Reduced-motion users see a
+  // static fade via CSS regardless.
   const wasHidden = host.hidden;
   host.hidden = false;
-  if (wasHidden) {
+  const prevTier = host.dataset.lastTier || '';
+  const prevCodename = host.dataset.lastCodename || '';
+  const tierChanged = tier !== prevTier;
+  const codenameChanged = state.codename !== prevCodename;
+  const shouldSettle = wasHidden || tierChanged || codenameChanged;
+  if (shouldSettle) {
     host.classList.remove('is-settling');
     void host.offsetWidth;
     host.classList.add('is-settling');
   }
+  host.dataset.lastTier = tier;
+  host.dataset.lastCodename = state.codename;
   host.innerHTML = `
     <div class="case-row"><span class="case-label">Simulation Codename</span><span class="case-value">${state.codename}</span></div>
     <div class="case-row"><span class="case-label">Cohort</span><span class="case-value">ENH-2042 / Class II</span></div>
