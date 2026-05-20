@@ -2235,62 +2235,286 @@ const ADULTHOOD_MEMORIES = {
  * early (0-12), mid (13-29), later (30+). Reflection reuses the
  * existing memory pools; Kids and Adult get their own. */
 const KIDS_AGE_TICKERS = {
-  early: [
-    'Building a fort out of every sofa cushion in the house.',
-    'Naming a goldfish, then naming it again the next day.',
-    'Insisting on wearing the same dinosaur t-shirt three days in a row.',
-    'Practising writing their name on every available surface.',
-    'Asking why the sky is blue. Then why the why is why.',
-    'Memorising every word of one specific picture book.',
-    'Inventing an imaginary friend who works at a bakery.'
-  ],
-  mid: [
-    'Walking to school with a best friend, debating something important.',
-    'Trying a new way of dressing — it lasts six months, mostly.',
-    'Becoming briefly very serious about one specific band.',
-    'Discovering they are unexpectedly good at something they did not try for.',
-    'Falling in love for the first time, quietly.',
-    'Spending a whole weekend on a project no one else understands yet.',
-    'Becoming the friend who remembers everyone\'s birthday.'
-  ],
-  later: [
-    'Settling into a kitchen they cook in often. The same chair, mostly.',
-    'Calling a parent on Sundays out of habit.',
-    'Realising one of their childhood teachers shaped them more than they knew.',
-    'Building something with their hands that lasts beyond them.',
-    'Becoming the person their younger self would have wanted to find.',
-    'Telling a story at a small dinner that everyone will repeat later.',
-    'Looking at a photo of themselves at this age and recognising who they were.'
-  ]
+  early: {
+    en: [
+      'Building a fort out of every sofa cushion in the house.',
+      'Naming a goldfish, then naming it again the next day.',
+      'Insisting on wearing the same dinosaur t-shirt three days in a row.',
+      'Practising writing their name on every available surface.',
+      'Asking why the sky is blue. Then why the why is why.',
+      'Memorising every word of one specific picture book.',
+      'Inventing an imaginary friend who works at a bakery.'
+    ],
+    zh: [
+      '用家里所有的沙发垫,搭起一座小堡垒。',
+      '给一条金鱼起名,第二天又重新起一个。',
+      '坚持要把同一件恐龙T恤连穿三天。',
+      '在所有可以写的地方,练习写自己的名字。',
+      '问"天为什么是蓝的"。然后问"为什么要问为什么"。',
+      '把某一本绘本里的每一个字都背下来。',
+      '发明了一位想象中的朋友,他在面包店上班。'
+    ],
+    ja: [
+      'ソファのクッションを全部使って、お城を作っている。',
+      '金魚に名前をつけ、翌日また別の名前をつけ直す。',
+      '同じ恐竜のTシャツを、三日連続で着たがる。',
+      '書ける場所を見つけては、自分の名前を練習している。',
+      '「空はなんで青いの?」と聞く。次に、「その『なんで』はなんで?」と聞く。',
+      'ある一冊の絵本の言葉を、一語残らず暗記している。',
+      'パン屋で働いている、空想の友達を作っている。'
+    ],
+    ko: [
+      '집안의 소파 쿠션을 다 끌어모아 작은 요새를 만들고 있다.',
+      '금붕어에게 이름을 붙이고, 다음 날 또 다른 이름을 붙인다.',
+      '같은 공룡 티셔츠를 3일 연속 입겠다고 고집한다.',
+      '쓸 수 있는 모든 곳에 자기 이름 쓰는 연습을 한다.',
+      '"하늘은 왜 파래?"라고 묻는다. 그다음에 "그 ‘왜’는 왜?"라고 묻는다.',
+      '특정 그림책 한 권의 모든 단어를 통째로 외운다.',
+      '빵집에서 일하는 상상 친구 한 명을 만들어 두었다.'
+    ],
+    tr: [
+      'Evdeki tüm kanepe yastıklarıyla bir kale kuruyor.',
+      'Bir akvaryum balığına isim koyuyor, ertesi gün ona yeni bir isim veriyor.',
+      'Aynı dinozor tişörtünü üç gün üst üste giymekte ısrar ediyor.',
+      'Yazabildiği her yüzeye adını yazma alıştırması yapıyor.',
+      '"Gökyüzü neden mavi?" diye soruyor. Sonra "Bu ‘neden’ neden?" diye soruyor.',
+      'Belirli bir resimli kitabın her kelimesini ezberlemiş.',
+      'Bir fırında çalışan hayali bir arkadaş icat etmiş.'
+    ]
+  },
+  mid: {
+    en: [
+      'Walking to school with a best friend, debating something important.',
+      'Trying a new way of dressing — it lasts six months, mostly.',
+      'Becoming briefly very serious about one specific band.',
+      'Discovering they are unexpectedly good at something they did not try for.',
+      'Falling in love for the first time, quietly.',
+      'Spending a whole weekend on a project no one else understands yet.',
+      "Becoming the friend who remembers everyone's birthday."
+    ],
+    zh: [
+      '和最好的朋友一起走路上学,认真地辩论某件大事。',
+      '尝试一种新的穿衣方式——大概持续六个月就过去了。',
+      '在一段不长的时间里,认真到不行地迷上某一支乐队。',
+      '发现自己在一件并没有刻意去练的事上,意外地擅长。',
+      '第一次,悄悄地,喜欢上了一个人。',
+      '整整一个周末,埋头做一项别人暂时还看不懂的项目。',
+      '成为那个"记得大家每一个生日"的朋友。'
+    ],
+    ja: [
+      '親友と歩いて学校に向かい、何か大事なことを真剣に議論している。',
+      '新しい着こなしを試している――たいてい半年ほどで終わる。',
+      '短いあいだだけ、ある一つのバンドにものすごく真剣になる。',
+      '練習もしていないのに、自分はそれが得意らしいと気づく。',
+      '初めて、誰にも言わずに恋をする。',
+      '誰もまだ意味の分からないプロジェクトに、週末まるごとを費やす。',
+      '「みんなの誕生日を覚えている」友達になる。'
+    ],
+    ko: [
+      '가장 친한 친구와 함께 학교에 걸어가며, 무언가 중요한 일을 진지하게 토론한다.',
+      '새로운 옷차림을 시도한다 — 보통 반 년쯤 이어진다.',
+      '한동안, 특정 밴드에 매우 진지하게 빠진다.',
+      '연습한 적도 없는 어떤 일에 자신이 의외로 능하다는 것을 발견한다.',
+      '처음으로, 조용히 누군가를 사랑하게 된다.',
+      '아직 아무도 이해하지 못하는 한 가지 프로젝트에 주말 내내 매달린다.',
+      '"모두의 생일을 기억해 주는" 친구가 된다.'
+    ],
+    tr: [
+      'En yakın arkadaşıyla okula yürüyerek gidiyor; önemli bir şeyi tartışıyorlar.',
+      'Yeni bir giyim tarzı deniyor — genelde altı ay sürer.',
+      'Belirli bir grubu kısa süreliğine çok ciddiye alıyor.',
+      'Hiç çalışmadığı bir şeyde beklenmedik biçimde iyi olduğunu fark ediyor.',
+      'İlk kez, sessizce, birine âşık oluyor.',
+      'Henüz kimsenin anlamadığı bir projeye bütün bir hafta sonunu ayırıyor.',
+      '"Herkesin doğum gününü hatırlayan" arkadaş oluyor.'
+    ]
+  },
+  later: {
+    en: [
+      'Settling into a kitchen they cook in often. The same chair, mostly.',
+      'Calling a parent on Sundays out of habit.',
+      'Realising one of their childhood teachers shaped them more than they knew.',
+      'Building something with their hands that lasts beyond them.',
+      'Becoming the person their younger self would have wanted to find.',
+      'Telling a story at a small dinner that everyone will repeat later.',
+      'Looking at a photo of themselves at this age and recognising who they were.'
+    ],
+    zh: [
+      '在一个常常下厨的厨房里安顿下来。多半总是坐同一张椅子。',
+      '出于习惯,每个周日给父母打一个电话。',
+      '意识到童年时的某位老师,对自己的影响远比当时知道的更大。',
+      '亲手做出一件能在自己之后继续存在的东西。',
+      '终于活成了年轻时的自己希望能遇到的那种人。',
+      '在一场小型晚餐上讲了一个故事,后来大家都在重述它。',
+      '看着自己这个年纪时的某张照片,认出了那时的自己是谁。'
+    ],
+    ja: [
+      'よく料理する台所に落ち着いていく。たいてい、同じ椅子に座って。',
+      '習慣で、日曜日になると親に電話をかけている。',
+      '子どものころの先生のひとりが、思っていた以上に自分を形作っていたと気づく。',
+      '自分の手で作ったものが、自分よりあとも残っていく。',
+      '若いころの自分が出会いたかった人物に、ようやくなる。',
+      '小さな夕食の席で語った話を、のちにみなが繰り返している。',
+      'この年齢のころの自分の写真を見て、その自分が誰だったかを認める。'
+    ],
+    ko: [
+      '자주 요리하는 부엌에 자리를 잡는다. 대체로 같은 의자에 앉아.',
+      '습관처럼, 일요일마다 한 부모에게 전화를 건다.',
+      '어릴 적 선생님 중 한 사람이, 자기 자신을 알았던 것보다 훨씬 더 많이 빚어 놓았다는 것을 깨닫는다.',
+      '자기 손으로 만든 무언가가, 자기보다 더 오래 남는다.',
+      '어렸을 때의 자신이 만나고 싶어 했을 그런 사람이 된다.',
+      '작은 저녁 식사 자리에서 들려준 이야기가, 훗날 모두에게 다시 회자된다.',
+      '이 나이의 자기 사진을 들여다보며, 그때의 자신을 알아본다.'
+    ],
+    tr: [
+      'Sık yemek pişirdiği bir mutfağa yerleşiyor. Çoğunlukla aynı sandalye.',
+      'Alışkanlıkla, pazar günleri bir ebeveynini arıyor.',
+      'Çocukluğundaki öğretmenlerinden birinin, bildiğinden çok daha fazla onu biçimlendirdiğini fark ediyor.',
+      'Kendi elleriyle, kendisinden sonra da kalacak bir şey inşa ediyor.',
+      'Genç hâlinin bulmak isteyeceği kişiye dönüşüyor.',
+      'Küçük bir akşam yemeğinde anlattığı bir hikâyeyi, sonradan herkes tekrarlıyor.',
+      'Bu yaştaki kendi fotoğrafına bakıp, o sıralar kim olduğunu tanıyor.'
+    ]
+  }
 };
 
 const ADULT_TRAJECTORY_MILESTONES = {
-  early: [
-    'Motor coordination on track; gross and fine skills consolidating as expected.',
-    'Verbal acquisition within typical range; vocabulary expanding steadily.',
-    'Temperament profile observable; sleep and feeding rhythms stabilizing.',
-    'Attachment patterns forming with primary caregivers.',
-    'Early curiosity emerging around objects, sound, and faces.',
-    'Pre-literacy markers present; symbolic play beginning to appear.'
-  ],
-  mid: [
-    'Enters formal schooling; academic strengths and challenges emerging.',
-    'Peer-group identification forming; friendships gain weight against family.',
-    'Three or four candidate identities tried on before adolescence settles.',
-    'High school identity solidifying; adult interests beginning to clarify.',
-    'First experiences of independent decision-making and its consequences.',
-    'Romantic and social self gaining definition through trial and feedback.',
-    'Early career signals appearing through chosen courses and side pursuits.'
-  ],
-  later: [
-    'Adult personality largely stable; growth continues at slower pace.',
-    'Mid-career arc established; strengths and limits both well-known to self.',
-    'Long-term relationships and chosen family settle into recognizable shape.',
-    'Health and energy patterns shifting; routines accommodate the change.',
-    'Affective range often narrows somewhat with age, alongside more equanimity.',
-    'Reflection on choices made and not made becomes more frequent.',
-    'Whether or not children arrive, the next generation enters their orbit.'
-  ]
+  early: {
+    en: [
+      'Motor coordination on track; gross and fine skills consolidating as expected.',
+      'Verbal acquisition within typical range; vocabulary expanding steadily.',
+      'Temperament profile observable; sleep and feeding rhythms stabilizing.',
+      'Attachment patterns forming with primary caregivers.',
+      'Early curiosity emerging around objects, sound, and faces.',
+      'Pre-literacy markers present; symbolic play beginning to appear.'
+    ],
+    zh: [
+      '运动协调发展正常;粗大与精细动作按预期整合。',
+      '语言获取处于典型区间;词汇量稳步扩大。',
+      '气质特征可观察;睡眠与喂养节律趋于稳定。',
+      '与主要照护者之间的依恋模式正在形成。',
+      '对物体、声音与面孔的早期好奇逐渐显现。',
+      '前读写指标已出现;象征性游戏开始出现。'
+    ],
+    ja: [
+      '運動協調は順調。粗大運動と微細運動の発達は想定どおり統合されつつある。',
+      '言語獲得は標準域内。語彙は安定して増加。',
+      '気質プロファイルが観察可能。睡眠・哺乳のリズムが安定してきている。',
+      '主要養育者との愛着パターンが形成されつつある。',
+      '物・音・顔への初期の好奇心が現れ始めている。',
+      '前読み書きのマーカーが存在し、象徴的遊びが現れ始めている。'
+    ],
+    ko: [
+      '운동 협응 양호; 대근육 및 소근육 기능이 예상대로 통합되고 있음.',
+      '언어 습득은 전형적 범위 안에 있으며 어휘가 꾸준히 확장되고 있음.',
+      '기질 프로파일이 관찰 가능하며, 수면 및 수유 리듬이 안정되어 가는 중.',
+      '주요 양육자와의 애착 패턴이 형성되고 있음.',
+      '사물·소리·얼굴에 대한 초기 호기심이 나타나고 있음.',
+      '전 문해 지표가 존재하며, 상징 놀이가 나타나기 시작함.'
+    ],
+    tr: [
+      'Motor koordinasyon yolunda; kaba ve ince motor beceriler beklenildiği şekilde pekişiyor.',
+      'Sözlü dil edinimi tipik aralıkta; söz dağarcığı istikrarlı biçimde genişliyor.',
+      'Mizaç profili gözlemlenebilir; uyku ve beslenme ritimleri yerine oturuyor.',
+      'Ana bakım veren kişilerle bağlanma örüntüleri oluşuyor.',
+      'Nesnelere, seslere ve yüzlere karşı erken merak belirginleşiyor.',
+      'Okuma öncesi belirteçler mevcut; sembolik oyun ortaya çıkmaya başlıyor.'
+    ]
+  },
+  mid: {
+    en: [
+      'Enters formal schooling; academic strengths and challenges emerging.',
+      'Peer-group identification forming; friendships gain weight against family.',
+      'Three or four candidate identities tried on before adolescence settles.',
+      'High school identity solidifying; adult interests beginning to clarify.',
+      'First experiences of independent decision-making and its consequences.',
+      'Romantic and social self gaining definition through trial and feedback.',
+      'Early career signals appearing through chosen courses and side pursuits.'
+    ],
+    zh: [
+      '进入正规学校教育;学业上的强项与挑战开始显现。',
+      '同伴群体认同正在形成;友谊在家庭之外逐渐获得分量。',
+      '青春期稳定下来之前,会尝试三到四种候选的身份。',
+      '高中阶段身份逐步固化;成年期的兴趣开始变得清晰。',
+      '第一次体会到独立做决定及其后果。',
+      '通过尝试与反馈,恋爱与社交自我逐渐成型。',
+      '通过所选课程与副业,早期职业信号开始出现。'
+    ],
+    ja: [
+      '正規教育に入る。学業上の強みと課題が現れ始める。',
+      '仲間集団への帰属意識が形成され、友情の比重が家庭に対して相対的に増す。',
+      '思春期が落ち着くまでに、三つか四つの候補となる自己像を試す。',
+      '高校期にかけて自己像が固まり、大人としての関心が見え始める。',
+      '独立した意思決定と、その結果を初めて体験する。',
+      '試行とフィードバックを通じて、恋愛・社会的自己像が定義されていく。',
+      '選択する科目や副次的活動から、初期のキャリア信号が現れる。'
+    ],
+    ko: [
+      '정규 교육 과정에 진입; 학업적 강점과 어려움이 드러나기 시작함.',
+      '또래 집단에 대한 정체감이 형성되며, 가족 대비 우정의 비중이 커짐.',
+      '청소년기가 안정되기 전, 세 가지에서 네 가지의 후보 정체성을 시도해 봄.',
+      '고등학교 시기 자아 정체성이 굳어지고, 성인기의 관심사가 명료해지기 시작.',
+      '독립적인 의사 결정과 그 결과를 처음 경험함.',
+      '시도와 피드백을 통해 연애 및 사회적 자아가 윤곽을 잡아 감.',
+      '선택한 교과와 부수적 활동을 통해 초기 진로 신호가 나타남.'
+    ],
+    tr: [
+      'Örgün eğitime başlıyor; akademik güçlü yanlar ve zorluklar belirginleşiyor.',
+      'Akran grubuyla özdeşim oluşuyor; arkadaşlıklar aileye karşı ağırlık kazanıyor.',
+      'Ergenlik yerine oturmadan önce üç veya dört aday kimlik denenir.',
+      'Lise dönemi kimliği netleşiyor; yetişkin ilgi alanları belirginleşmeye başlıyor.',
+      'Bağımsız karar verme ve sonuçlarının ilk deneyimleri yaşanıyor.',
+      'Deneme ve geri bildirim yoluyla romantik ve sosyal benlik biçimleniyor.',
+      'Seçilen derslerden ve yan uğraşlardan erken kariyer sinyalleri görünüyor.'
+    ]
+  },
+  later: {
+    en: [
+      'Adult personality largely stable; growth continues at slower pace.',
+      'Mid-career arc established; strengths and limits both well-known to self.',
+      'Long-term relationships and chosen family settle into recognizable shape.',
+      'Health and energy patterns shifting; routines accommodate the change.',
+      'Affective range often narrows somewhat with age, alongside more equanimity.',
+      'Reflection on choices made and not made becomes more frequent.',
+      'Whether or not children arrive, the next generation enters their orbit.'
+    ],
+    zh: [
+      '成年人格大体稳定;成长仍在继续,但节奏放缓。',
+      '职业生涯中段已经成型;自己的优势与极限,自己都已熟知。',
+      '长期关系与所选择的家庭,呈现出可识别的稳定形态。',
+      '健康与精力的模式正在改变;日常生活习惯随之做出调整。',
+      '随着年龄增长,情绪幅度往往会收窄一些,与之同时,心境也更平稳。',
+      '对那些做过与未做的选择,反思变得更频繁。',
+      '无论是否有自己的孩子,下一代都已进入他/她的生活轨道。'
+    ],
+    ja: [
+      '成人後のパーソナリティはおおむね安定。成長は続くが、ペースは緩やかになる。',
+      'キャリアの中盤の軌道が定まり、自分の強みと限界をともによく分かっている。',
+      '長期の人間関係と「選んだ家族」が、見分けのつく形に落ち着く。',
+      '健康とエネルギーのパターンが変化し、日々の習慣もそれに合わせて変わる。',
+      '感情の幅は年齢とともにやや狭まる一方で、心の落ち着きは増す。',
+      'した選択、しなかった選択について振り返ることが多くなる。',
+      '自分の子の有無にかかわらず、次の世代が生活圏に入ってくる。'
+    ],
+    ko: [
+      '성인기 인격은 대체로 안정되어 있고, 성장은 더 느린 속도로 이어진다.',
+      '경력의 중반이 자리를 잡고, 자신의 강점과 한계 모두 스스로에게 충분히 익숙해진다.',
+      '장기 관계와 스스로 택한 가족의 형태가, 알아볼 수 있는 모습으로 자리 잡는다.',
+      '건강과 활력의 양상이 변하고, 일상 습관이 그 변화에 맞춰 조정된다.',
+      '감정의 폭은 나이와 함께 다소 좁아지고, 동시에 평정심은 더 커진다.',
+      '한 선택과 하지 않은 선택에 대한 성찰이 점점 더 자주 일어난다.',
+      '자녀의 유무와 상관없이, 다음 세대가 생활권 안으로 들어온다.'
+    ],
+    tr: [
+      'Yetişkin kişilik büyük ölçüde sabit; gelişim daha yavaş bir hızda sürer.',
+      'Kariyer ortası ekseni yerine oturmuştur; güçlü yanlar da sınırlar da kişi tarafından iyi bilinir.',
+      'Uzun süreli ilişkiler ve seçilmiş aile, tanınır bir biçime kavuşur.',
+      'Sağlık ve enerji örüntüleri değişiyor; rutinler bu değişime uyum sağlıyor.',
+      'Duygusal yelpaze yaşla birlikte sıklıkla biraz daralırken, dinginlik artar.',
+      'Yapılmış ve yapılmamış seçimler üzerinde düşünmek giderek sıklaşır.',
+      'Çocuklar olsun ya da olmasın, sonraki kuşak onun yörüngesine girer.'
+    ]
+  }
 };
 
 function ageBucket(age) {
@@ -4578,9 +4802,9 @@ function pickAgeTicker(age) {
   const rng = seededRand((state.codename || 'baby') + '|tick|' + age);
   let pool = [];
   if (state.appMode === 'kids') {
-    pool = KIDS_AGE_TICKERS[bucket] || [];
+    pool = localList(KIDS_AGE_TICKERS[bucket]);
   } else if (state.appMode === 'adult') {
-    pool = ADULT_TRAJECTORY_MILESTONES[bucket] || [];
+    pool = localList(ADULT_TRAJECTORY_MILESTONES[bucket]);
   } else {
     // Reflection: reuse the existing memory pools (already stage-bucketed)
     // and localized into all 5 languages.
