@@ -40,6 +40,8 @@ const STRINGS = {
     'landing.begin': 'Enter the lab',
     'landing.disclaimer': 'Fictional simulation. Not real medical or genetic advice.',
     'section.parents': 'Parent Profiles',
+    // LOOP_REQUEST(translator): translate `section.parents.defaults_note` for zh/ja/ko/tr.
+    'section.parents.defaults_note': 'Defaults shown are one starting point; use ↻ on a parent card — or 🎲 Randomize Parents below — to explore others.',
     'section.env.playful': 'Environmental Influences',
     'section.env.adult': 'Environmental Modifiers',
     'section.env.intro.playful': "Genes aren't destiny. Tweak the nurture side too.",
@@ -2506,9 +2508,8 @@ const KIDS_EXPLAINERS = {
   confidence: 'Confidence changes a LOT as people grow up. Bumpy days are normal.'
 };
 
-// LOOP_REQUEST(ux-flow): inject KIDS_FUTURES_PREAMBLE as intro copy before the
-// Kids-mode futures rendering (e.g. inside #future-block or above #future-tree)
-// so the predictive framing is softened before the list appears.
+// Soft framing for the Kids-mode futures block — injected once per generation
+// above the future-tree by the render path (see #future-block handling).
 const KIDS_FUTURES_PREAMBLE = "These are just stories of *possible* lives. Your real one might be completely different — and that's what makes it exciting.";
 
 const KIDS_FUTURE_PATHS = [
@@ -3563,7 +3564,23 @@ function updateBabyPreview() {
     headlinesEl.innerHTML = (state.headlines || []).map(t => `<li>“${t}”</li>`).join('');
   }
   const futureBlock = $('#future-block');
-  if (futureBlock) futureBlock.hidden = !(state.futurePaths && state.futurePaths.length);
+  if (futureBlock) {
+    futureBlock.hidden = !(state.futurePaths && state.futurePaths.length);
+    // Closes LOOP_REQUEST(ux-flow): soften the Kids-mode futures framing
+    // with KIDS_FUTURES_PREAMBLE injected above the tree/list. One <p>,
+    // created lazily, removed in other modes so it never leaks copy.
+    let preamble = futureBlock.querySelector('.kids-futures-preamble');
+    if (isKids() && !futureBlock.hidden) {
+      if (!preamble) {
+        preamble = document.createElement('p');
+        preamble.className = 'kids-futures-preamble';
+        futureBlock.insertBefore(preamble, futureBlock.firstChild);
+      }
+      preamble.textContent = KIDS_FUTURES_PREAMBLE;
+    } else if (preamble) {
+      preamble.remove();
+    }
+  }
 
   // Societal Outcomes Brief + divergence + history + sibling cohort (Adult)
   renderSocialResponse();

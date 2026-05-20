@@ -325,6 +325,13 @@ main {
 }
 
 /* ---------- Parent forms ---------- */
+.parents-defaults-note {
+  margin: -6px 0 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-soft, rgba(220, 224, 240, 0.7));
+  opacity: 0.85;
+}
 .parents {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1352,6 +1359,14 @@ body.mode-adult .lineage-svg .node-grandchild svg { opacity: 0.55; filter: satur
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--accent-2);
+}
+.kids-futures-preamble {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--accent-2);
+  opacity: 0.85;
 }
 .future-paths {
   list-style: none;
