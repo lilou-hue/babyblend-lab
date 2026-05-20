@@ -40,7 +40,6 @@ const STRINGS = {
     'landing.begin': 'Enter the lab',
     'landing.disclaimer': 'Fictional simulation. Not real medical or genetic advice.',
     'section.parents': 'Parent Profiles',
-    // LOOP_REQUEST(translator): re-translate `section.parents.defaults_note` for zh/ja/ko/tr — copy was expanded in Round 3 revision to name the ancestry baseline explicitly.
     'section.parents.defaults_note': 'Defaults shown represent one ancestry baseline. Use Ancestry on a parent card, ↻ to reroll, 🎲 Randomize Parents, or 🌍 Reset to global phenotype range to explore others.',
     'section.env.playful': 'Environmental Influences',
     'section.env.adult': 'Environmental Modifiers',
@@ -72,7 +71,6 @@ const STRINGS = {
     'btn.preserve.playful': '🌱 Preserve Natural Variation',
     'btn.preserve.reflection': 'Honor natural variation',
     'btn.preserve.adult': 'Reset to Natural Variation',
-    // LOOP_REQUEST(translator): translate `btn.diversify_defaults.*` for zh/ja/ko/tr.
     'btn.diversify_defaults.playful': '🌍 Reset to global phenotype range',
     'btn.diversify_defaults.reflection': 'Step outside the default range',
     'btn.diversify_defaults.adult': 'Reset to global phenotype range',
@@ -114,6 +112,7 @@ const STRINGS = {
     'landing.begin': '进入实验室',
     'landing.disclaimer': '虚构模拟。并非真实的医疗或遗传建议。',
     'section.parents': '父母资料',
+    'section.parents.defaults_note': '此处显示的默认值仅代表一种祖源基线。可在父母卡片上使用「祖源」选项,点击 ↻ 重新抽取,使用 🎲 随机父母,或点击 🌍 重置为全球表型范围来探索其他可能。',
     'section.env.playful': '环境影响',
     'section.env.adult': '发展调节因子',
     'section.env.intro.playful': '基因并非命运。也调整一下后天的因素吧。',
@@ -144,6 +143,9 @@ const STRINGS = {
     'btn.preserve.playful': '🌱 保留自然变异',
     'btn.preserve.reflection': '尊重自然变异',
     'btn.preserve.adult': '重置为自然变异',
+    'btn.diversify_defaults.playful': '🌍 重置为全球表型范围',
+    'btn.diversify_defaults.reflection': '走出默认的范围',
+    'btn.diversify_defaults.adult': '重置为全球表型范围',
     'btn.generate.playful': '生成宝宝可能性',
     'btn.generate.reflection': '想象一段可能的人生',
     'btn.generate.adult': '生成投射',
@@ -182,6 +184,7 @@ const STRINGS = {
     'landing.begin': 'ラボに入る',
     'landing.disclaimer': '架空のシミュレーション。実際の医療や遺伝のアドバイスではありません。',
     'section.parents': '親プロフィール',
+    'section.parents.defaults_note': 'ここに表示される初期値は、ひとつの祖先系統を基準にした見え方にすぎません。親カードの「祖先」を切り替える、↻ で振り直す、🎲 で親をランダム化する、または 🌍 で世界全体の表現型レンジに戻して、別の可能性を試してみてください。',
     'section.env.playful': '環境の影響',
     'section.env.adult': '発達調整因子',
     'section.env.intro.playful': '遺伝は運命ではありません。育つ環境も少しいじってみましょう。',
@@ -212,6 +215,9 @@ const STRINGS = {
     'btn.preserve.playful': '🌱 自然なばらつきを残す',
     'btn.preserve.reflection': '自然なばらつきを尊ぶ',
     'btn.preserve.adult': '自然変動にリセット',
+    'btn.diversify_defaults.playful': '🌍 世界全体の表現型レンジにリセット',
+    'btn.diversify_defaults.reflection': '既定のレンジの外に出てみる',
+    'btn.diversify_defaults.adult': '世界全体の表現型レンジにリセット',
     'btn.generate.playful': '赤ちゃんの可能性を生成',
     'btn.generate.reflection': 'ありうる人生を想像する',
     'btn.generate.adult': '投射を生成',
@@ -250,6 +256,7 @@ const STRINGS = {
     'landing.begin': '실험실에 들어가기',
     'landing.disclaimer': '가상의 시뮬레이션입니다. 실제 의료나 유전 자문이 아닙니다.',
     'section.parents': '부모 프로필',
+    'section.parents.defaults_note': '여기 표시된 기본값은 하나의 혈통을 기준으로 한 모습일 뿐입니다. 부모 카드의 「혈통」을 바꾸거나, ↻ 로 다시 뽑거나, 🎲 부모 무작위, 또는 🌍 전 세계 표현형 범위로 리셋을 사용해 다른 가능성을 탐색해 보세요.',
     'section.env.playful': '환경 영향',
     'section.env.adult': '발달 조절 변수',
     'section.env.intro.playful': '유전자가 운명은 아닙니다. 양육 측면도 함께 조정해 보세요.',
@@ -280,6 +287,9 @@ const STRINGS = {
     'btn.preserve.playful': '🌱 자연 변이 보존',
     'btn.preserve.reflection': '자연 변이를 존중하기',
     'btn.preserve.adult': '자연 변이로 리셋',
+    'btn.diversify_defaults.playful': '🌍 전 세계 표현형 범위로 리셋',
+    'btn.diversify_defaults.reflection': '기본 범위 밖으로 한 걸음',
+    'btn.diversify_defaults.adult': '전 세계 표현형 범위로 리셋',
     'btn.generate.playful': '아기 가능성 생성',
     'btn.generate.reflection': '가능한 한 삶을 상상하기',
     'btn.generate.adult': '투영 생성',
@@ -318,6 +328,7 @@ const STRINGS = {
     'landing.begin': 'Laboratuvara gir',
     'landing.disclaimer': 'Kurgusal bir simülasyondur. Gerçek tıbbi ya da genetik tavsiye değildir.',
     'section.parents': 'Ebeveyn Profilleri',
+    'section.parents.defaults_note': 'Burada görünen varsayılanlar tek bir soy çizgisinin başlangıç görünümünü temsil eder. Başka olasılıkları keşfetmek için ebeveyn kartındaki Soy seçeneğini, yeniden çekmek için ↻ düğmesini, 🎲 Ebeveynleri Rastgele Yap veya 🌍 Küresel fenotip aralığına sıfırla seçeneklerini kullanabilirsin.',
     'section.env.playful': 'Çevresel Etkiler',
     'section.env.adult': 'Gelişimsel Düzenleyiciler',
     'section.env.intro.playful': 'Genler kader değildir. Yetiştirme tarafını da ayarlayabilirsin.',
@@ -348,6 +359,9 @@ const STRINGS = {
     'btn.preserve.playful': '🌱 Doğal Çeşitliliği Koru',
     'btn.preserve.reflection': 'Doğal çeşitliliğe saygı göster',
     'btn.preserve.adult': 'Doğal Varyasyona Sıfırla',
+    'btn.diversify_defaults.playful': '🌍 Küresel fenotip aralığına sıfırla',
+    'btn.diversify_defaults.reflection': 'Varsayılan aralığın dışına bir adım',
+    'btn.diversify_defaults.adult': 'Küresel fenotip aralığına sıfırla',
     'btn.generate.playful': 'Bebek Olasılıklarını Üret',
     'btn.generate.reflection': 'Olası bir yaşam hayal et',
     'btn.generate.adult': 'Projeksiyon Üret',
@@ -773,7 +787,21 @@ const FUTURE_PATHS = [
   { text: 'Plans meticulously to feel less anxious, then resents the plan for being too rigid; calls it "just being thorough."', tag: 'CO-rigidity' },
   { text: 'Keeps the same morning routine for a decade and resents the one week it has to change.',  tag: 'CO-rigidity' },
   { text: 'Says yes to favors they can\'t afford; tells themselves it\'s just this once, for a year.', tag: 'AN-pleaser' },
-  { text: 'Covers for a coworker on one bad week, then for two years; insists they don\'t mind.',    tag: 'AN-pleaser' }
+  { text: 'Covers for a coworker on one bad week, then for two years; insists they don\'t mind.',    tag: 'AN-pleaser' },
+  // Resolution-trajectory beats (Round 4): how the contradiction lands over
+  // time. Three modes per Psychology Reviewer — Integration (the two sides
+  // learn to share the day), Acceptance (the oscillation stays, the
+  // pretending stops), Damage (the mismatch takes something with it).
+  // At least one per tag; range across modes so timelines don't always
+  // resolve neatly.
+  { text: 'Eventually keeps two notebooks: one for the projects they\'ll finish, one for the ones that are really moods.', tag: 'OC-tension' },                                  // Integration
+  { text: 'In their forties, gives up explaining why the kitchen is reorganized again; the people who love them stop asking.', tag: 'OC-tension' },                                // Acceptance
+  { text: 'Hosts the dinner, then the next one, then the next one; somewhere along the way learns that the thank-you texts are part of the meal, not the bill.', tag: 'EN-tension' }, // Integration
+  { text: 'Burns out twice on the gather-then-vanish cycle; in their thirties stops gathering, and misses it for the rest of their life.', tag: 'EN-tension' },                       // Damage
+  { text: 'Learns to alternate: tight planning for the work that needs it, improvisation for the parts they want to enjoy; calls the second part "rest" without flinching.', tag: 'CO-rigidity' }, // Integration
+  { text: 'Still oscillates between planning and surrender at fifty; stops pretending to choose, and finds the oscillation is the shape of the life.', tag: 'CO-rigidity' },          // Acceptance
+  { text: 'After one bad year of saying yes to everything, learns to say "let me think about it" — and means it; the friendships that survive are the patient ones.', tag: 'AN-pleaser' }, // Integration
+  { text: 'Spends a decade covering for everyone; in their forties wakes up tired in a way sleep doesn\'t fix, and slowly, quietly, starts to disappoint people on purpose.', tag: 'AN-pleaser' } // Damage
 ];
 
 // Specific small life-events. Grounded register — these read like things a
@@ -5810,8 +5838,6 @@ function randomizeParents() {
 // European phenotype baseline encoded in PARENT_FIELDS' defA/defB without
 // imposing any new default on the user. LOOP_REQUEST(narrative): refine
 // "Diversify defaults" button copy + tooltip phrasing.
-// LOOP_REQUEST(translator): translate 'btn.diversify_defaults.*' once copy
-// settles in en-US.
 function diversifyParentDefaults() {
   const ladder = Object.keys(ANCESTRY_PRESETS).filter(k => ANCESTRY_PRESETS[k]);
   if (!ladder.length) return;
