@@ -615,12 +615,12 @@ const FUNNY_TITLES = {
     'Re-reads the same five books every winter',
     'Stops to look at other people\'s gardens',
     'Texts back the next morning, with a real answer',
-    'Worries constantly about things they can\'t change',
-    'Stays late at parties they didn\'t want to attend',
-    'Argues passionately for restraint',
-    'Gives advice they cannot take themselves',
-    'Plans meticulously, then improvises in the moment',
-    'Defends in public the friend they criticize in private'
+    { text: 'Worries constantly about things they can\'t change', tag: 'AN-pleaser' },
+    { text: 'Stays late at parties they didn\'t want to attend', tag: 'EN-tension' },
+    { text: 'Argues passionately for restraint', tag: 'CO-rigidity' },
+    { text: 'Gives advice they cannot take themselves', tag: 'OC-tension' },
+    { text: 'Plans meticulously, then improvises in the moment', tag: 'CO-rigidity' },
+    { text: 'Defends in public the friend they criticize in private', tag: 'AN-pleaser' }
   ],
   zh: [
     '静静观察',
@@ -639,12 +639,12 @@ const FUNNY_TITLES = {
     '读人胜于读书',
     '默默承担小小的善意',
     '看得久,说得少',
-    '为自己改变不了的事反复纠结',
-    '不想去的聚会,偏偏待到最后',
-    '为「克制」据理力争',
-    '把自己做不到的道理讲给别人听',
-    '计划写得密密麻麻,临场又全凭直觉',
-    '私下吐槽的朋友,当众第一个出来维护'
+    { text: '为自己改变不了的事反复纠结', tag: 'AN-pleaser' },
+    { text: '不想去的聚会,偏偏待到最后', tag: 'EN-tension' },
+    { text: '为「克制」据理力争', tag: 'CO-rigidity' },
+    { text: '把自己做不到的道理讲给别人听', tag: 'OC-tension' },
+    { text: '计划写得密密麻麻,临场又全凭直觉', tag: 'CO-rigidity' },
+    { text: '私下吐槽的朋友,当众第一个出来维护', tag: 'AN-pleaser' }
   ],
   ja: [
     '静かに気づく人',
@@ -663,12 +663,12 @@ const FUNNY_TITLES = {
     '本を読むより、人を読む',
     '名づけずに、小さな親切を運ぶ',
     '話すよりも、長く見つめる',
-    '自分ではどうにもならないことを、いつまでも気に病む',
-    '気が進まなかった飲み会に、結局いちばん最後まで残る',
-    '「ほどほどに」と、誰よりも熱く語る',
-    '自分には守れない助言を、ひとには真顔で渡す',
-    '綿密に計画を立ててから、当日にそれを全部ひっくり返す',
-    '陰では文句を言う相手を、表ではいちばんに庇う'
+    { text: '自分ではどうにもならないことを、いつまでも気に病む', tag: 'AN-pleaser' },
+    { text: '気が進まなかった飲み会に、結局いちばん最後まで残る', tag: 'EN-tension' },
+    { text: '「ほどほどに」と、誰よりも熱く語る', tag: 'CO-rigidity' },
+    { text: '自分には守れない助言を、ひとには真顔で渡す', tag: 'OC-tension' },
+    { text: '綿密に計画を立ててから、当日にそれを全部ひっくり返す', tag: 'CO-rigidity' },
+    { text: '陰では文句を言う相手を、表ではいちばんに庇う', tag: 'AN-pleaser' }
   ],
   ko: [
     '조용히 살피는 사람',
@@ -687,12 +687,12 @@ const FUNNY_TITLES = {
     '책을 읽기보다 사람을 더 잘 읽는',
     '이름 붙이지 않은 작은 친절을 안고 다니는',
     '말하기보다 더 오래 바라보는',
-    '어쩔 수 없는 일을 두고두고 곱씹는',
-    '가기 싫었던 자리에 끝까지 남아 있는',
-    '「적당히」를 누구보다 뜨겁게 주장하는',
-    '본인은 못 지킬 조언을 정색하고 건네는',
-    '꼼꼼히 계획해두고 막상 그 자리에서 다 바꾸는',
-    '뒤에서는 흉보던 친구를 앞에서는 제일 먼저 편드는'
+    { text: '어쩔 수 없는 일을 두고두고 곱씹는', tag: 'AN-pleaser' },
+    { text: '가기 싫었던 자리에 끝까지 남아 있는', tag: 'EN-tension' },
+    { text: '「적당히」를 누구보다 뜨겁게 주장하는', tag: 'CO-rigidity' },
+    { text: '본인은 못 지킬 조언을 정색하고 건네는', tag: 'OC-tension' },
+    { text: '꼼꼼히 계획해두고 막상 그 자리에서 다 바꾸는', tag: 'CO-rigidity' },
+    { text: '뒤에서는 흉보던 친구를 앞에서는 제일 먼저 편드는', tag: 'AN-pleaser' }
   ],
   tr: [
     'Sessizce gözlemleyen',
@@ -711,12 +711,12 @@ const FUNNY_TITLES = {
     'Kitap okumaktan çok insan okuyan',
     'Adlandırmadan küçük iyilikleri taşıyan',
     'Konuşmaktan çok izleyen',
-    'Elinden hiçbir şey gelmeyen meseleleri içinde günlerce evirip çeviren',
-    'Gitmek istemediği davette en son ayrılan',
-    '«Ölçülü olalım» derken kimseden ölçülü olmayan',
-    'Kendi tutamadığı öğüdü başkasına ciddi ciddi veren',
-    'Her şeyi planlayıp son anda hepsini içgüdüyle değiştiren',
-    'Arkasından şikâyet ettiği arkadaşı, ortamda ilk savunan'
+    { text: 'Elinden hiçbir şey gelmeyen meseleleri içinde günlerce evirip çeviren', tag: 'AN-pleaser' },
+    { text: 'Gitmek istemediği davette en son ayrılan', tag: 'EN-tension' },
+    { text: '«Ölçülü olalım» derken kimseden ölçülü olmayan', tag: 'CO-rigidity' },
+    { text: 'Kendi tutamadığı öğüdü başkasına ciddi ciddi veren', tag: 'OC-tension' },
+    { text: 'Her şeyi planlayıp son anda hepsini içgüdüyle değiştiren', tag: 'CO-rigidity' },
+    { text: 'Arkasından şikâyet ettiği arkadaşı, ortamda ilk savunan', tag: 'AN-pleaser' }
   ]
 };
 
@@ -762,14 +762,14 @@ const FUTURE_PATHS = [
   // Conflict-tagged entries (Round 2): contradictions, not aphorisms. Systems
   // uses tags like OC-tension, EN-tension, CO-rigidity, AN-pleaser to surface
   // these when the matching pressure pattern is present in the baby.
-  { text: 'Starts three projects in a month; finishes none; regrets only the one they did finish.', tag: 'OC-tension' },
+  { text: 'Starts three projects to prove they\'re done with the last one; calls it "following the energy."', tag: 'OC-tension' },
   { text: 'Reorganizes the kitchen at midnight, then forgets where they put the cumin for a year.',  tag: 'OC-tension' },
-  { text: 'Hosts the dinner everyone loved; lies awake afterwards re-running every conversation.',   tag: 'EN-tension' },
+  { text: 'Throws the dinner everyone loved, then avoids the thank-you texts for weeks; tells themselves they\'re "recharging."', tag: 'EN-tension' },
   { text: 'Becomes the friend who pulls people together, then disappears for two weeks to recover.',  tag: 'EN-tension' },
-  { text: 'Plans the trip in five-tab detail; never books the flight.',                              tag: 'CO-rigidity' },
+  { text: 'Plans meticulously to feel less anxious, then resents the plan for being too rigid; calls it "just being thorough."', tag: 'CO-rigidity' },
   { text: 'Keeps the same morning routine for a decade and resents the one week it has to change.',  tag: 'CO-rigidity' },
-  { text: 'Says yes to favors they can\'t afford; quietly resents the friends who asked.',          tag: 'AN-pleaser' },
-  { text: 'Covers for a coworker once, then for two years, then in a letter they never send.',       tag: 'AN-pleaser' }
+  { text: 'Says yes to favors they can\'t afford; tells themselves it\'s just this once, for a year.', tag: 'AN-pleaser' },
+  { text: 'Covers for a coworker on one bad week, then for two years; insists they don\'t mind.',    tag: 'AN-pleaser' }
 ];
 
 // Specific small life-events. Grounded register — these read like things a
@@ -2460,8 +2460,8 @@ const CONSENT_EXPLAINER = 'Heritable modifications are chosen before the person 
 // Structured rows (World Design): rendered as labeled items below the lead.
 const CONSENT_IMPLICATIONS = [
   { label: 'Subject', body: 'The modified individual is, by definition, absent from this interface. Every allocation is a decision made on behalf of someone who does not yet exist and cannot be consulted.' },
-  { label: 'Heritability', body: 'Germline modifications propagate to descendants. The consent gap extends across generations: subsequent persons inherit allocations selected in this session.' },
-  { label: 'Reversibility', body: 'Heritable edits are not retractable post-hoc. A future subject who would not have consented has no procedural remedy available to them.' },
+  { label: 'Heritability', body: 'Anyone born from a heritable edit inherits the choice. Their children inherit it too, and so on. The decision made in this session reaches forward into people who are not here to weigh in.' },
+  { label: 'Reversibility', body: 'Heritable edits cannot be taken back. A future person who would not have agreed has no way to undo or escape what was chosen for them.' },
   { label: 'Standard of care', body: 'Institutional ethics frameworks (Oviedo Convention; UNESCO Universal Declaration on the Human Genome and Human Rights, Art. 5) require informed consent of the affected party. That standard is structurally unmet here.' }
 ];
 
@@ -4718,8 +4718,15 @@ function generateBabyFlavor(codename, baby) {
     return { vibe: '', paths: details, events: [], headlines: [] };
   }
 
+  // FUNNY_TITLES entries may be plain strings or tagged objects ({text, tag}).
+  // Paradox entries (last 6 in each language) carry conflict tags so Systems
+  // can prefer them when an active conflict matches. We coerce to string here.
+  // LOOP_REQUEST(systems): when picking FUNNY_TITLES, prefer entries whose tag
+  // matches active conflict tags so the FUNNY_TITLE and the conflict FUTURE_PATH
+  // compound rather than duplicate.
   const vibes = localList(FUNNY_TITLES);
-  const vibe = vibes[Math.floor(rng() * vibes.length)];
+  const vibePick = vibes[Math.floor(rng() * vibes.length)];
+  const vibe = (vibePick && typeof vibePick === 'object') ? vibePick.text : vibePick;
 
   const tagFor = {
     openness: 'O', conscientiousness: 'C', extraversion: 'E',
