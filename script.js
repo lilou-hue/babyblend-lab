@@ -4788,13 +4788,16 @@ function generateBabyFlavor(codename, baby) {
   }
 
   // FUNNY_TITLES entries may be plain strings or tagged objects ({text, tag}).
-  // Paradox entries (last 6 in each language) carry conflict tags so Systems
-  // can prefer them when an active conflict matches. We coerce to string here.
-  // LOOP_REQUEST(systems): when picking FUNNY_TITLES, prefer entries whose tag
-  // matches active conflict tags so the FUNNY_TITLE and the conflict FUTURE_PATH
-  // compound rather than duplicate.
+  // Paradox entries (last 6 in each language) carry conflict tags. When any
+  // conflict is active AND matching tagged entries exist, pick from the
+  // matching subset ~60% of the time so the vibe and the conflict FUTURE_PATH
+  // compound rather than duplicate. Otherwise: uniform random over the list.
   const vibes = localList(FUNNY_TITLES);
-  const vibePick = vibes[Math.floor(rng() * vibes.length)];
+  const matchingVibes = conflictTags.length
+    ? vibes.filter(v => v && typeof v === 'object' && v.tag && conflictTags.includes(v.tag))
+    : [];
+  const vibePool = (matchingVibes.length && rng() < 0.6) ? matchingVibes : vibes;
+  const vibePick = vibePool[Math.floor(rng() * vibePool.length)];
   const vibe = (vibePick && typeof vibePick === 'object') ? vibePick.text : vibePick;
 
   const tagFor = {
