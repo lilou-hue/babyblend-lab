@@ -4488,17 +4488,20 @@ function renderRegionalAccess(usedCredits) {
   const budget = state.budget || {};
   const usd = usedCredits * 1000;
   let lines;
-  if      (usd < 50000)  lines = ['EU: partially subsidized for specific conditions.', 'US: insurance coverage uneven; out-of-pocket common.', 'Lower-income regions: largely inaccessible.'];
-  else if (usd < 100000) lines = ['EU: out-of-pocket; some conditions waived.', 'US: above-median household income required.', 'Most lower-income regions: effectively inaccessible.'];
-  else if (usd < 150000) lines = ['EU: elective allocation under regulatory review.', 'US: top ~5% by income; clinic networks limited.', 'Asia-Pacific: variable, jurisdiction-dependent.'];
-  else if (usd < 200000) lines = ['EU + UK: restricted regulatory approval pathways.', 'US: top ~1%; concierge clinic networks only.', 'Global south: not commercially available.'];
-  else                   lines = ['Global: top ~0.1% of households by wealth.', 'Multiple jurisdictions: pending or prohibited.', 'De facto: private offshore clinics.'];
-  if ((budget.cognition || 0) >= 6) lines.push('Cognitive optimization: EU partial ban; US Phase III review (fictional).');
-  if ((budget.emotional || 0) >= 6) lines.push('Emotional-regulation editing: experimental authorization required in most jurisdictions.');
+  // Channel codes (RA-1…RA-5) and Schedule references are diegetic; the
+  // copy reads as compliance disclosure, not editorial commentary.
+  if      (usd < 50000)  lines = ['EU (Schedule I): partial reimbursement under Directive 2039/14, indication-restricted.', 'US: payer coverage discretionary; out-of-network rates apply outside designated centers.', 'Annex IV regions: provision limited to in-country accredited facilities.'];
+  else if (usd < 100000) lines = ['EU (Schedule I, elective): self-pay; clinic registration with the national competent authority required.', 'US: household income above the 60th percentile typically required; clinic waiting list 9–14 months.', 'Annex IV regions: no reimbursement pathway; cross-border referral on case basis.'];
+  else if (usd < 150000) lines = ['EU (Schedule II, Section 4(c)): elective allocation under post-market review by the national competent authority.', 'US: ~5% of households by income; clinic networks limited to designated Tier-B centers.', 'Asia-Pacific: jurisdiction-dependent; refer to channel code RA-3 for current authorizations.'];
+  else if (usd < 200000) lines = ['EU + UK (Schedule II, Section 6): restricted approval; pre-authorization required from the national competent authority.', 'US: ~1% of households; concierge networks only. Waiting list 14–22 months at Tier-A centers.', 'Annex IV regions: not commercially available under current channel-code RA-4 listing.'];
+  else                   lines = ['Global (Schedule III): provision limited to ~0.1% of households by declared assets.', 'Multiple jurisdictions: authorization pending or withheld under Article 11 review.', 'De facto pathway: extraterritorial facilities outside Schedule III enforcement.'];
+  if ((budget.cognition || 0) >= 6) lines.push('Cognitive optimization (CMP-2): EU partial restriction under Directive 2039/14; US Phase III post-market review ongoing.');
+  if ((budget.emotional || 0) >= 6) lines.push('Affective-band editing (CMP-4): experimental authorization required; subject to Article 11 cohort follow-up.');
   host.hidden = false;
   host.innerHTML = `
-    <h4>Regional Access (modeled)</h4>
-    <ul class="regional-list">${lines.slice(0, 4).map(l => `<li>${l}</li>`).join('')}</ul>`;
+    <h4>Regional Access &middot; channel code RA-${Math.min(5, Math.max(1, Math.floor(usd / 50000) + 1))}</h4>
+    <ul class="regional-list">${lines.slice(0, 4).map(l => `<li>${l}</li>`).join('')}</ul>
+    <p class="regional-foot">Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.</p>`;
 }
 
 /* ---------- Trait Popularity Through History ---------- */
@@ -5171,7 +5174,7 @@ function updateBudgetProjections(usedOverride) {
   if (costEl) costEl.textContent = used === 0 ? '— (baseline cohort)' : `≈ $${(usd / 1000).toFixed(0)}K (fictional)`;
   if (tierEl) {
     let tier = 'Universal · baseline';
-    if      (usd >= 200000) tier = 'Top ~0.1% globally · approaching regulatory grey zone';
+    if      (usd >= 200000) tier = 'Top ~0.1% globally · Schedule III provisional listing';
     else if (usd >= 150000) tier = 'Elite · top ~1% of households globally';
     else if (usd >= 100000) tier = 'Premium · top ~5% globally';
     else if (usd >=  50000) tier = 'Above-average · top ~20% globally';
