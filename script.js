@@ -96,6 +96,35 @@ const STRINGS = {
     'btn.alternates.playful': '🌌 Generate Alternate Timelines',
     'btn.alternates.reflection': 'Imagine other lives from the same beginnings',
     'btn.alternates.adult': 'Generate Alternate Projections',
+    // Stat panel
+    'stat.sex': 'Sex', 'stat.height': 'Height', 'stat.athletic': 'Athletic',
+    'stat.eyeColor': 'Eye color', 'stat.hairColor': 'Hair color', 'stat.hairTexture': 'Hair texture',
+    'stat.skinTone': 'Skin tone', 'stat.faceShape': 'Face shape', 'stat.freckles': 'Freckles',
+    'stat.dimples': 'Dimples',
+    'stat.openness': 'Openness', 'stat.conscientiousness': 'Conscientiousness',
+    'stat.extraversion': 'Extraversion', 'stat.agreeableness': 'Agreeableness',
+    'stat.neuroticism': 'Neuroticism',
+    'stat.curiosity': 'Curiosity', 'stat.kindness': 'Kindness', 'stat.energy': 'Energy',
+    'stat.focus': 'Focus', 'stat.confidence': 'Confidence',
+    'stat.section.bigFive': 'Big Five', 'stat.section.personality': 'Personality',
+    'stat.section.behavioralProjection': 'Behavioral Projection',
+    // Slider labels (trait sliders panel)
+    'slider.height': 'Height potential', 'slider.athletic': 'Athletic tendency',
+    'slider.eyeColor': 'Eye color blend', 'slider.hairColor': 'Hair color blend',
+    'slider.hairType': 'Hair texture blend', 'slider.skinTone': 'Skin tone blend',
+    'slider.faceShape': 'Face shape blend', 'slider.freckles': 'Freckles likelihood',
+    'slider.dimples': 'Dimples likelihood',
+    // Parent fields
+    'parent.A': 'Parent A', 'parent.B': 'Parent B',
+    'parent.name': 'Name', 'parent.ancestry': 'Ancestry', 'parent.height': 'Height (cm)',
+    'parent.athletic': 'Athletic', 'parent.eyeColor': 'Eye color', 'parent.hairColor': 'Hair color',
+    'parent.hairType': 'Hair type', 'parent.skinTone': 'Skin tone', 'parent.faceShape': 'Face shape',
+    'parent.freckles': 'Freckles', 'parent.dimples': 'Dimples',
+    // Env fields
+    'env.family': 'Supportive family', 'env.education': 'Educational access',
+    'env.economy': 'Economic stability', 'env.healthcare': 'Healthcare access',
+    'env.social': 'Social pressure', 'env.internet': 'Internet exposure',
+    'env.multilingual': 'Multilingual upbringing', 'env.urbanRural': 'Urban (1) ↔ Rural (10)',
     'language.label': 'Language'
   },
 
@@ -650,6 +679,17 @@ const LABEL_I18N = {
   'Confidence':          { zh: '自信心', ja: '自信', ko: '자신감', tr: 'Özgüven' },
   'Creativity':          { zh: '创造力', ja: '創造性', ko: '창의력', tr: 'Yaratıcılık' },
   'Teamwork':            { zh: '团队合作', ja: 'チームワーク', ko: '협동심', tr: 'Takım çalışması' },
+  // Parent slider subtitles
+  'physical tendency':       { zh: '生理倾向', ja: '身体的傾向', ko: '신체적 성향', tr: 'fiziksel eğilim' },
+  'curiosity & imagination': { zh: '好奇心与想象力', ja: '好奇心と想像力', ko: '호기심과 상상력', tr: 'merak ve hayal gücü' },
+  'discipline & organization': { zh: '自律与条理', ja: '規律と整理', ko: '규율과 정리', tr: 'disiplin ve düzen' },
+  'sociability & energy':    { zh: '社交性与活力', ja: '社交性と活力', ko: '사교성과 활력', tr: 'sosyallik ve enerji' },
+  'kindness & cooperation':  { zh: '善良与合作', ja: 'やさしさと協力', ko: '다정함과 협력', tr: 'iyilik ve işbirliği' },
+  'emotional reactivity':    { zh: '情绪反应', ja: '情緒的反応', ko: '정서적 반응성', tr: 'duygusal tepkisellik' },
+  // Confidence pill labels
+  'high':     { zh: '高', ja: '高', ko: '높음', tr: 'yüksek' },
+  'moderate': { zh: '中', ja: '中', ko: '중간', tr: 'orta' },
+  'low':      { zh: '低', ja: '低', ko: '낮음', tr: 'düşük' },
   // Stat section dividers
   'Big Five':            { zh: '大五人格', ja: 'ビッグファイブ', ko: '빅 파이브', tr: 'Beş Büyük' },
   'Personality':         { zh: '性格', ja: '性格', ko: '성격', tr: 'Kişilik' },
@@ -3563,7 +3603,7 @@ function buildParentForms() {
           <select id="${id}" name="${f.key}">${opts}</select>`;
       } else if (f.type === 'range') {
         const sub = f.subtitle
-          ? `<span class="field-subtitle">${f.subtitle}</span>`
+          ? `<span class="field-subtitle">${localLabel(f.subtitle)}</span>`
           : `<span class="hint">(1–10)</span>`;
         field.innerHTML = `
           <label for="${id}">${localLabel(f.label)} ${sub}</label>
@@ -4139,7 +4179,7 @@ function updateBabyPreview() {
     if (!inAdult) return '';
     const c = CONFIDENCE[k];
     if (!c) return '';
-    return ` <span class="confidence ${c.label}">${c.label}${c.unc ? ` · ${c.unc}` : ''}</span>`;
+    return ` <span class="confidence ${c.label}">${localLabel(c.label)}${c.unc ? ` · ${c.unc}` : ''}</span>`;
   };
   // Stats panel: physical traits are always shown. Personality numbers
   // are hidden in Reflection / Kids (the constellation shows them
