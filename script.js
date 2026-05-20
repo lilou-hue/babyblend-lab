@@ -2590,14 +2590,22 @@ function generateSliderRanges(parents) {
         unit: def.unit || ''
       };
     } else if (def.kind === 'polygenic') {
-      // Big-Five-flavored: child ≈ midparent + Gaussian(σ), ~50% heritability.
-      // Slider range ≈ midparent ± 2σ (covers ~95% of plausible outcomes).
+      // Polygenic-flavored: child ≈ midparent + Gaussian(σ_eff), ~50% heritability.
+      // Segregational variance grows with parental disparity (Falconer-flavored):
+      //   σ_eff² = σ_base² + k·(|a−b| / span)²·span²   (k ≈ 0.06)
+      // so identical parents give a tight band and far-apart parents give a wider
+      // one — consistent with how computeSurprise reads parental disparity.
+      // Slider range ≈ midparent ± 2σ_eff (~95% interval).
       // Chaos mode widens to the full hardMin/hardMax range.
       // In Adult mode, Enhancement Allocation biases the center of the band.
       const a = parents.A[def.key], b = parents.B[def.key];
       const baseCenter = (a + b) / 2;
       const center = applyBudgetBias(baseCenter, def.key);
-      const half = chaos ? (def.hardMax - def.hardMin) : (2 * def.sigma);
+      const span = def.hardMax - def.hardMin;
+      const disparityFrac = span > 0 ? Math.abs(a - b) / span : 0;
+      // 0.06 keeps the effect modest: at max disparity sigma widens ~60%.
+      const sigmaEff = Math.sqrt(def.sigma * def.sigma + 0.06 * disparityFrac * disparityFrac * span * span);
+      const half = chaos ? span : (2 * sigmaEff);
       const lo = clamp(Math.floor(center - half), def.hardMin, def.hardMax);
       const hi = clamp(Math.ceil (center + half), def.hardMin, def.hardMax);
       ranges[def.key] = {
@@ -2605,6 +2613,7 @@ function generateSliderRanges(parents) {
         min: lo, max: hi,
         step: 1,
         def: clamp(Math.round(center), lo, hi),
+        sigma: sigmaEff,
         unit: def.unit || ''
       };
     } else if (def.kind === 'ladder') {
@@ -2825,7 +2834,9 @@ function renderStandardSlider(def, ranges, container) {
   let bandHTML = '';
   if (PERSONALITY_OCEAN_KEYS.has(def.key) && state.parents?.A && state.parents?.B) {
     const mid = (state.parents.A[def.key] + state.parents.B[def.key]) / 2;
-    bandHTML = buildConfidenceBandHTML(def.key, mid, PERSONALITY_SIGMA, r, r.def);
+    // Use the effective sigma the range was built from, so the bell width
+    // reflects the actual ± window — not a constant baseline.
+    bandHTML = buildConfidenceBandHTML(def.key, mid, r.sigma ?? PERSONALITY_SIGMA, r, r.def);
   }
 
   row.innerHTML = `
@@ -2871,7 +2882,9 @@ function renderKidsPersonalitySlider(view, ranges, container) {
     const midOcean = (state.parents.A[view.oceanKey] + state.parents.B[view.oceanKey]) / 2;
     const midDisplay = view.invert ? (11 - midOcean) : midOcean;
     const displayR = { min: dispMin, max: dispMax, def: dispDef };
-    bandHTML = buildConfidenceBandHTML(view.kidsKey, midDisplay, PERSONALITY_SIGMA, displayR, dispDef);
+    // Effective sigma is symmetric under the invert flip — reuse the value
+    // generateSliderRanges computed for this trait.
+    bandHTML = buildConfidenceBandHTML(view.kidsKey, midDisplay, r.sigma ?? PERSONALITY_SIGMA, displayR, dispDef);
   }
 
   row.innerHTML = `
