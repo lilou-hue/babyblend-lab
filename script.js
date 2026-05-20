@@ -2474,7 +2474,7 @@ const HISTORY_CARDS = [
   { title: 'Cosmetic surgery culture.',           body: 'Modern cosmetic surgery normalizes the idea that bodies can be edited to match shifting beauty standards. The standards change every decade or two; the bodies that chased them often don\'t change back.' },
   { title: 'Gene editing today.',                 body: 'CRISPR can edit DNA in a Petri dish or a person. Where the line falls — diseases? height? mood? — is something we\'re answering as a species, mostly without asking it out loud.' },
   { title: 'Access is the harder question.',     body: 'Even if "designer babies" worked, they\'d almost certainly arrive unevenly. The wealthy modify; everyone else inherits. A new axis of inequality stacked on the old ones.' },
-  { title: 'Inheritance compounds.',              body: 'Heritable enhancements available to some families and not others don\'t fade with the generation that chose them. They are inherited downward and accumulate across descendants — economic inequality written into biology, then carried forward.' },
+  { title: 'Inheritance compounds.',              body: 'Enhancements available only to wealthy families become inherited advantages. The next generation inherits both the edit and the access to make further edits — so inequality compounds through who can choose, generation after generation, not through anything biology requires.' },
   { title: 'Who measures "improvement"?',        body: 'Traits cast as flaws in one era (sensitivity, atypical minds, certain bodies) are cast as strengths in another. The measurer changes; the trait doesn\'t.' },
   { title: 'Genes ≠ destiny.',                    body: 'Twin studies put Big Five personality traits at roughly 40–50% heritable (Polderman et al., 2015, meta-analyzed ~17,800 traits). Most of the rest tracks non-shared environment — the unique experiences, peer groups, and accidents that even identical twins don\'t share. Shared family environment explains less of adult personality than people expect.' },
   { title: 'Heritability is not "fixed in you".', body: 'A heritability of 50% means about half the variation between people in a population traces to genetic differences. It does not mean half of any one person\'s trait is genetic, and it does not mean the trait is unchangeable. Heritability estimates also shift with context: height is ~80% heritable when everyone is well-fed, much less in populations where childhood nutrition varies. This simulator applies a simplified additive-polygenic model — real personality genetics involve gene-by-environment interactions this can\'t show.' },
@@ -4821,6 +4821,10 @@ function generateBabyFlavor(codename, baby) {
   // conflict is active AND matching tagged entries exist, pick from the
   // matching subset ~60% of the time so the vibe and the conflict FUTURE_PATH
   // compound rather than duplicate. Otherwise: uniform random over the list.
+  // LOOP_REQUEST(systems): invert the conflict-tag preference here — when
+  // conflicts are active, AVOID conflict-tagged FUNNY_TITLES (don't prefer
+  // them). The conflict-tagged FUTURE_PATHS already carry the friction;
+  // FUNNY_TITLES that name the same contradiction read as gaslight-coherence.
   const vibes = localList(FUNNY_TITLES);
   const matchingVibes = conflictTags.length
     ? vibes.filter(v => v && typeof v === 'object' && v.tag && conflictTags.includes(v.tag))
@@ -6055,16 +6059,15 @@ function updateBudgetProjections(usedOverride) {
   const pressure = Math.min(1, burdenCost / 90);
   if (pressureEl) pressureEl.style.width = (pressure * 100).toFixed(0) + '%';
   if (pressureNote) {
-    // Notes describe what passes forward to descendants (Narrative R3) under
-    // World Design R3's weighted heritable-burden math — disease-risk packages
-    // weight low, identity/affect packages weight high. Parallel structure:
-    // severity · what descendants inherit. Threshold at >0.45 broadened to
-    // cover any heritable lock-in (not just appearance), since the new
-    // weighted cost includes cognition / emotional / sociability.
-    let note = 'Minimal · little is fixed in advance for descendants';
-    if (pressure > 0.15) note = 'Modest · a few traits carry into the next generation';
-    if (pressure > 0.45) note = 'Substantial · descendants inherit a defined trait profile';
-    if (pressure > 0.75) note = 'Saturated · the burden propagates without remedy';
+    // Notes describe what passes forward (Narrative R3) under World Design
+    // R3's weighted heritable-burden math — disease-risk packages weight low,
+    // identity/affect packages weight high. Pattern: severity · what passes
+    // forward. Tier 0 keeps ethical weight (the choice is still made for
+    // them); tier 3 drops doom-speak and reports the statistical reality.
+    let note = 'Minimal · few traits are pre-decided — but the choice is still made for them';
+    if (pressure > 0.15) note = 'Modest · a handful of traits will travel with the line';
+    if (pressure > 0.45) note = 'Substantial · a defined trait profile is locked in across the family tree';
+    if (pressure > 0.75) note = 'Saturated · heritable traits dominate the profile; later course-correction becomes statistically unlikely';
     pressureNote.textContent = note;
   }
 
