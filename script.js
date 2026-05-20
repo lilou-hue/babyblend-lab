@@ -6383,9 +6383,18 @@ function renderConsentExplainer() {
 // because they self-perpetuate in the line. Polderman et al. (2015) puts
 // Big Five personality heritability at ~40-50%; these weights are narrative
 // modeling, not science.
+//
+// NOT AN ETHICS RANKING. These weights are NOT a measure of ethical
+// acceptability, and a low weight is NOT a permission slip. Every heritable
+// allocation removes the future subject's choice; the weight only measures
+// how widely the loss propagates into the line. A 0.1-weighted allocation
+// is not "more justified" or "more acceptable" than a 1.0-weighted one —
+// it is equally non-consensual. Read this scale as propagation breadth,
+// never as moral approval. The y-axis is "how far the non-consent spreads",
+// not "how okay the non-consent is".
 const INHERITANCE_BURDEN_WEIGHTS = {
   health: 0.1, resilience: 0.2, creativity: 0.4, empathy: 0.4,
-  cognition: 0.5, athleticism: 0.6, emotional: 1.0,
+  cognition: 0.45, athleticism: 0.6, emotional: 1.0,
   appearance: 1.0, sociability: 1.0
 };
 function updateBudgetProjections(usedOverride) {
