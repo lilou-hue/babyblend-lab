@@ -1779,7 +1779,13 @@ body.mode-reflection #reflection-prompt { display: none !important; }
   margin-top: 14px;
   padding: 16px 18px;
   background: rgba(28, 22, 56, 0.55);
-  border: 1px solid rgba(180, 160, 220, 0.32);
+  /* R12 rev (Ethics POLISH): consolidated border declarations — was
+     `border: 1px solid X` then `border-left: 3px solid Y` override.
+     Spelling out each side removes the shorthand→override dance and
+     makes the asymmetric accent-left explicit. */
+  border-top: 1px solid rgba(180, 160, 220, 0.32);
+  border-right: 1px solid rgba(180, 160, 220, 0.32);
+  border-bottom: 1px solid rgba(180, 160, 220, 0.32);
   border-left: 3px solid rgba(214, 184, 228, 0.75);
   border-radius: 14px;
   text-align: left;
@@ -3460,7 +3466,11 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
 }
 .consent-ack-prompt.is-leaving { opacity: 0; transform: translateY(-4px); pointer-events: none; }
 .consent-ack-prompt .consent-ack-copy { margin: 0; font-size: 13px; color: rgba(255, 220, 170, 0.95); }
-.consent-ack-prompt .consent-ack-btn { padding: 6px 12px; font-size: 12px; }
+/* R12 rev (Visual Director POLISH): align desktop padding with the mobile
+   override (10px 16px) so the button doesn't visually shrink-then-jump
+   across the 640px breakpoint. Font-size still 12px keeps the compact ack
+   feel; padding parity is the visual continuity win. */
+.consent-ack-prompt .consent-ack-btn { padding: 10px 16px; font-size: 12px; }
 
 /* Faint progress hint toward the next consent-intensity threshold (50
    credits) — appears after the micro-ack to bridge the two beats into one
@@ -4757,15 +4767,16 @@ body.mode-reflection .lifetime-drift-panel h2 {
   grid-template-columns: 90px 1fr;
   gap: 18px;
   position: relative;
-  opacity: 0;
-  transform: translateY(8px);
-  /* Auto-playing cascade — no longer dependent on the observer-driven
-     .is-visible class, which was leaving events invisible on iOS when
-     the observer didn't fire before the user scrolled. */
+  /* R12 rev (Visual Director MAJOR): removed `opacity: 0` + `translateY(8px)`
+     starting state. Commit 211029a applied the same fix to `.intro-section`
+     but missed child events. `animation-forwards` carries the reveal; the
+     hidden start risks invisibility if animation stalls (iOS Safari
+     interrupted-paint). Visible default = safe degradation. */
   animation: introEventIn 0.55s ease forwards;
 }
 @keyframes introEventIn {
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 /* Tightened stagger: 0.1s steps so the timeline lands faster and the
    eye reaches the contested 2018/2019 beats sooner. Total span 0.95s
@@ -5293,6 +5304,23 @@ body.app-kids .kids-only { display: revert; }
     min-height: 44px; min-width: 44px;
     display: inline-flex; align-items: center; justify-content: center;
   }
+  /* R12 rev (MOBILE MAJOR): .style-btn + .gender-btn used 6×14 padding
+     + 12.5px text → sub-44px tap targets. Match R11 intro-skip pattern:
+     44×44 min, inline-flex center so the pill shape stays compact while
+     the hit area meets WCAG 2.5.5. Desktop sizing unchanged. */
+  .style-btn,
+  .gender-btn {
+    min-height: 44px; min-width: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+}
+
+/* R12 rev (MOBILE POLISH): Kids OCEAN parentheticals can be long; cap
+   popover width so it doesn't push past narrow viewports and wrap any
+   over-long single tokens cleanly. */
+.slider-popover {
+  max-width: 240px;
+  word-wrap: break-word;
 }
 
 /* R10 rev (Visual Director + Narrative Design): duration 0.32s→0.5s to
