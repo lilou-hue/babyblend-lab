@@ -572,14 +572,26 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
   box-shadow: 0 0 18px rgba(126, 224, 255, 0.15);
 }
 .btn:active { transform: translateY(1px); }
-/* Keyboard focus: a visible ring on the four primary control families.
+/* Keyboard focus: a visible ring on every primary control family.
    :focus-visible only fires for keyboard navigation, so mouse users
    don't see it. Same ring colour as the cyan accent so it lives
-   inside the existing palette. */
+   inside the existing palette. Covers the four main control families
+   plus the intro skip / enter pair (first thing a keyboard user hits),
+   the bottom toggles (history accordion, "show more"), the chaos
+   toggle, the per-stat <details> sources in the intro, and the
+   footer link — i.e. every interactive element not already covered
+   by .field :focus or the disclosure block near .parent-advanced-summary. */
 .btn:focus-visible,
 .app-mode-btn:focus-visible,
 .style-btn:focus-visible,
-.gender-btn:focus-visible {
+.gender-btn:focus-visible,
+.history-toggle:focus-visible,
+.details-toggle:focus-visible,
+.chaos-pill:focus-visible,
+.intro-skip:focus-visible,
+.intro-enter-btn:focus-visible,
+.intro-stat-source > summary:focus-visible,
+.site-footer .footer-link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
