@@ -3526,11 +3526,6 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   .consent-panel .consent-row { grid-template-columns: 1fr; gap: 6px; }
   .consent-panel .consent-label { display: inline; font-weight: 700; border-bottom: 0; padding: 0; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .consent-panel,
-  .consent-panel .consent-row,
-  .consent-panel .consent-body { transition: none !important; animation: none !important; }
-}
 
 .priority-row {
   background: rgba(10, 12, 38, 0.45);
