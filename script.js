@@ -6972,11 +6972,37 @@ function generateCodename(parents) {
  * branch below has content to surface. */
 // Only .when and .tag are read; the prior `key` field was a dead duplicate
 // of `tag` and has been dropped.
+//
+// Tier 1 ("-tension" / "-rigidity" / "-pleaser") fires for the sharp
+// extremes — the "obviously contradictory" baby. Tier 2 ("-mild" suffix)
+// catches the much larger middle band where the same friction is real
+// but quieter: trait values are sub-extreme on one or both axes, yet
+// still pointing in opposing directions. Sliders are integer-coded 1-10,
+// so the mild bands are written as strict inequalities that don't
+// overlap with the tension bands above — a baby never gets both tiers
+// of the same axis pair.
+//
+// LOOP_REQUEST(narrative): add FUTURE_PATHS entries tagged 'OC-mild',
+// 'EN-mild', 'CO-mild', 'AN-mild' (and KIDS_FUTURE_PATHS / ADULT_TRACES
+// equivalents) so the conflict branch below has softer content to
+// surface for the middle-band cases. Until then these tags fire but
+// fall back silently — same shape as a baby with no active conflicts.
 const TRAIT_CONFLICT_RULES = [
   { when: b => (b.openness        || 0) >= 8 && (b.conscientiousness || 0) <= 4, tag: 'OC-tension'  },
   { when: b => (b.extraversion    || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'EN-tension'  },
   { when: b => (b.conscientiousness || 0) >= 8 && (b.openness        || 0) <= 4, tag: 'CO-rigidity' },
-  { when: b => (b.agreeableness   || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'AN-pleaser'  }
+  { when: b => (b.agreeableness   || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'AN-pleaser'  },
+  // Tier-2 mild bands. Each is disjoint from its tier-1 sibling above
+  // by construction: O>=6&&O<=7 cannot satisfy O>=8, C>=5&&C<=6 cannot
+  // satisfy C<=4, etc.
+  { when: b => { const o = b.openness        || 0, c = b.conscientiousness || 0;
+                 return o >= 6 && o <= 7 && c >= 5 && c <= 6; }, tag: 'OC-mild'  },
+  { when: b => { const e = b.extraversion    || 0, n = b.neuroticism       || 0;
+                 return e >= 6 && e <= 7 && n >= 5 && n <= 6; }, tag: 'EN-mild'  },
+  { when: b => { const c = b.conscientiousness || 0, o = b.openness        || 0;
+                 return c >= 6 && c <= 7 && o >= 5 && o <= 6; }, tag: 'CO-mild'  },
+  { when: b => { const a = b.agreeableness   || 0, n = b.neuroticism       || 0;
+                 return a >= 6 && a <= 7 && n >= 5 && n <= 6; }, tag: 'AN-mild'  }
 ];
 
 function activeConflictTags(b) {
