@@ -655,6 +655,9 @@ function localGender(g) {
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
   // Life-stage / memory-snapshot labels
+  'Trait Popularity · Historical Drift': { zh: '理想性状的流变 · 历史漂移', ja: '理想とされる特性の歴史的ドリフト', ko: '바람직한 특성의 역사적 표류', tr: 'İstenen Özellik · Tarihsel Kayma' },
+  'Beta': { zh: '测试版', ja: 'ベータ', ko: '베타', tr: 'Beta' },
+  "What gets called a 'desirable' trait drifts across eras. Optimization targets are not culturally stable.": { zh: '何为"理想性状",在不同时代不断漂移。优化目标在文化上并不稳定。', ja: '「望ましい特性」と呼ばれるものは、時代ごとに漂流する。最適化の目標は文化的に安定しない。', ko: "'바람직한 특성'이라 불리는 것은 시대를 따라 표류한다. 최적화 목표는 문화적으로 안정적이지 않다.", tr: "'İstenir' sayılan özellik çağdan çağa kayar. Optimizasyon hedefleri kültürel olarak istikrarlı değildir." },
   'Memory snapshots': { zh: '记忆快照', ja: '記憶のスナップショット', ko: '기억의 스냅숏', tr: 'Anı kareleri' },
   'At 7':  { zh: '7 岁时',  ja: '7歳のとき',  ko: '7살 때',  tr: '7 yaşında' },
   'At 17': { zh: '17 岁时', ja: '17歳のとき', ko: '17살 때', tr: '17 yaşında' },
@@ -8242,11 +8245,41 @@ const DIVERGENCE_EVENTS = {
  * Makes the cultural-stability question visible: the present is not
  * universal, it's just recent. */
 const TRAIT_HISTORY = [
-  { era: '1950s', label: 'Mid-century',  traits: ['Obedience', 'Deference', 'Conformity'],            note: 'Idealized in employment, schooling, family roles.' },
-  { era: '1980s', label: 'Late-century', traits: ['Competitiveness', 'Ambition', 'Self-reliance'],     note: 'Optimization read as economic value.' },
-  { era: '2000s', label: 'Early-2000s',  traits: ['Confidence', 'Charisma', 'Multitasking'],           note: 'Network-economy demands.' },
-  { era: '2020s', label: 'Present',      traits: ['Resilience', 'Attractiveness', 'Productivity'],     note: 'Algorithm-mediated visibility.', isPresent: true },
-  { era: '2040s', label: 'Speculative',  traits: ['Emotional regulation', 'Cognitive endurance', 'Network sensitivity'], note: 'Modeled extension; subject to drift.', isSpeculative: true }
+  { era: '1950s', label: 'Mid-century',  traits: ['Obedience', 'Deference', 'Conformity'], note: 'Idealized in employment, schooling, family roles.',
+    i18n: {
+      zh: { label: '世纪中叶', traits: ['服从', '顺从', '从众'], note: '在雇佣、教育与家庭角色中被理想化。' },
+      ja: { label: '20世紀中盤', traits: ['服従', '従順', '同調'], note: '雇用、教育、家族の役割において理想化された。' },
+      ko: { label: '20세기 중반', traits: ['복종', '순응', '동조'], note: '고용·교육·가족 역할에서 이상화됨.' },
+      tr: { label: 'Yüzyıl ortası', traits: ['İtaat', 'Saygıyla geri çekilme', 'Uyumluluk'], note: 'İş, eğitim ve aile rollerinde ideal sayılırdı.' }
+    } },
+  { era: '1980s', label: 'Late-century', traits: ['Competitiveness', 'Ambition', 'Self-reliance'], note: 'Optimization read as economic value.',
+    i18n: {
+      zh: { label: '世纪末', traits: ['竞争心', '野心', '自立'], note: '"优化"被读作经济价值。' },
+      ja: { label: '20世紀後半', traits: ['競争心', '野心', '自立'], note: '「最適化」は経済価値として読まれた。' },
+      ko: { label: '20세기 후반', traits: ['경쟁심', '야망', '자립'], note: "'최적화'가 경제적 가치로 해석됨." },
+      tr: { label: 'Yüzyıl sonu', traits: ['Rekabetçilik', 'Hırs', 'Kendine yetme'], note: "'Optimizasyon' ekonomik değer olarak okundu." }
+    } },
+  { era: '2000s', label: 'Early-2000s',  traits: ['Confidence', 'Charisma', 'Multitasking'], note: 'Network-economy demands.',
+    i18n: {
+      zh: { label: '21 世纪初', traits: ['自信', '魅力', '多任务能力'], note: '网络经济提出的需求。' },
+      ja: { label: '2000年代前半', traits: ['自信', 'カリスマ性', 'マルチタスク能力'], note: 'ネットワーク経済が求めた条件。' },
+      ko: { label: '2000년대 초', traits: ['자신감', '카리스마', '멀티태스킹'], note: '네트워크 경제가 요구한 조건.' },
+      tr: { label: '2000’lerin başı', traits: ['Özgüven', 'Karizma', 'Çoklu görev'], note: 'Ağ ekonomisinin talepleri.' }
+    } },
+  { era: '2020s', label: 'Present',      traits: ['Resilience', 'Attractiveness', 'Productivity'], note: 'Algorithm-mediated visibility.', isPresent: true,
+    i18n: {
+      zh: { label: '现在', traits: ['韧性', '吸引力', '高产'], note: '由算法中介的可见度。' },
+      ja: { label: '現在', traits: ['レジリエンス', '魅力', '生産性'], note: 'アルゴリズムが介在する可視性。' },
+      ko: { label: '현재', traits: ['회복탄력성', '매력', '생산성'], note: '알고리즘이 매개하는 가시성.' },
+      tr: { label: 'Bugün', traits: ['Dayanıklılık', 'Çekicilik', 'Üretkenlik'], note: 'Algoritmaların aracılık ettiği görünürlük.' }
+    } },
+  { era: '2040s', label: 'Speculative',  traits: ['Emotional regulation', 'Cognitive endurance', 'Network sensitivity'], note: 'Modeled extension; subject to drift.', isSpeculative: true,
+    i18n: {
+      zh: { label: '推演', traits: ['情绪调节', '认知耐力', '网络敏感性'], note: '模型化的延伸;仍会随时代漂移。' },
+      ja: { label: '推測', traits: ['情動調整', '認知的持久力', 'ネットワーク感受性'], note: '想定上の延伸。今後も漂流しうる。' },
+      ko: { label: '추정', traits: ['정서 조절', '인지 지구력', '네트워크 감수성'], note: '모형화된 연장. 표류 가능성 있음.' },
+      tr: { label: 'Tahmini', traits: ['Duygu düzenleme', 'Bilişsel dayanıklılık', 'Ağ duyarlılığı'], note: 'Modellenmiş uzantı; yine kayma yaşayabilir.' }
+    } }
 ];
 
 const SOCIETAL_RULES = {
@@ -8667,7 +8700,12 @@ function renderTraitHistory() {
     panel.hidden = true;
     return;
   }
+  const lang = (state && state.language) ? state.language : 'en';
   const cards = TRAIT_HISTORY.map(era => {
+    const tr = (era.i18n && era.i18n[lang]) || {};
+    const label = tr.label || era.label;
+    const traits = tr.traits || era.traits;
+    const note = tr.note || era.note;
     const cls = [
       'history-era',
       era.isPresent ? 'is-present' : '',
@@ -8677,16 +8715,17 @@ function renderTraitHistory() {
       <article class="${cls}">
         <header class="era-head">
           <span class="era-year">${era.era}</span>
-          <span class="era-label">${era.label}</span>
+          <span class="era-label">${label}</span>
         </header>
-        <ul class="era-traits">${era.traits.map(t => `<li>${t}</li>`).join('')}</ul>
-        <p class="era-note">${era.note}</p>
+        <ul class="era-traits">${traits.map(t => `<li>${t}</li>`).join('')}</ul>
+        <p class="era-note">${note}</p>
       </article>`;
   }).join('');
+  const L = (s) => (typeof localLabel === 'function') ? localLabel(s) : s;
   panel.innerHTML = `
     <header class="trait-history-head">
-      <h2>Trait Popularity · Historical Drift <span class="beta-tag">Beta</span></h2>
-      <p class="subtle">What gets called a 'desirable' trait drifts across eras. Optimization targets are not culturally stable.</p>
+      <h2>${L('Trait Popularity · Historical Drift')} <span class="beta-tag">${L('Beta')}</span></h2>
+      <p class="subtle">${L("What gets called a 'desirable' trait drifts across eras. Optimization targets are not culturally stable.")}</p>
     </header>
     <div class="trait-history-timeline">${cards}</div>`;
   panel.hidden = false;
