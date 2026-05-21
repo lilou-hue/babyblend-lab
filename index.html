@@ -307,9 +307,9 @@
           <span class="dna-rung" style="--i:19"></span>
         </div>
       </div>
-      <h2 id="budget-heading"><span data-i18n="section.budget.heading">Enhancement Allocation</span> <span class="beta-tag">Beta</span> <span class="consent-badge" id="consent-badge" hidden aria-live="polite">Consent affected: heritable</span></h2>
+      <h2 id="budget-heading"><span data-i18n="section.budget.heading">Enhancement Allocation</span> <span class="beta-tag" data-i18n="badge.beta">Beta</span> <span class="consent-badge" id="consent-badge" hidden aria-live="polite" data-i18n="badge.consent_heritable">Consent affected: heritable</span></h2>
       <p class="subtle" data-i18n="section.budget.intro">Distribute credits across optimization categories. Allocations bias projected outcomes; tradeoffs are listed per package.</p>
-      <p class="compliance-footnote">Compliance reference: Oviedo Convention Art. 13 (heritable-germline restriction); medical-ethics principle of non-maleficence.</p>
+      <p class="compliance-footnote" data-i18n="budget.compliance">Compliance reference: Oviedo Convention Art. 13 (heritable-germline restriction); medical-ethics principle of non-maleficence.</p>
       <div class="budget-bar" aria-label="Budget usage">
         <span class="budget-fill" id="budget-fill"></span>
         <span class="budget-text" id="budget-text">0 / 200 credits</span>
@@ -318,9 +318,9 @@
            full Consent Implications panel unlocks at 50 credits. Two
            static text spans, no interactive widget; auto-hides at 0. -->
       <p class="budget-ethics-flags" id="budget-ethics-flags" hidden aria-live="polite">
-        <span class="ethics-flag">Reversibility: <strong>No</strong></span>
+        <span class="ethics-flag" data-i18n-html="budget.ethics.reversibility">Reversibility: <strong>No</strong></span>
         <span class="ethics-flag-sep">·</span>
-        <span class="ethics-flag">Subject absent: <strong>Yes</strong></span>
+        <span class="ethics-flag" data-i18n-html="budget.ethics.subject_absent">Subject absent: <strong>Yes</strong></span>
       </p>
       <!-- R5: compact env summary (3 tokens) shown only when env-disclosure
            is closed in Adult mode, so the hidden dependency surfaces near the
@@ -328,25 +328,25 @@
       <p class="env-summary-tokens" id="env-summary-tokens" hidden aria-live="polite"></p>
       <div class="budget-projections" id="budget-projections" aria-live="polite">
         <div class="projection-row">
-          <span class="projection-label">Projected Cohort Placement</span>
-          <span class="projection-value" id="cohort-placement">Untouched · baseline cohort</span>
+          <span class="projection-label" data-i18n="budget.proj.cohort">Projected Cohort Placement</span>
+          <span class="projection-value" id="cohort-placement" data-i18n="budget.proj.cohort.baseline">Untouched · baseline cohort</span>
         </div>
         <div class="projection-row">
-          <span class="projection-label">Estimated Cost</span>
-          <span class="projection-value" id="cost-est">— (baseline cohort)</span>
+          <span class="projection-label" data-i18n="budget.proj.cost">Estimated Cost</span>
+          <span class="projection-value" id="cost-est" data-i18n="budget.proj.cost.baseline">— (baseline cohort)</span>
         </div>
         <div class="projection-row">
-          <span class="projection-label">Projected Access Tier</span>
-          <span class="projection-value" id="access-tier">Universal · baseline</span>
+          <span class="projection-label" data-i18n="budget.proj.access">Projected Access Tier</span>
+          <span class="projection-value" id="access-tier" data-i18n="budget.proj.access.baseline">Universal · baseline</span>
         </div>
         <!-- R5: 1-liner above the burden bar making explicit that the index
              measures propagation of an already-equal loss of choice, not
              whether the allocation is "less wrong". -->
-        <p class="burden-disclaimer" id="burden-disclaimer">All allocations remove the future subject's choice equally; the weight measures how widely the loss propagates, not whether it occurs.</p>
+        <p class="burden-disclaimer" id="burden-disclaimer" data-i18n="budget.burden.disclaimer">All allocations remove the future subject's choice equally; the weight measures how widely the loss propagates, not whether it occurs.</p>
         <div class="projection-row burden-row" id="inheritance-burden-row">
-          <span class="projection-label">Inheritance Burden Index</span>
+          <span class="projection-label" data-i18n="budget.proj.burden">Inheritance Burden Index</span>
           <div class="projection-bar"><span class="projection-bar-fill" id="pressure-fill"></span></div>
-          <span class="projection-value pressure-note" id="pressure-note">Minimal</span>
+          <span class="projection-value pressure-note" id="pressure-note" data-i18n="budget.proj.burden.minimal">Minimal</span>
         </div>
       </div>
       <div class="budget-grid" id="budget-grid"></div>
@@ -359,8 +359,8 @@
          Enhancement Allocation panel and frames child-autonomy as a
          consent dimension, not a parental-optimization variable. -->
     <section class="panel consent-panel adult-only" id="consent-panel" aria-labelledby="consent-heading">
-      <h2 id="consent-heading">Consent Implications <span class="beta-tag">Adjacent</span></h2>
-      <p class="subtle">The subject of every allocation above cannot consent to it. The notes below state, in institutional terms, what that means.</p>
+      <h2 id="consent-heading"><span data-i18n="consent.heading">Consent Implications</span> <span class="beta-tag" data-i18n="badge.adjacent">Adjacent</span></h2>
+      <p class="subtle" data-i18n="consent.subtle">The subject of every allocation above cannot consent to it. The notes below state, in institutional terms, what that means.</p>
       <div class="consent-explainer" id="consent-explainer"></div>
     </section>
 
