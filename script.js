@@ -3088,6 +3088,76 @@ const KIDS_NEWS_HEADLINES = [
   'Class pet escapes briefly; rescued by a future veterinarian.'
 ];
 
+/* ---------- Kids-mode arc pools ----------
+ * Three small panels that argue: every person is interesting in
+ * surprising ways. Warm, specific, age-appropriate. Not babyish; not
+ * preachy. The thesis is wonder, not measurement.
+ */
+const KIDS_LOVES = [
+  'A specific kind of rock they keep finding.',
+  'The way the kitchen sounds in the morning.',
+  'One imaginary friend whose name they will not change.',
+  'A particular song from a movie they saw twice.',
+  'Reading the same book seven times.',
+  'Climbing things that are technically not for climbing.',
+  'Drawing the same animal over and over.',
+  'A secret hiding place behind the couch.',
+  'The exact way their best friend laughs.',
+  'A blanket that does not look special to anyone else.',
+  'Spinning until they fall over.',
+  'A specific knock-knock joke they invented.',
+  'The way leaves crunch in autumn.',
+  'A cousin or cousin-figure they admire.',
+  'Stickers — categorically, all stickers.',
+  'A bug they call by a name they made up.',
+  'Falling asleep with a book on their chest.',
+  'One specific dinosaur they have fully memorized.',
+  'The smell of a certain pencil eraser.',
+  'A treehouse, or wanting one very seriously.'
+];
+
+const KIDS_QUESTIONS_FOR_THEM = [
+  'What does your room smell like?',
+  'Have you ever made up a word that you use a lot?',
+  'If you could have any pet that does not exist, what would it be?',
+  'What is the weirdest dream you remember?',
+  'If your shadow had a name, what would it be?',
+  'What is a song you know every word of?',
+  'Have you ever talked to a tree?',
+  'What is something you used to believe was real?',
+  'What sound makes you happy for no reason?',
+  'What is the bravest thing you have done that nobody noticed?',
+  'If you could trade places with someone for a day, who?',
+  'What is a color you cannot describe to a grown-up?',
+  'What does your laugh sound like to YOU?',
+  'What is the best thing about being your age right now?',
+  'What is a memory that feels like a movie?',
+  'If you could keep one drawing forever, which one?',
+  'What is a question you would ask a cloud?',
+  'Have you ever met a stranger you wanted to be friends with?'
+];
+
+const KIDS_DIFFERENCES = [
+  'Might be the only kid in their class who knows where the moon is right now.',
+  'Might think about one specific topic for the rest of their life.',
+  'Might be the first person in their family to live somewhere far away.',
+  'Might keep a notebook nobody else ever reads.',
+  'Might invent a game that becomes a family tradition.',
+  'Might tell a joke that becomes their whole personality for a year.',
+  'Might be the friend everybody\'s parents like.',
+  'Might be the kid who knows the most about an animal nobody else cares about.',
+  'Might fall in love with one sport and only that sport.',
+  'Might have a recurring dream that becomes a song.',
+  'Might write a story at 8 and finish it at 28.',
+  'Might be the loudest kid in their family or the quietest.',
+  'Might forgive someone faster than anyone expects.',
+  'Might be famous in their neighborhood for one specific thing.',
+  'Might know a grandparent\'s favorite song by heart.',
+  'Might be braver than everyone around them in one specific moment.',
+  'Might learn a second language at a friend\'s house.',
+  'Might invent a snack their whole school copies for a week.'
+];
+
 const KIDS_TRAIT_CONFLICTS = [
   {
     when: b => b.openness >= 8 && b.conscientiousness <= 4,
@@ -4278,6 +4348,11 @@ function updateBabyPreview() {
   // Reflection-mode arc: same person, different rooms / decades.
   renderInnerCohort();
   renderLifetimeDrift();
+
+  // Kids-mode arc: wonder, curious questions, variance-as-gift.
+  renderKidsLoves();
+  renderKidsQuestions();
+  renderKidsDifferences();
 
   // Trait conflicts (tradeoff chips). In Adult mode after Gen 1, prepend a
   // one-line consent-awareness note — the early beat of the two-beat
@@ -5734,6 +5809,55 @@ function renderLifetimeDrift() {
       <p class="subtle">The same person at four ages. The optimization targets you chose will look like different things at each.</p>
     </header>
     <div class="lifetime-drift-row">${cards}</div>`;
+  panel.hidden = false;
+}
+
+/* ---------- Kids-mode arc renderers ----------
+ * Three small panels — wonder, curiosity, variance-as-gift. Each picks
+ * four lines deterministically from its pool, seeded by the codename.
+ */
+function renderKidsLoves() {
+  const panel = $('#kids-loves-panel');
+  if (!panel) return;
+  if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
+  const rng = seededRand(state.codename + '|kids-loves');
+  const picks = pickN(KIDS_LOVES, 4, rng);
+  panel.innerHTML = `
+    <header class="kids-arc-head">
+      <h2>Things they might love</h2>
+      <p class="subtle">Specific, particular, and theirs.</p>
+    </header>
+    <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
+  panel.hidden = false;
+}
+
+function renderKidsQuestions() {
+  const panel = $('#kids-questions-panel');
+  if (!panel) return;
+  if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
+  const rng = seededRand(state.codename + '|kids-questions');
+  const picks = pickN(KIDS_QUESTIONS_FOR_THEM, 4, rng);
+  panel.innerHTML = `
+    <header class="kids-arc-head">
+      <h2>Questions you could ask them</h2>
+      <p class="subtle">The kind you might not think to ask a grown-up.</p>
+    </header>
+    <ul class="kids-arc-list kids-arc-questions">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
+  panel.hidden = false;
+}
+
+function renderKidsDifferences() {
+  const panel = $('#kids-differences-panel');
+  if (!panel) return;
+  if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
+  const rng = seededRand(state.codename + '|kids-differences');
+  const picks = pickN(KIDS_DIFFERENCES, 4, rng);
+  panel.innerHTML = `
+    <header class="kids-arc-head">
+      <h2>What might make them <em>them</em></h2>
+      <p class="subtle">Difference is the most interesting thing about a person.</p>
+    </header>
+    <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
   panel.hidden = false;
 }
 
