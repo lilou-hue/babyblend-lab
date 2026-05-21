@@ -3970,68 +3970,124 @@ const RA_CHANNEL_DIVISOR = BUDGET_TIER_THRESHOLDS.licensedClinic;
 // a near-future regulatory disclosure UI.
 const REGULATORY_NOTE_RULES = [
   {
-    // Fires on the first non-zero enhancement allocation. Reconciles the
-    // institutional voice with `renderRegionalAccess` by citing a real
-    // instrument (Oviedo Art. 13) instead of narrating the
-    // structural-disadvantage externality. Stays single-line and dry.
     id: 'first-allocation',
     when: (b, total) => total > 0,
     severity: 'amber',
-    text: 'Per Oviedo Convention Art. 13: heritable allocation creates a non-reversible advantage in the descendant line; unallocated cohorts retain no equivalent remedy.'
+    text: 'Per Oviedo Convention Art. 13: heritable allocation creates a non-reversible advantage in the descendant line; unallocated cohorts retain no equivalent remedy.',
+    i18n: {
+      zh: '依《奥维耶多公约》第 13 条:可遗传分配在后代谱系中产生不可逆的优势;未获得分配的群体没有对等的救济措施。',
+      ja: 'オビエド条約 第13条より:遺伝に関わる割り当ては子孫の系統に不可逆的な優位を生む。割り当てを受けない集団には、これに見合う是正手段は存在しない。',
+      ko: '오비에도 협약 제13조에 따라: 유전 가능한 할당은 자손 계통에 되돌릴 수 없는 이점을 만든다. 할당받지 못한 집단에는 이에 상응하는 구제책이 없다.',
+      tr: 'Oviedo Sözleşmesi Madde 13: kalıtsal tahsis, soy hattında geri döndürülemez bir avantaj yaratır; tahsis almamış kohortların eşdeğer bir telafisi yoktur.'
+    }
   },
   {
     id: 'GE-3-cognition',
     when: b => (b.cognition || 0) >= 5,
     severity: 'amber',
-    text: 'HFEA 2008 Schedule 2: cognitive enhancement outside standard licensed purposes. Annual reporting to the licensing authority would be a condition of any special-direction grant.'
+    text: 'HFEA 2008 Schedule 2: cognitive enhancement outside standard licensed purposes. Annual reporting to the licensing authority would be a condition of any special-direction grant.',
+    i18n: {
+      zh: 'HFEA 2008 附表 2:认知增强超出标准许可用途。任何特别指示授权,都会以每年向许可机构报告为前提条件。',
+      ja: 'HFEA 2008 附則2:認知強化は標準的な許可目的の範囲を超える。例外的な指示認可を得る場合、許可機関への年次報告が条件となる。',
+      ko: 'HFEA 2008 부칙 2: 인지 강화는 표준 허가 목적의 범위를 벗어난다. 특별 지침 승인을 받는다면 허가 기관에 대한 연 1회 보고가 조건이 될 것이다.',
+      tr: 'HFEA 2008 Cetvel 2: bilişsel güçlendirme, standart lisanslı amaçların dışındadır. Herhangi bir özel yönlendirme izninde, lisanslama otoritesine yıllık raporlama koşul olur.'
+    }
   },
   {
     id: 'GE-3-cognition-high',
     when: b => (b.cognition || 0) >= 9,
     severity: 'red',
-    text: 'HFEA 1990/2008 s.3(2) prohibits placing a non-permitted embryo in a woman; allocation at this band falls outside any Schedule 2 licensed activity. Enrolment in a long-term outcome registry would be a condition of any exceptional authorization.'
+    text: 'HFEA 1990/2008 s.3(2) prohibits placing a non-permitted embryo in a woman; allocation at this band falls outside any Schedule 2 licensed activity. Enrolment in a long-term outcome registry would be a condition of any exceptional authorization.',
+    i18n: {
+      zh: 'HFEA 1990/2008 第 3(2) 条禁止将非许可胚胎植入女性体内;此区段的分配不在附表 2 任何许可活动范围内。任何例外授权都将以加入长期结果登记册为条件。',
+      ja: 'HFEA 1990/2008 第3条(2)は、許可されていない胚を女性に移植することを禁止しており、この帯域の割り当ては附則2のどの許可活動にも該当しない。例外的な認可がなされる場合、長期アウトカム登録への登録が条件となる。',
+      ko: 'HFEA 1990/2008 제3조(2)는 비허가 배아의 여성 체내 이식을 금지하며, 이 구간의 할당은 부칙 2의 어떤 허가 활동에도 해당하지 않는다. 예외적 승인을 받는다면 장기 결과 등록부 등재가 조건이 될 것이다.',
+      tr: 'HFEA 1990/2008 m.3(2), izin verilmeyen bir embriyonun bir kadına yerleştirilmesini yasaklar; bu bantta tahsis, Cetvel 2 lisanslı hiçbir faaliyete girmez. İstisnai bir yetkilendirmenin koşulu, uzun vadeli sonuç sicil kaydına dahil olmaktır.'
+    }
   },
   {
     id: 'EM-stability',
     when: b => (b.emotional || 0) >= 6,
     severity: 'amber',
-    text: 'HFEA 2008 Schedule 2 para. 3 (treatment licences): affective-band intervention outside standard licensed purposes. Periodic reporting to the licensing authority would be a condition of any special-direction grant.'
+    text: 'HFEA 2008 Schedule 2 para. 3 (treatment licences): affective-band intervention outside standard licensed purposes. Periodic reporting to the licensing authority would be a condition of any special-direction grant.',
+    i18n: {
+      zh: 'HFEA 2008 附表 2 第 3 段(治疗许可):情感区段干预超出标准许可用途。任何特别指示授权都将以向许可机构定期报告为条件。',
+      ja: 'HFEA 2008 附則2 第3項(治療ライセンス):情動領域への介入は標準的な許可目的の範囲外である。例外的な指示認可を得る場合、許可機関への定期報告が条件となる。',
+      ko: 'HFEA 2008 부칙 2 제3항(치료 면허): 정동 영역 개입은 표준 허가 목적의 범위를 벗어난다. 특별 지침 승인을 받는다면 허가 기관에 대한 정기 보고가 조건이 될 것이다.',
+      tr: 'HFEA 2008 Cetvel 2 paragraf 3 (tedavi lisansları): duygulanım bandında müdahale, standart lisanslı amaçların dışındadır. Herhangi bir özel yönlendirme izninin koşulu, lisanslama otoritesine düzenli raporlama olur.'
+    }
   },
   {
     id: 'RES-resilience-elevated',
     when: b => (b.resilience || 0) >= 7,
     severity: 'amber',
-    text: 'Resilience profile above population norm. Insurer notification required at enrolment; some carriers exclude this profile from depression-care coverage.'
+    text: 'Resilience profile above population norm. Insurer notification required at enrolment; some carriers exclude this profile from depression-care coverage.',
+    i18n: {
+      zh: '韧性档案高于人群常态。入组时须向保险公司通报;部分保险公司将此类档案排除在抑郁相关保障之外。',
+      ja: 'レジリエンス・プロファイルは集団平均を上回る。登録時に保険会社への通知が必要であり、一部の保険会社はこのプロファイルをうつ病ケア保障の対象外とする。',
+      ko: '회복탄력성 프로필이 인구 평균을 상회한다. 등록 시 보험사에 통보해야 하며, 일부 보험사는 이 프로필을 우울증 치료 보장에서 제외한다.',
+      tr: 'Dayanıklılık profili, nüfus normunun üzerindedir. Kayıt sırasında sigortacıya bildirim zorunludur; bazı şirketler bu profili depresyon bakım kapsamı dışında tutar.'
+    }
   },
   {
     id: 'APP-appearance',
     when: b => (b.appearance || 0) >= 6,
     severity: 'amber',
-    text: 'Appearance-package allocation in upper quartile. Cosmetic-modification disclosure required on identity documents in 7 jurisdictions.'
+    text: 'Appearance-package allocation in upper quartile. Cosmetic-modification disclosure required on identity documents in 7 jurisdictions.',
+    i18n: {
+      zh: '外观相关分配位于最上四分位。在 7 个司法辖区内,身份证件须披露美容性修改。',
+      ja: '外見パッケージへの割り当ては上位四分位に位置する。7つの法域において、身分証明書類における美容的改変の開示が必要となる。',
+      ko: '외형 패키지 할당이 상위 사분위에 속한다. 7개 관할 구역에서 신분증명서에 미용적 변경 사실의 공시가 요구된다.',
+      tr: 'Görünüm paketi tahsisi üst çeyrektedir. Yedi yargı çevresinde kimlik belgelerinde kozmetik değişiklik beyanı zorunludur.'
+    }
   },
   {
     id: 'ATH-athleticism',
     when: b => (b.athleticism || 0) >= 7,
     severity: 'amber',
-    text: 'Athletic-enhancement profile would be ineligible for sanctioned youth competition in the IOC Aligned Federation framework.'
+    text: 'Athletic-enhancement profile would be ineligible for sanctioned youth competition in the IOC Aligned Federation framework.',
+    i18n: {
+      zh: '在 IOC 协同联合会框架下,运动增强档案不具备参加官方青少年比赛的资格。',
+      ja: 'IOCアラインド・フェデレーション枠組みのもとでは、運動増強プロファイルは公認ユース競技の出場資格を持たない。',
+      ko: 'IOC 정렬 연맹 체계에서, 운동 강화 프로필은 공인 청소년 경기 출전 자격을 갖지 못한다.',
+      tr: 'IOC Hizalanmış Federasyon çerçevesinde atletik güçlendirme profili, resmi gençlik müsabakalarına uygun değildir.'
+    }
   },
   {
     id: 'multi-category',
     when: b => Object.values(b).filter(v => v >= 4).length >= 3,
     severity: 'red',
-    text: 'Multi-category package spanning three or more domains. Subject auto-enrolled in long-term outcome follow-up as a condition of HFEA-equivalent licensing. Opt-out window: 30 days from authorization.'
+    text: 'Multi-category package spanning three or more domains. Subject auto-enrolled in long-term outcome follow-up as a condition of HFEA-equivalent licensing. Opt-out window: 30 days from authorization.',
+    i18n: {
+      zh: '跨越三个或更多领域的多类别套餐。作为 HFEA 等效许可的条件,受试者会被自动纳入长期结果追踪。退出窗口:授权之日起 30 天内。',
+      ja: '三領域以上にまたがる複合パッケージ。HFEA相当の許可の条件として、対象者は長期アウトカム追跡へ自動登録される。オプトアウト期間:認可から30日以内。',
+      ko: '세 가지 이상 영역에 걸친 복합 패키지. HFEA 동등 면허의 조건으로 대상자는 장기 결과 추적에 자동 등록된다. 옵트아웃 가능 기간: 승인일로부터 30일.',
+      tr: 'Üç veya daha fazla alanı kapsayan çok kategorili paket. HFEA eşdeğeri lisansın koşulu olarak özne, uzun vadeli sonuç takibine otomatik dahil edilir. Vazgeçme süresi: yetkilendirmeden itibaren 30 gün.'
+    }
   },
   {
     id: 'total-spend-high',
     when: (b, total) => total >= BUDGET_TOTAL * 0.7,
     severity: 'red',
-    text: 'Aggregate allocation ≥ 70% of platform budget. Cosmetic-modification disclosure required on identity documents in all Oviedo signatory jurisdictions (Art. 13, transposed instruments).'
+    text: 'Aggregate allocation ≥ 70% of platform budget. Cosmetic-modification disclosure required on identity documents in all Oviedo signatory jurisdictions (Art. 13, transposed instruments).',
+    i18n: {
+      zh: '总分配额 ≥ 平台预算的 70%。在所有《奥维耶多公约》签署国(第 13 条及其转化文书)司法辖区内,身份证件均须披露美容性修改。',
+      ja: '総割り当ては、プラットフォーム予算の70%以上。オビエド条約の署名国すべての法域(第13条、およびその国内法化文書)において、身分証明書類への美容的改変の開示が必要となる。',
+      ko: '총 할당이 플랫폼 예산의 70% 이상이다. 모든 오비에도 협약 서명 관할 구역(제13조 및 국내법 전환 문서)에서 신분증명서에 미용적 변경 사실의 공시가 요구된다.',
+      tr: "Toplam tahsis, platform bütçesinin %70'i veya üzeridir. Tüm Oviedo Sözleşmesi taraf devletlerinin yargı çevrelerinde (Madde 13 ve uyumlaştırılmış araçlar) kimlik belgelerinde kozmetik değişiklik beyanı zorunludur."
+    }
   },
   {
     id: 'empathy-low',
     when: b => (b.empathy || 0) >= 6 && (b.cognition || 0) >= 6,
     severity: 'amber',
-    text: 'High empathy + high cognition allocation: documented elevated burnout risk in adolescent and early-adult cohorts. Carer mental-health monitoring advised.'
+    text: 'High empathy + high cognition allocation: documented elevated burnout risk in adolescent and early-adult cohorts. Carer mental-health monitoring advised.',
+    i18n: {
+      zh: '高共情 + 高认知分配:在青少年和成年早期群组中已有研究记录的高倦怠风险。建议对照护者进行心理健康监测。',
+      ja: '高共感 × 高認知の割り当て:思春期および成人初期コホートにおいて、文献上、バーンアウト・リスクの上昇が記録されている。ケア提供者のメンタルヘルス・モニタリングを推奨。',
+      ko: '높은 공감 + 높은 인지 할당: 청소년 및 성인 초기 코호트에서 번아웃 위험이 상승한다는 보고가 있다. 양육자 정신건강 모니터링을 권고함.',
+      tr: 'Yüksek empati + yüksek bilişsel tahsis: ergen ve erken yetişkinlik kohortlarında belgelenmiş yüksek tükenme riski. Bakım verenin ruh sağlığı izlemi önerilir.'
+    }
   }
 ];
 
