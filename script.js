@@ -5139,6 +5139,34 @@ const KIDS_ADULT_FUTURES = [
     if (unknown.length) {
       console.warn('[BabyBlend] Unknown future-pool tags (will score neutral):', unknown);
     }
+    // R11rev: warn if any `-mild` tagged entry in a language-keyed trace pool
+    // (en/zh/ja/ko/tr) lacks parallel non-EN coverage. The `-mild` entries were
+    // added in R9 to ADULT_TRACES / REFLECTION_TRACES / KIDS_TRACES.en only;
+    // the LOOP_REQUEST(translator) markers above each block flag the work, but
+    // a translator skipping one tag would go unnoticed. Single aggregated warn.
+    const tracePools = { ADULT_TRACES, REFLECTION_TRACES, KIDS_TRACES };
+    const missing = [];
+    for (const [name, pool] of Object.entries(tracePools)) {
+      if (!pool || typeof pool !== 'object' || !Array.isArray(pool.en)) continue;
+      const mildTags = new Set();
+      pool.en.forEach(e => {
+        if (e && typeof e === 'object' && typeof e.tag === 'string' &&
+            e.tag.endsWith('-mild')) mildTags.add(e.tag);
+      });
+      if (!mildTags.size) continue;
+      ['zh','ja','ko','tr'].forEach(lang => {
+        const arr = pool[lang];
+        if (!Array.isArray(arr)) { missing.push(`${name}.${lang}:absent`); return; }
+        const present = new Set(arr.map(e =>
+          e && typeof e === 'object' ? e.tag : null).filter(Boolean));
+        mildTags.forEach(t => {
+          if (!present.has(t)) missing.push(`${name}.${lang}:"${t}"`);
+        });
+      });
+    }
+    if (missing.length) {
+      console.warn('[BabyBlend] -mild trace entries missing non-EN translations:', missing);
+    }
   } catch (e) { /* never block boot for an audit */ }
 })();
 
