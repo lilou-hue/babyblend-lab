@@ -3346,6 +3346,15 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   opacity: 0.7;
   letter-spacing: 0.3px;
 }
+/* R18 verification: placeholder is a single <dt> rendered inside
+   .baby-stats (a 2-column `auto 1fr` grid). Without column-span, the
+   <dt> shrinks to the auto column and text-align: center centers within
+   that narrow track instead of the full panel. Span both columns so the
+   message reads as a centered standalone notice across the projection
+   panel — matches the .burden-disclaimer pattern in .budget-projections. */
+.baby-stats .projection-gated-placeholder {
+  grid-column: 1 / -1;
+}
 
 .budget-grid {
   display: grid;
