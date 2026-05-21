@@ -2700,45 +2700,53 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'A late bloom: the thing they are known for, by themselves and others, arrives after most peers assumed the shape was set.',
       'Economic precarity persists into this decade for a non-trivial share of cohorts; stability is not evenly distributed.'
     ],
-    // LOOP_REQUEST(translator): zh/ja/ko/tr `later` pools still universalize
-    // mid-career stability. Carry the EN additions (precarity, caregiving
-    // interruption, late bloom, the softened opening line) into the other
-    // four languages with the same matter-of-fact register.
     zh: [
       '成年人格大体稳定;成长仍在继续,但节奏放缓。',
-      '职业生涯中段已经成型;自己的优势与极限,自己都已熟知。',
+      '一段工作生涯逐渐成型——或是稳定的职业,或是一连串勉力维持的工作,或是一条不得不在中途重新铺设的路。',
       '长期关系与所选择的家庭,呈现出可识别的稳定形态。',
       '健康与精力的模式正在改变;日常生活习惯随之做出调整。',
       '随着年龄增长,情绪幅度往往会收窄一些,与之同时,心境也更平稳。',
       '对那些做过与未做的选择,反思变得更频繁。',
-      '无论是否有自己的孩子,下一代都已进入他/她的生活轨道。'
+      '无论是否有自己的孩子,下一代都已进入他/她的生活轨道。',
+      '照护年迈的父母、手足或伴侣,打断了原本预设的人生轨道;身份围绕着"谁需要他/她"重新组织。',
+      '一次迟到的绽放:他/她为人所识的那件事——在自己和他人眼中——出现在大多数同龄人都已认定形状已定之后。',
+      '在这十年间,经济上的不稳定仍持续困扰着相当一部分同代人;稳定并非平均分布。'
     ],
     ja: [
       '成人後のパーソナリティはおおむね安定。成長は続くが、ペースは緩やかになる。',
-      'キャリアの中盤の軌道が定まり、自分の強みと限界をともによく分かっている。',
+      '働く生活の形が定まる――落ち着いたキャリアであれ、つなぎ合わせて維持してきた職の連なりであれ、途中で一から組み直さざるを得なかった道であれ。',
       '長期の人間関係と「選んだ家族」が、見分けのつく形に落ち着く。',
       '健康とエネルギーのパターンが変化し、日々の習慣もそれに合わせて変わる。',
       '感情の幅は年齢とともにやや狭まる一方で、心の落ち着きは増す。',
       'した選択、しなかった選択について振り返ることが多くなる。',
-      '自分の子の有無にかかわらず、次の世代が生活圏に入ってくる。'
+      '自分の子の有無にかかわらず、次の世代が生活圏に入ってくる。',
+      '老いた親、きょうだい、あるいは伴侶のケアが、想定されていた軌道を中断させる。アイデンティティは「誰が自分を必要としているか」を軸に再編される。',
+      '遅咲き――本人にも周囲にも「この人といえばこれ」と認識されるものが、同世代の多くが「もう形は決まった」と見なした後に現れる。',
+      'この十年に入っても、相当な割合のコホートでは経済的不安定さが続いている。安定は均等には分配されていない。'
     ],
     ko: [
       '성인기 인격은 대체로 안정되어 있고, 성장은 더 느린 속도로 이어진다.',
-      '경력의 중반이 자리를 잡고, 자신의 강점과 한계 모두 스스로에게 충분히 익숙해진다.',
+      '일하는 삶의 형태가 자리를 잡는다 — 안정된 경력일 수도, 간신히 이어 붙여 온 일자리들의 연속일 수도, 중간에 처음부터 다시 깔아야 했던 길일 수도 있다.',
       '장기 관계와 스스로 택한 가족의 형태가, 알아볼 수 있는 모습으로 자리 잡는다.',
       '건강과 활력의 양상이 변하고, 일상 습관이 그 변화에 맞춰 조정된다.',
       '감정의 폭은 나이와 함께 다소 좁아지고, 동시에 평정심은 더 커진다.',
       '한 선택과 하지 않은 선택에 대한 성찰이 점점 더 자주 일어난다.',
-      '자녀의 유무와 상관없이, 다음 세대가 생활권 안으로 들어온다.'
+      '자녀의 유무와 상관없이, 다음 세대가 생활권 안으로 들어온다.',
+      '나이 든 부모, 형제자매, 혹은 배우자에 대한 돌봄이 예정된 궤적을 끊는다. 정체성은 "누가 자신을 필요로 하는가"를 중심으로 재편된다.',
+      '늦은 개화: 본인과 주위 모두에게 그 사람을 그 사람이게 하는 것이, 또래 대부분이 이미 형태가 정해졌다고 여긴 뒤에 도착한다.',
+      '이 10년대에 들어서도 적지 않은 코호트에서 경제적 불안정이 지속된다. 안정은 고르게 분배되어 있지 않다.'
     ],
     tr: [
       'Yetişkin kişilik büyük ölçüde sabit; gelişim daha yavaş bir hızda sürer.',
-      'Kariyer ortası ekseni yerine oturmuştur; güçlü yanlar da sınırlar da kişi tarafından iyi bilinir.',
+      'Bir çalışma hayatı biçimini alır — yerleşmiş bir kariyer, bir arada tutulmuş işlerden oluşan bir dizi ya da yarı yolda yeniden kurulması gereken bir güzergâh olarak.',
       'Uzun süreli ilişkiler ve seçilmiş aile, tanınır bir biçime kavuşur.',
       'Sağlık ve enerji örüntüleri değişiyor; rutinler bu değişime uyum sağlıyor.',
       'Duygusal yelpaze yaşla birlikte sıklıkla biraz daralırken, dinginlik artar.',
       'Yapılmış ve yapılmamış seçimler üzerinde düşünmek giderek sıklaşır.',
-      'Çocuklar olsun ya da olmasın, sonraki kuşak onun yörüngesine girer.'
+      'Çocuklar olsun ya da olmasın, sonraki kuşak onun yörüngesine girer.',
+      'Yaşlanan bir ebeveyne, bir kardeşe ya da bir eşe bakım vermek, öngörülen ekseni keser; kimlik, kime ihtiyaç duyulduğu etrafında yeniden düzenlenir.',
+      'Geç açan bir çiçek: kişinin kendisi ve başkaları için onu tanıdığımız şey, akranların çoğunun biçimin artık oturduğunu varsaymasından sonra gelir.',
+      'Bu on yılda da kohortların azımsanmayacak bir bölümü için ekonomik kırılganlık sürer; istikrar eşit biçimde dağılmamıştır.'
     ]
   }
 };
