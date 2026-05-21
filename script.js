@@ -1555,7 +1555,7 @@ const REFLECTION_OBSERVATIONS = {
     "Half of what shapes them isn't on any of these sliders, and never will be.",
     'A trait that reads as a strength at age 8 may read as a wound at 28.',
     "Optimization assumes a destination. There isn't one.",
-    "The most interesting version of this child is probably the one you didn't plan for.",
+    "Most of who this child becomes will arrive from outside the plan.",
     'Every "ideal" you encoded here was, somewhere, an ordinary preference.',
     'This child will love things you would never have chosen for them.'
   ],
@@ -1567,7 +1567,7 @@ const REFLECTION_OBSERVATIONS = {
     '塑造他们的一半,都不在任何一个滑块上,也永远不会在。',
     '八岁时是优点的特征,二十八岁时,也可能是伤口。',
     '"优化"预设了一个终点。可是并没有终点。',
-    '这孩子最有意思的那个版本,多半是你没规划过的那一个。',
+    '这孩子日后成为的样子,大半会从你的计划之外走进来。',
     '你在这里写进的每一个"理想",在某处,其实只是某人寻常的偏好。',
     '这孩子会爱上一些你从来不会替他/她选的东西。'
   ],
@@ -1579,7 +1579,7 @@ const REFLECTION_OBSERVATIONS = {
     'この子を形作るものの半分は、どのスライダーにも乗っておらず、これからも乗りません。',
     '8歳で長所だった特性が、28歳には傷として読み返されるかもしれません。',
     '最適化は到達点を前提とします。けれど、到達点はありません。',
-    'この子のいちばん面白いバージョンは、おそらくあなたが計画しなかったほうです。',
+    'この子がやがてなる姿の大半は、あなたの計画の外側から訪れます。',
     'ここに書き込まれたあらゆる「理想」は、どこかでは誰かのありふれた好みでした。',
     'この子は、あなたなら決して選ばないようなものを愛するでしょう。'
   ],
@@ -1591,7 +1591,7 @@ const REFLECTION_OBSERVATIONS = {
     '그를 빚어가는 절반은 어느 슬라이더에도 들어 있지 않고, 앞으로도 그러할 것입니다.',
     '8살에 강점으로 읽히던 특성이 28살에는 상처로 읽힐 수도 있습니다.',
     '최적화는 도달점을 가정합니다. 그러나 도달점은 없습니다.',
-    '이 아이의 가장 흥미로운 판본은, 아마도 당신이 계획하지 않은 쪽일 겁니다.',
+    '이 아이가 자라 무엇이 되든, 그 대부분은 당신의 계획 바깥에서 찾아옵니다.',
     '여기에 새긴 모든 "이상"은, 어딘가에서는 누군가의 평범한 취향이었습니다.',
     '이 아이는 당신이 결코 골라주지 않았을 것들을 사랑하게 될 것입니다.'
   ],
@@ -1603,7 +1603,7 @@ const REFLECTION_OBSERVATIONS = {
     'Onları biçimlendirenin yarısı bu sürgülerin hiçbirinde değildir ve hiç olmayacak.',
     'Sekiz yaşında bir güç olarak okunan özellik, yirmi sekizinde bir yara olarak okunabilir.',
     'Optimizasyon bir varış noktası varsayar. Yoktur.',
-    'Bu çocuğun en ilginç versiyonu, muhtemelen planlamadığın versiyondur.',
+    'Bu çocuğun olacağı şeyin büyük kısmı, planın dışından gelir.',
     'Burada kaydettiğin her "ideal", bir yerlerde, sıradan birinin sıradan bir tercihiydi.',
     'Bu çocuk, asla onun için seçmeyeceğin şeyleri sevecek.'
   ]
@@ -3744,49 +3744,49 @@ const ADULT_TRAJECTORY_MILESTONES = {
   },
   mid: {
     en: [
-      'Enters formal schooling; academic strengths and challenges emerging.',
+      'Enters formal schooling; strengths and challenges emerging in learning.',
       'Peer-group identification forming; friendships gain weight against family.',
       'Three or four candidate identities tried on before adolescence settles.',
       'High school identity solidifying; adult interests beginning to clarify.',
       'First experiences of independent decision-making and its consequences.',
       'Romantic and social self gaining definition through trial and feedback.',
-      'Early career signals appearing through emerging interests and early attempts.'
+      'Early career signals appearing through interests pursued and initial attempts.'
     ],
     zh: [
-      '进入正规学校教育;学业上的强项与挑战开始显现。',
+      '进入正规学校教育;在学习中,强项与挑战开始显现。',
       '同伴群体认同正在形成;友谊在家庭之外逐渐获得分量。',
       '青春期稳定下来之前,会尝试三到四种候选的身份。',
       '高中阶段身份逐步固化;成年期的兴趣开始变得清晰。',
       '第一次体会到独立做决定及其后果。',
       '通过尝试与反馈,恋爱与社交自我逐渐成型。',
-      '通过逐渐显现的兴趣与早期的尝试,早期职业信号开始出现。'
+      '通过所追求的兴趣与最初的尝试,早期职业信号开始出现。'
     ],
     ja: [
-      '正規教育に入る。学業上の強みと課題が現れ始める。',
+      '正規教育に入る。学びのなかで、強みと課題が現れ始める。',
       '仲間集団への帰属意識が形成され、友情の比重が家庭に対して相対的に増す。',
       '思春期が落ち着くまでに、三つか四つの候補となる自己像を試す。',
       '高校期にかけて自己像が固まり、大人としての関心が見え始める。',
       '独立した意思決定と、その結果を初めて体験する。',
       '試行とフィードバックを通じて、恋愛・社会的自己像が定義されていく。',
-      '芽生え始めた関心や初期の試みから、初期のキャリア信号が現れる。'
+      '追いかける関心と最初の試みから、初期のキャリア信号が現れる。'
     ],
     ko: [
-      '정규 교육 과정에 진입; 학업적 강점과 어려움이 드러나기 시작함.',
+      '정규 교육 과정에 진입; 배움 속에서 강점과 어려움이 드러나기 시작함.',
       '또래 집단에 대한 정체감이 형성되며, 가족 대비 우정의 비중이 커짐.',
       '청소년기가 안정되기 전, 세 가지에서 네 가지의 후보 정체성을 시도해 봄.',
       '고등학교 시기 자아 정체성이 굳어지고, 성인기의 관심사가 명료해지기 시작.',
       '독립적인 의사 결정과 그 결과를 처음 경험함.',
       '시도와 피드백을 통해 연애 및 사회적 자아가 윤곽을 잡아 감.',
-      '서서히 드러나는 관심사와 초기의 시도를 통해 초기 진로 신호가 나타남.'
+      '좇는 관심사와 처음의 시도를 통해 초기 진로 신호가 나타남.'
     ],
     tr: [
-      'Örgün eğitime başlıyor; akademik güçlü yanlar ve zorluklar belirginleşiyor.',
+      'Örgün eğitime başlıyor; öğrenmede güçlü yanlar ve zorluklar belirginleşiyor.',
       'Akran grubuyla özdeşim oluşuyor; arkadaşlıklar aileye karşı ağırlık kazanıyor.',
       'Ergenlik yerine oturmadan önce üç veya dört aday kimlik denenir.',
       'Lise dönemi kimliği netleşiyor; yetişkin ilgi alanları belirginleşmeye başlıyor.',
       'Bağımsız karar verme ve sonuçlarının ilk deneyimleri yaşanıyor.',
       'Deneme ve geri bildirim yoluyla romantik ve sosyal benlik biçimleniyor.',
-      'Beliren ilgi alanlarından ve ilk denemelerden erken kariyer sinyalleri görünüyor.'
+      'Peşinden gidilen ilgi alanlarından ve ilk denemelerden erken kariyer sinyalleri görünüyor.'
     ]
   },
   later: {
@@ -5444,12 +5444,12 @@ const KIDS_ADULT_FUTURES = [
       ko: { headline: '재미있는 새 게임을 만드는 디자이너가 될지도 몰라요.', details: ['규칙 12개짜리 카드 게임을 만들어 본 적이 있다.', '인내심 있는 친구들에게 플레이테스트를 부탁한다.', '늘 카드 한 벌을 들고 다닌다.'] },
       tr: { headline: 'Belki eğlenceli yeni oyunlar tasarlayan biri olur.', details: ['On iki kurallı bir kart oyunu icat etti.', 'Sabırlı arkadaşlarının oluşturduğu bir çevrede oyununu test eder.', 'Cebinde hep bir deste kâğıt taşır.'] }
     } },
-  { headline: 'Maybe a translator helping people understand each other.', details: ['Speaks two languages by college.', 'Has pen pals on three continents.', 'Owns a shelf of dictionaries.'], tags: ['multilingual','education'],
+  { headline: 'Maybe a translator helping people understand each other.', details: ['Speaks two languages.', 'Has pen pals on three continents.', 'Owns a shelf of dictionaries.'], tags: ['multilingual','education'],
     i18n: {
-      zh: { headline: '也许会成为帮人彼此理解的翻译。', details: ['上大学时就掌握了两种语言。', '在三个大洲都有笔友。', '家里有一整排词典。'] },
-      ja: { headline: 'もしかしたら、人と人をつなぐ翻訳者に。', details: ['大学に入る頃には、二つの言語を話せる。', '三つの大陸に文通相手がいる。', '辞書がずらりと並んだ本棚を持っている。'] },
-      ko: { headline: '사람들이 서로를 이해하도록 돕는 번역가가 될지도 몰라요.', details: ['대학에 들어갈 즈음에는 두 가지 언어를 한다.', '세 개 대륙에 펜팔 친구가 있다.', '사전이 한 줄 가득 꽂힌 책장이 있다.'] },
-      tr: { headline: 'Belki insanların birbirini anlamasına yardım eden bir çevirmen olur.', details: ['Üniversiteye geldiğinde iki dil konuşuyordur.', 'Üç ayrı kıtada mektup arkadaşı vardır.', 'Sözlüklerle dolu bir rafı vardır.'] }
+      zh: { headline: '也许会成为帮人彼此理解的翻译。', details: ['会说两种语言。', '在三个大洲都有笔友。', '家里有一整排词典。'] },
+      ja: { headline: 'もしかしたら、人と人をつなぐ翻訳者に。', details: ['二つの言語を話す。', '三つの大陸に文通相手がいる。', '辞書がずらりと並んだ本棚を持っている。'] },
+      ko: { headline: '사람들이 서로를 이해하도록 돕는 번역가가 될지도 몰라요.', details: ['두 가지 언어를 한다.', '세 개 대륙에 펜팔 친구가 있다.', '사전이 한 줄 가득 꽂힌 책장이 있다.'] },
+      tr: { headline: 'Belki insanların birbirini anlamasına yardım eden bir çevirmen olur.', details: ['İki dil konuşur.', 'Üç ayrı kıtada mektup arkadaşı vardır.', 'Sözlüklerle dolu bir rafı vardır.'] }
     } },
   { headline: 'Maybe a maker of beautiful clothes.', details: ['Sews most of what they wear.', 'Sells small batches at local markets.', 'Has saved every fabric scrap since age 10.'], tags: ['social','urbanRural'],
     i18n: {
@@ -5706,17 +5706,17 @@ const KIDS_ARC_DISCLAIMERS = {
 
 /* R13 UX-FLOW: thematic closing affirmation rendered after the Differences
  * panel items. Frames the Loves → Questions → Differences arc as landing on
- * difference-as-identity-foundation rather than trailing off. Single line per
- * language, wrapped as a 1-element array so `localList` + EN fallback apply.
- * LOOP_REQUEST(narrative): write KIDS_ARC_CLOSING_AFFIRMATION (single line per
- * language, framing difference-as-identity-foundation). EN below is a
- * placeholder pending Narrative's register polish. */
+ * surprise-as-where-the-person-lives — observation, not aesthetic ranking.
+ * Single line per language, wrapped as a 1-element array so `localList` + EN
+ * fallback apply. R13 Narrative rev: replaced placeholder "Different is the
+ * most interesting thing…" which read as eugenics-as-positivity and matched a
+ * template ("X is the most Y about Z") flagged by Detection. */
 const KIDS_ARC_CLOSING_AFFIRMATION = {
-  en: ['Different is the most interesting thing about a person.'],
-  zh: ['不一样,正是一个人最有意思的地方。'],
-  ja: ['ちがうということが、その人のいちばんおもしろいところ。'],
-  ko: ['다르다는 것이, 한 사람에게서 가장 흥미로운 부분이에요.'],
-  tr: ['Farklı olmak, bir insanın en ilginç yanıdır.']
+  en: ['They might surprise you, and the surprise is where the person lives.'],
+  zh: ['他们也许会让你意外,而那个意外,正是这个人住的地方。'],
+  ja: ['その子はあなたを驚かせるかもしれません。その驚きのなかに、その人は住んでいます。'],
+  ko: ['이 아이는 당신을 놀라게 할지도 몰라요. 그 놀라움 안에, 한 사람이 살고 있어요.'],
+  tr: ['Sizi şaşırtabilir; ve o şaşırtı, o insanın yaşadığı yerdir.']
 };
 
 /* ---------- Seeded randomness ---------- */
