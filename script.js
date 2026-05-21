@@ -6676,7 +6676,11 @@ function generateBabyFlavor(codename, baby) {
 
 function computeTraitConflicts(b) {
   const pool = pickPool(TRAIT_CONFLICTS, TRAIT_CONFLICTS_CLINICAL, KIDS_TRAIT_CONFLICTS);
-  return pool.filter(c => c.when(b)).map(c => ({ tag: c.tag, note: c.note }));
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  return pool.filter(c => c.when(b)).map(c => {
+    const tr = (c.i18n && c.i18n[lang]) || {};
+    return { tag: tr.tag || c.tag, note: tr.note || c.note };
+  });
 }
 
 /* ---------- Societal Outcomes Brief (Adult mode, hero panel) ----------
