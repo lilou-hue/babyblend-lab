@@ -3336,6 +3336,7 @@ const REGULATORY_CARDS = [
   { title: 'Phenotype vs. behavior confidence.', body: 'Confidence in physical-trait prediction substantially exceeds confidence in behavioral or cognitive outcome prediction.' },
   { title: 'Cultural variability of targets.',  body: 'Trait desirability shows significant variation across regions and historical periods. Optimization targets are not culturally stable.' },
   { title: 'Long-horizon outcome data.',         body: 'Multi-decade follow-up studies on early-modified cohorts do not yet exist at scale.' },
+  { title: 'On the regulatory citations.',        body: 'Oviedo Convention Article 13 and the UK HFEA 2008 cited throughout this interface are real instruments. The "EU IVD-Germ Lines Directive" is a near-future projection — not enacted law — used here to model how a Europe-wide heritable-editing framework would plausibly read once promulgated. Articles and provisions attributed to it are illustrative, not binding.' },
   {
     title: 'Burden ≠ heritability.',
     body: 'The Inheritance Burden Index measures how widely an allocation\'s effects propagate into descendants — not how heritable a trait is, and not whether the allocation is "less wrong". Every heritable choice removes consent equally. Low-weighted classes (like health) shift with environment; high-weighted classes (identity, affect) lock in across generations.',
@@ -4368,7 +4369,11 @@ function applyBudgetPanelGate() {
     const show = eligible && !state.consentAck;
     const existing = leadin.querySelector('.consent-awareness-note');
     if (show && !existing) {
-      leadin.innerHTML = `<p class="consent-awareness-note">The person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`;
+      // R7 (World Design): "Ethically:" prefix anchors the line as an
+      // ethical framing rather than a description-of-fact, so an
+      // out-of-context screenshot cannot read the sentence as endorsement
+      // of "deciding for someone not in the room."
+      leadin.innerHTML = `<p class="consent-awareness-note">Ethically: the person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`;
       leadin.hidden = false;
     } else if (!eligible) {
       // Mode/gen no longer qualifies — hard clear, no fade needed.
@@ -6831,6 +6836,11 @@ function renderRegionalAccess(usedCredits) {
   else if (usd < 150000) lines = ['EU (draft IVD-Germ Lines Directive Art. 7): post-market review required; provision restricted to designated reference centres.', 'UK (HFEA 2008, Schedule 2, special-direction): eligibility conditional on documented clinical indication; channel code RA-3 review window 6 months.', 'Asia-Pacific: jurisdiction-dependent; cross-border referral subject to receiving-state HFEA-equivalent licensing.'];
   else if (usd < 200000) lines = ['EU + UK (draft IVD-Germ Lines Directive Art. 9; HFEA 2008, Schedule 2): restricted approval; pre-authorization by the national competent authority required.', 'Eligibility conditional on clinical-indication documentation and counselling completion; waiting list 14–22 months at HFEA-licensed reference centres.', 'Non-aligned regions: not provisioned under current channel-code RA-4 listing.'];
   else                   lines = ['Multi-jurisdictional (Oviedo Convention Art. 13): heritable provisions outside current treaty scope; authorization pending or withheld.', 'UK + EU: not provisioned under HFEA 2008 or the draft IVD-Germ Lines Directive; eligibility unresolved.', 'De facto pathway: extraterritorial facilities outside Oviedo signatory jurisdiction.'];
+  // CMP-N codes (e.g. CMP-2 cognition, CMP-4 affective) are diegetic
+  // category identifiers — not a real classification scheme. They sit
+  // alongside the diegetic channel-code RA-N ladder above; the IVD-Germ
+  // Lines Directive references are the projected-instrument variety
+  // disclosed in the REGULATORY_CARDS "On the regulatory citations." entry.
   if ((budget.cognition || 0) >= 6) lines.push('Cognitive optimization (CMP-2): EU partial restriction under the draft IVD-Germ Lines Directive Art. 6; UK HFEA review ongoing.');
   if ((budget.emotional || 0) >= 6) lines.push('Affective-band editing (CMP-4): experimental authorization required; subject to HFEA-equivalent cohort follow-up.');
   host.hidden = false;
