@@ -654,6 +654,11 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Adult panel mini-strings
+  'Outcome trajectory no longer matches the modeled projection. Reprojection recommended.': { zh: '实际轨迹已不再与所建模的投影一致。建议重新投影。', ja: 'アウトカムの軌跡は、モデル化された投影に一致しなくなっている。再投影を推奨する。', ko: '실제 궤적이 모델링된 투영과 더 이상 일치하지 않습니다. 재투영을 권장합니다.', tr: 'Sonuç yörüngesi artık modellenen projeksiyonla örtüşmüyor. Yeniden projeksiyon önerilir.' },
+  'Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.': { zh: '仅为指示性参考。授权与等候期每季度修订;现行数值替代此前披露。', ja: '本表示は参考目的に限る。認可および待機期間は四半期ごとに見直されており、現在の値が従前の開示に優先する。', ko: '본 정보는 참고용이다. 인가와 대기 기간은 분기마다 갱신되며, 현재 값이 이전 공시에 우선한다.', tr: 'Bilgi amaçlıdır. Yetkilendirmeler ve bekleme süreleri üç ayda bir güncellenir; mevcut değerler önceki açıklamaların yerini alır.' },
+  'Consent context expands at 50 credits.': { zh: '当积分达到 50 时,同意上下文会展开。', ja: '50クレジットに達すると、同意に関する文脈が展開される。', ko: '50 크레딧에 이르면 동의 관련 맥락이 펼쳐진다.', tr: '50 krediye ulaşıldığında onay bağlamı genişler.' },
+  'No disclosure thresholds crossed yet.': { zh: '尚未跨越任何披露阈值。', ja: '開示の閾値はまだいずれも越えていない。', ko: '아직 어떤 공시 임계값도 넘지 않았습니다.', tr: 'Henüz hiçbir açıklama eşiği aşılmadı.' },
   // Adult panel headings
   'Societal Outcomes Brief': { zh: '社会反应概述', ja: '社会的アウトカム ブリーフ', ko: '사회적 결과 개요', tr: 'Toplumsal Sonuçlar Özeti' },
   'Modeled societal response to this projection. Each line fires from a specific allocation, trait, or environment combination — not a generic readout. These outcomes are modeled within the simulation using speculative social-psychological frameworks, not empirical findings.': { zh: '对本投影的社会反应建模。每一条都由特定的分配、性状或环境组合触发,而非通用文本。这些结果是在模拟器内,用思辨性的社会—心理框架建模出来的,并非实证研究结论。', ja: 'この投影に対する社会的反応のモデル。各行は、特定の割り当て・特性・環境の組み合わせから発火しており、定型の読み上げではない。これらの結果は、本シミュレーション内で思考実験的な社会心理学フレームを用いて構築されたものであり、実証研究の知見ではない。', ko: '이 투영에 대한 사회적 반응의 모형. 각 줄은 일반적인 출력값이 아니라 특정 할당·특성·환경의 조합에 의해 점화된다. 이 결과들은 시뮬레이션 내부에서 사변적 사회심리학 틀로 만들어진 것이며, 실증적 발견이 아니다.', tr: 'Bu projeksiyona yönelik modellenen toplumsal yanıt. Her satır belirli bir tahsis, özellik veya çevre kombinasyonundan tetiklenir; genel bir okumadan değil. Bu çıktılar simülasyon içinde sosyo-psikolojik kurgusal çerçevelerle modellenmiştir; ampirik bulgular değildir.' },
@@ -8548,7 +8553,7 @@ function renderDivergence() {
       </div>
     </div>
     <p class="divergence-body">${state.divergence}</p>
-    <p class="divergence-note">Outcome trajectory no longer matches the modeled projection. Reprojection recommended.</p>`;
+    <p class="divergence-note">${localLabel('Outcome trajectory no longer matches the modeled projection. Reprojection recommended.')}</p>`;
   el.querySelector('[data-act="dismiss"]').addEventListener('click', () => {
     state.divergence = null;
     renderDivergence();
@@ -8802,7 +8807,7 @@ function renderRegionalAccess(usedCredits) {
   host.innerHTML = `
     <h4>Regional Access &middot; channel code RA-${Math.min(5, Math.max(1, Math.floor(usd / RA_CHANNEL_DIVISOR) + 1))}</h4>
     <ul class="regional-list">${lines.slice(0, 4).map(l => `<li>${l}</li>`).join('')}</ul>
-    <p class="regional-foot">Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.</p>`;
+    <p class="regional-foot">${localLabel('Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.')}</p>`;
 }
 
 /* ---------- Trait Popularity Through History ---------- */
@@ -9562,7 +9567,7 @@ function ensureConsentProgressHint() {
     hint = document.createElement('div');
     hint.className = 'consent-progress-hint';
     hint.innerHTML = `
-      <p class="consent-progress-copy">Consent context expands at 50 credits.</p>
+      <p class="consent-progress-copy">${localLabel('Consent context expands at 50 credits.')}</p>
       <div class="consent-progress-track"><div class="consent-progress-fill"></div></div>`;
     const grid = panel.querySelector('#budget-grid');
     if (grid && grid.parentNode) grid.parentNode.insertBefore(hint, grid);
@@ -9802,8 +9807,8 @@ function renderRegulatoryNotes() {
   if (!matched.length) {
     host.hidden = false;
     host.innerHTML = `
-      <h3 class="reg-heading">Regulatory Context</h3>
-      <p class="reg-empty">No disclosure thresholds crossed yet.</p>`;
+      <h3 class="reg-heading">${localLabel('Regulatory Context')}</h3>
+      <p class="reg-empty">${localLabel('No disclosure thresholds crossed yet.')}</p>`;
     return;
   }
   host.hidden = false;
