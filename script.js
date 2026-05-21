@@ -3590,7 +3590,7 @@ const REGULATORY_CARDS = [
   { title: 'Phenotype vs. behavior confidence.', body: 'Confidence in physical-trait prediction substantially exceeds confidence in behavioral or cognitive outcome prediction.' },
   { title: 'Cultural variability of targets.',  body: 'Trait desirability shows significant variation across regions and historical periods. Optimization targets are not culturally stable.' },
   { title: 'Long-horizon outcome data.',         body: 'Multi-decade follow-up studies on early-modified cohorts do not yet exist at scale.' },
-  { title: 'On the regulatory citations.',        body: 'Oviedo Convention Article 13 and the UK HFEA 2008 cited throughout this interface are real instruments. The "EU IVD-Germ Lines Directive" is a near-future projection — not enacted law — used here to model how a Europe-wide heritable-editing framework would plausibly read once promulgated. Articles and provisions attributed to it are illustrative, not binding.' },
+  { title: 'On the regulatory citations.',        body: 'Oviedo Convention Article 13 and the UK HFEA 2008 cited throughout this interface are real instruments. The "EU IVD-Germ Lines Directive" is a near-future projection — not enacted law — used here to model how a Europe-wide heritable-editing framework would plausibly read once promulgated. Articles and provisions attributed to it are illustrative, not binding. The Tier I–IV labels (Baseline / Moderate optimization / Elevated optimization / Boundary case) and the CMP-N classification codes (CMP-2 cognition, CMP-4 affective) are simulation framework designations — diegetic classification markers internal to this interface, not real regulatory classes.' },
   {
     title: 'Burden ≠ heritability.',
     body: 'The Inheritance Burden Index measures how widely an allocation\'s effects propagate into descendants — not how heritable a trait is, and not whether the allocation is "less wrong". Every heritable choice removes consent equally. Low-weighted classes (like health) shift with environment; high-weighted classes (identity, affect) lock in across generations.',
@@ -4804,7 +4804,7 @@ function applyBudgetPanelGate() {
         // ethical framing rather than a description-of-fact, so an
         // out-of-context screenshot cannot read the sentence as endorsement
         // of "deciding for someone not in the room."
-        leadin.innerHTML = `<p class="consent-awareness-note">Ethically: the person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`;
+        leadin.innerHTML = `<p class="consent-awareness-note">Ethically: the child this affects isn't here yet — and they'll live with the choices you make.</p>`;
       }
       // Re-assert visibility on every eligible tick — defensive against
       // any path that might have left the node hidden.
@@ -8174,12 +8174,17 @@ function updateBudgetProjections(usedOverride) {
     // Notes describe what passes forward (Narrative R3) under World Design
     // R3's weighted heritable-burden math — disease-risk packages weight low,
     // identity/affect packages weight high. Pattern: severity · what passes
-    // forward. Tier 0 keeps ethical weight (the choice is still made for
-    // them); tier 3 drops doom-speak and reports the statistical reality.
-    let note = 'Minimal · few traits are pre-decided — but the choice is still made for them';
-    if (pressure > 0.15) note = 'Modest · a handful of traits will travel with the line';
-    if (pressure > 0.45) note = 'Substantial · a defined trait profile is locked in across the family tree';
-    if (pressure > 0.75) note = 'Saturated · heritable traits dominate the profile; later course-correction becomes statistically unlikely';
+    // forward. R8 rev: at idle (no allocations) the Index now reads as
+    // unset rather than "minimal" — previously the tier-0 copy implied a
+    // pre-decided weight existed before any choice was made, which read as
+    // semantic confusion. Once any allocation lands, the ethical-weight
+    // line returns. Tier 3 still drops doom-speak and reports statistics.
+    let note;
+    if (burdenCost === 0) note = 'No allocations yet · the Index updates once you commit credits';
+    else if (pressure <= 0.15) note = 'Minimal · few traits are pre-decided — but the choice is still made for them';
+    else if (pressure <= 0.45) note = 'Modest · a handful of traits will travel with the line';
+    else if (pressure <= 0.75) note = 'Substantial · a defined trait profile is locked in across the family tree';
+    else note = 'Saturated · heritable traits dominate the profile; later course-correction becomes statistically unlikely';
     pressureNote.textContent = note;
   }
 
