@@ -4573,33 +4573,32 @@ function applyBudgetPanelGate() {
   const consent = $('#consent-panel');
   const isAdult = state.appMode === 'adult';
   const gen = state.generateCount || 0;
-  // Budget panel: always visible in Adult mode; locked until first generation.
-  if (panel) {
-    panel.hidden = !isAdult;
-    const interactionReady = isAdult && gen >= 1;
-    panel.classList.toggle('panel-locked', isAdult && !interactionReady);
-    applyBudgetInteractionLock(!interactionReady);
-    ensureBudgetLockNotice(isAdult && !interactionReady);
-  }
-  // Round 7 (UX): consent-awareness lead-in. Renders above the Enhancement
-  // Allocation header at gen ≥ 1 in Adult mode, so the ethical framing
-  // precedes the behavioral projection (personality stats / archetype)
-  // and the Consent Implications reveal. The line used to live inside the
-  // collapsed #trait-conflicts block at the bottom of the baby panel.
-  // When consentAck flips true we keep the existing `.is-leaving` fade
-  // pattern (see showConsentAckPrompt at line ~7220) — don't clobber the
-  // DOM mid-fade or the cross-fade hand-off won't play.
+  const eligible = isAdult && gen >= 1;
+  // Round 7 rev (UX): consent-awareness lead-in renders FIRST on this tick
+  // so the ethical framing precedes Enhancement Allocation in DOM/paint
+  // order, not just in source order. Previously the leadin's visibility
+  // toggle ran AFTER the budget panel unhide; if leadin updates ever got
+  // deferred (e.g. via a future microtask), the projection could paint
+  // before the lead-in resolved. Co-locating them at the top of the gate
+  // — and re-asserting hidden=false on every eligible tick — makes the
+  // intent explicit: lead-in precedes projection, same render frame.
+  // Cross-fade hand-off (showConsentAckPrompt) still works because we
+  // never clobber an existing `.is-leaving` note: we only set innerHTML
+  // when no note exists, and we leave the node alone once consentAck flips.
   const leadin = $('#consent-awareness-leadin');
   if (leadin) {
-    const eligible = isAdult && gen >= 1;
     const show = eligible && !state.consentAck;
     const existing = leadin.querySelector('.consent-awareness-note');
-    if (show && !existing) {
-      // R7 (World Design): "Ethically:" prefix anchors the line as an
-      // ethical framing rather than a description-of-fact, so an
-      // out-of-context screenshot cannot read the sentence as endorsement
-      // of "deciding for someone not in the room."
-      leadin.innerHTML = `<p class="consent-awareness-note">Ethically: the person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`;
+    if (show) {
+      if (!existing) {
+        // R7 (World Design): "Ethically:" prefix anchors the line as an
+        // ethical framing rather than a description-of-fact, so an
+        // out-of-context screenshot cannot read the sentence as endorsement
+        // of "deciding for someone not in the room."
+        leadin.innerHTML = `<p class="consent-awareness-note">Ethically: the person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`;
+      }
+      // Re-assert visibility on every eligible tick — defensive against
+      // any path that might have left the node hidden.
       leadin.hidden = false;
     } else if (!eligible) {
       // Mode/gen no longer qualifies — hard clear, no fade needed.
@@ -4608,6 +4607,16 @@ function applyBudgetPanelGate() {
     }
     // If eligible but consentAck just flipped true, leave the note alone
     // so any in-flight `.is-leaving` fade can finish naturally.
+  }
+  // Budget panel: always visible in Adult mode; locked until first generation.
+  // Unhidden AFTER the leadin so the ethical framing is committed to the DOM
+  // before the projection panel reveals, even though both land in one paint.
+  if (panel) {
+    panel.hidden = !isAdult;
+    const interactionReady = eligible;
+    panel.classList.toggle('panel-locked', isAdult && !interactionReady);
+    applyBudgetInteractionLock(!interactionReady);
+    ensureBudgetLockNotice(isAdult && !interactionReady);
   }
   // Consent Implications: visible once ≥50 credits are allocated in Adult
   // mode. First reveal uses the same downward-settle motion as the OCEAN
