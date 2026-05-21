@@ -5098,6 +5098,12 @@ function applyBudgetPanelGate() {
       leadin.hidden = false;
     } else if (!eligible) {
       // Mode/gen no longer qualifies — hard clear, no fade needed.
+      // R9 rev (UX POLISH): `leadin.remove()` was considered to fully drop
+      // the wrapper, but the element is a static <div> in index.html that
+      // this gate does not recreate on the way back to eligibility. Setting
+      // `hidden = true` AND clearing innerHTML together is the documented
+      // fallback — equivalent in practice (CSS `[hidden]` collapses chrome,
+      // padding, border, margin) without the re-creation hazard.
       leadin.innerHTML = '';
       leadin.hidden = true;
     }
@@ -7474,9 +7480,15 @@ function renderKidsLoves() {
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-loves');
   const picks = pickN(KIDS_LOVES, 4, rng);
+  // R9 rev (UX MAJOR coord): h2 carries `id="kids-loves-title"` so the
+  // section above can swap `aria-label` → `aria-labelledby` and have AT
+  // read the actual heading text (which can update with i18n later).
+  // R9 rev (NARRATIVE MAJOR): `data-stage="1"` lets CSS stagger the
+  // three-panel reveal as a sequenced wonder beat, not a simultaneous one.
+  panel.dataset.stage = '1';
   panel.innerHTML = `
     <header class="kids-arc-head">
-      <h2>Things they might love</h2>
+      <h2 id="kids-loves-title">Things they might love</h2>
       <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.loves)[0]}</p>
       <p class="subtle">Specific, particular, and theirs.</p>
     </header>
@@ -7490,9 +7502,12 @@ function renderKidsQuestions() {
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-questions');
   const picks = pickN(KIDS_QUESTIONS_FOR_THEM, 4, rng);
+  // R9 rev: see renderKidsLoves — h2 id + data-stage for aria-labelledby
+  // hookup (Frontend) and CSS reveal stagger (Narrative Design).
+  panel.dataset.stage = '2';
   panel.innerHTML = `
     <header class="kids-arc-head">
-      <h2>Questions you could ask them</h2>
+      <h2 id="kids-questions-title">Questions you could ask them</h2>
       <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.questions)[0]}</p>
       <p class="subtle">The kind you might not think to ask a grown-up.</p>
     </header>
@@ -7506,9 +7521,12 @@ function renderKidsDifferences() {
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-differences');
   const picks = pickN(KIDS_DIFFERENCES, 4, rng);
+  // R9 rev: see renderKidsLoves — h2 id + data-stage for aria-labelledby
+  // hookup (Frontend) and CSS reveal stagger (Narrative Design).
+  panel.dataset.stage = '3';
   panel.innerHTML = `
     <header class="kids-arc-head">
-      <h2>What might make them <em>them</em></h2>
+      <h2 id="kids-differences-title">What might make them <em>them</em></h2>
       <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.differences)[0]}</p>
       <p class="subtle">Difference is the most interesting thing about a person.</p>
     </header>
@@ -8311,16 +8329,24 @@ function showConsentAckPrompt() {
       // cleanly instead of leaving a hollow container in the cascade.
       const note = document.querySelector('.consent-awareness-note');
       const leadin = document.getElementById('consent-awareness-leadin');
+      // R9 rev (UX POLISH): wrapper is fully retired via `hidden=true` +
+      // empty innerHTML. We do NOT call `leadin.remove()` because the
+      // wrapper is a static element in index.html that applyBudgetPanelGate
+      // queries (not creates); removing it would break any future return to
+      // eligibility. The hidden-attribute path collapses chrome (padding,
+      // border, margin) the same way without that recovery hazard.
+      const clearLeadin = () => {
+        if (!leadin) return;
+        leadin.innerHTML = '';
+        leadin.hidden = true;
+      };
       if (note) {
         note.classList.add('is-leaving');
-        const retire = () => {
-          note.remove();
-          if (leadin) { leadin.innerHTML = ''; leadin.hidden = true; }
-        };
+        const retire = () => { note.remove(); clearLeadin(); };
         note.addEventListener('transitionend', retire, { once: true });
         setTimeout(retire, 500);
-      } else if (leadin) {
-        leadin.innerHTML = ''; leadin.hidden = true;
+      } else {
+        clearLeadin();
       }
     });
   }
