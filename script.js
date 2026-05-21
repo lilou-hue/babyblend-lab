@@ -4324,8 +4324,11 @@ const KIDS_AGE_TICKERS = {
  *   warns on malformed entries or unknown shape values. R18 wires
  *   shape-aware selection once enough entries carry tags.
  *
- * LOOP_REQUEST(narrative): populate life_shape tags on
- * ADULT_TRAJECTORY_MILESTONES entries — see LIFE_SHAPES constant below.
+ * R17 Narrative: populated initial life_shape tags on the `later` bucket
+ * (stability ×2, caretaking, bloom, precarity); early/mid buckets describe
+ * pre-adult developmental milestones and intentionally stay untagged. The
+ * mixed-shapes "working life takes shape" line in `later` also stays
+ * untagged so it falls into the default pool. Selection wiring lands in R18.
  */
 /* FRAMING (R16rev): LIFE_SHAPES is a narrative taxonomy, not a model grounded
  * in developmental psychology literature. These categories are simulational
@@ -4438,16 +4441,16 @@ const ADULT_TRAJECTORY_MILESTONES = {
   },
   later: {
     en: [
-      'Adult personality largely stable; growth continues at slower pace.',
+      { text: 'Adult personality largely stable; growth continues at slower pace.', life_shape: 'stability' },
       'A working life takes shape — whether as a path that had to be rebuilt mid-stride, a string of held-together jobs, or a settled career.',
-      'Long-term relationships and chosen family settle into recognizable shape.',
+      { text: 'Long-term relationships and chosen family settle into recognizable shape.', life_shape: 'stability' },
       'Health and energy patterns shifting; routines accommodate the change.',
       'Affective range often narrows somewhat with age, alongside more equanimity.',
       'Reflection on choices made and not made becomes more frequent.',
       'Whether or not children arrive, the next generation enters their orbit.',
-      'Caregiving for an aging parent, a sibling, or a partner interrupts the projected arc; identity reorganizes around who needs them.',
-      'A late bloom: the thing they are known for, by themselves and others, arrives after most peers assumed the shape was set.',
-      'Economic precarity persists into this decade for a non-trivial share of cohorts; stability is not evenly distributed.'
+      { text: 'Caregiving for an aging parent, a sibling, or a partner interrupts the projected arc; identity reorganizes around who needs them.', life_shape: 'caretaking' },
+      { text: 'A late bloom: the thing they are known for, by themselves and others, arrives after most peers assumed the shape was set.', life_shape: 'bloom' },
+      { text: 'Economic precarity persists into this decade for a non-trivial share of cohorts; stability is not evenly distributed.', life_shape: 'precarity' }
     ],
     zh: [
       '成年人格大体稳定;成长仍在继续,但节奏放缓。',
