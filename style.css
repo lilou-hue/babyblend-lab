@@ -524,22 +524,34 @@ input[type="range"]::-moz-range-track {
   background: linear-gradient(90deg, rgba(126,224,255,0.35), rgba(200,155,255,0.35), rgba(255,155,210,0.35));
   border: 1px solid rgba(126, 224, 255, 0.18);
 }
+/* Thumb: visible 18px disc, but full 44px hit area for touch (WCAG 2.5.5).
+   Trick: 44px box with a 13px transparent border clipped via background-clip,
+   so only the inner 18px renders. Pointer events still fire on the full box.
+   The visible 1px white edge is drawn by an inset box-shadow inside padding
+   box; the outer glow uses drop-shadow to avoid extending the touch area
+   visually. */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px; height: 18px;
+  width: 44px; height: 44px;
+  border: 13px solid transparent;
+  background-clip: padding-box;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffffff, #7ee0ff 70%);
-  border: 1px solid rgba(255,255,255,0.4);
-  box-shadow: 0 0 12px rgba(126, 224, 255, 0.7);
-  margin-top: -7px;
+  background-color: transparent;
+  background-image: radial-gradient(circle at 30% 30%, #ffffff, #7ee0ff 70%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+  filter: drop-shadow(0 0 6px rgba(126, 224, 255, 0.7));
+  margin-top: -19px;
   transition: transform 0.12s;
 }
 input[type="range"]::-moz-range-thumb {
-  width: 18px; height: 18px;
+  width: 44px; height: 44px;
+  border: 13px solid transparent;
+  background-clip: padding-box;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffffff, #7ee0ff 70%);
-  border: 1px solid rgba(255,255,255,0.4);
-  box-shadow: 0 0 12px rgba(126, 224, 255, 0.7);
+  background-color: transparent;
+  background-image: radial-gradient(circle at 30% 30%, #ffffff, #7ee0ff 70%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+  filter: drop-shadow(0 0 6px rgba(126, 224, 255, 0.7));
 }
 input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
 
@@ -5140,13 +5152,17 @@ body.mode-reflection .lifetime-drift-panel h2 {
 
 /* About / sources footer link — small, unobtrusive */
 .site-footer .footer-sep { margin: 0 6px; color: var(--ink-mute); opacity: 0.55; }
+/* Use --ink-soft (#a8b3d6) over the dark gradient bg (~#0c0c2a) for
+   ~8:1 contrast — well above WCAG AA 4.5:1. Underline removed by default
+   but restored on hover/focus so the link affords its nature. */
 .site-footer .footer-link {
-  color: var(--ink-mute);
+  color: var(--ink-soft);
   text-decoration: none;
   letter-spacing: 0.3px;
   transition: color 0.15s;
 }
-.site-footer .footer-link:hover { color: var(--accent); }
+.site-footer .footer-link:hover,
+.site-footer .footer-link:focus-visible { color: var(--accent); text-decoration: underline; }
 
 /* ====================================================================
  * Kids-mode arc — Wonder / Curiosity / Variance-as-gift
