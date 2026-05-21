@@ -5633,17 +5633,24 @@ const KIDS_ADULT_FUTURES = [
     // typo on a future entry can't silently score as neutral. Two shapes:
     // flat-array (ADULT_FUTURES*, KIDS_ADULT_FUTURES) and language-keyed
     // (KIDS_FUTURE_PATHS — singular `.tag` per entry, per lang).
+    // FUTURE_PATHS / KIDS_FUTURE_PATHS mix single-letter topTag weights
+    // ('O','C','E','A','N','athletic') with conflict tags ('OC-tension', etc.).
+    // Only the latter need to match validConflictTags — plain letters are
+    // legitimate sort weights, not drift. Conflict tags all contain '-', so
+    // filter on that to avoid 100+ false-positive warnings per boot.
     const futureDrift = [];
     const checkEntry = (entry, where) => {
       if (entry && typeof entry === 'object' && typeof entry.tag === 'string' &&
-          !validConflictTags.has(entry.tag)) futureDrift.push(`${where}:"${entry.tag}"`);
+          entry.tag.includes('-') && !validConflictTags.has(entry.tag)) {
+        futureDrift.push(`${where}:"${entry.tag}"`);
+      }
     };
     for (const [name, pool] of Object.entries({
       ADULT_FUTURES, ADULT_FUTURES_CLINICAL, KIDS_ADULT_FUTURES
     })) {
       if (Array.isArray(pool)) pool.forEach((e, i) => checkEntry(e, `${name}[${i}]`));
     }
-    for (const [name, pool] of Object.entries({ KIDS_FUTURE_PATHS })) {
+    for (const [name, pool] of Object.entries({ FUTURE_PATHS, KIDS_FUTURE_PATHS })) {
       if (!pool || typeof pool !== 'object') continue;
       ['en','zh','ja','ko','tr'].forEach(lang => {
         const arr = pool[lang];
