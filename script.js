@@ -2964,7 +2964,7 @@ const HISTORY_CARDS = [
   { title: 'Genes ≠ destiny.',                    body: 'Twin studies put Big Five personality traits at roughly 40–50% heritable (Polderman et al., 2015, meta-analyzed ~17,800 traits). Most of the rest tracks non-shared environment — the unique experiences, peer groups, and accidents that even identical twins don\'t share. Shared family environment explains less of adult personality than people expect.' },
   { title: 'Heritability is not "fixed in you".', body: 'A heritability of 50% means about half the variation between people in a population traces to genetic differences. It does not mean half of any one person\'s trait is genetic, and it does not mean the trait is unchangeable. Heritability estimates also shift with context: height is ~80% heritable when everyone is well-fed, much less in populations where childhood nutrition varies. This simulator applies a simplified additive-polygenic model — real personality genetics involve gene-by-environment interactions this can\'t show.' },
   { title: 'Heritable vs. somatic edits.',        body: 'A somatic edit changes one body. A heritable (germline) edit changes an egg or embryo — so it carries into every cell of the resulting person, and into their children. The Oviedo Convention (a 1997 Council of Europe biomedicine treaty, ratified by 29 states) restricts genome edits to preventive, diagnostic, or therapeutic purposes (Article 13); that purpose-test is where the legal line falls in much of Europe.' },
-  { title: 'There is no "gene for" a trait.',     body: 'Common-language genetics talks about "the gene for height" or "the gene for happiness". Almost no complex human trait works that way. Height alone is shaped by thousands of variants of tiny effect (Yengo et al., 2022 — ~12,000 independent variants identified). Personality, intelligence, and most disease risks are polygenic in the same way: many small contributions, not one switch. That is why this simulator shows a single slider per trait — but a slider in real biology would not map to a gene a clinic could "set". Polygenic scores predict population-level distributions, not individual outcomes.' }
+  { title: 'There is no "gene for" a trait.',     body: 'Common-language genetics talks about "the gene for height" or "the gene for happiness". Almost no complex human trait works that way. Height alone is shaped by thousands of variants of tiny effect (Yengo et al., 2022 — 12,111 independent SNPs clustered within ~7,200 genomic regions, together explaining ~40% of height variation). Personality, intelligence, and most disease risks are polygenic in the same way: many small contributions, not one switch. That is why this simulator shows a single slider per trait — but a slider in real biology would not map to a gene a clinic could "set". Polygenic scores predict population-level distributions, not individual outcomes.' }
 ];
 
 /* ====================================================================
@@ -5842,6 +5842,7 @@ function renderKidsLoves() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>Things they might love</h2>
+      <p class="kids-arc-disclaimer">Not predictions from genes — examples of all that won't fit in a slider.</p>
       <p class="subtle">Specific, particular, and theirs.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
@@ -5857,6 +5858,7 @@ function renderKidsQuestions() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>Questions you could ask them</h2>
+      <p class="kids-arc-disclaimer">Not predictions from genes — questions a slider can't answer for you.</p>
       <p class="subtle">The kind you might not think to ask a grown-up.</p>
     </header>
     <ul class="kids-arc-list kids-arc-questions">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
@@ -5872,6 +5874,7 @@ function renderKidsDifferences() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>What might make them <em>them</em></h2>
+      <p class="kids-arc-disclaimer">Not predictions from genes — reminders of what no slider can capture.</p>
       <p class="subtle">Difference is the most interesting thing about a person.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
