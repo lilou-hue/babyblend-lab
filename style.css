@@ -4615,12 +4615,17 @@ body.mode-reflection .lifetime-drift-panel h2 {
   display: block;
   align-items: stretch;
   padding: 0;
-  overflow-y: auto;
+  /* Explicit height + overflow so iOS Safari reliably treats this as
+     a scroll container. position: fixed + inset: 0 alone isn't always
+     enough; some browsers leave touch-scroll falling through to the
+     body, which reads as "scrolling doesn't work." */
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: scroll;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  /* No scroll-snap: tall sections (like the historical timeline) need
-     natural scrolling. Snap was catching scroll mid-section and reading
-     as "stuck." */
+  touch-action: pan-y;
+  overscroll-behavior: contain;
 }
 /* Don't run the old landing-inner fade-in animation on the new intro. */
 .landing.intro .landing-inner { animation: none; }
