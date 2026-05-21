@@ -3220,6 +3220,23 @@ const PRIORITIES = [
 ];
 const BUDGET_TOTAL = 200;
 
+// USD spend thresholds (cumulative speculative credit pricing) that gate
+// access-friction tiers in `updateBudgetProjections`. Same four breakpoints
+// (50k / 100k / 150k / 200k) are mirrored in the user-visible Regional
+// Access copy at `renderRegionalAccess` (~6520-6523) and the channel-code
+// divisor at ~6529; keeping them aligned matters for the access-friction
+// narrative, hence the single source of truth here.
+// LOOP_REQUEST(world-design): REGULATORY_NOTE_RULES USD thresholds at
+// ~5827-5830 are duplicated against BUDGET_TIER_THRESHOLDS; consider routing
+// through the constant. (Actual duplication site is `renderRegionalAccess`
+// at ~6520-6523 and the RA-channel divisor at ~6529 — same four values.)
+const BUDGET_TIER_THRESHOLDS = {
+  licensedClinic:   50000,  // 9–14mo waitlist · self-pay
+  referenceCentre: 100000,  // 6mo review · RA-3
+  restricted:      150000,  // 14–22mo waitlist · pre-authorization
+  outsideTreaty:   200000   // authorization pending / withheld
+};
+
 // Regulatory Context rules — each fires when its predicate matches the
 // current budget state. Surfaced in Adult mode as small clinical notes
 // inside the Enhancement Allocation panel. Phrased in the register of
@@ -7367,10 +7384,10 @@ function updateBudgetProjections(usedOverride) {
     // Access-friction framing: waiting periods and eligibility conditions,
     // not class-quantified percentiles.
     let tier = 'Universal · baseline';
-    if      (usd >= 200000) tier = 'Outside current treaty scope · authorization pending';
-    else if (usd >= 150000) tier = 'Restricted · pre-authorization required · 14–22mo waitlist';
-    else if (usd >= 100000) tier = 'Reference-centre only · 6mo review window · channel code RA-3';
-    else if (usd >=  50000) tier = 'Licensed-clinic only · 9–14mo waitlist · self-pay';
+    if      (usd >= BUDGET_TIER_THRESHOLDS.outsideTreaty)   tier = 'Outside current treaty scope · authorization pending';
+    else if (usd >= BUDGET_TIER_THRESHOLDS.restricted)      tier = 'Restricted · pre-authorization required · 14–22mo waitlist';
+    else if (usd >= BUDGET_TIER_THRESHOLDS.referenceCentre) tier = 'Reference-centre only · 6mo review window · channel code RA-3';
+    else if (usd >= BUDGET_TIER_THRESHOLDS.licensedClinic)  tier = 'Licensed-clinic only · 9–14mo waitlist · self-pay';
     else if (usd >       0) tier = 'Indication-restricted · HFEA-equivalent licensed clinics';
     tierEl.textContent = tier;
   }
