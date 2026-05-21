@@ -8649,10 +8649,9 @@ function renderKidsDifferences() {
     <header class="kids-arc-head">
       <h2 id="kids-differences-title">What might make them <em>them</em></h2>
       <p class="kids-arc-disclaimer" id="kids-differences-desc">${localList(KIDS_ARC_DISCLAIMERS.differences)[0]}</p>
-      <p class="subtle">Difference is the most interesting thing about a person.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>
-    <p class="kids-arc-closing">${localList(KIDS_ARC_CLOSING_AFFIRMATION)[0]}</p>`;
+    <p class="kids-arc-closing" role="doc-conclusion">${localList(KIDS_ARC_CLOSING_AFFIRMATION)[0]}</p>`;
   panel.setAttribute('aria-labelledby', 'kids-differences-title');
   panel.setAttribute('aria-describedby', 'kids-differences-desc');
   panel.hidden = false;
