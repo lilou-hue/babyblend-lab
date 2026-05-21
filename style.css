@@ -3481,7 +3481,8 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   transition: width 0.35s ease;
 }
 @media (prefers-reduced-motion: reduce) {
-  .consent-awareness-note, .consent-ack-prompt, .consent-progress-hint, .consent-progress-fill {
+  .consent-awareness-note, .consent-ack-prompt, .consent-progress-hint, .consent-progress-fill,
+  .priority-row {
     transition: none !important; animation: none !important;
   }
 }
@@ -5278,6 +5279,20 @@ body.app-kids .kids-only { display: revert; }
      real estate on narrow viewports — drop to 18px so two-line list
      items don't wrap awkwardly. Vertical padding unchanged. */
   .kids-arc-panel { padding: 28px 18px 24px; }
+  /* R11 rev (MOBILE MAJOR): heritable-decision consent-ack button was
+     sub-44px on mobile (6×12 padding + 12px text). Bump to WCAG 2.5.5
+     touch-target minimum so the one-time acknowledgment is comfortably
+     tappable. Desktop sizing unchanged. */
+  .consent-ack-prompt .consent-ack-btn {
+    min-height: 44px; min-width: 44px; padding: 10px 16px;
+  }
+  /* R11 rev (MOBILE POLISH): intro skip link was 6×12 padding — too
+     small to hit reliably on phones. Force 44×44 with centered content
+     while preserving the compact look (no width inflation). */
+  .intro-skip {
+    min-height: 44px; min-width: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
 }
 
 /* R10 rev (Visual Director + Narrative Design): duration 0.32s→0.5s to
