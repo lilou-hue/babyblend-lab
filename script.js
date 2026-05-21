@@ -10817,6 +10817,18 @@ function renderConsentExplainer() {
 // years of twin studies", Nature Genetics 47:702-9). The prior 1.0 weight
 // implied near-total heritability, overstating how widely a sociability
 // allocation propagates into the line.
+// R19 clarification — emotional & appearance retain 1.0. The weight is
+// LOCK-IN BREADTH (how strongly the trait's *identity* self-perpetuates
+// across generations in this simulation), not heritability %. Polderman
+// 2015 puts neuroticism at ~40% and height at ~80% heritable; facial
+// morphology runs ~50–75%. Pure trait inheritance is therefore lower than
+// 1.0 for both. But emotional self-concept cascades via parenting style +
+// cultural template — a parent who buys "calmer affect" frames the child's
+// emotional range as a chosen identity, which propagates as expectation
+// even where the allele does not. Appearance-based identity cascades via
+// intergenerational appearance pressure: the locked phenotype becomes the
+// family's visual baseline that subsequent generations are measured
+// against. Both are 1.0 for *cascade breadth*, not for genetic determinism.
 const INHERITANCE_BURDEN_WEIGHTS = {
   health: 0.1, resilience: 0.2, creativity: 0.4, empathy: 0.4,
   cognition: 0.45, athleticism: 0.6, sociability: 0.4,
