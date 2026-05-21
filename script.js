@@ -2175,7 +2175,7 @@ const HUMANITY_REMINDERS = {
     'A person cannot be fully reduced to data.',
     'Perfection is culturally defined.',
     'Unexpected traits often become strengths.',
-    'Personality traits show roughly 40-50% heritability; most variation traces to lived experience.',
+    'Personality traits show roughly 40-50% heritability (Polderman 2015 twin studies; lower when confounds adjusted). Most variation traces to lived experience.',
     'Different traits create unexpected advantages.',
     'Stubbornness saves you under fire; costs you in meetings.',
     'The traits that get a child sent to the principal\'s office often build the adult their family leans on.',
@@ -2187,7 +2187,7 @@ const HUMANITY_REMINDERS = {
     '一个人无法被完全简化为数据。',
     '何谓"完美"由文化定义。',
     '出乎意料的特征往往成为优势。',
-    '性格特征大约有 40–50% 的遗传性;大部分差异源于亲身经历。',
+    '性格特征大约有 40–50% 的遗传性(Polderman 2015 双生子研究;校正混杂因素后更低)。大部分差异源于亲身经历。',
     '不同的特征带来意想不到的优势。',
     '同样的固执,在战火中救你,在会议室里害你。',
     '那些让孩子被叫到校长办公室的特质,日后常常长成被家人依靠的大人。',
@@ -2199,7 +2199,7 @@ const HUMANITY_REMINDERS = {
     '人をデータに還元しきることはできない。',
     '「完璧」は文化が定めるものである。',
     '思いがけない特性がしばしば強みになる。',
-    '性格特性の遺伝率はおよそ40〜50%。変動の大半は実際に生きた経験に由来する。',
+    '性格特性の遺伝率はおよそ40〜50%(Polderman 2015 双生児研究。交絡を補正するとさらに低い)。変動の大半は実際に生きた経験に由来する。',
     '異なる特性が、思いがけない強みを生む。',
     '頑固さは、銃火の下では命を救い、会議では仕事を壊す。',
     '子どもが校長室に呼び出される原因になった気質が、やがて家族が頼れる大人をかたちづくることがある。',
@@ -2211,7 +2211,7 @@ const HUMANITY_REMINDERS = {
     '한 사람은 데이터로 환원될 수 없다.',
     "'완벽함'은 문화가 정한다.",
     '예상치 못한 특성이 종종 강점이 된다.',
-    '성격 특성은 약 40~50%의 유전성을 보이며, 대부분의 차이는 실제 경험에서 비롯된다.',
+    '성격 특성은 약 40~50%의 유전성을 보이며(Polderman 2015 쌍둥이 연구; 교란 변수를 보정하면 더 낮다), 대부분의 차이는 실제 경험에서 비롯된다.',
     '서로 다른 특성이 뜻밖의 강점을 만든다.',
     '고집은 총탄 아래에서는 당신을 살리고, 회의에서는 당신을 망친다.',
     '아이를 교무실로 불려가게 만든 그 기질이, 훗날 가족이 기댈 어른을 만들기도 한다.',
@@ -2223,7 +2223,7 @@ const HUMANITY_REMINDERS = {
     'Bir insan, veriye tam olarak indirgenemez.',
     'Mükemmellik kültürel olarak tanımlanır.',
     'Beklenmedik özellikler çoğu zaman güce dönüşür.',
-    "Kişilik özelliklerinin kalıtsallığı kabaca %40-50'dir; farklılığın çoğu yaşanmış deneyimden gelir.",
+    "Kişilik özelliklerinin kalıtsallığı kabaca %40-50'dir (Polderman 2015 ikiz çalışmaları; karıştırıcılar düzeltildiğinde daha düşük). Farklılığın çoğu yaşanmış deneyimden gelir.",
     'Farklı özellikler, beklenmedik avantajlar yaratır.',
     'İnatçılık, ateş altında seni kurtarır; toplantıda batırır.',
     'Çocuğu müdür odasına yollatan özellikler, çoğu zaman ailenin sırtını dayadığı yetişkini yetiştirir.',
@@ -2838,6 +2838,10 @@ const ADULT_FUTURES_CLINICAL = [
 // "leakage" inside the clinical Adult system. Expanded from the previous
 // 20-item ADULT_MICRODETAILS to ~40 entries spanning relationships,
 // routines, regrets, quiet attachments.
+//
+// R14rev: These are trait-flavored common patterns, not predictions for
+// any individual. A high-O adult does not necessarily read three books at
+// once; the line evokes a recognizable human texture, not a forecast.
 const ADULT_TRACES = {
   en: [
     'Notebooks from adolescence sit in a box that never quite gets unpacked.',
