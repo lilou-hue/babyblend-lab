@@ -3320,6 +3320,28 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   transition: width 0.35s ease;
 }
 
+/* R17 scaffold (Frontend pre-add for UX Flow): pre-allocation gate.
+   When budget=0 in Adult mode, the trait projection panel should not
+   surface default-state stats — UX Flow may swap the projection rows
+   for a soft prompt placeholder asking the user to allocate first.
+   Typography family matches .burden-disclaimer / .consent-awareness-note:
+   italic, restrained, low-contrast — reads as a held-back affordance,
+   not a competing UI element. Centered to distinguish from the left-
+   aligned projection-row rhythm above. Class is anticipatory; if UX
+   Flow chooses a different selector, this rule is dead-stripped at
+   verification time (R18). */
+.budget-projections .projection-gated-placeholder,
+.projection-gated-placeholder {
+  margin: 4px 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--ink-soft);
+  letter-spacing: 0.3px;
+}
+
 .budget-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
