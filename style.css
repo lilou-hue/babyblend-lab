@@ -2096,6 +2096,10 @@ body.mode-adult .behavioral-traces .trace-card {
   border-color: rgba(126, 224, 255, 0.22);
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 11.5px;
+  /* R14 rev (UX POLISH): monospace at 11.5px in 9×11 box ran too tight;
+     bump padding to 11×14 + line-height 1.6 for breathing room. */
+  padding: 11px 14px;
+  line-height: 1.6;
   color: var(--ink-soft);
 }
 
@@ -2161,6 +2165,9 @@ body.mode-reflection .reflection-only { display: revert; }
 }
 @media (max-width: 540px) {
   .memory-cards .memory-strip { grid-template-columns: 1fr; }
+  /* R14 rev (UX MAJOR): two-column traces grid produced cramped 1-2 word
+     lines on narrow viewports; stack to single column for legibility. */
+  .behavioral-traces .traces-grid { grid-template-columns: 1fr; }
 }
 
 /* ---------- Future Branching Tree ----------
@@ -4631,7 +4638,9 @@ body.mode-reflection .lifetime-drift-panel h2 {
   padding: 6px 12px;
   border-radius: 6px;
   background: rgba(10, 14, 40, 0.55);
-  border: 1px solid rgba(126, 224, 255, 0.18);
+  /* R14 rev (MOBILE POLISH a11y): bumped border opacity 0.18 → 0.6 so the
+     skip link reads as an interactive control against the busy hero. */
+  border: 1px solid rgba(126, 224, 255, 0.6);
   transition: color 0.15s, border-color 0.15s, background 0.15s;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -5319,7 +5328,10 @@ body.app-kids .kids-only { display: revert; }
   border-color: rgba(255, 155, 210, 0.7);
 }
 
-@media (max-width: 640px) {
+/* R14 rev (MOBILE MAJOR): widened breakpoint from 640 → 768 so iPad-
+   portrait viewports (641-768px) also get WCAG 2.5.5 44×44 touch targets
+   on .style-btn/.gender-btn/.details-toggle/.intro-skip/consent-ack. */
+@media (max-width: 768px) {
   .kids-arc-list { grid-template-columns: 1fr; }
   /* R10 rev (MOBILE MAJOR): 28px side padding ate too much horizontal
      real estate on narrow viewports — drop to 18px so two-line list
