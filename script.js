@@ -4482,6 +4482,23 @@ const KIDS_HUMANITY_REMINDERS = {
   ]
 };
 
+/* Kids-arc panel sub-headers. Each entry is a single string, wrapped as a
+ * 1-element array so we can reuse `localList` and its EN fallback. The
+ * thesis under each header: these aren't predictions from genes.
+ * LOOP_REQUEST(narrative): translate zh/ja/ko/tr entries — currently EN fallback.
+ */
+const KIDS_ARC_DISCLAIMERS = {
+  loves: {
+    en: ['Not predictions from genes — examples of what won\'t fit in a slider.']
+  },
+  questions: {
+    en: ['Questions a slider can\'t answer for you.']
+  },
+  differences: {
+    en: ['Reminders of what no slider can capture.']
+  }
+};
+
 /* ---------- Seeded randomness ---------- */
 // Tiny deterministic hash → uint32. Same string in, same value out.
 function hashStr(s) {
@@ -7140,7 +7157,7 @@ function renderKidsLoves() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>Things they might love</h2>
-      <p class="kids-arc-disclaimer">Not predictions from genes — examples of what won't fit in a slider.</p>
+      <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.loves)[0]}</p>
       <p class="subtle">Specific, particular, and theirs.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
@@ -7156,7 +7173,7 @@ function renderKidsQuestions() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>Questions you could ask them</h2>
-      <p class="kids-arc-disclaimer">Questions a slider can't answer for you.</p>
+      <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.questions)[0]}</p>
       <p class="subtle">The kind you might not think to ask a grown-up.</p>
     </header>
     <ul class="kids-arc-list kids-arc-questions">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
@@ -7172,7 +7189,7 @@ function renderKidsDifferences() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>What might make them <em>them</em></h2>
-      <p class="kids-arc-disclaimer">Reminders of what no slider can capture.</p>
+      <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.differences)[0]}</p>
       <p class="subtle">Difference is the most interesting thing about a person.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
