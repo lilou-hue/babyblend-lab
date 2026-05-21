@@ -4777,12 +4777,12 @@ const KIDS_ADULT_FUTURES = [
       ko: { headline: '아이들을 잘 다루는 의사가 될지도 몰라요.', details: ['진료할 때마다 스티커를 하나 챙겨준다.', '무서운 순간에도 다정한 농담을 건넨다.', '진료실이 크레용 그림으로 가득하다.'] },
       tr: { headline: 'Belki çocuklarla arası harika olan bir doktor olur.', details: ['Her muayenede bir çıkartma verir.', 'Korkutucu anlarda yumuşacık şakalar yapar.', 'Muayenehanesi mum boya resimlerle süslüdür.'] }
     } },
-  { headline: 'Maybe an inventor of small clever gadgets.', details: ['Has built three useful tools that don\'t exist anywhere else.', 'Salvages broken things and gives them another life.', 'Friends bring them tricky problems.'], tags: ['education','economy'],
+  { headline: 'Maybe an inventor of small clever gadgets.', details: ['Has built three useful tools that don\'t exist anywhere else.', 'Builds tools that solve problems for people around them.', 'Friends bring them tricky problems.'], tags: ['education','economy'],
     i18n: {
-      zh: { headline: '也许会成为发明小巧机灵小工具的人。', details: ['做出过三件别的地方找不到的实用小工具。', '把坏掉的东西修好,再给它一次"生命"。', '朋友们一遇到棘手的小问题就来找她/他。'] },
-      ja: { headline: 'もしかしたら、小さくて気の利いた道具を発明する人に。', details: ['他には存在しない、便利な道具を三つ作ったことがある。', '壊れたものを直して、もう一度息を吹き込む。', '友だちは困った時にその人を頼ってくる。'] },
-      ko: { headline: '작고 영리한 도구를 만드는 발명가가 될지도 몰라요.', details: ['세상에 없던 실용적인 도구를 세 개 만든 적이 있다.', '망가진 것들을 손봐서 또 한 번의 삶을 준다.', '친구들은 곤란한 일이 생기면 그 사람을 찾아온다.'] },
-      tr: { headline: 'Belki küçük, akıllı aletlerin mucidi olur.', details: ['Başka hiçbir yerde olmayan üç işe yarar alet yaptı.', 'Bozuk eşyaları kurtarıp onlara ikinci bir hayat verir.', 'Arkadaşları zor sorunları ona getirir.'] }
+      zh: { headline: '也许会成为发明小巧机灵小工具的人。', details: ['做出过三件别的地方找不到的实用小工具。', '制作能为身边的人解决问题的工具。', '朋友们一遇到棘手的小问题就来找她/他。'] },
+      ja: { headline: 'もしかしたら、小さくて気の利いた道具を発明する人に。', details: ['他には存在しない、便利な道具を三つ作ったことがある。', 'まわりの人の困りごとを解く道具をつくる。', '友だちは困った時にその人を頼ってくる。'] },
+      ko: { headline: '작고 영리한 도구를 만드는 발명가가 될지도 몰라요.', details: ['세상에 없던 실용적인 도구를 세 개 만든 적이 있다.', '주변 사람들의 문제를 풀어줄 도구를 만든다.', '친구들은 곤란한 일이 생기면 그 사람을 찾아온다.'] },
+      tr: { headline: 'Belki küçük, akıllı aletlerin mucidi olur.', details: ['Başka hiçbir yerde olmayan üç işe yarar alet yaptı.', 'Çevresindeki insanların sorunlarını çözen aletler yapar.', 'Arkadaşları zor sorunları ona getirir.'] }
     } },
   { headline: 'Maybe a librarian who knows every story.', details: ['Reads to little kids every Saturday.', 'Has a list of \"underrated\" books.', 'Knows which shelves the kids hide behind on rainy days.'], tags: ['education','urbanRural'],
     i18n: {
