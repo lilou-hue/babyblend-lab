@@ -4132,7 +4132,13 @@ const KIDS_EXPLAINERS = {
 
 // Soft framing for the Kids-mode futures block — injected once per generation
 // above the future-tree by the render path (see #future-block handling).
-const KIDS_FUTURES_PREAMBLE = "These are just stories of *possible* lives. Your real one might be completely different.";
+const KIDS_FUTURES_PREAMBLE = {
+  en: "These are just stories of *possible* lives. Your real one might be completely different.",
+  zh: "这些只是*可能*的人生故事。你真实的人生,也许完全不一样。",
+  ja: "これは「ありうるかもしれない」人生の話。あなたの本当の人生は、ぜんぜん違うかもしれない。",
+  ko: "이건 그저 *있을 수 있는* 삶의 이야기들이에요. 당신의 진짜 삶은 완전히 다를 수 있어요.",
+  tr: "Bunlar yalnızca *olası* hayatların hikâyeleri. Senin gerçek hayatın bambaşka olabilir."
+};
 
 // One-line, dry framing appended to the popover on the 5 OCEAN-mapped Kids
 // sliders (curiosity/kindness/energy/focus/confidence). Explains WHY their
@@ -4141,7 +4147,13 @@ const KIDS_FUTURES_PREAMBLE = "These are just stories of *possible* lives. Your 
 // Surfaced through buildExplainerHTML for any kidsKey in KIDS_TRAIT_VIEW.
 // Second sentence notes that researchers use different (OCEAN) terms for
 // these same traits — surfacing the framework without preaching it.
-const KIDS_OCEAN_TOOLTIP = "Personality is shaped more by life experience, friendships, and luck than by genes alone. Genes matter, but they're roughly half the story. Researchers usually call these five traits openness, agreeableness, extraversion, conscientiousness, and emotional stability — the same ideas, with grown-up names.";
+const KIDS_OCEAN_TOOLTIP = {
+  en: "Personality is shaped more by life experience, friendships, and luck than by genes alone. Genes matter, but they're roughly half the story. Researchers usually call these five traits openness, agreeableness, extraversion, conscientiousness, and emotional stability — the same ideas, with grown-up names.",
+  zh: "性格更多是被生活经历、友谊和运气塑造的,而不仅仅是基因。基因当然重要,但大约只占一半。研究者通常把这五项特质称为开放性、宜人性、外向性、尽责性和情绪稳定性——同样的意思,只是用了成年人的称呼。",
+  ja: "性格は遺伝子だけでなく、人生経験や友情、運によって形づくられる。遺伝子も大切だけれど、占めるのはだいたい半分ほど。研究者はこの五つの性質を「開放性」「協調性」「外向性」「誠実性」「情緒安定性」と呼ぶ——同じ概念に、おとな向けの名前をつけているだけだ。",
+  ko: "성격은 유전자만이 아니라 삶의 경험과 우정, 그리고 운에 의해 더 많이 빚어진다. 유전자도 중요하지만, 대략 절반 정도다. 연구자들은 이 다섯 가지 특성을 개방성, 친화성, 외향성, 성실성, 정서적 안정성이라 부른다 — 같은 개념을, 어른의 언어로 부르는 것뿐이다.",
+  tr: "Kişilik, yalnızca genlerle değil; yaşam deneyimleri, dostluklar ve şansla şekillenir. Genler önemlidir, ama olayın yaklaşık yarısıdır. Araştırmacılar bu beş özelliği açıklık, uyumluluk, dışadönüklük, sorumluluk ve duygusal istikrar olarak adlandırır — aynı kavramlar, yetişkin isimleriyle."
+};
 
 const KIDS_FUTURE_PATHS = {
   en: [
@@ -5846,13 +5858,16 @@ function syncSliderDOMForOcean(oceanKey, oceanValue) {
 }
 
 function buildExplainerHTML(key) {
-  const text = KIDS_EXPLAINERS[key];
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  const explainers = (KIDS_EXPLAINERS && KIDS_EXPLAINERS[lang]) || (KIDS_EXPLAINERS && KIDS_EXPLAINERS.en) || KIDS_EXPLAINERS;
+  const text = explainers[key];
   if (!text || !isKids()) return '';
+  const tooltip = (KIDS_OCEAN_TOOLTIP && KIDS_OCEAN_TOOLTIP[lang]) || (KIDS_OCEAN_TOOLTIP && KIDS_OCEAN_TOOLTIP.en) || KIDS_OCEAN_TOOLTIP;
   // For the 5 OCEAN-mapped Kids sliders, append the gene-environment
   // one-liner so users see WHY personality bands are speculative.
   const isOceanKidsKey = KIDS_TRAIT_VIEW.some(v => v.kidsKey === key);
   const body = isOceanKidsKey
-    ? `${text} <span class="slider-popover-aside">${KIDS_OCEAN_TOOLTIP}</span>`
+    ? `${text} <span class="slider-popover-aside">${tooltip}</span>`
     : text;
   return `
     <button type="button" class="slider-explain" aria-expanded="false"
@@ -6205,7 +6220,10 @@ function updateBabyPreview() {
           futureBlock.insertBefore(preamble, futureBlock.firstChild);
         }
       }
-      preamble.textContent = KIDS_FUTURES_PREAMBLE;
+      {
+        const lang = (state && state.language) ? state.language : 'en';
+        preamble.textContent = (KIDS_FUTURES_PREAMBLE && KIDS_FUTURES_PREAMBLE[lang]) || (KIDS_FUTURES_PREAMBLE && KIDS_FUTURES_PREAMBLE.en) || KIDS_FUTURES_PREAMBLE;
+      }
     } else if (preamble) {
       preamble.remove();
     }
@@ -8661,20 +8679,24 @@ function updateBudgetBar() {
  * structure is invariant under allocation choice). */
 function renderConsentExplainer() {
   const host = $('#consent-explainer');
-  if (!host || host.dataset.rendered === '1') return;
-  const lead = typeof CONSENT_EXPLAINER === 'string' ? CONSENT_EXPLAINER : '';
+  if (!host) return;
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  const lead = (CONSENT_EXPLAINER && typeof CONSENT_EXPLAINER === 'object' && (CONSENT_EXPLAINER[lang] || CONSENT_EXPLAINER.en))
+    || (typeof CONSENT_EXPLAINER === 'string' ? CONSENT_EXPLAINER : '');
   const rows = Array.isArray(CONSENT_IMPLICATIONS) ? CONSENT_IMPLICATIONS : [];
   if (!lead && !rows.length) return;
   const leadHtml = lead ? `<p class="consent-line">${lead}</p>` : '';
   const rowsHtml = rows.map(it => {
-    const label = (it && it.label) ? it.label : '';
-    const body  = (it && it.body)  ? it.body  : '';
+    const tr = (it && it.i18n && it.i18n[lang]) || {};
+    const label = tr.label || (it && it.label) || '';
+    const body  = tr.body  || (it && it.body)  || '';
     return `<div class="consent-row"><span class="consent-label">${label}</span><span class="consent-body">${body}</span></div>`;
   }).join('');
+  const summary = (typeof localLabel === 'function') ? localLabel('Institutional consent record') : 'Institutional consent record';
   host.innerHTML = `
     ${leadHtml}
     <details class="consent-detail">
-      <summary>Institutional consent record</summary>
+      <summary>${summary}</summary>
       <div class="consent-detail-body">${rowsHtml}</div>
     </details>`;
   host.dataset.rendered = '1';
