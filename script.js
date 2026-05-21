@@ -6839,9 +6839,10 @@ function preserveNaturalVariation() {
   }
 
   updateBabyPreview();
-  showHumanityReminder(
-    NATURAL_VARIATION_MESSAGES[Math.floor(Math.random() * NATURAL_VARIATION_MESSAGES.length)]
-  );
+  {
+    const msgs = localList(NATURAL_VARIATION_MESSAGES);
+    showHumanityReminder(msgs[Math.floor(Math.random() * msgs.length)]);
+  }
   // Bloom the palette briefly — preserving variation is the warm move.
   flashWarming();
 }
