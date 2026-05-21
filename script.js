@@ -3981,15 +3981,24 @@ const CONFIDENCE = {
 };
 
 const PRIORITIES = [
-  { key: 'health',       label: 'Health',               cost: 4, tier: 'Standard',     bias: { neuroticism: -0.3 },                          tradeoff: 'Disease-risk reduction (limited heritability for many conditions).' },
-  { key: 'cognition',    label: 'Cognition',            cost: 8, tier: 'Premium',      bias: { openness: 0.6, conscientiousness: 0.4 },      tradeoff: 'Higher academic-load expectations. Burnout risk elevated.' },
-  { key: 'emotional',    label: 'Emotional Stability',  cost: 7, tier: 'Experimental', bias: { neuroticism: -0.7 },                          tradeoff: 'Reduced emotional sensitivity may follow.' },
-  { key: 'creativity',   label: 'Creativity',           cost: 5, tier: 'Standard',     bias: { openness: 0.5 },                              tradeoff: 'Increased novelty-seeking; structural follow-through variable.' },
-  { key: 'athleticism',  label: 'Athleticism',          cost: 4, tier: 'Standard',     bias: { athletic: 0.7 },                              tradeoff: 'Identity attachment to performance later in life.' },
-  { key: 'appearance',   label: 'Appearance',           cost: 3, tier: 'Entry',        bias: {},                                              tradeoff: 'Appearance-based social attention above baseline.' },
-  { key: 'sociability',  label: 'Sociability',          cost: 5, tier: 'Standard',     bias: { extraversion: 0.6 },                          tradeoff: 'Elevated overstimulation risk in dense social contexts.' },
-  { key: 'resilience',   label: 'Resilience',           cost: 6, tier: 'Premium',      bias: { neuroticism: -0.5, conscientiousness: 0.2 },  tradeoff: 'Tolerance for adversity may delay help-seeking.' },
-  { key: 'empathy',      label: 'Empathy',              cost: 5, tier: 'Standard',     bias: { agreeableness: 0.6 },                         tradeoff: 'Empathic load may exceed individual capacity.' }
+  { key: 'health', label: 'Health', cost: 4, tier: 'Standard', bias: { neuroticism: -0.3 }, tradeoff: 'Disease-risk reduction (limited heritability for many conditions).',
+    i18n: { zh: { label: '健康', tier: '标准', tradeoff: '降低疾病风险(许多疾病的遗传率有限)。' }, ja: { label: '健康', tier: '標準', tradeoff: '疾患リスクの低減(多くの疾患では遺伝率は限定的)。' }, ko: { label: '건강', tier: '표준', tradeoff: '질병 위험 감소(많은 질환에서 유전율은 제한적).' }, tr: { label: 'Sağlık', tier: 'Standart', tradeoff: 'Hastalık riskinin azaltılması (birçok durumda sınırlı kalıtsallık).' } } },
+  { key: 'cognition', label: 'Cognition', cost: 8, tier: 'Premium', bias: { openness: 0.6, conscientiousness: 0.4 }, tradeoff: 'Higher academic-load expectations. Burnout risk elevated.',
+    i18n: { zh: { label: '认知', tier: '高级', tradeoff: '更高的学业负担预期。倦怠风险升高。' }, ja: { label: '認知', tier: 'プレミアム', tradeoff: '学業面の負荷期待が高くなる。バーンアウトのリスクは上昇する。' }, ko: { label: '인지', tier: '프리미엄', tradeoff: '더 높은 학업 부담 기대. 번아웃 위험 상승.' }, tr: { label: 'Biliş', tier: 'Premium', tradeoff: 'Yüksek akademik yük beklentisi. Tükenme riski artar.' } } },
+  { key: 'emotional', label: 'Emotional Stability', cost: 7, tier: 'Experimental', bias: { neuroticism: -0.7 }, tradeoff: 'Reduced emotional sensitivity may follow.',
+    i18n: { zh: { label: '情绪稳定性', tier: '实验性', tradeoff: '情感敏感度可能随之降低。' }, ja: { label: '情緒安定性', tier: '実験的', tradeoff: '情緒的な感受性の低下を伴う可能性がある。' }, ko: { label: '정서적 안정성', tier: '실험적', tradeoff: '정서적 민감성이 낮아질 수 있음.' }, tr: { label: 'Duygusal istikrar', tier: 'Deneysel', tradeoff: 'Duygusal duyarlılığın azalması ortaya çıkabilir.' } } },
+  { key: 'creativity', label: 'Creativity', cost: 5, tier: 'Standard', bias: { openness: 0.5 }, tradeoff: 'Increased novelty-seeking; structural follow-through variable.',
+    i18n: { zh: { label: '创造力', tier: '标准', tradeoff: '更强的新奇追求;有结构地坚持下去的能力则参差不齐。' }, ja: { label: '創造性', tier: '標準', tradeoff: '新奇性の追求が強まる一方で、体系的にやり遂げる力にはばらつきが出る。' }, ko: { label: '창의성', tier: '표준', tradeoff: '신기성 추구가 강해지며, 끝까지 체계적으로 밀고 나가는 힘은 들쭉날쭉해진다.' }, tr: { label: 'Yaratıcılık', tier: 'Standart', tradeoff: 'Yenilik arayışı artar; yapılandırılmış bir biçimde sonuna kadar götürme değişkendir.' } } },
+  { key: 'athleticism', label: 'Athleticism', cost: 4, tier: 'Standard', bias: { athletic: 0.7 }, tradeoff: 'Identity attachment to performance later in life.',
+    i18n: { zh: { label: '运动能力', tier: '标准', tradeoff: '在日后的人生里,身份认同可能与"表现"绑得很紧。' }, ja: { label: '運動能力', tier: '標準', tradeoff: '人生の後半で、自己同一性が「成績」と強く結びつきやすくなる。' }, ko: { label: '운동성', tier: '표준', tradeoff: '훗날 정체성이 "퍼포먼스"에 크게 결부될 수 있다.' }, tr: { label: 'Atletiklik', tier: 'Standart', tradeoff: 'İlerleyen yaşlarda kimliğin performansa bağlanma eğilimi artar.' } } },
+  { key: 'appearance', label: 'Appearance', cost: 3, tier: 'Entry', bias: {}, tradeoff: 'Appearance-based social attention above baseline.',
+    i18n: { zh: { label: '外貌', tier: '入门', tradeoff: '基于外貌而获得的社会关注会高于基线水平。' }, ja: { label: '外見', tier: 'エントリー', tradeoff: '見た目に基づく社会的注目が、基準値より高くなる。' }, ko: { label: '외모', tier: '엔트리', tradeoff: '외모를 근거로 한 사회적 주목이 기준선보다 높아진다.' }, tr: { label: 'Görünüm', tier: 'Giriş', tradeoff: 'Görünüme dayalı sosyal ilgi, temel düzeyin üzerinde olur.' } } },
+  { key: 'sociability', label: 'Sociability', cost: 5, tier: 'Standard', bias: { extraversion: 0.6 }, tradeoff: 'Elevated overstimulation risk in dense social contexts.',
+    i18n: { zh: { label: '社交性', tier: '标准', tradeoff: '在人群密集的社交场合,过度刺激的风险升高。' }, ja: { label: '社交性', tier: '標準', tradeoff: '人の多い社交場面で、過剰刺激のリスクが高まる。' }, ko: { label: '사교성', tier: '표준', tradeoff: '인파가 많은 사교 환경에서 과자극 위험이 높아진다.' }, tr: { label: 'Sosyallik', tier: 'Standart', tradeoff: 'Yoğun sosyal ortamlarda aşırı uyarılma riski artar.' } } },
+  { key: 'resilience', label: 'Resilience', cost: 6, tier: 'Premium', bias: { neuroticism: -0.5, conscientiousness: 0.2 }, tradeoff: 'Tolerance for adversity may delay help-seeking.',
+    i18n: { zh: { label: '韧性', tier: '高级', tradeoff: '对逆境的耐受度过高,可能让人迟迟不去寻求帮助。' }, ja: { label: 'レジリエンス', tier: 'プレミアム', tradeoff: '逆境への耐性が高すぎると、援助を求めるのが遅れがちになる。' }, ko: { label: '회복탄력성', tier: '프리미엄', tradeoff: '역경에 대한 인내가 높을수록 도움을 청하는 시점이 늦어질 수 있다.' }, tr: { label: 'Dayanıklılık', tier: 'Premium', tradeoff: 'Olumsuzluklara yüksek tolerans, yardım istemeyi geciktirebilir.' } } },
+  { key: 'empathy', label: 'Empathy', cost: 5, tier: 'Standard', bias: { agreeableness: 0.6 }, tradeoff: 'Empathic load may exceed individual capacity.',
+    i18n: { zh: { label: '共情', tier: '标准', tradeoff: '共情负担可能超出个人承受能力。' }, ja: { label: '共感', tier: '標準', tradeoff: '共感の負荷が個人の許容量を超える可能性がある。' }, ko: { label: '공감', tier: '표준', tradeoff: '공감 부하가 개인의 수용 한계를 넘어설 수 있다.' }, tr: { label: 'Empati', tier: 'Standart', tradeoff: 'Empati yükü, bireyin kapasitesini aşabilir.' } } }
 ];
 const BUDGET_TOTAL = 200;
 
@@ -7707,7 +7716,8 @@ const SOCIETAL_RULES = {
       { when: c => c.budget.cognition   >= 6 && c.budget.creativity >= 6, line: 'Cross-discipline placement common; standardized assessment may mis-classify.' },
       { when: c => c.baby.openness      >= 8 && c.baby.conscientiousness <= 4, line: 'Trait profile may be mis-read as attention disorder in structured settings.' },
       { when: c => c.budget.athleticism >= 7 && (c.env.education || 5) >= 6, line: 'Dual-track athletic + academic placement plausible.' },
-      { when: c => c.budget.cognition   >= 7 && (c.env.education || 5) <= 3, line: 'Capability/access mismatch: under-placement risk despite high projection.' }
+      { when: c => c.budget.cognition   >= 7 && (c.env.education || 5) <= 3, line: 'Capability/access mismatch: under-placement risk despite high projection.' },
+      { when: c => (c.env.multilingual || 5) >= 7 && c.budget.cognition >= 6, line: 'Multilingual upbringing correlates with executive-function gains; bilingual-program placement likely.' }
     ]
   },
   peer: {
@@ -7719,7 +7729,10 @@ const SOCIETAL_RULES = {
       { when: c => c.budget.sociability <= 2 && (c.baby.extraversion || 5) <= 4, line: 'Smaller, deeper peer cohort. Compatibility-dependent.' },
       { when: c => c.budget.emotional   >= 7, line: 'May be perceived as "cool" or "cold" by emotionally expressive peers.' },
       { when: c => c.budget.empathy     >= 7, line: 'Frequent emotional-caregiver role in peer groups.' },
-      { when: c => c.totalAlloc         >= 10 && (c.env.economy || 5) <= 4, line: 'Visibility of enhancement profile may stratify against non-modified peers.' }
+      { when: c => c.totalAlloc         >= 10 && (c.env.economy || 5) <= 4, line: 'Visibility of enhancement profile may stratify against non-modified peers.' },
+      { when: c => (c.env.urbanRural || 5) >= 7, line: 'Smaller, less anonymous peer cohort. Reputation effects persist across years.' },
+      { when: c => (c.env.urbanRural || 5) <= 3 && c.budget.appearance >= 5, line: 'Urban density amplifies appearance-based social attention.' },
+      { when: c => (c.env.internet || 5) >= 8 && c.budget.appearance >= 5, line: 'Appearance-based feedback amplified by algorithmic distribution.' }
     ]
   },
   identity: {
@@ -7727,10 +7740,14 @@ const SOCIETAL_RULES = {
     rules: [
       { when: c => c.budget.athleticism >= 8, line: 'Identity attachment to physical performance probable. Post-career risk elevated.' },
       { when: c => c.budget.cognition   >= 8, line: 'Intellectual-performance identity dependency likely.' },
-      { when: c => c.budget.appearance  >= 7, line: 'Cosmetic-maintenance becomes normalized as expected labor, disproportionately for female-presenting and non-white-coded individuals; cohort-level beauty standards shift, locking in optimization for this generation.' },
+      { when: c => c.budget.appearance  >= 7, line: 'Cosmetic-maintenance normalization through adolescence.' },
       { when: c => c.budget.emotional   >= 8, line: 'Reduced emotional reactivity may complicate grief processing and intimacy.' },
       { when: c => c.budget.resilience  >= 8, line: 'High pain-tolerance correlate may delay help-seeking.' },
-      { when: c => c.budget.empathy     >= 8 && c.budget.resilience <= 4, line: 'Empathic overload without buffer: identity-fatigue risk.' }
+      { when: c => c.budget.empathy     >= 8 && c.budget.resilience <= 4, line: 'Empathic overload without buffer: identity-fatigue risk.' },
+      { when: c => (c.env.family || 5) <= 4, line: 'Lower family-support buffer; identity formation may be more peer-driven.' },
+      { when: c => (c.env.family || 5) <= 3 && c.totalAlloc >= 10, line: 'Allocation/family-support mismatch: enhancement visibility may exceed safety net.' },
+      { when: c => (c.env.internet || 5) >= 7, line: 'Identity formation increasingly mediated by algorithmic feedback from age 11+.' },
+      { when: c => (c.env.multilingual || 5) >= 7, line: 'Code-switching capacity develops early; identity flexibility above baseline.' }
     ]
   },
   stress: {
@@ -7740,7 +7757,9 @@ const SOCIETAL_RULES = {
       { when: c => c.budget.cognition   >= 7 && c.budget.resilience >= 6, line: 'Achievement-driven stress accumulation; symptom-masking probable.' },
       { when: c => c.budget.emotional   >= 7, line: 'Grief integration may be slow or incomplete; clinical follow-up indicated.' },
       { when: c => (c.baby.extraversion || 0) >= 8 && (c.baby.neuroticism || 0) >= 6, line: 'Performance-recovery cycles; post-event depletion above baseline.' },
-      { when: c => (c.env.social || 5)  >= 7 && c.totalAlloc >= 15, line: 'High-social-pressure environment + heavy allocation: compounding stress load.' }
+      { when: c => (c.env.social || 5)  >= 7 && c.totalAlloc >= 15, line: 'High-social-pressure environment + heavy allocation: compounding stress load.' },
+      { when: c => (c.env.healthcare || 5) <= 4, line: 'Healthcare access limits long-term outcome certainty; recovery from adverse events less reliable.' },
+      { when: c => (c.env.healthcare || 5) >= 8 && c.budget.emotional >= 6, line: 'Mental-health follow-up resources available, partially mitigating emotional-stability tradeoffs.' }
     ]
   },
   career: {
@@ -7751,7 +7770,10 @@ const SOCIETAL_RULES = {
       { when: c => c.budget.creativity  >= 7, line: 'Non-stable income paths over-represented; multiple career changes plausible.' },
       { when: c => (c.baby.agreeableness || 0) >= 8, line: 'Compensation tends to lag peer benchmarks; negotiation reluctance modeled.' },
       { when: c => c.budget.athleticism >= 8 && (c.env.economy || 5) <= 4, line: 'Scholarship-dependent trajectory; injury-period collapse risk.' },
-      { when: c => c.budget.appearance  >= 7, line: 'Appearance-correlated compensation premiums modeled in customer-facing roles.' }
+      { when: c => c.budget.appearance  >= 7, line: 'Appearance-correlated compensation premiums modeled in customer-facing roles.' },
+      { when: c => (c.env.multilingual || 5) >= 7 && (c.env.economy || 5) >= 6, line: 'International career pathways more accessible; cross-border mobility above baseline.' },
+      { when: c => (c.env.urbanRural || 5) >= 7 && c.budget.cognition >= 6, line: 'Niche-cognitive interests may require remote-community connection.' },
+      { when: c => (c.env.family || 5) >= 8 && c.budget.cognition >= 6, line: 'Strong family support amplifies cognitive-track outcomes; capital and information access compound.' }
     ]
   }
 };
@@ -8676,22 +8698,27 @@ function buildEnhancementBudget() {
   const grid = $('#budget-grid');
   if (!grid) return;
   grid.innerHTML = '';
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
   PRIORITIES.forEach(p => {
     if (!(p.key in state.budget)) state.budget[p.key] = 0;
     const id = 'pr_' + p.key;
+    const tr = (p.i18n && p.i18n[lang]) || {};
+    const label = tr.label || p.label;
+    const tier = tr.tier || p.tier;
+    const tradeoff = tr.tradeoff || p.tradeoff;
     const row = document.createElement('div');
     row.className = 'priority-row';
     row.dataset.tier = p.tier.toLowerCase();
     row.innerHTML = `
       <div class="priority-head">
-        <label for="${id}">${p.label} <span class="priority-tier">${p.tier}</span></label>
+        <label for="${id}">${label} <span class="priority-tier">${tier}</span></label>
         <span class="priority-cost">${p.cost} cr · pt</span>
       </div>
       <div class="field-range">
         <input type="range" id="${id}" min="0" max="10" step="1" value="${state.budget[p.key]}" />
         <span class="val" id="${id}_val">${state.budget[p.key]}</span>
       </div>
-      <p class="priority-tradeoff">${p.tradeoff}</p>`;
+      <p class="priority-tradeoff">${tradeoff}</p>`;
     grid.appendChild(row);
     const input = row.querySelector('input');
     const valEl = row.querySelector('.val');
