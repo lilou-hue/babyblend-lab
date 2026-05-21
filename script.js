@@ -4043,11 +4043,41 @@ const CONSENT_EXPLAINER = 'The person these allocations are for does not yet exi
 
 // Structured rows (World Design + Narrative): grounded prose, fixed cite, Access row.
 const CONSENT_IMPLICATIONS = [
-  { label: 'Subject', body: 'The modified individual is, by definition, absent from this interface. Every allocation is a decision made on behalf of someone who does not yet exist and cannot be consulted.' },
-  { label: 'Heritability', body: 'Anyone born from a heritable edit inherits the choice. Their children inherit it too, and so on. The decision made in this session reaches forward into people who are not here to weigh in.' },
-  { label: 'Reversibility', body: 'Heritable edits cannot be taken back. A future person who would not have agreed has no way to undo or escape what was chosen for them.' },
-  { label: 'Standard of care', body: 'Institutional ethics frameworks (Oviedo Convention, Article 13 on heritable modifications; UNESCO International Bioethics Committee 2015 Report on the Human Genome) require informed consent of the affected party. That standard is structurally unmet here.' },
-  { label: 'Access', body: 'These modifications arrive unevenly. Wealth predicts access; future populations inherit that distributional imbalance alongside the edits themselves.' }
+  { label: 'Subject', body: 'The modified individual is, by definition, absent from this interface. Every allocation is a decision made on behalf of someone who does not yet exist and cannot be consulted.',
+    i18n: {
+      zh: { label: '主体', body: '从定义上讲,被修改的那个人并不在这个界面上。每一次分配,都是在替一个尚未存在、也无法被征询意见的人做决定。' },
+      ja: { label: '対象', body: '改変される個人は、定義上、このインターフェイスに存在しない。すべての割り当ては、まだ存在せず、相談もできない誰かに代わってなされる決定である。' },
+      ko: { label: '대상', body: '편집되는 그 사람은 정의상 이 인터페이스에 존재하지 않는다. 모든 할당은 아직 존재하지 않고, 의견을 구할 수도 없는 사람을 대신해 내리는 결정이다.' },
+      tr: { label: 'Özne', body: 'Değiştirilen birey, tanım gereği bu arayüzde yoktur. Her tahsis, henüz var olmayan ve görüşü alınamayan biri adına verilen bir karardır.' }
+    } },
+  { label: 'Heritability', body: 'Anyone born from a heritable edit inherits the choice. Their children inherit it too, and so on. The decision made in this session reaches forward into people who are not here to weigh in.',
+    i18n: {
+      zh: { label: '可遗传性', body: '由可遗传编辑而诞生的人,都会一并继承这个选择。他们的孩子,以及之后的世代,也会继续承接下来。这次会话中作出的决定,会延伸到那些此刻无法发声的人身上。' },
+      ja: { label: '遺伝性', body: '遺伝に関わる編集から生まれる人は、その選択を引き継ぐ。さらにその子もまた引き継ぎ、その先へと続く。このセッションで下した決定は、いまここで意見を述べられない人たちにまで及んでいく。' },
+      ko: { label: '유전성', body: '유전 가능한 편집으로 태어난 사람은 그 선택을 함께 물려받는다. 그 자녀들도 마찬가지이며, 그 다음 세대도 그러하다. 이 세션에서 내린 결정은, 이 자리에 없는 사람들에게까지 닿는다.' },
+      tr: { label: 'Kalıtsallık', body: 'Kalıtsal bir düzenlemeyle doğan herkes bu seçimi devralır. Çocukları da öyle, sonraki kuşaklar da. Bu oturumda alınan karar, burada görüş bildiremeyen insanlara uzanır.' }
+    } },
+  { label: 'Reversibility', body: 'Heritable edits cannot be taken back. A future person who would not have agreed has no way to undo or escape what was chosen for them.',
+    i18n: {
+      zh: { label: '可逆性', body: '可遗传的编辑无法收回。一个不会同意此选择的未来之人,没有任何办法可以撤回或脱离别人替他/她做出的决定。' },
+      ja: { label: '可逆性', body: '遺伝に関わる編集は、撤回することができない。同意しなかったであろう未来の人は、自分のために決められたものを取り消すことも、そこから逃れることもできない。' },
+      ko: { label: '되돌릴 수 있음(가역성)', body: '유전 가능한 편집은 되돌릴 수 없다. 동의하지 않았을 미래의 어떤 사람도, 자기를 대신해 정해진 것을 무를 수도, 거기서 벗어날 수도 없다.' },
+      tr: { label: 'Geri alınabilirlik', body: 'Kalıtsal düzenlemeler geri alınamaz. Onaylamayacak gelecekteki bir insan, kendisi için seçileni geri çevirme ya da kaçınma yolunda hiçbir araca sahip değildir.' }
+    } },
+  { label: 'Standard of care', body: 'Institutional ethics frameworks (Oviedo Convention, Article 13 on heritable modifications; UNESCO International Bioethics Committee 2015 Report on the Human Genome) require informed consent of the affected party. That standard is structurally unmet here.',
+    i18n: {
+      zh: { label: '医疗与伦理标准', body: '机构性的伦理框架(《奥维耶多公约》第 13 条关于可遗传修改;教科文组织国际生物伦理委员会 2015 年关于人类基因组的报告)要求当事人的知情同意。这一标准在此种情形下,从结构上就无从满足。' },
+      ja: { label: '医療・倫理基準', body: '機構による倫理枠組み(オビエド条約 第13条「遺伝に関わる改変」、UNESCO 国際バイオエシックス委員会 2015 年「ヒトゲノムに関する報告」)は、当事者本人の十分な情報に基づく同意を求めている。その基準は、ここでは構造的に満たされない。' },
+      ko: { label: '의료·윤리적 기준', body: '제도적 윤리 프레임워크(오비에도 협약 제13조 유전 가능한 변경 조항, 유네스코 국제생명윤리위원회 2015년 인간 유전체 보고서)는 당사자의 충분한 정보에 기반한 동의를 요구한다. 이 기준은 여기서 구조적으로 충족될 수 없다.' },
+      tr: { label: 'Bakım standardı', body: 'Kurumsal etik çerçeveler (Oviedo Sözleşmesi, kalıtsal değişikliklere ilişkin Madde 13; UNESCO Uluslararası Biyoetik Komitesi\'nin 2015 İnsan Genomu Raporu) etkilenen tarafın bilgilendirilmiş onayını gerektirir. Bu standart burada yapısal olarak karşılanmamaktadır.' }
+    } },
+  { label: 'Access', body: 'These modifications arrive unevenly. Wealth predicts access; future populations inherit that distributional imbalance alongside the edits themselves.',
+    i18n: {
+      zh: { label: '可及性', body: '这些修改的到达并不平均。财富决定能否接触到它们;未来的人群,在继承这些编辑的同时,也会一并继承这种分布上的不平等。' },
+      ja: { label: 'アクセス', body: 'こうした改変が届く範囲は均一ではない。経済力がアクセスを左右し、未来の人々は編集そのものと同時に、その配分の歪みも受け継ぐことになる。' },
+      ko: { label: '접근성', body: '이런 변경은 모든 사람에게 고르게 도달하지 않는다. 부(富)가 접근 가능 여부를 좌우하며, 미래 세대는 편집 자체와 함께 그 분배의 불균형도 물려받게 된다.' },
+      tr: { label: 'Erişim', body: 'Bu değişiklikler eşit dağılmaz. Erişimi servet belirler; gelecek nesiller, düzenlemelerle birlikte bu dağılım dengesizliğini de devralır.' }
+    } }
 ];
 
 /* ---------- History of Human Enhancement (educational cards) ---------- */
