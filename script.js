@@ -654,7 +654,9 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
-  // Life-stage / memory-snapshot labels
+  // Parent panel collapsibles
+  'Temperament dials': { zh: '气质刻度', ja: '気質ダイヤル', ko: '기질 다이얼', tr: 'Mizaç kadranları' },
+  'Visible traits':    { zh: '可见特征', ja: '見た目の特性', ko: '눈에 보이는 특성', tr: 'Görünür özellikler' },
   // Ancestry dropdown values
   'Unspecified':    { zh: '未指定',     ja: '指定なし',     ko: '지정 안 함',   tr: 'Belirtilmemiş' },
   'European':       { zh: '欧裔',       ja: 'ヨーロッパ系', ko: '유럽계',       tr: 'Avrupa kökenli' },
