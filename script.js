@@ -1693,26 +1693,107 @@ const LIFETIME_DRIFT = {
   ]
 };
 
-const HUMANITY_REMINDERS = [
-  'Humans are more than predicted traits.',
-  'A person cannot be fully reduced to data.',
-  'Perfection is culturally defined.',
-  'Unexpected traits often become strengths.',
-  'Personality traits show roughly 40-50% heritability; most variation traces to lived experience.',
-  'Diversity isn\'t a glitch — it\'s the feature.',
-  'A trait\'s value depends on who, when, and where.',
-  'Strengths and weaknesses are the same thing in different rooms.',
-  'Whoever this child becomes, they get the last word — not us.',
-  'A simulator cannot see the friend who will move away at fifteen, the surgery at thirty, the parent who needs care at fifty.'
-];
+// LOOP_REQUEST(translator): EN[9] was rewritten in R6 to drop the "Tuesday afternoon" wisdom-template; zh/ja/ko/tr below still carry the old line.
+const HUMANITY_REMINDERS = {
+  en: [
+    'Humans are more than predicted traits.',
+    'A person cannot be fully reduced to data.',
+    'Perfection is culturally defined.',
+    'Unexpected traits often become strengths.',
+    'Personality traits show roughly 40-50% heritability; most variation traces to lived experience.',
+    'Diversity isn\'t a glitch — it\'s the feature.',
+    'A trait\'s value depends on who, when, and where.',
+    'Strengths and weaknesses are the same thing in different rooms.',
+    'Whoever this child becomes, they get the last word — not us.',
+    'A simulator cannot see the friend who will move away at fifteen, the surgery at thirty, the parent who needs care at fifty.'
+  ],
+  zh: [
+    '人远不止是被预测的那些特征。',
+    '一个人无法被完全简化为数据。',
+    '何谓"完美"由文化定义。',
+    '出乎意料的特征往往成为优势。',
+    '性格特征大约有 40–50% 的遗传性;大部分差异源于亲身经历。',
+    '多样性不是错误,而是本质。',
+    '一项特征的价值取决于"是谁、何时、何地"。',
+    '优点和缺点不过是同一件事,处在不同的房间里。',
+    '不管这个孩子将来成为什么样的人,最后说话的应是他们,不是我们。',
+    '模拟器无法预见任何一个真实的星期二下午。'
+  ],
+  ja: [
+    '人は、予測された特性以上の存在である。',
+    '人をデータに還元しきることはできない。',
+    '「完璧」は文化が定めるものである。',
+    '思いがけない特性がしばしば強みになる。',
+    '性格特性の遺伝率はおよそ40〜50%。変動の大半は実際に生きた経験に由来する。',
+    '多様性は不具合ではない——それこそが本質だ。',
+    'ある特性の価値は、誰が、いつ、どこにいるかで変わる。',
+    '強みと弱みは、部屋が変われば同じものに見える。',
+    'この子が誰になるにせよ、最後に決めるのは私たちではなく、その子自身である。',
+    '模型には、現実のたった一日の火曜の午後すら予測できない。'
+  ],
+  ko: [
+    '사람은 예측된 특성 이상의 존재다.',
+    '한 사람은 데이터로 환원될 수 없다.',
+    "'완벽함'은 문화가 정한다.",
+    '예상치 못한 특성이 종종 강점이 된다.',
+    '성격 특성은 약 40~50%의 유전성을 보이며, 대부분의 차이는 실제 경험에서 비롯된다.',
+    '다양성은 결함이 아니라 핵심이다.',
+    '한 특성의 가치는 누가, 언제, 어디에 있는지에 달려 있다.',
+    '장점과 단점은 방을 바꾸면 같은 것이 된다.',
+    '이 아이가 어떤 사람이 되든, 마지막 말은 우리가 아닌 그 아이의 몫이다.',
+    '시뮬레이터는 단 한 번의 실제 화요일 오후도 예측하지 못한다.'
+  ],
+  tr: [
+    'İnsanlar, öngörülen özelliklerinden çok daha fazlasıdır.',
+    'Bir insan, veriye tam olarak indirgenemez.',
+    'Mükemmellik kültürel olarak tanımlanır.',
+    'Beklenmedik özellikler çoğu zaman güce dönüşür.',
+    "Kişilik özelliklerinin kalıtsallığı kabaca %40-50'dir; farklılığın çoğu yaşanmış deneyimden gelir.",
+    'Çeşitlilik bir arıza değildir — özelliğin ta kendisidir.',
+    'Bir özelliğin değeri kime, ne zaman ve nerede sorularına bağlıdır.',
+    'Güçlü ve zayıf yönler, farklı odalardaki aynı şeydir.',
+    'Bu çocuk kim olursa olsun, son söz bizde değil onda olmalı.',
+    'Bir simülatör, gerçek bir salı öğleden sonrasını bile öngöremez.'
+  ]
+};
 
-const NATURAL_VARIATION_MESSAGES = [
-  'Human diversity preserved.',
-  'Unpredictability is part of humanity.',
-  'Not every trait needs improvement.',
-  'Difference is information, not error.',
-  'Nature did not consult the optimization handbook.'
-];
+const NATURAL_VARIATION_MESSAGES = {
+  en: [
+    'Human diversity preserved.',
+    'Unpredictability is part of humanity.',
+    'Not every trait needs improvement.',
+    'Difference is information, not error.',
+    'Nature did not consult the optimization handbook.'
+  ],
+  zh: [
+    '已保留人类多样性。',
+    '不可预测性是人性的一部分。',
+    '并非每一项特征都需要"改善"。',
+    '差异是信息,不是错误。',
+    '自然从未参考过那本"优化手册"。'
+  ],
+  ja: [
+    '人間の多様性を保持しました。',
+    '予測不可能性こそ人間性の一部である。',
+    'すべての特性に「改善」が必要というわけではない。',
+    '違いは情報であって、誤りではない。',
+    '自然は、最適化のマニュアルを参照したことがない。'
+  ],
+  ko: [
+    '인간의 다양성이 보존됨.',
+    '예측 불가능함은 인간성의 일부다.',
+    '모든 특성에 개선이 필요한 것은 아니다.',
+    '차이는 정보이지 오류가 아니다.',
+    '자연은 최적화 매뉴얼을 들춰본 적이 없다.'
+  ],
+  tr: [
+    'İnsan çeşitliliği korundu.',
+    'Öngörülemezlik, insanlığın bir parçasıdır.',
+    'Her özelliğin iyileştirilmesi gerekmez.',
+    'Fark, hata değil bilgidir.',
+    'Doğa, optimizasyon el kitabını hiç açıp bakmadı.'
+  ]
+};
 
 /* ---------- News Headlines ---------- */
 
@@ -2980,18 +3061,68 @@ function ageBucket(age) {
   return 'later';
 }
 
-const CLINICAL_REMINDERS = [
-  'Behavioral outcomes remain difficult to model reliably.',
-  'Strong environmental influence expected.',
-  'Long-term personality outcomes show high developmental variance.',
-  'Current ethical regulations vary globally.',
-  'Phenotypic outcomes are more predictable than behavioral.',
-  'Polygenic traits exhibit significant individual variation.',
-  'Confidence levels decrease over developmental time.',
-  'Cognitive optimization remains a regulatory grey area.',
-  'Trait stability estimates degrade past adolescence.',
-  'Cohort-level outcomes do not predict individual trajectories.'
-];
+const CLINICAL_REMINDERS = {
+  en: [
+    'Behavioral outcomes remain difficult to model reliably.',
+    'Strong environmental influence expected.',
+    'Long-term personality outcomes show high developmental variance.',
+    'Current ethical regulations vary globally.',
+    'Phenotypic outcomes are more predictable than behavioral.',
+    'Polygenic traits exhibit significant individual variation.',
+    'Confidence levels decrease over developmental time.',
+    'Cognitive optimization remains a regulatory grey area.',
+    'Trait stability estimates degrade past adolescence.',
+    'Cohort-level outcomes do not predict individual trajectories.'
+  ],
+  zh: [
+    '行为结果仍难以建立可靠模型。',
+    '预计环境因素影响显著。',
+    '长期人格结果显示出较大的发育期变异。',
+    '当前各地的伦理监管标准不一。',
+    '表型结果较行为结果更易预测。',
+    '多基因特征显示出显著的个体差异。',
+    '置信度随发育时间下降。',
+    '认知优化仍处于监管的灰色地带。',
+    '青春期之后,特征稳定性的估计值会减弱。',
+    '群组水平的结果不能预测个体轨迹。'
+  ],
+  ja: [
+    '行動上の結果を信頼性高くモデル化することは依然として困難である。',
+    '環境要因の強い影響が見込まれる。',
+    '長期的な性格的帰結には、発達段階による大きな変動が見られる。',
+    '現行の倫理規制は地域によって異なる。',
+    '表現型は行動よりも予測しやすい。',
+    '多遺伝子特性には個人差が大きい。',
+    '信頼度は発達時間が進むにつれて低下する。',
+    '認知的最適化は依然として規制上のグレーゾーンに位置する。',
+    '特性の安定性に関する推定値は、思春期以降に劣化する。',
+    '集団レベルの帰結は、個人の軌跡を予測しない。'
+  ],
+  ko: [
+    '행동적 결과는 여전히 안정적으로 모형화하기 어렵다.',
+    '환경 영향이 크게 작용할 것으로 예상됨.',
+    '장기적 성격 결과는 발달 과정에서 큰 분산을 보인다.',
+    '현재의 윤리 규제는 국가별로 상이하다.',
+    '표현형 결과는 행동적 결과보다 예측 가능성이 높다.',
+    '다인성(다유전자) 특성은 상당한 개인 간 변이를 보인다.',
+    '신뢰 수준은 발달 시간이 지날수록 감소한다.',
+    '인지적 최적화는 여전히 규제의 회색 지대에 있다.',
+    '특성 안정성 추정값은 청소년기를 지나면서 약화된다.',
+    '코호트 수준의 결과는 개인의 궤적을 예측하지 못한다.'
+  ],
+  tr: [
+    'Davranışsal çıktıların güvenilir biçimde modellenmesi hâlâ zordur.',
+    'Güçlü çevresel etki beklenmektedir.',
+    'Uzun vadeli kişilik çıktıları, yüksek gelişimsel varyans gösterir.',
+    'Mevcut etik düzenlemeler ülkeden ülkeye değişiklik göstermektedir.',
+    'Fenotipik çıktılar, davranışsal olanlara göre daha öngörülebilirdir.',
+    'Poligenik özellikler önemli bireysel farklılıklar gösterir.',
+    'Güven düzeyleri, gelişim süresi içinde azalır.',
+    'Bilişsel optimizasyon, hâlâ düzenleyici bir gri alandır.',
+    'Özellik kararlılığı tahminleri, ergenliğin ötesinde bozulur.',
+    'Kohort düzeyindeki çıktılar, bireysel yörüngeleri öngöremez.'
+  ]
+};
 
 const TRAIT_CONFLICTS_CLINICAL = [
   { when: b => b.openness >= 8 && b.conscientiousness <= 4,
@@ -3610,12 +3741,39 @@ const KIDS_REFLECTION_PROMPTS = [
   'Can two best friends be very different from each other? Why?'
 ];
 
-const KIDS_HUMANITY_REMINDERS = [
-  'People grow and change in ways no one can predict.',
-  'Every kid knows one thing nobody else in the room knows.',
-  'Diversity makes the world more interesting.',
-  'You are more than your traits — you are a whole story.'
-];
+// LOOP_REQUEST(translator): EN[1] was rewritten in R6 to drop the "amazing inside them" platitude; zh/ja/ko/tr below still carry the old line.
+const KIDS_HUMANITY_REMINDERS = {
+  en: [
+    'People grow and change in ways no one can predict.',
+    'Every kid knows one thing nobody else in the room knows.',
+    'Diversity makes the world more interesting.',
+    'You are more than your traits — you are a whole story.'
+  ],
+  zh: [
+    '人会以谁都无法预料的方式成长和改变。',
+    '每个人心里都有一种了不起的东西。',
+    '多样性让世界更有意思。',
+    '你不只是那些特征——你是一个完整的故事。'
+  ],
+  ja: [
+    '人は、誰にも予測できないかたちで成長し、変わっていく。',
+    '誰の中にも、すごいものが宿っている。',
+    'ちがいがあるから、世界はおもしろい。',
+    'あなたは特徴の寄せ集めではない——一つの物語そのものだ。'
+  ],
+  ko: [
+    '사람은 누구도 예측할 수 없는 방식으로 자라고 변한다.',
+    '누구에게나 안에 멋진 무언가가 있어요.',
+    '다양성이 세상을 더 흥미롭게 만들어요.',
+    '너는 특성들의 합이 아니에요 — 하나의 온전한 이야기예요.'
+  ],
+  tr: [
+    'İnsanlar, kimsenin tahmin edemediği şekillerde büyür ve değişir.',
+    'Herkesin içinde harika bir şey vardır.',
+    'Çeşitlilik, dünyayı daha ilginç kılar.',
+    'Sen özelliklerinin toplamından çok daha fazlasısın — koca bir hikâyesin.'
+  ]
+};
 
 /* ---------- Seeded randomness ---------- */
 // Tiny deterministic hash → uint32. Same string in, same value out.
