@@ -3333,18 +3333,24 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
 /* R17rev: tighten padding/margin to match .burden-disclaimer family
    (defer outer spacing to flex-gap on .budget-projections); bump font to
    13.5px for clearer CTA hierarchy; switch to --ink @ 0.7 so low-vision
-   mobile users get sufficient contrast vs. the prior --ink-soft token. */
+   mobile users get sufficient contrast vs. the prior --ink-soft token.
+   R18rev: placeholder is the default first-render state, not a CTA — so
+   re-harmonize with the .burden-disclaimer scale (11px) and add a 2px
+   left border in the panel's cool/cyan accent to frame it as an
+   affordance slot rather than a data row. Padding-left holds at 10px to
+   align with the disclaimer's text inset. */
 .budget-projections .projection-gated-placeholder,
 .projection-gated-placeholder {
   margin: 0;
-  padding: 4px 10px;
-  font-size: 13.5px;
+  padding: 4px 10px 4px 10px;
+  font-size: 11px;
   font-style: italic;
   line-height: 1.5;
   text-align: center;
   color: var(--ink);
   opacity: 0.7;
   letter-spacing: 0.3px;
+  border-left: 2px solid rgba(126, 224, 255, 0.22);
 }
 /* R18 verification: placeholder is a single <dt> rendered inside
    .baby-stats (a 2-column `auto 1fr` grid). Without column-span, the
