@@ -326,12 +326,13 @@
     <p class="meta" data-i18n="about.meta">Fictional simulation. Not medical or genetic advice. Current ethical regulations vary globally.</p>
   </div>
 
+  <script src="about-i18n.js"></script>
   <script>
   // Standalone i18n for about.html — same localStorage key as the main app
   // (babyblend.language.v1) so language choice persists across pages.
   (function () {
     const KEY = 'babyblend.language.v1';
-    const STR = window.__ABOUT_I18N || {};
+    const STR = window.__ABOUT_I18N || { en: {} };
     function getLang() {
       try { return localStorage.getItem(KEY) || 'en'; } catch { return 'en'; }
     }
@@ -359,20 +360,6 @@
       sel.addEventListener('change', () => { setLang(sel.value); apply(); });
     }
     apply();
-  })();
-  </script>
-  <script src="about-i18n.js"></script>
-  <script>
-  // Re-apply once about-i18n.js has loaded and exposed window.__ABOUT_I18N.
-  (function () {
-    function reapply() {
-      document.querySelectorAll('[data-i18n], [data-i18n-html]').forEach(()=>{});
-      const sel = document.getElementById('about-lang-select');
-      const event = new Event('change', { bubbles: true });
-      if (sel) sel.dispatchEvent(event);
-    }
-    if (document.readyState === 'complete') reapply();
-    else window.addEventListener('load', reapply);
   })();
   </script>
 </body>

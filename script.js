@@ -124,6 +124,7 @@ const STRINGS = {
     'intro.culture.cite2': 'Rajanala, Maymone & Vashi, <em>JAMA Facial Plastic Surgery</em>, 2018.',
     'intro.culture.cite3': 'Veale et al., systematic review, <em>Body Image</em>, 2016.',
     'intro.culture.cite4': 'Baylis, Darnovsky, Hasson & Krahn, <em>The CRISPR Journal</em>, 2020.',
+    'app.title': 'BabyBlend Lab — A fictional genetics-inspired simulator',
     'app.tagline': 'A fictional genetics-inspired simulator',
     'app.disclaimer': 'Educational speculation. Not medical, genetic, or clinical advice.',
     'mode.reflection': 'Reflection',
@@ -323,6 +324,7 @@ const STRINGS = {
     'intro.culture.cite2': 'Rajanala、Maymone 与 Vashi,《JAMA Facial Plastic Surgery》,2018 年。',
     'intro.culture.cite3': 'Veale 等,系统综述,《Body Image》,2016 年。',
     'intro.culture.cite4': 'Baylis、Darnovsky、Hasson 与 Krahn,《CRISPR Journal》,2020 年。',
+    'app.title': 'BabyBlend Lab — 一款受遗传学启发的虚构模拟器',
     'app.tagline': '一款受遗传学启发的虚构模拟器',
     'app.disclaimer': '教育性的推演。并非医疗、遗传或临床建议。',
     'mode.reflection': '沉思',
@@ -492,6 +494,7 @@ const STRINGS = {
     'intro.culture.cite2': 'Rajanala、Maymone、Vashi、<em>JAMA Facial Plastic Surgery</em>、2018年。',
     'intro.culture.cite3': 'Veale ほか、系統的レビュー、<em>Body Image</em>、2016年。',
     'intro.culture.cite4': 'Baylis、Darnovsky、Hasson、Krahn、<em>The CRISPR Journal</em>、2020年。',
+    'app.title': 'BabyBlend Lab — 遺伝学にインスパイアされた架空のシミュレーター',
     'app.tagline': '遺伝学にインスパイアされた架空のシミュレーター',
     'app.disclaimer': '教育目的の推測的シミュレーション。医療・遺伝・臨床上の助言ではありません。',
     'mode.reflection': '内省',
@@ -661,6 +664,7 @@ const STRINGS = {
     'intro.culture.cite2': 'Rajanala, Maymone와 Vashi, <em>JAMA Facial Plastic Surgery</em>, 2018년.',
     'intro.culture.cite3': 'Veale 외, 체계적 고찰, <em>Body Image</em>, 2016년.',
     'intro.culture.cite4': 'Baylis, Darnovsky, Hasson와 Krahn, <em>The CRISPR Journal</em>, 2020년.',
+    'app.title': 'BabyBlend Lab — 유전학에서 영감을 받은 가상의 시뮬레이터',
     'app.tagline': '유전학에서 영감을 받은 가상의 시뮬레이터',
     'app.disclaimer': '교육 목적의 사고 실험. 의료·유전·임상 자문이 아닙니다.',
     'mode.reflection': '성찰',
@@ -830,6 +834,7 @@ const STRINGS = {
     'intro.culture.cite2': 'Rajanala, Maymone ve Vashi, <em>JAMA Facial Plastic Surgery</em>, 2018.',
     'intro.culture.cite3': 'Veale ve diğ., sistematik derleme, <em>Body Image</em>, 2016.',
     'intro.culture.cite4': 'Baylis, Darnovsky, Hasson ve Krahn, <em>The CRISPR Journal</em>, 2020.',
+    'app.title': 'BabyBlend Lab — Genetikten esinlenmiş kurgusal bir simülatör',
     'app.tagline': 'Genetikten esinlenmiş kurgusal bir simülatör',
     'app.disclaimer': 'Eğitim amaçlı spekülasyon. Tıbbi, genetik veya klinik tavsiye değildir.',
     'mode.reflection': 'Düşünüm',
@@ -921,6 +926,12 @@ function t(key) {
 }
 
 function applyTranslations() {
+  // Update <html lang> so the browser, screen readers, and search engines
+  // see the active language — required for accurate hyphenation/voice.
+  const lang = (typeof state !== 'undefined' && state.language) ? state.language : 'en';
+  if (document.documentElement) document.documentElement.lang = lang;
+  // [data-i18n] covers <title> too — the title tag accepts textContent —
+  // so swapping the tab title comes free once the title has its key.
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t(el.dataset.i18n);
   });
