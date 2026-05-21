@@ -4751,70 +4751,324 @@ const KIDS_NEWS_HEADLINES = {
  * surprising ways. Warm, specific, age-appropriate. Not babyish; not
  * preachy. The thesis is wonder, not measurement.
  */
-const KIDS_LOVES = [
-  'A specific kind of rock they keep finding.',
-  'The way the kitchen sounds in the morning.',
-  'One imaginary friend whose name they will not change.',
-  'A particular song from a movie they saw twice.',
-  'Reading the same book seven times.',
-  'Climbing things that are technically not for climbing.',
-  'Drawing the same animal over and over.',
-  'A secret hiding place behind the couch.',
-  'The exact way their best friend laughs.',
-  'A blanket that does not look special to anyone else.',
-  'Spinning until they fall over.',
-  'A specific knock-knock joke they invented.',
-  'The way leaves crunch in autumn.',
-  'A cousin or cousin-figure they admire.',
-  'Stickers — categorically, all stickers.',
-  'A bug they call by a name they made up.',
-  'Falling asleep with a book on their chest.',
-  'One specific dinosaur they have fully memorized.',
-  'The smell of a certain pencil eraser.',
-  'A treehouse, or wanting one very seriously.'
-];
+const KIDS_LOVES = {
+  en: [
+    'A specific kind of rock they keep finding.',
+    'The way the kitchen sounds in the morning.',
+    'One imaginary friend whose name they will not change.',
+    'A particular song from a movie they saw twice.',
+    'Reading the same book seven times.',
+    'Climbing things that are technically not for climbing.',
+    'Drawing the same animal over and over.',
+    'A secret hiding place behind the couch.',
+    'The exact way their best friend laughs.',
+    'A blanket that does not look special to anyone else.',
+    'Spinning until they fall over.',
+    'A specific knock-knock joke they invented.',
+    'The way leaves crunch in autumn.',
+    'A cousin or cousin-figure they admire.',
+    'Stickers — categorically, all stickers.',
+    'A bug they call by a name they made up.',
+    'Falling asleep with a book on their chest.',
+    'One specific dinosaur they have fully memorized.',
+    'The smell of a certain pencil eraser.',
+    'A treehouse, or wanting one very seriously.'
+  ],
+  zh: [
+    '一种他们总是不停发现的特定石头。',
+    '早晨厨房里那种声音。',
+    '一个想象中的朋友,名字永远不肯改。',
+    '一部他们只看过两遍的电影里的某一首歌。',
+    '把同一本书读七遍。',
+    '爬上那些"严格来说不是用来爬"的东西。',
+    '一遍又一遍地画同一只动物。',
+    '沙发后面一个秘密的藏身之处。',
+    '最好的朋友笑起来,那种独特的样子。',
+    '一条在别人眼里毫不特别的小毯子。',
+    '一直转圈,转到自己摔倒。',
+    '一个他们自己编出来的"叩叩门"小笑话。',
+    '秋天踩在落叶上时,那种"咔嚓咔嚓"的感觉。',
+    '一位他们仰慕的表亲、或类似表亲的人。',
+    '贴纸——所有贴纸,统统都喜欢。',
+    '一只他们用自创名字称呼的虫子。',
+    '抱着一本书,睡着在自己胸口上。',
+    '一种他们能完全背出来的恐龙。',
+    '某种铅笔橡皮独有的味道。',
+    '一座树屋——或者非常认真地"想要一座树屋"。'
+  ],
+  ja: [
+    '何度も見つけてしまう、ある特定の種類の石。',
+    '朝のだいどころから聞こえてくる、ある音の感じ。',
+    '名前を決して変えないと決めている、空想の中の友だち。',
+    '二度しか観ていない映画に出てくる、特別な一曲。',
+    '同じ本を七回くりかえし読む。',
+    '厳密には登るためのものでない場所に登ること。',
+    '同じ動物を、何度も何度も描き続けること。',
+    'ソファのうしろにある、ふたりだけのかくれ場所。',
+    '親友のあの笑い方、そっくりそのまま。',
+    '他の人にはなんでもないように見える、お気に入りの一枚のブランケット。',
+    'ぐるぐる回って、転んでしまうまで回ること。',
+    '自分で考えた、ある「ノックノック・ジョーク」。',
+    '秋に落ち葉を踏んだときの、あのカサカサした音。',
+    'あこがれている、いとこやいとこのような存在の人。',
+    'シール——とにかく、シールというカテゴリ全部。',
+    '自分でつけた名前で呼んでいる虫。',
+    '胸の上に本を乗せたまま、眠ってしまうこと。',
+    '完全に頭に入っている、ある一頭の恐竜。',
+    'ある特定の鉛筆消しゴムの、あのにおい。',
+    'ツリーハウス。あるいは、本気で「ほしい」と願う気持ちのほう。'
+  ],
+  ko: [
+    '자꾸만 또 만나게 되는 특정한 종류의 돌멩이.',
+    '아침마다 부엌에서 들리는 그 소리.',
+    '절대 이름을 바꾸지 않을 상상 속 친구 한 명.',
+    '단 두 번 본 영화 속의 그 특별한 노래.',
+    '같은 책을 일곱 번 읽는 일.',
+    '사실은 올라가면 안 되는 것들에 올라가기.',
+    '같은 동물을 자꾸자꾸 그리는 일.',
+    '소파 뒤에 있는 비밀스러운 숨을 곳.',
+    '가장 친한 친구의 그 웃음, 그대로.',
+    '다른 사람 눈에는 전혀 특별해 보이지 않는 담요 한 장.',
+    '빙글빙글 돌다가 쓰러질 때까지.',
+    '스스로 만들어낸 똑똑똑(knock-knock) 농담 하나.',
+    '가을, 낙엽을 밟을 때 나는 그 바스락 소리.',
+    '동경하는 사촌, 혹은 사촌 같은 누군가.',
+    '스티커 — 종류 불문, 모든 스티커.',
+    '자기 마음대로 붙인 이름으로 부르는 곤충 한 마리.',
+    '책 한 권을 가슴에 올려두고 잠드는 일.',
+    '완전히 외워버린 특정 공룡 한 마리.',
+    '어떤 연필 지우개 특유의 그 냄새.',
+    '트리하우스, 혹은 그것을 무척이나 진지하게 갖고 싶어 하는 마음.'
+  ],
+  tr: [
+    'Sürekli buldukları belirli bir taş türü.',
+    'Sabahları mutfağın çıkardığı o ses.',
+    'Adını asla değiştirmeyecekleri bir hayali arkadaş.',
+    'Yalnızca iki kere izledikleri bir filmdeki şu özel şarkı.',
+    'Aynı kitabı yedi kez okumak.',
+    'Aslında üstüne çıkılmamak gereken şeylere tırmanmak.',
+    'Aynı hayvanı tekrar tekrar çizmek.',
+    'Koltuğun arkasındaki gizli bir saklanma yeri.',
+    'En iyi arkadaşlarının tam o gülüş şekli.',
+    'Başka kimseye özel görünmeyen bir battaniye.',
+    'Düşene kadar etrafında dönmek.',
+    'Kendi uydurdukları belirli bir "tak tak" şakası.',
+    'Sonbaharda yaprakların ayak altında çıtırdama sesi.',
+    'Hayran oldukları bir kuzen ya da kuzen gibi biri.',
+    'Çıkartmalar — kategorik olarak, her türden çıkartma.',
+    'Kendi uydurdukları bir adla seslendikleri bir böcek.',
+    'Göğsünde bir kitapla uykuya dalmak.',
+    'Tüm ayrıntılarıyla ezberledikleri bir dinozor.',
+    'Belirli bir kurşunkalem silgisinin kokusu.',
+    'Bir ağaç ev — ya da bir ağaç evi çok ciddi biçimde istemek.'
+  ]
+};
 
-const KIDS_QUESTIONS_FOR_THEM = [
-  'What is the best smell you can think of?',
-  'Have you ever made up a word that you use a lot?',
-  'If you could have any pet that does not exist, what would it be?',
-  'What is the weirdest dream you remember?',
-  'If your shadow had a name, what would it be?',
-  'What is a song you know every word of?',
-  'Have you ever made up a name for something you saw outside?',
-  'What is something you used to believe was real?',
-  'What sound makes you happy for no reason?',
-  'What is the bravest thing you have done that nobody noticed?',
-  'If you could trade places with someone for a day, who?',
-  'What is a color you cannot describe to a grown-up?',
-  'What does your laugh sound like to YOU?',
-  'What is the best thing about being your age right now?',
-  'What is a memory that feels like a movie?',
-  'If you could keep one thing you have ever made or found, what would it be?',
-  'What is a question you would ask a cloud?',
-  'Have you ever met a stranger you wanted to be friends with?'
-];
+const KIDS_QUESTIONS_FOR_THEM = {
+  en: [
+    'What is the best smell you can think of?',
+    'Have you ever made up a word that you use a lot?',
+    'If you could have any pet that does not exist, what would it be?',
+    'What is the weirdest dream you remember?',
+    'If your shadow had a name, what would it be?',
+    'What is a song you know every word of?',
+    'Have you ever made up a name for something you saw outside?',
+    'What is something you used to believe was real?',
+    'What sound makes you happy for no reason?',
+    'What is the bravest thing you have done that nobody noticed?',
+    'If you could trade places with someone for a day, who?',
+    'What is a color you cannot describe to a grown-up?',
+    'What does your laugh sound like to YOU?',
+    'What is the best thing about being your age right now?',
+    'What is a memory that feels like a movie?',
+    'If you could keep one thing you have ever made or found, what would it be?',
+    'What is a question you would ask a cloud?',
+    'Have you ever met a stranger you wanted to be friends with?'
+  ],
+  zh: [
+    '你能想到的最好闻的气味是什么?',
+    '你有没有自创过一个常常用的词?',
+    '如果你能养一只世界上不存在的宠物,你会养什么?',
+    '你记得的最奇怪的梦是什么样的?',
+    '如果你的影子有名字,会叫什么?',
+    '有没有一首你能完整唱出每一个字的歌?',
+    '你有没有给外面看到的某样东西,自己起过一个名字?',
+    '你以前曾经相信"是真的"的某件事是什么?',
+    '有没有哪种声音,你听到就莫名其妙地开心?',
+    '你做过的、却没人注意到的最勇敢的一件事是什么?',
+    '如果可以和某个人交换一天身份,你会选谁?',
+    '有没有一种颜色,是你跟大人怎么也说不清楚的?',
+    '在你自己听来,自己的笑声是什么样的?',
+    '处在你现在这个年龄,最棒的事情是什么?',
+    '哪一段回忆,在你脑海里像一部小电影?',
+    '如果只能留下一件你做过或捡到过的东西,你会留哪一件?',
+    '如果可以向云朵问一个问题,你会问什么?',
+    '你有没有遇见过一个陌生人,让你很想和他/她成为朋友?'
+  ],
+  ja: [
+    '思いつくかぎりで、いちばんいいにおいは何?',
+    '自分でつくって、よく口にしている言葉ってある?',
+    'この世にいないペットを一匹だけ飼えるとしたら、何にする?',
+    '覚えているなかで、いちばん不思議な夢ってどんなだった?',
+    'もし自分のかげに名前があったら、なんてつける?',
+    '歌詞をぜんぶ歌える曲って、なにかある?',
+    '外で見たものに、自分だけの名前をつけたことってある?',
+    'かつて「本当だ」って信じていたことって、なに?',
+    '理由なんてないのに、聞くと嬉しくなる音って、なに?',
+    '誰にも気づかれなかったけど、いちばん勇気を出した出来事ってなに?',
+    '一日だけ誰かと入れかわれるとしたら、誰にする?',
+    '大人にうまく言葉で説明できない色って、なにかある?',
+    '自分の耳で聞くと、自分の笑い声ってどんな感じ?',
+    'いま、その歳でいることのいちばん楽しいことって、なに?',
+    '映画みたいに残っている思い出って、どれ?',
+    '自分で作ったり拾ったりしたなかで、ひとつだけ取っておけるなら、なに?',
+    'もし雲に質問できるとしたら、なにを聞く?',
+    '友だちになりたいと思った、知らない人と出会ったことってある?'
+  ],
+  ko: [
+    '떠올릴 수 있는 가장 좋은 냄새는 뭐예요?',
+    '자기가 만들어서 자주 쓰는 단어가 있어요?',
+    '세상에 없는 어떤 동물이든 키울 수 있다면, 어떤 동물을 키울래요?',
+    '기억나는 꿈 중에서 가장 이상했던 건 어떤 거였어요?',
+    '만약 그림자에게 이름이 있다면, 뭐라고 부를래요?',
+    '가사를 한 줄도 빠짐없이 다 아는 노래가 있어요?',
+    '밖에서 본 어떤 것에 자기만의 이름을 붙여 준 적 있어요?',
+    '한때 진짜라고 굳게 믿었던 게 뭐였어요?',
+    '별 이유 없이 들으면 그냥 기분이 좋아지는 소리는 뭐예요?',
+    '아무도 알아봐 주지 않았지만, 가장 용감했던 일은 뭐였어요?',
+    '하루만 누군가와 자리를 바꿀 수 있다면, 누구랑 바꿀래요?',
+    '어른에게 말로는 설명이 잘 안 되는 색깔이 있어요?',
+    '자기 귀에 자기 웃음소리는 어떻게 들려요?',
+    '지금 이 나이에서 가장 좋은 점은 뭐예요?',
+    '영화 한 편처럼 기억에 남는 추억은 뭐예요?',
+    '자기가 만들었거나 주워온 것 중에 딱 하나만 간직할 수 있다면, 뭘 고를래요?',
+    '구름에게 무언가 묻는다면, 어떤 질문을 할래요?',
+    '한 번 보고도 친구가 되고 싶어진 낯선 사람이 있어요?'
+  ],
+  tr: [
+    'Aklına gelen en güzel koku hangisi?',
+    'Sık kullandığın, kendi uydurduğun bir kelime var mı?',
+    'Var olmayan bir hayvanı evde besleyebilseydin hangisini seçerdin?',
+    'Hatırladığın en tuhaf rüya hangisi?',
+    'Gölgenin bir adı olsaydı ne olurdu?',
+    'Tüm sözlerini ezbere bildiğin bir şarkı var mı?',
+    'Dışarıda gördüğün bir şeye kendin bir ad uydurduğun oldu mu?',
+    'Eskiden gerçek olduğuna inandığın bir şey ne?',
+    'Sebepsiz yere mutlu eden bir ses var mı?',
+    'Yaptığın ama kimsenin fark etmediği en cesur şey neydi?',
+    'Bir günlüğüne biriyle yer değiştirebilseydin, kim olurdu?',
+    'Bir yetişkine asla anlatamadığın bir renk var mı?',
+    'Kendi gülüşün sana nasıl geliyor?',
+    'Şu an bulunduğun yaşın en güzel yanı ne?',
+    'Sanki bir film gibi hatırladığın bir anın var mı?',
+    'Yaptığın ya da bulduğun şeylerden yalnızca birini saklayabilsen, hangisi olurdu?',
+    'Bir buluta soracak olsan, hangi soruyu sorardın?',
+    'Hiç tanışmadığın biriyle arkadaş olmayı istediğin oldu mu?'
+  ]
+};
 
-const KIDS_DIFFERENCES = [
-  'Might be the only kid in their class who knows where the moon is right now.',
-  'Might think about one specific topic for the rest of their life.',
-  'Might be the first person in their family to live somewhere far away.',
-  'Might keep a notebook nobody else ever reads.',
-  'Might invent a game that becomes a family tradition.',
-  'Might tell a joke that becomes their whole personality for a year.',
-  'Might be the friend everybody\'s parents like.',
-  'Might be the kid who knows the most about an animal nobody else cares about.',
-  'Might fall in love with one sport and only that sport.',
-  'Might have a recurring dream that becomes a song.',
-  'Might write a story at 8 and finish it at 28.',
-  'Might be the loudest kid in their family or the quietest.',
-  'Might forgive someone faster than anyone expects.',
-  'Might be famous in their neighborhood for one specific thing.',
-  'Might know a grandparent\'s favorite song by heart.',
-  'Might be braver than everyone around them in one specific moment.',
-  'Might learn a second language at a friend\'s house.',
-  'Might invent a snack their whole school copies for a week.'
-];
+const KIDS_DIFFERENCES = {
+  en: [
+    'Might be the only kid in their class who knows where the moon is right now.',
+    'Might think about one specific topic for the rest of their life.',
+    'Might be the first person in their family to live somewhere far away.',
+    'Might keep a notebook nobody else ever reads.',
+    'Might invent a game that becomes a family tradition.',
+    'Might tell a joke that becomes their whole personality for a year.',
+    "Might be the friend everybody's parents like.",
+    'Might be the kid who knows the most about an animal nobody else cares about.',
+    'Might fall in love with one sport and only that sport.',
+    'Might have a recurring dream that becomes a song.',
+    'Might write a story at 8 and finish it at 28.',
+    'Might be the loudest kid in their family or the quietest.',
+    'Might forgive someone faster than anyone expects.',
+    'Might be famous in their neighborhood for one specific thing.',
+    "Might know a grandparent's favorite song by heart.",
+    'Might be braver than everyone around them in one specific moment.',
+    "Might learn a second language at a friend's house.",
+    'Might invent a snack their whole school copies for a week.'
+  ],
+  zh: [
+    '也许是全班唯一一个知道月亮"现在在哪里"的孩子。',
+    '也许会一辈子都在思考某一个特定的话题。',
+    '也许会是家里第一个搬到很远的地方生活的人。',
+    '也许会一直留着一本谁也没读过的笔记本。',
+    '也许会发明一个变成"家庭传统"的小游戏。',
+    '也许会讲一个笑话,接下来整整一年,他/她整个人就成了那个笑话。',
+    '也许会是那种"所有朋友的家长都喜欢"的朋友。',
+    '也许会成为对某种"没人在意"的动物了解最多的那个孩子。',
+    '也许会爱上某一项运动,而且只爱那一项。',
+    '也许会有一个反复出现的梦,后来变成了一首歌。',
+    '也许会 8 岁开始写一个故事,直到 28 岁才把它写完。',
+    '也许会是家里最吵闹的那个孩子,也可能是最安静的那个。',
+    '也许会比任何人预想的都更快地原谅一个人。',
+    '也许会因为某一件特定的事,在街坊邻里中"出名"。',
+    '也许会把祖辈最喜欢的那首歌,完整地记在心里。',
+    '也许会在某一个特定的瞬间,比身边所有人都更勇敢。',
+    '也许会在朋友家学会第二种语言。',
+    '也许会发明一种小零食,接下来一整周,全校都在跟着做。'
+  ],
+  ja: [
+    'クラスでただ一人、いま月がどこにいるかを知っている子になるかも。',
+    '一生のあいだ、ある一つのテーマについて考え続けるかも。',
+    '家族のなかで初めて、遠く離れた場所に暮らす人になるかも。',
+    '誰にも読まれることのないノートを、ずっとつけ続けるかも。',
+    '家族の伝統になっていく遊びを、自分で考えだすかも。',
+    '一年ぐらい、その人の「キャラ」そのものになっていくジョークを言うかも。',
+    '友だち全員のお父さんお母さんから好かれる、そんな友人になるかも。',
+    '誰も興味を示さない動物について、誰よりもくわしくなる子になるかも。',
+    '一つのスポーツだけを、本当に好きになるかも。',
+    '何度も見る夢が、いつしか歌になるかも。',
+    '八歳のときに書き始めた物語を、二十八歳でやっと書き終えるかも。',
+    '家族のなかでいちばんにぎやかな子になるかもしれないし、いちばん物静かな子になるかもしれない。',
+    '周りの想像よりずっと早く、誰かを許してしまうかも。',
+    'あるひとつのことで、ご近所のあいだでちょっと「有名な子」になるかも。',
+    'おじいちゃんやおばあちゃんの大好きな一曲を、しっかりと心に覚えるかも。',
+    'あるたった一つの場面で、周囲のだれよりも勇気を出すかも。',
+    '友だちの家で、もう一つの言語を覚えるようになるかも。',
+    '自分で考えたおやつを、一週間だけ学校じゅうがマネする、なんてことになるかも。'
+  ],
+  ko: [
+    '반에서 유일하게, 지금 달이 어디에 있는지 아는 아이가 될지도 몰라요.',
+    '평생 동안 어느 한 가지 주제만 끈질기게 생각하는 사람이 될 수도 있어요.',
+    '가족 중에서 가장 먼저 먼 곳에서 살아가는 사람이 될 수도 있어요.',
+    '누구도 읽지 않을 노트 한 권을 꾸준히 채워갈 수도 있어요.',
+    '가족 전통이 되는 놀이를 직접 만들어낼 수도 있어요.',
+    '일 년 내내 그 사람의 캐릭터가 되어버리는 농담을 던질 수도 있어요.',
+    '친구들 부모님 모두에게 사랑받는 그런 친구가 될 수도 있어요.',
+    '아무도 관심 없는 동물에 대해 누구보다 잘 아는 아이가 될 수 있어요.',
+    '단 한 가지 운동에만 푹 빠질 수도 있어요.',
+    '반복되는 꿈 하나가 훗날 노래로 태어날 수도 있어요.',
+    '여덟 살에 쓰기 시작한 이야기를 스물여덟에야 끝맺을 수도 있어요.',
+    '가족 안에서 가장 떠들썩한 아이가 될 수도, 가장 조용한 아이가 될 수도 있어요.',
+    '누구의 예상보다도 빠르게 누군가를 용서해 줄지도 몰라요.',
+    '동네에서 어떤 한 가지 일로 알아주는 아이가 될 수도 있어요.',
+    '할머니나 할아버지가 가장 좋아하던 노래를 마음 깊이 외울 수도 있어요.',
+    '어느 한 순간에는, 주위 누구보다도 용감해질 수 있어요.',
+    '친구네 집에서 두 번째 언어를 배우게 될 수도 있어요.',
+    '직접 만든 간식을 일주일 동안 학교 전체가 따라 만들지도 몰라요.'
+  ],
+  tr: [
+    'Sınıfta şu anda ayın nerede olduğunu bilen tek çocuk olabilir.',
+    'Hayatları boyunca tek bir konu üzerine düşünmeye devam edebilir.',
+    'Ailesinden uzak bir yerde yaşayan ilk kişi olabilir.',
+    'Hiç kimsenin okumadığı bir defter tutabilir.',
+    'Aile geleneğine dönüşen bir oyunu icat edebilir.',
+    'Bir yıl boyunca tüm karakterine dönüşen bir şaka anlatabilir.',
+    'Tüm arkadaşlarının ailelerinin sevdiği o arkadaş olabilir.',
+    'Kimsenin umursamadığı bir hayvan hakkında en çok şey bilen çocuk olabilir.',
+    'Tek bir spora vurulup yalnızca onu seven biri olabilir.',
+    'Tekrar tekrar gördükleri bir rüya, sonradan bir şarkıya dönüşebilir.',
+    'Sekiz yaşında başladığı bir hikâyeyi yirmi sekizinde bitirebilir.',
+    'Aileleri içinde en gürültücü çocuk da olabilir, en sessiz olan da.',
+    'Birini kimsenin beklemediği kadar çabuk affedebilir.',
+    'Mahallede tek bir şeyle tanınan kişi olabilir.',
+    'Bir büyükanne ya da büyükbabasının en sevdiği şarkıyı ezbere bilebilir.',
+    'Belirli bir anda etrafındaki herkesten daha cesur olabilir.',
+    'İkinci bir dili bir arkadaşının evinde öğrenebilir.',
+    'Bir hafta boyunca tüm okulun taklit ettiği bir atıştırmalık icat edebilir.'
+  ]
+};
 
 const KIDS_TRAIT_CONFLICTS = [
   {
@@ -5170,14 +5424,48 @@ const KIDS_ADULT_FUTURES = [
   } catch (e) { /* never block boot for an audit */ }
 })();
 
-const KIDS_REFLECTION_PROMPTS = [
-  'Should parents choose everything about a child?',
-  'What makes people unique?',
-  'Would the world be boring if everyone were the same?',
-  'What\'s something special about YOU that surprised your family?',
-  'What do you think every kid needs?',
-  'Can two best friends be very different from each other? Why?'
-];
+const KIDS_REFLECTION_PROMPTS = {
+  en: [
+    'Should parents choose everything about a child?',
+    'What makes people unique?',
+    'Would the world be boring if everyone were the same?',
+    "What's something special about YOU that surprised your family?",
+    'What do you think every kid needs?',
+    'Can two best friends be very different from each other? Why?'
+  ],
+  zh: [
+    '父母应该替孩子决定关于他/她的所有事情吗?',
+    '是什么让每个人都独一无二?',
+    '如果所有人都长得、想得一模一样,世界会变得无聊吗?',
+    '你身上有什么很特别的地方,曾经让家人感到惊喜?',
+    '你觉得每一个孩子,都需要什么?',
+    '两个最好的朋友,可以完全不一样吗?为什么?'
+  ],
+  ja: [
+    '親は、子どもについてのすべてを決めていいんだろう?',
+    '人を、ほかの誰でもない自分にしているものって、なに?',
+    'みんなが同じだったら、世界は退屈になるかな?',
+    'あなたのなかにある、家族をびっくりさせたとくべつなところって、なに?',
+    'どんな子にも、これだけはあったほうがいいって思うものって、なに?',
+    'なかよしどうしの二人は、ぜんぜん違っていてもいい?それはなぜだろう?'
+  ],
+  ko: [
+    '부모가 아이에 관한 모든 것을 정해도 괜찮은 걸까요?',
+    '사람을 저마다 다른 존재로 만들어 주는 건 뭘까요?',
+    '모두가 똑같다면, 세상은 지루해질까요?',
+    '가족을 놀라게 한, 당신만의 특별한 면이 있나요?',
+    '모든 아이에게 꼭 필요하다고 생각하는 것이 있나요?',
+    '가장 친한 두 친구가 서로 아주 다를 수 있을까요? 왜 그럴까요?'
+  ],
+  tr: [
+    'Anne-babalar bir çocuğa dair her şeye karar vermeli mi?',
+    'İnsanları biricik kılan şey nedir?',
+    'Herkes aynı olsaydı dünya sıkıcı olur muydu?',
+    'Sende olan ve aileni şaşırtan özel bir şey ne?',
+    'Sence her çocuğun ihtiyacı olan şey nedir?',
+    'İki yakın arkadaş birbirinden çok farklı olabilir mi? Neden?'
+  ]
+};
 
 const KIDS_HUMANITY_REMINDERS = {
   en: [
@@ -7962,7 +8250,7 @@ function renderKidsLoves() {
   if (!panel) return;
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-loves');
-  const picks = pickN(KIDS_LOVES, 4, rng);
+  const picks = pickN(localList(KIDS_LOVES), 4, rng);
   // R10 rev (UX MAJOR): set aria-labelledby + aria-describedby in JS so the
   // h2 + disclaimer ids land atomically with the section's accessible name —
   // previously static in HTML, but the targets only existed post-render,
@@ -7987,7 +8275,7 @@ function renderKidsQuestions() {
   if (!panel) return;
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-questions');
-  const picks = pickN(KIDS_QUESTIONS_FOR_THEM, 4, rng);
+  const picks = pickN(localList(KIDS_QUESTIONS_FOR_THEM), 4, rng);
   // R10 rev: see renderKidsLoves — aria-labelledby/describedby set on the
   // panel right after innerHTML so the heading + disclaimer ids exist in the
   // same render frame as the reference. CSS reveal stagger via data-stage.
@@ -8009,7 +8297,7 @@ function renderKidsDifferences() {
   if (!panel) return;
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-differences');
-  const picks = pickN(KIDS_DIFFERENCES, 4, rng);
+  const picks = pickN(localList(KIDS_DIFFERENCES), 4, rng);
   // R10 rev: see renderKidsLoves — aria-labelledby/describedby set on the
   // panel right after innerHTML so the heading + disclaimer ids exist in the
   // same render frame as the reference. CSS reveal stagger via data-stage.
