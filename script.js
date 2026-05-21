@@ -654,6 +654,9 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Parent panel ARIA labels
+  'Randomize Parent A': { zh: '随机化 父母 A', ja: '親 A をランダム化', ko: '부모 A 무작위화', tr: 'Ebeveyn A’yı rastgele yap' },
+  'Randomize Parent B': { zh: '随机化 父母 B', ja: '親 B をランダム化', ko: '부모 B 무작위화', tr: 'Ebeveyn B’yi rastgele yap' },
   // Adult case-file labels
   'Simulation Codename': { zh: '模拟代号', ja: 'シミュレーション・コードネーム', ko: '시뮬레이션 코드네임', tr: 'Simülasyon Kod Adı' },
   'Cohort': { zh: '群组', ja: 'コホート', ko: '코호트', tr: 'Kohort' },
@@ -6275,7 +6278,7 @@ function buildParentForms() {
     card.innerHTML = `
       <div class="parent-card-head">
         <h3>${localLabel('Parent ' + letter)}</h3>
-        <button type="button" class="parent-randomize-btn" data-parent="${letter}" aria-label="Randomize Parent ${letter}" title="Randomize Parent ${letter}">↻</button>
+        <button type="button" class="parent-randomize-btn" data-parent="${letter}" aria-label="${localLabel('Randomize Parent ' + letter)}" title="${localLabel('Randomize Parent ' + letter)}">↻</button>
       </div>`;
     // Advanced-traits disclosure: OCEAN sliders fold into a per-parent
     // <details> so the default view shows appearance-only inputs.
