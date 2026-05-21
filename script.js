@@ -1794,9 +1794,9 @@ const HUMANITY_REMINDERS = {
     'Perfection is culturally defined.',
     'Unexpected traits often become strengths.',
     'Personality traits show roughly 40-50% heritability; most variation traces to lived experience.',
-    'Variation is where unexpected combinations come from.',
-    'A trait\'s value depends on who, when, and where.',
-    'Strengths and weaknesses are the same thing in different rooms.',
+    'Different traits create unexpected advantages.',
+    'A strength with one person becomes a liability with another.',
+    'What looks weak in one room becomes essential in another.',
     'Whoever this child becomes, they get the last word — not us.',
     'A simulator cannot see the friend who will move away at fifteen, the surgery at thirty, the parent who needs care at fifty.'
   ],
@@ -1806,9 +1806,9 @@ const HUMANITY_REMINDERS = {
     '何谓"完美"由文化定义。',
     '出乎意料的特征往往成为优势。',
     '性格特征大约有 40–50% 的遗传性;大部分差异源于亲身经历。',
-    '意想不到的组合,正是从差异中来的。',
-    '一项特征的价值取决于"是谁、何时、何地"。',
-    '优点和缺点不过是同一件事,处在不同的房间里。',
+    '不同的特征带来意想不到的优势。',
+    '一个人身上的优点,到另一个人身上可能就是负担。',
+    '在一个房间里显得软弱的,在另一个房间里却不可或缺。',
     '不管这个孩子将来成为什么样的人,最后说话的应是他们,不是我们。',
     '模拟器看不见那位十五岁时将搬走的朋友、三十岁时的那场手术、五十岁时需要照顾的父母。'
   ],
@@ -1818,9 +1818,9 @@ const HUMANITY_REMINDERS = {
     '「完璧」は文化が定めるものである。',
     '思いがけない特性がしばしば強みになる。',
     '性格特性の遺伝率はおよそ40〜50%。変動の大半は実際に生きた経験に由来する。',
-    '思いがけない組み合わせは、ばらつきから生まれる。',
-    'ある特性の価値は、誰が、いつ、どこにいるかで変わる。',
-    '強みと弱みは、部屋が変われば同じものに見える。',
+    '異なる特性が、思いがけない強みを生む。',
+    'ある人にとっての強みが、別の人にとっては重荷になる。',
+    'ある部屋で弱く見えるものが、別の部屋では欠かせないものになる。',
     'この子が誰になるにせよ、最後に決めるのは私たちではなく、その子自身である。',
     '模型には見えない——十五歳で去っていく友、三十歳での手術、五十歳に介護を必要とする親。'
   ],
@@ -1830,9 +1830,9 @@ const HUMANITY_REMINDERS = {
     "'완벽함'은 문화가 정한다.",
     '예상치 못한 특성이 종종 강점이 된다.',
     '성격 특성은 약 40~50%의 유전성을 보이며, 대부분의 차이는 실제 경험에서 비롯된다.',
-    '예기치 못한 조합은 다양성에서 나온다.',
-    '한 특성의 가치는 누가, 언제, 어디에 있는지에 달려 있다.',
-    '장점과 단점은 방을 바꾸면 같은 것이 된다.',
+    '서로 다른 특성이 뜻밖의 강점을 만든다.',
+    '한 사람에게 강점인 것이 다른 사람에게는 부담이 된다.',
+    '한 방에서 약해 보이는 것이 다른 방에서는 꼭 필요한 것이 된다.',
     '이 아이가 어떤 사람이 되든, 마지막 말은 우리가 아닌 그 아이의 몫이다.',
     '시뮬레이터는 보지 못한다 — 열다섯에 떠나갈 친구도, 서른의 수술도, 쉰에 돌봄이 필요해질 부모도.'
   ],
@@ -1842,9 +1842,9 @@ const HUMANITY_REMINDERS = {
     'Mükemmellik kültürel olarak tanımlanır.',
     'Beklenmedik özellikler çoğu zaman güce dönüşür.',
     "Kişilik özelliklerinin kalıtsallığı kabaca %40-50'dir; farklılığın çoğu yaşanmış deneyimden gelir.",
-    'Beklenmedik birleşimler, çeşitlilikten doğar.',
-    'Bir özelliğin değeri kime, ne zaman ve nerede sorularına bağlıdır.',
-    'Güçlü ve zayıf yönler, farklı odalardaki aynı şeydir.',
+    'Farklı özellikler, beklenmedik avantajlar yaratır.',
+    'Bir insanda güç olan, başka birinde yük olur.',
+    'Bir odada zayıf görünen şey, başka bir odada vazgeçilmez olur.',
     'Bu çocuk kim olursa olsun, son söz bizde değil onda olmalı.',
     'Bir simülatör göremez — on beşinde gidecek arkadaşı, otuzundaki ameliyatı, ellisinde bakıma muhtaç olacak ebeveyni.'
   ]
@@ -1856,35 +1856,35 @@ const NATURAL_VARIATION_MESSAGES = {
     'Unpredictability is part of humanity.',
     'Not every trait needs improvement.',
     'Difference is information, not error.',
-    'Nature did not consult the optimization handbook.'
+    'Variation exists beyond any design template.'
   ],
   zh: [
     '已保留人类多样性。',
     '不可预测性是人性的一部分。',
     '并非每一项特征都需要"改善"。',
     '差异是信息,不是错误。',
-    '自然从未参考过那本"优化手册"。'
+    '差异存在于任何设计模板之外。'
   ],
   ja: [
     '人間の多様性を保持しました。',
     '予測不可能性こそ人間性の一部である。',
     'すべての特性に「改善」が必要というわけではない。',
     '違いは情報であって、誤りではない。',
-    '自然は、最適化のマニュアルを参照したことがない。'
+    'ばらつきは、いかなる設計図の外側にも存在する。'
   ],
   ko: [
     '인간의 다양성이 보존됨.',
     '예측 불가능함은 인간성의 일부다.',
     '모든 특성에 개선이 필요한 것은 아니다.',
     '차이는 정보이지 오류가 아니다.',
-    '자연은 최적화 매뉴얼을 들춰본 적이 없다.'
+    '다양성은 어떤 설계 도면 바깥에도 존재한다.'
   ],
   tr: [
     'İnsan çeşitliliği korundu.',
     'Öngörülemezlik, insanlığın bir parçasıdır.',
     'Her özelliğin iyileştirilmesi gerekmez.',
     'Fark, hata değil bilgidir.',
-    'Doğa, optimizasyon el kitabını hiç açıp bakmadı.'
+    'Çeşitlilik, her türlü tasarım şablonunun dışında da vardır.'
   ]
 };
 
