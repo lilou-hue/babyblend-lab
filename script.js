@@ -7972,7 +7972,7 @@ function renderSiblingCohort() {
   panel.innerHTML = `
     <header class="sibling-head">
       <h2>Sibling Cohort · Variance Distribution <span class="beta-tag">Beta</span></h2>
-      <p class="subtle">Five equally-probable outcomes from identical parental inputs and allocation. The variance IS the projection's confidence interval, rendered as people.</p>
+      <p class="subtle">Five plausible outcomes from identical parental inputs and allocation. The variance shows the uncertainty range of inheritance estimates — not behavioral probability.</p>
     </header>
     <div class="sibling-strip">${cards}</div>`;
   panel.hidden = false;
