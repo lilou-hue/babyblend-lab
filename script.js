@@ -4444,7 +4444,7 @@ function renderCaseFile() {
   host.dataset.lastCodename = state.codename;
   host.innerHTML = `
     <div class="case-row"><span class="case-label">Simulation Codename</span><span class="case-value">${state.codename}</span></div>
-    <div class="case-row"><span class="case-label">Cohort</span><span class="case-value">ENH-2042 / Class II</span></div>
+    <div class="case-row"><span class="case-label">Cohort</span><span class="case-value">ENH-2042</span></div>
     <div class="case-row"><span class="case-label">Profile</span><span class="case-value">v${profileV}</span></div>
     <div class="case-row"><span class="case-label">Generated</span><span class="case-value">${tsStr}</span></div>
     <div class="case-row"><span class="case-label">Optimization Intensity</span><span class="case-value case-tier">${tier}</span></div>
