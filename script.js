@@ -7402,6 +7402,13 @@ function generateBabyFlavor(codename, baby) {
   // Reserve ~25-40% of future picks (1 of 3) for conflict-tagged entries
   // when any conflict is active and matching content exists. Otherwise
   // fall back to the existing topTag-weighted selection.
+  //
+  // Tier-1 vs tier-2 mild weighting: identical, by design. Per axis-pair
+  // the bands are disjoint (see TRAIT_CONFLICT_RULES), so a baby holds at
+  // most one tag per pair — tier-1 and mild never compete for the same
+  // slot. Content pools are tag-keyed (OC-tension entries are distinct
+  // from OC-mild entries), so the reservation rate auto-matches register
+  // to the baby without an explicit tone gate here.
   const TOTAL_PATHS = 3;
   const reservedPaths = [];
   if (conflictTags.length) {
