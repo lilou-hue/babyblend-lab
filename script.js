@@ -654,6 +654,8 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Misc tooltip
+  'How does this work?': { zh: '这是怎么计算的?', ja: 'これはどう計算されているの?', ko: '이건 어떻게 작동하나요?', tr: 'Bu nasıl çalışıyor?' },
   // SVG ARIA labels
   'Avatar failed to load': { zh: '头像加载失败', ja: 'アバターの読み込みに失敗しました', ko: '아바타를 불러오지 못했습니다', tr: 'Avatar yüklenemedi' },
   'Predicted hobbies': { zh: '预测的爱好', ja: '予測される趣味', ko: '예측된 취미', tr: 'Öngörülen hobiler' },
@@ -6682,7 +6684,7 @@ function buildExplainerHTML(key) {
     : text;
   return `
     <button type="button" class="slider-explain" aria-expanded="false"
-            data-target="exp_${key}" title="How does this work?">?</button>
+            data-target="exp_${key}" title="${localLabel('How does this work?')}">?</button>
     <div class="slider-popover" id="exp_${key}">${body}</div>`;
 }
 
