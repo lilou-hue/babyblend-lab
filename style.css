@@ -5292,11 +5292,17 @@ body.app-kids .kids-only { display: revert; }
 .reflection-arc-closing {
   margin-top: 16px;
   font-size: 14.5px;
-  line-height: 1.55;
+  /* R16 rev (VISUAL DIRECTOR MAJOR): 1.55 → 1.5 to mirror .kids-arc-closing
+     rhythm exactly. The two closers now share one cadence — same size, same
+     leading — so Reflection's italic register reads as a tonal variant, not
+     a structurally different element.
+     R16 rev (VISUAL DIRECTOR POLISH): font-family removed — .pause-panel
+     parent already binds var(--reflection-serif) in Reflection mode; in
+     Adult mode the closer correctly falls through to the body face. */
+  line-height: 1.5;
   font-weight: 500;
   text-align: center;
   color: var(--ink);
-  font-family: var(--reflection-serif, inherit);
   font-style: italic;
 }
 
@@ -5383,6 +5389,25 @@ body.app-kids .kids-only { display: revert; }
   .details-toggle {
     min-height: 44px; min-width: 44px;
     display: inline-flex; align-items: center; justify-content: center;
+  }
+  /* R16 rev (MOBILE MAJOR): 14.5px italic affirmation crowds narrow viewports
+     and pushes the panel taller than it needs to be. Trim to ~13px and tuck
+     margin-top from 16 → 12 so the closer sits closer to the question
+     without losing its "centered breath" beat. Desktop sizing unchanged. */
+  .reflection-arc-closing {
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  /* R16 rev (MOBILE POLISH a11y): .pause-cant-see pills used 3×10 padding +
+     12.5px text → ~24px tall, well under WCAG 2.5.5 minimum. Tap targets
+     don't need to be tappable here (read-only chips), but consistent 44px
+     hit areas keep adjacent question/closer easy to scan and avoid
+     fat-finger overlap with the question block beneath. */
+  .pause-cant-see li {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
