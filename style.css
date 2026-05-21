@@ -3698,6 +3698,17 @@ body.mode-adult .alt-vibe {
   .reminder-banner,
   .history-content,
   .history-chevron { animation: none !important; transition: none !important; }
+
+  /* Atmospheric loops on key reveal screens — constellation pulses,
+     hobby-node bob, future-tree drift/pulse, and the band-breathe on
+     reflection-mode confidence bands. These were perpetual `infinite`
+     animations missing a guard. Stops motion without affecting layout. */
+  .trait-constellation .nodes .node circle,
+  .trait-constellation .links line,
+  .hobby-constellation .hobby-node circle,
+  .future-tree-svg .branch,
+  .future-tree-svg .leaf circle,
+  .slider-row .confidence-band-svg .band-fill { animation: none !important; }
 }
 
 /* ====================================================================
