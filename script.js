@@ -1472,6 +1472,43 @@ const REFLECTION_PROMPTS = {
   ]
 };
 
+/* Context-anchored Pause Panel prompts. Picked deterministically per codename
+ * so the reflection question lands on ONE of the 4 contexts the user just
+ * saw in the Inner Cohort grid (work / family / late / beloved). Keys match
+ * INNER_COHORT_CONTEXTS[].key. Placeholder EN prompts only — Narrative owns
+ * polish + translation. LOOP_REQUEST(narrative): translate PAUSE_PROMPTS_BY_CONTEXT
+ * to zh/ja/ko/tr + refine prose register. */
+const PAUSE_PROMPTS_BY_CONTEXT = {
+  work: {
+    en: [
+      'When this version of them is at work, what gets quietly edited out?',
+      'Which of these slider values is the colleague version of them already hiding?',
+      'At work, would they recognize the person these numbers describe?'
+    ]
+  },
+  family: {
+    en: [
+      'When they go home, which of these traits stops being theirs?',
+      'Who in their family of origin would not believe this profile?',
+      'Which slider gets overruled the moment they walk through a parent\'s door?'
+    ]
+  },
+  late: {
+    en: [
+      'Alone at 2am, which of these numbers do they argue with?',
+      'What do they know about themselves at 2am that no slider can hold?',
+      'The version of them at 2am — would they have chosen this profile for themselves?'
+    ]
+  },
+  beloved: {
+    en: [
+      'With someone they love, which of these traits softens past the slider\'s reach?',
+      'Who gets to see the version of them that this profile cannot describe?',
+      'Loved by the right person, which of these numbers stops mattering?'
+    ]
+  }
+};
+
 // Short interpretive observations about this specific baby. Shown in
 // Reflection mode alongside the prompt so the ethics aren't a single
 // tucked-away question.
@@ -8457,6 +8494,17 @@ function renderTraitHistory() {
 
 function pickReflectionPrompt(seed) {
   const rng = seededRand(seed + '|reflection');
+  // Reflection mode: anchor the question to ONE of the 4 Inner Cohort
+  // contexts the user just saw (work / family / late / beloved). The
+  // context is itself deterministic per codename, using a separate seed
+  // tag so the pick survives prompt-pool edits.
+  if (state.appMode === 'reflection') {
+    const ctxRng = seededRand(seed + '|pause-ctx');
+    const ctxKeys = INNER_COHORT_CONTEXTS.map(c => c.key);
+    const ctxKey  = ctxKeys[Math.floor(ctxRng() * ctxKeys.length)];
+    const ctxPool = localList(PAUSE_PROMPTS_BY_CONTEXT[ctxKey]);
+    if (ctxPool && ctxPool.length) return ctxPool[Math.floor(rng() * ctxPool.length)];
+  }
   const pool = pickPool(REFLECTION_PROMPTS, REFLECTION_PROMPTS, KIDS_REFLECTION_PROMPTS);
   return pool[Math.floor(rng() * pool.length)];
 }
