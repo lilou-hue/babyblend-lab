@@ -3750,7 +3750,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'High school identity solidifying; adult interests beginning to clarify.',
       'First experiences of independent decision-making and its consequences.',
       'Romantic and social self gaining definition through trial and feedback.',
-      'Early career signals appearing through chosen courses and side pursuits.'
+      'Early career signals appearing through emerging interests and early attempts.'
     ],
     zh: [
       '进入正规学校教育;学业上的强项与挑战开始显现。',
@@ -3759,7 +3759,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '高中阶段身份逐步固化;成年期的兴趣开始变得清晰。',
       '第一次体会到独立做决定及其后果。',
       '通过尝试与反馈,恋爱与社交自我逐渐成型。',
-      '通过所选课程与副业,早期职业信号开始出现。'
+      '通过逐渐显现的兴趣与早期的尝试,早期职业信号开始出现。'
     ],
     ja: [
       '正規教育に入る。学業上の強みと課題が現れ始める。',
@@ -3768,7 +3768,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '高校期にかけて自己像が固まり、大人としての関心が見え始める。',
       '独立した意思決定と、その結果を初めて体験する。',
       '試行とフィードバックを通じて、恋愛・社会的自己像が定義されていく。',
-      '選択する科目や副次的活動から、初期のキャリア信号が現れる。'
+      '芽生え始めた関心や初期の試みから、初期のキャリア信号が現れる。'
     ],
     ko: [
       '정규 교육 과정에 진입; 학업적 강점과 어려움이 드러나기 시작함.',
@@ -3777,7 +3777,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '고등학교 시기 자아 정체성이 굳어지고, 성인기의 관심사가 명료해지기 시작.',
       '독립적인 의사 결정과 그 결과를 처음 경험함.',
       '시도와 피드백을 통해 연애 및 사회적 자아가 윤곽을 잡아 감.',
-      '선택한 교과와 부수적 활동을 통해 초기 진로 신호가 나타남.'
+      '서서히 드러나는 관심사와 초기의 시도를 통해 초기 진로 신호가 나타남.'
     ],
     tr: [
       'Örgün eğitime başlıyor; akademik güçlü yanlar ve zorluklar belirginleşiyor.',
@@ -3786,7 +3786,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'Lise dönemi kimliği netleşiyor; yetişkin ilgi alanları belirginleşmeye başlıyor.',
       'Bağımsız karar verme ve sonuçlarının ilk deneyimleri yaşanıyor.',
       'Deneme ve geri bildirim yoluyla romantik ve sosyal benlik biçimleniyor.',
-      'Seçilen derslerden ve yan uğraşlardan erken kariyer sinyalleri görünüyor.'
+      'Beliren ilgi alanlarından ve ilk denemelerden erken kariyer sinyalleri görünüyor.'
     ]
   },
   later: {
