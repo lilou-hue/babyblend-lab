@@ -2000,52 +2000,112 @@ const TRAIT_CONFLICTS = [
   {
     when: b => b.openness >= 8 && b.conscientiousness <= 4,
     tag: 'Chaotic experimentation likely',
-    note: 'Big imagination, light scaffolding — many starts, fewer finishes. Sometimes the start was the point.'
+    note: 'Big imagination, light scaffolding — many starts, fewer finishes. Sometimes the start was the point.',
+    i18n: {
+      zh: { tag: '可能出现混乱式的尝试', note: '想象力丰盛、结构疏松——开头多,完成少。有时,"开头"本身就是意义。' },
+      ja: { tag: '混沌とした試行が起こりやすい', note: '想像力豊かだが、骨組みは緩い——始まりは多く、終わりは少ない。ときに「始めたこと」自体が目的だ。' },
+      ko: { tag: '어수선한 실험이 잦을 수 있음', note: '상상력은 풍부하지만 구조는 느슨하다 — 시작은 많고, 마무리는 드물다. 가끔은 시작 그 자체가 목적이다.' },
+      tr: { tag: 'Dağınık deneme olasılığı', note: 'Hayal gücü geniş, çerçeve gevşek — çok başlar, az bitirir. Bazen başlamış olmak başlı başına amaçtır.' }
+    }
   },
   {
     when: b => b.conscientiousness >= 8 && b.neuroticism >= 7,
     tag: 'Care that runs hot',
-    note: 'Detail-oriented and easily worried. May need rest rituals more than most.'
+    note: 'Detail-oriented and easily worried. May need rest rituals more than most.',
+    i18n: {
+      zh: { tag: '用心过头的那种"在乎"', note: '注重细节,容易担心。比一般人更需要某种休息仪式。' },
+      ja: { tag: '熱を帯びすぎる気遣い', note: '細部に目が届き、気をもみやすい。人より休息の儀式が必要かもしれない。' },
+      ko: { tag: '마음 씀씀이가 뜨거워지는 편', note: '세세한 데까지 신경 쓰지만 쉽게 걱정한다. 누구보다 더 안정된 휴식의 의식이 필요할 수 있다.' },
+      tr: { tag: 'Sıcakkanlı bir özen', note: 'Ayrıntıya dikkat eder, kolayca endişelenir. Çoğundan daha fazla dinlenme alışkanlığına ihtiyaç duyabilir.' }
+    }
   },
   {
     when: b => b.openness >= 8 && b.extraversion <= 3,
     tag: 'Rich inner world, narrow social orbit',
-    note: 'Vivid private universe. Possibly few people who fully see it; that\'s okay.'
+    note: 'Vivid private universe. Possibly few people who fully see it; that\'s okay.',
+    i18n: {
+      zh: { tag: '内心世界丰盈,社交圈狭窄', note: '鲜活的私人宇宙。也许只有少数人能完全看见;这没关系。' },
+      ja: { tag: '内側に豊かな世界、狭い社交範囲', note: '鮮やかな私的宇宙。完全に見える人は数えるほど——それでいい。' },
+      ko: { tag: '풍요로운 내면, 좁은 사교 반경', note: '생생한 사적 우주가 있다. 온전히 그것을 보는 사람은 몇 안 될 수 있다 — 괜찮다.' },
+      tr: { tag: 'Zengin bir iç dünya, dar bir sosyal yörünge', note: 'Canlı, özel bir evren. Onu tam görenler az olabilir; sorun değil.' }
+    }
   },
   {
     when: b => b.agreeableness >= 8 && b.extraversion <= 3,
     tag: 'Gentle introvert',
-    note: 'Cares deeply, in small circles. Often overlooked by louder rooms — and underestimated.'
+    note: 'Cares deeply, in small circles. Often overlooked by louder rooms — and underestimated.',
+    i18n: {
+      zh: { tag: '温和的内向者', note: '在小圈子里深切地在乎。常被声音大的房间忽视——也常被低估。' },
+      ja: { tag: 'やさしい内向型', note: '小さな輪のなかで深く心を寄せる。声の大きな場では見過ごされ、過小評価されがちだ。' },
+      ko: { tag: '다정한 내향형', note: '작은 무리 안에서 깊이 마음을 쓴다. 시끄러운 방에서는 자주 묻히고, 늘 과소평가된다.' },
+      tr: { tag: 'Yumuşak başlı bir içe dönük', note: 'Küçük çevrelerde derin bir özenle var olur. Sesi yüksek odalarda gözden kaçar — ve hep hafife alınır.' }
+    }
   },
   {
     when: b => b.extraversion >= 8 && b.neuroticism >= 7,
     tag: 'Outwardly bright, inwardly stormy',
-    note: 'Energy that performs may exhaust the performer. The crowd doesn\'t see the comedown.'
+    note: 'Energy that performs may exhaust the performer. The crowd doesn\'t see the comedown.',
+    i18n: {
+      zh: { tag: '外表明亮,内心翻涌', note: '那份会"表演"的活力,可能正在耗尽表演者本人。人群看不到台下的低落。' },
+      ja: { tag: '外は明るく、内は嵐', note: '人前で輝くエネルギーは、本人を消耗させているかもしれない。観客は、その後の沈み込みを見ない。' },
+      ko: { tag: '겉은 환하고, 속은 요동치는', note: '무대 위 에너지는 정작 본인을 고갈시킨다. 관객은 그 뒤의 가라앉음을 보지 못한다.' },
+      tr: { tag: 'Dışı parlak, içi fırtınalı', note: 'Sahnedeki enerji, sahnedeki kişiyi tüketebilir. Kalabalık, sonraki çöküşü görmez.' }
+    }
   },
   {
     when: b => b.athletic >= 8 && b.conscientiousness <= 3,
     tag: 'High energy, low rails',
-    note: 'Will outrun structure. Needs an outlet, not a leash.'
+    note: 'Will outrun structure. Needs an outlet, not a leash.',
+    i18n: {
+      zh: { tag: '高能量,少边界', note: '会跑得比规矩还快。需要的是出口,而不是束缚。' },
+      ja: { tag: 'エネルギーは高く、レールは少ない', note: '枠組みより先へ走り抜けてしまう。必要なのはリードではなく、出口だ。' },
+      ko: { tag: '에너지는 높고, 레일은 적은', note: '틀보다 더 빨리 달려 나간다. 필요한 것은 줄이 아니라 발산할 곳이다.' },
+      tr: { tag: 'Yüksek enerji, az ray', note: 'Düzeni geride bırakır. Tasmaya değil, bir çıkışa ihtiyacı vardır.' }
+    }
   },
   {
     when: b => b.openness >= 8 && b.agreeableness <= 3,
     tag: 'Iconoclast tendencies',
-    note: 'Will question loudly. Builds new rooms; sometimes upsets the old ones.'
+    note: 'Will question loudly. Builds new rooms; sometimes upsets the old ones.',
+    i18n: {
+      zh: { tag: '偶像破坏者的倾向', note: '会大声质疑。会盖出新房间;有时也会让旧房间不安。' },
+      ja: { tag: '偶像破壊の傾向', note: '声に出して問い直す。新しい部屋を建てる——ときに古い部屋を揺らしながら。' },
+      ko: { tag: '우상 깨기 성향', note: '큰 소리로 묻는다. 새 방을 세우고, 때로는 옛 방을 흔든다.' },
+      tr: { tag: 'Putları kıran bir eğilim', note: 'Yüksek sesle sorgular. Yeni odalar inşa eder; bazen eskilerini sarsar.' }
+    }
   },
   {
     when: b => b.conscientiousness <= 3 && b.neuroticism <= 3,
     tag: 'Cheerfully disorganized',
-    note: 'Not worried, also not planning. Lives are also lived this way; not less, just differently.'
+    note: 'Not worried, also not planning. Lives are also lived this way; not less, just differently.',
+    i18n: {
+      zh: { tag: '散漫但开心', note: '不焦虑,也不计划。人生也可以这样过——并不更少,只是不同。' },
+      ja: { tag: '朗らかに散らかっている', note: '心配しない、けれど計画もしない。そういう生き方もある——劣っているのではなく、ただ別のかたち。' },
+      ko: { tag: '명랑하게 어수선한', note: '걱정도 없고 계획도 없다. 그런 식으로도 삶은 산다 — 부족한 것이 아니라, 다를 뿐.' },
+      tr: { tag: 'Neşeyle dağınık', note: 'Kaygılanmaz, planlamaz da. Hayat böyle de yaşanır — eksik değil, farklı.' }
+    }
   },
   {
     when: b => b.agreeableness >= 8 && b.neuroticism <= 3,
     tag: 'Steady kindness',
-    note: 'Calm under pressure, kind by default. The kind of person other people want to be near.'
+    note: 'Calm under pressure, kind by default. The kind of person other people want to be near.',
+    i18n: {
+      zh: { tag: '稳定的善意', note: '压力下保持平静,默认善良。是别人愿意靠近的那一种人。' },
+      ja: { tag: '揺るぎないやさしさ', note: '圧の下でも穏やかで、基本がやさしい。人がそばにいたくなるタイプ。' },
+      ko: { tag: '흔들리지 않는 다정함', note: '압박 속에서도 침착하고, 기본값이 친절하다. 사람들이 곁에 머물고 싶어 하는 종류의 사람.' },
+      tr: { tag: 'Sarsılmaz bir nezaket', note: 'Baskı altında sakin, varsayılan olarak naziktir. İnsanların yakınında olmak istediği türden biri.' }
+    }
   },
   {
     when: b => b.extraversion <= 3 && b.openness >= 8 && b.conscientiousness >= 7,
     tag: 'Quiet builder',
-    note: 'Will make something interesting alone. Will not advertise it. World finds out later, or never.'
+    note: 'Will make something interesting alone. Will not advertise it. World finds out later, or never.',
+    i18n: {
+      zh: { tag: '安静的建造者', note: '一个人也能做出有意思的东西。不会张扬。世界要么后来才知道,要么永远不知道。' },
+      ja: { tag: '静かな作り手', note: '一人でも面白いものを作り上げる。宣伝はしない。世界は後から知るか、最後まで知らないかのどちらか。' },
+      ko: { tag: '조용한 만드는 사람', note: '혼자서도 흥미로운 무언가를 만들어 낸다. 떠벌리지 않는다. 세상은 늦게 알거나, 끝내 모른다.' },
+      tr: { tag: 'Sessiz bir kurucu', note: 'Tek başına ilginç bir şey yapar. Reklamını yapmaz. Dünya ya geç öğrenir ya da hiç öğrenmez.' }
+    }
   }
 ];
 
