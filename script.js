@@ -2685,12 +2685,12 @@ const REFLECTION_TRACES = {
   en: [
     "Calls their parents during grocery shopping, when there's nothing in particular to say.",
     "Keeps old receipts inside the books they've read.",
-    'Remembers one embarrassing middle-school moment forever.',
+    'Remembers an embarrassing middle-school moment forever.',
     'Has a song they only listen to alone in cars.',
     'Texts their best friend the same one-liner every birthday.',
     'Wears one piece of clothing they wore at 16 deep into their thirties.',
     "Walks the same route home, even when there's a shorter one.",
-    "Cries reliably at one specific kind of film they wouldn't name in public.",
+    "Cries reliably at sentimental car adverts they wouldn't name in public.",
     'Has a name for the colour of a particular afternoon sky.',
     'Keeps the last birthday card their grandmother sent.',
     'Becomes friends with the corner-shop owner without quite meaning to.',
@@ -2700,7 +2700,7 @@ const REFLECTION_TRACES = {
     "Has a recurring dream about a hallway they've never seen awake.",
     'Apologises to inanimate objects when they bump into them.',
     "Keeps a folded paper in their wallet with handwriting that isn't theirs.",
-    "Avoids one specific street in their hometown for reasons they don't articulate.",
+    "Avoids a certain street in their hometown for reasons they don't articulate.",
     "Owns a photograph of someone they're no longer in touch with, framed.",
     'Saves the last voicemail from a parent for years before listening again.',
     'Cooks the same Sunday meal as their grandmother, without realising.',
@@ -2710,7 +2710,7 @@ const REFLECTION_TRACES = {
     "Returns to the same beach every five years; doesn't plan it.",
     "Keeps a friend's number even after the friendship quietly ends.",
     'Will tell their child a story they were told once, almost word for word.',
-    'Has one piece of music that means something different every decade.',
+    'Has an album that means something different every decade.',
     'Saves screenshots of conversations that mattered.',
     "Recognises a stranger's walk and thinks of someone they used to love."
   ],
@@ -2722,7 +2722,7 @@ const REFLECTION_TRACES = {
     '每年生日,给挚友发一句一模一样的简讯。',
     '一件十六岁时穿过的衣服,一路穿到三十多岁。',
     '总走同一条回家的路,即使明明有更近的。',
-    '总会对着某一类电影准时落泪,却羞于在外人面前说起。',
+    '总会被某种煽情的汽车广告弄哭,却羞于在外人面前说起。',
     '心里给某一种下午天空的颜色起过名字。',
     '保留着祖母寄来的最后一张生日卡。',
     '不知不觉地,和街角小店老板成了朋友。',
@@ -2742,7 +2742,7 @@ const REFLECTION_TRACES = {
     '每隔五年总会回到同一片海滩,从不刻意安排。',
     '即便那段友谊已悄悄结束,仍留着对方的电话号码。',
     '日后会把自己听过一次的故事,几乎逐字讲给自己的孩子。',
-    '有一支音乐,每过十年含义就不一样。',
+    '有一张专辑,每过十年含义就不一样。',
     '把那些"重要的对话"截图存起来。',
     '认出一个陌生人的走路姿态,便会想起一个曾经爱过的人。'
   ],
@@ -2754,7 +2754,7 @@ const REFLECTION_TRACES = {
     '親友に、毎年誕生日に同じ一文だけを送る。',
     '16のときに着ていた一着を、三十代になっても着ている。',
     'もっと近道があるのに、いつもの帰り道を選ぶ。',
-    'ある特定の種類の映画で必ず泣くが、人前では話さない。',
+    'お涙頂戴の車のCMで必ず泣くが、人前では話さない。',
     'ある午後の空の色に、自分だけの名前をつけている。',
     '祖母から最後に届いた誕生日カードを取っておく。',
     'いつのまにか、角の店の主人と友達になっている。',
@@ -2774,7 +2774,7 @@ const REFLECTION_TRACES = {
     '計画もしないのに、五年おきに同じ浜辺に戻ってくる。',
     '友情が静かに終わったあとも、相手の電話番号は消さずに残している。',
     'いつか自分の子に、一度だけ聞いた話をほぼそのまま伝えるだろう。',
-    '十年ごとに違う意味になる、一つの音楽を持っている。',
+    '十年ごとに違う意味になるアルバムを一枚、持っている。',
     '大事だった会話のスクリーンショットを保存している。',
     '見知らぬ人の歩き方に、かつて愛した人を思い出す。'
   ],
@@ -2786,7 +2786,7 @@ const REFLECTION_TRACES = {
     '매년 친구의 생일마다, 똑같은 한 줄을 보낸다.',
     '열여섯 살에 입었던 옷 한 벌을, 서른이 한참 지나도록 입는다.',
     '더 가까운 길이 있는데도, 늘 같은 길로 집에 간다.',
-    '어떤 종류의 영화 앞에선 어김없이 운다. 다만 그 사실을 남에게 말하지 않는다.',
+    '감성적인 자동차 광고 앞에선 어김없이 운다. 다만 그 사실을 남에게 말하지 않는다.',
     '어느 오후 하늘의 빛깔에, 자기만의 이름을 붙여 두었다.',
     '할머니가 보낸 마지막 생일 카드를 간직하고 있다.',
     '딱히 그럴 생각도 없이, 동네 가게 주인과 친구가 되어 있다.',
@@ -2806,7 +2806,7 @@ const REFLECTION_TRACES = {
     '의도하지 않은 채로, 5년에 한 번씩 같은 해변으로 돌아간다.',
     '우정이 조용히 끝난 뒤에도, 그 사람의 전화번호를 지우지 못한다.',
     '훗날 자기 아이에게, 한 번 들은 이야기를 거의 그대로 다시 들려주게 될 것이다.',
-    '한 곡의 음악이 있어, 십 년마다 의미가 달라진다.',
+    '한 장의 앨범이 있어, 십 년마다 의미가 달라진다.',
     '중요했던 대화의 스크린샷을 잘 모아 둔다.',
     '낯선 사람의 걸음걸이에서, 한때 사랑했던 누군가를 떠올린다.'
   ],
@@ -2818,7 +2818,7 @@ const REFLECTION_TRACES = {
     'En yakın arkadaşına her doğum gününde aynı tek cümleyi gönderir.',
     'On altı yaşında giydiği bir parça giysiyi otuzlu yaşlarına kadar giyer.',
     'Daha kısa bir yol olduğunu bilse de, hep aynı eve dönüş yolunu seçer.',
-    'Belli bir tür filmde mutlaka ağlar; ama bunu yabancıların yanında söylemez.',
+    'Duygusal araba reklamlarında mutlaka ağlar; ama bunu yabancıların yanında söylemez.',
     'Belirli bir öğleden sonra gökyüzü rengine kendi adını koymuştur.',
     'Büyükannesinin yolladığı son doğum günü kartını saklamaktadır.',
     'Pek de istemeden, köşedeki dükkân sahibiyle arkadaş olur.',
@@ -2838,7 +2838,7 @@ const REFLECTION_TRACES = {
     'Plan yapmadan, beş yılda bir aynı kumsala döner.',
     'Arkadaşlık sessizce bittikten sonra bile o kişinin telefon numarasını silmez.',
     'İleride çocuğuna, bir kez duyduğu bir hikâyeyi neredeyse kelimesi kelimesine anlatacak.',
-    'Her on yılda bir başka anlama gelen tek bir müzik parçası vardır.',
+    'Her on yılda bir başka anlama gelen bir albümü vardır.',
     'Önem taşıyan konuşmaların ekran görüntülerini saklar.',
     'Bir yabancının yürüyüşünden, bir zamanlar sevdiği birini hatırlar.'
   ]
@@ -4882,7 +4882,7 @@ const KIDS_QUESTIONS_FOR_THEM = {
     'What is the best thing about being your age right now?',
     'What is a memory that feels like a movie?',
     'If you could keep one thing you have ever made or found, what would it be?',
-    'What is a question you would ask a cloud?',
+    "What's something you'd want to know if you could ask anyone?",
     'Have you ever met a stranger you wanted to be friends with?'
   ],
   zh: [
@@ -4902,7 +4902,7 @@ const KIDS_QUESTIONS_FOR_THEM = {
     '处在你现在这个年龄,最棒的事情是什么?',
     '哪一段回忆,在你脑海里像一部小电影?',
     '如果只能留下一件你做过或捡到过的东西,你会留哪一件?',
-    '如果可以向云朵问一个问题,你会问什么?',
+    '如果可以向任何一个人提问,你最想知道什么?',
     '你有没有遇见过一个陌生人,让你很想和他/她成为朋友?'
   ],
   ja: [
@@ -4922,7 +4922,7 @@ const KIDS_QUESTIONS_FOR_THEM = {
     'いま、その歳でいることのいちばん楽しいことって、なに?',
     '映画みたいに残っている思い出って、どれ?',
     '自分で作ったり拾ったりしたなかで、ひとつだけ取っておけるなら、なに?',
-    'もし雲に質問できるとしたら、なにを聞く?',
+    'だれにでも一つ質問できるとしたら、なにを聞いてみたい?',
     '友だちになりたいと思った、知らない人と出会ったことってある?'
   ],
   ko: [
@@ -4942,7 +4942,7 @@ const KIDS_QUESTIONS_FOR_THEM = {
     '지금 이 나이에서 가장 좋은 점은 뭐예요?',
     '영화 한 편처럼 기억에 남는 추억은 뭐예요?',
     '자기가 만들었거나 주워온 것 중에 딱 하나만 간직할 수 있다면, 뭘 고를래요?',
-    '구름에게 무언가 묻는다면, 어떤 질문을 할래요?',
+    '누구에게든 한 가지를 물어볼 수 있다면, 뭘 알고 싶어요?',
     '한 번 보고도 친구가 되고 싶어진 낯선 사람이 있어요?'
   ],
   tr: [
@@ -4962,7 +4962,7 @@ const KIDS_QUESTIONS_FOR_THEM = {
     'Şu an bulunduğun yaşın en güzel yanı ne?',
     'Sanki bir film gibi hatırladığın bir anın var mı?',
     'Yaptığın ya da bulduğun şeylerden yalnızca birini saklayabilsen, hangisi olurdu?',
-    'Bir buluta soracak olsan, hangi soruyu sorardın?',
+    'Herhangi birine bir soru sorabilseydin, neyi öğrenmek isterdin?',
     'Hiç tanışmadığın biriyle arkadaş olmayı istediğin oldu mu?'
   ]
 };
