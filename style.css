@@ -544,6 +544,7 @@ input[type="range"]::-webkit-slider-thumb {
   transition: transform 0.12s;
 }
 input[type="range"]::-moz-range-thumb {
+  box-sizing: border-box;
   width: 44px; height: 44px;
   border: 13px solid transparent;
   background-clip: padding-box;
@@ -4880,7 +4881,11 @@ body.mode-reflection .lifetime-drift-panel h2 {
   text-transform: uppercase;
   font-size: 10.5px;
   color: var(--accent);
-  padding: 4px 0;
+  padding: 12px 8px;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
   user-select: none;
 }
 .intro-stat-source summary::-webkit-details-marker { display: none; }
