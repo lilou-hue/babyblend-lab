@@ -1179,12 +1179,13 @@ const LABEL_I18N = {
   'Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.': { zh: '仅为指示性参考。授权与等候期每季度修订;现行数值替代此前披露。', ja: '本表示は参考目的に限る。認可および待機期間は四半期ごとに見直されており、現在の値が従前の開示に優先する。', ko: '본 정보는 참고용이다. 인가와 대기 기간은 분기마다 갱신되며, 현재 값이 이전 공시에 우선한다.', tr: 'Bilgi amaçlıdır. Yetkilendirmeler ve bekleme süreleri üç ayda bir güncellenir; mevcut değerler önceki açıklamaların yerini alır.' },
   'Consent context expands at 50 credits.': { zh: '当积分达到 50 时,同意上下文会展开。', ja: '50クレジットに達すると、同意に関する文脈が展開される。', ko: '50 크레딧에 이르면 동의 관련 맥락이 펼쳐진다.', tr: '50 krediye ulaşıldığında onay bağlamı genişler.' },
   'No disclosure thresholds crossed yet.': { zh: '尚未跨越任何披露阈值。', ja: '開示の閾値はまだいずれも越えていない。', ko: '아직 어떤 공시 임계값도 넘지 않았습니다.', tr: 'Henüz hiçbir açıklama eşiği aşılmadı.' },
-  // R18rev (Risk + Science + Sociology MAJOR convergence): trajectory
-  // disclosure microcopy. Renders beneath the age-ticker in adult mode so the
-  // milestone reads as one possible path among many, not a codename-locked
-  // forecast. Phrasing chosen short and second-person-neutral to fit the
-  // case-file register without softening into self-help.
-  'These are one set of patterns this person might encounter — not a forecast.': { zh: '这只是这个人可能经历的一组模式 —— 而非预言。', ja: 'これは、この人物が経験しうる一つのパターン群にすぎず、予測ではない。', ko: '이는 이 사람이 마주칠 수 있는 하나의 패턴 묶음일 뿐 — 예측이 아니다.', tr: 'Bunlar bu kişinin karşılaşabileceği örüntülerden yalnızca biri — bir öngörü değil.' },
+  // R19rev (Writing MAJOR): trajectory disclosure microcopy, migrated from
+  // clinical-forecast register ("one set of patterns... not a forecast") to
+  // narrative voice ("one story among many... not what will happen"). Renders
+  // beneath the age-ticker in adult mode so the milestone reads as one
+  // possible path among many. Turkish plural form ("örüntüler... biri")
+  // preserved across the register shift.
+  'These patterns are one story among many — not what will happen.': { zh: '这些模式只是诸多故事中的一种 —— 而非将发生之事。', ja: 'これらのパターンは多くの物語のうちの一つにすぎず、実際に起こることではない。', ko: '이 패턴들은 수많은 이야기 중 하나일 뿐 — 일어날 일이 아니다。', tr: 'Bu örüntüler birçok hikâyeden yalnızca biri — gerçekleşecek olan değil.' },
   // R17rev: pre-allocation projection-gate placeholder. Adult-mode register —
   // cold and clinical, not imperative. Frames the panel as a projection
   // contingent on allocation, not a checklist with one missing step.
@@ -8837,7 +8838,7 @@ function renderAgingScrubber() {
   const disclaimer = $('#trajectory-disclaimer');
   if (disclaimer) {
     if (state.appMode === 'adult') {
-      disclaimer.textContent = localLabel('These are one set of patterns this person might encounter — not a forecast.');
+      disclaimer.textContent = localLabel('These patterns are one story among many — not what will happen.');
       disclaimer.hidden = false;
     } else {
       disclaimer.hidden = true;
