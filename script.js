@@ -1502,37 +1502,36 @@ const REFLECTION_PROMPTS = {
 /* Context-anchored Pause Panel prompts. Picked deterministically per codename
  * so the reflection question lands on ONE of the 4 contexts the user just
  * saw in the Inner Cohort grid (work / family / late / beloved). Keys match
- * INNER_COHORT_CONTEXTS[].key. Placeholder EN prompts only — Narrative owns
- * polish + translation. LOOP_REQUEST(narrative): translate PAUSE_PROMPTS_BY_CONTEXT
- * to zh/ja/ko/tr + refine prose register. */
+ * INNER_COHORT_CONTEXTS[].key. Each prompt asks the user to reconcile this
+ * baby's profile with the specific situated self they just read. */
 const PAUSE_PROMPTS_BY_CONTEXT = {
   work: {
-    en: [
-      'When this version of them is at work, what gets quietly edited out?',
-      'Which of these slider values is the colleague version of them already hiding?',
-      'At work, would they recognize the person these numbers describe?'
-    ]
+    en: ['The work self you just read — does this profile describe the person who actually shows up?', 'Which of these traits would the work self never claim out loud?', 'At work, which line of this profile do they spend the day quietly editing?'],
+    zh: ['你刚才读到的那个"工作中的自己"——这份特征档案,真的描绘的是那个真正到场的人吗?', '哪一项特征,是工作中的自己永远不会大声承认的?', '在工作里,这份档案里的哪一行,他们一整天都在悄悄修改?'],
+    ja: ['いま読んだ仕事中の自分——このプロフィールは、本当にその場に現れている人を描けていますか。', 'これらの特性のうち、仕事中の自分が決して声に出して認めないものは、どれでしょう。', '仕事のあいだ、このプロフィールのどの一行を、彼らは一日かけて静かに書き直していますか。'],
+    ko: ['방금 읽은 일터에서의 자기 — 이 프로필은 실제로 그곳에 나타나는 사람을 묘사하고 있나요?', '이 특성들 가운데 일터의 자기가 결코 입 밖으로 인정하지 않을 것은 어느 것인가요?', '일터에서 이 프로필의 어느 한 줄을, 그들은 하루 종일 조용히 고쳐 쓰고 있나요?'],
+    tr: ['Az önce okuduğun iş yerindeki hâli — bu profil, oraya gerçekten gelen kişiyi mi anlatıyor?', 'Bu özelliklerden hangisini, iş yerindeki hâli yüksek sesle asla sahiplenmez?', 'İşte, bu profilin hangi satırını gün boyu sessizce yeniden yazıyorlar?']
   },
   family: {
-    en: [
-      'When they go home, which of these traits stops being theirs?',
-      'Who in their family of origin would not believe this profile?',
-      'Which slider gets overruled the moment they walk through a parent\'s door?'
-    ]
+    en: ['Back in the family of origin, which of these traits loses the argument before it starts?', 'Who in their family would read this profile and not recognize the person in it?', 'Which of these traits did the family of origin spend years rounding down?'],
+    zh: ['回到原生家庭里,这些特征中,哪一项还没开口就已经输掉了那场争论?', '家里有谁,会读着这份特征档案,却认不出里面写的那个人?', '哪一项特征,是原生家庭花了很多年,一点一点往下削的?'],
+    ja: ['生まれた家族のもとに戻ったとき、これらの特性のうち、口を開く前から負けが決まっているのはどれですか。', '家族の中で、このプロフィールを読んでも、そこに描かれている人を見つけられない人は誰でしょう。', 'これらの特性のうち、生まれた家族が何年もかけて削り落としてきたのは、どれですか。'],
+    ko: ['원래 가족에게 돌아갔을 때, 이 특성들 가운데 시작하기도 전에 말다툼에서 지는 것은 어느 것인가요?', '가족 중 누가 이 프로필을 읽고도, 그 안에 담긴 사람을 알아보지 못할까요?', '이 특성들 가운데 원래 가족이 오랜 세월 깎아 내려온 것은 어느 것인가요?'],
+    tr: ['Aslen ait olduğu ailenin yanına döndüğünde, bu özelliklerden hangisi daha tartışma başlamadan kaybeder?', 'Ailesinden kim, bu profili okuyup içindeki kişiyi tanıyamazdı?', 'Bu özelliklerden hangisini, aslen ait olduğu aile yıllarca aşağı yontmaya çalıştı?']
   },
   late: {
-    en: [
-      'Alone at 2am, which of these numbers do they argue with?',
-      'What do they know about themselves at 2am that no slider can hold?',
-      'The version of them at 2am — would they have chosen this profile for themselves?'
-    ]
+    en: ['Alone at 2am, which line of this profile do they argue with the longest?', 'At 2am, what do they know about themselves that no column in this grid had room for?', 'The 2am self — would they have arranged this profile in this order?'],
+    zh: ['凌晨两点,一个人时,他们和这份档案里的哪一行,争辩得最久?', '在凌晨两点,他们对自己的某些了解,是这张表里没有任何一栏装得下的——那是什么?', '凌晨两点的那个自己——会把这份档案里的特征,按这样的顺序排列吗?'],
+    ja: ['深夜二時、ひとりでいるとき、このプロフィールのどの一行と、いちばん長く言い合っていますか。', '深夜二時に、自分について知っているあれこれのうち、この表のどの列にも収まらないものは、何でしょう。', '深夜二時の自分なら、このプロフィールの特性を、この順に並べたでしょうか。'],
+    ko: ['새벽 두 시, 혼자일 때 이 프로필의 어느 한 줄과 가장 오래 말다툼을 벌이나요?', '새벽 두 시, 자기 자신에 대해 아는 것들 가운데 이 표의 어느 칸에도 들어가지 않는 것은 무엇인가요?', '새벽 두 시의 자기라면, 이 프로필 속 특성들을 이런 순서로 배열했을까요?'],
+    tr: ['Gecenin ikisinde, yalnızken, bu profilin hangi satırıyla en uzun tartışıyorlar?', 'Gecenin ikisinde kendileri hakkında bildiklerinin hangisine, bu tablonun hiçbir sütununda yer kalmamış?', 'Gecenin ikisindeki hâli, bu profildeki özellikleri bu sırayla mı dizerdi?']
   },
   beloved: {
-    en: [
-      'With someone they love, which of these traits softens past the slider\'s reach?',
-      'Who gets to see the version of them that this profile cannot describe?',
-      'Loved by the right person, which of these numbers stops mattering?'
-    ]
+    en: ['With someone they love, which of these traits shows up larger than the sliders predicted?', 'Who gets to see the parts of them this profile had to round down to a number?', 'Loved closely, which of these traits gets sharper, not softer?'],
+    zh: ['与所爱之人在一起时,这些特征中,哪一项呈现出来,比滑块所预测的要更大?', '他们身上有些部分,这份档案不得不把它压扁成一个数字——而谁,才看得到那些部分?', '被亲近地爱着的时候,这些特征里,哪一项不是变柔,而是变得更锋利?'],
+    ja: ['大切な人と一緒のとき、これらの特性のうち、スライダーが予測したよりも大きく現れるものは、どれですか。', 'このプロフィールが一つの数字へと丸めるしかなかった彼らの一部を、見ることを許されているのは、誰でしょう。', '近くで愛されているとき、これらの特性のうち、やわらぐのではなく、むしろ鋭くなるのは、どれですか。'],
+    ko: ['사랑하는 사람과 함께일 때, 이 특성들 가운데 슬라이더가 예측했던 것보다 더 크게 나타나는 것은 어느 것인가요?', '이 프로필이 하나의 숫자로 반올림해 버려야 했던 그들의 일부 — 그것을 볼 수 있는 사람은 누구인가요?', '가까이서 사랑받을 때, 이 특성들 가운데 부드러워지는 것이 아니라 오히려 더 또렷해지는 것은 어느 것인가요?'],
+    tr: ['Sevdiği biriyle birlikteyken, bu özelliklerden hangisi sürgülerin öngördüğünden daha büyük çıkar ortaya?', 'Bu profilin tek bir sayıya yuvarlamak zorunda kaldığı yanlarını, kim görmeye yetkili?', 'Yakından sevildiğinde, bu özelliklerden hangisi yumuşamaz da daha keskinleşir?']
   }
 };
 
