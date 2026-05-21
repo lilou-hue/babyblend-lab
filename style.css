@@ -4745,8 +4745,8 @@ body.mode-reflection .lifetime-drift-panel h2 {
     rgba(200, 155, 255, 0.45) 88%,
     rgba(200, 155, 255, 0.0));
   transform-origin: top center;
-  transform: scaleY(0);
-  animation: introTimelineDraw 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards;
+  /* Line renders fully drawn from frame one. Animated draw was leaving
+     the line at scaleY(0) in some browser states. */
 }
 @keyframes introTimelineDraw {
   to { transform: scaleY(1); }
