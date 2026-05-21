@@ -1717,7 +1717,7 @@ const HUMANITY_REMINDERS = {
     '一项特征的价值取决于"是谁、何时、何地"。',
     '优点和缺点不过是同一件事,处在不同的房间里。',
     '不管这个孩子将来成为什么样的人,最后说话的应是他们,不是我们。',
-    '模拟器无法预见任何一个真实的星期二下午。'
+    '模拟器看不见那位十五岁时将搬走的朋友、三十岁时的那场手术、五十岁时需要照顾的父母。'
   ],
   ja: [
     '人は、予測された特性以上の存在である。',
@@ -1729,7 +1729,7 @@ const HUMANITY_REMINDERS = {
     'ある特性の価値は、誰が、いつ、どこにいるかで変わる。',
     '強みと弱みは、部屋が変われば同じものに見える。',
     'この子が誰になるにせよ、最後に決めるのは私たちではなく、その子自身である。',
-    '模型には、現実のたった一日の火曜の午後すら予測できない。'
+    '模型には見えない——十五歳で去っていく友、三十歳での手術、五十歳に介護を必要とする親。'
   ],
   ko: [
     '사람은 예측된 특성 이상의 존재다.',
@@ -1741,7 +1741,7 @@ const HUMANITY_REMINDERS = {
     '한 특성의 가치는 누가, 언제, 어디에 있는지에 달려 있다.',
     '장점과 단점은 방을 바꾸면 같은 것이 된다.',
     '이 아이가 어떤 사람이 되든, 마지막 말은 우리가 아닌 그 아이의 몫이다.',
-    '시뮬레이터는 단 한 번의 실제 화요일 오후도 예측하지 못한다.'
+    '시뮬레이터는 보지 못한다 — 열다섯에 떠나갈 친구도, 서른의 수술도, 쉰에 돌봄이 필요해질 부모도.'
   ],
   tr: [
     'İnsanlar, öngörülen özelliklerinden çok daha fazlasıdır.',
@@ -1753,7 +1753,7 @@ const HUMANITY_REMINDERS = {
     'Bir özelliğin değeri kime, ne zaman ve nerede sorularına bağlıdır.',
     'Güçlü ve zayıf yönler, farklı odalardaki aynı şeydir.',
     'Bu çocuk kim olursa olsun, son söz bizde değil onda olmalı.',
-    'Bir simülatör, gerçek bir salı öğleden sonrasını bile öngöremez.'
+    'Bir simülatör göremez — on beşinde gidecek arkadaşı, otuzundaki ameliyatı, ellisinde bakıma muhtaç olacak ebeveyni.'
   ]
 };
 
