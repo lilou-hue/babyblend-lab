@@ -7605,9 +7605,9 @@ function generateBabyFlavor(codename, baby) {
 
   const pathsPool = pickPool(FUTURE_PATHS, FUTURE_PATHS, KIDS_FUTURE_PATHS);
 
-  // Reserve ~25-40% of future picks (1 of 3) for conflict-tagged entries
-  // when any conflict is active and matching content exists. Otherwise
-  // fall back to the existing topTag-weighted selection.
+  // Reserve 1 of 3 future picks (~33%) for a conflict-tagged entry when
+  // any conflict is active and matching content exists. Otherwise fall
+  // back to the existing topTag-weighted selection.
   //
   // Tier-1 vs tier-2 mild weighting: identical, by design. Per axis-pair
   // the bands are disjoint (see TRAIT_CONFLICT_RULES), so a baby holds at
@@ -7616,13 +7616,13 @@ function generateBabyFlavor(codename, baby) {
   // from OC-mild entries), so the reservation rate auto-matches register
   // to the baby without an explicit tone gate here.
   const TOTAL_PATHS = 3;
+  const CONFLICT_RESERVED_PATHS = 1;
   const reservedPaths = [];
   if (conflictTags.length) {
     const matches = pathsPool.filter(p => p.tag && conflictTags.includes(p.tag));
     if (matches.length) {
-      const reserveCount = Math.max(1, Math.round(TOTAL_PATHS * 0.33));
       const shuffled = matches.map(p => ({ p, w: rng() })).sort((a, b) => b.w - a.w);
-      for (const x of shuffled.slice(0, reserveCount)) reservedPaths.push(x.p);
+      for (const x of shuffled.slice(0, CONFLICT_RESERVED_PATHS)) reservedPaths.push(x.p);
     }
   }
   const remainingPool = pathsPool.filter(p => !reservedPaths.includes(p));
