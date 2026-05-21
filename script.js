@@ -3239,7 +3239,7 @@ const REGULATORY_NOTE_RULES = [
     id: 'GE-3-cognition',
     when: b => (b.cognition || 0) >= 5,
     severity: 'amber',
-    text: 'HFEA 2008 Schedule 2: cognitive enhancement outside standard licensed purposes. Annual reporting to the licensing authority and disclosure to admissions authorities required in transposing jurisdictions.'
+    text: 'HFEA 2008 Schedule 2: cognitive enhancement outside standard licensed purposes. Annual reporting to the licensing authority would be a condition of any special-direction grant.'
   },
   {
     id: 'GE-3-cognition-high',
