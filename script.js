@@ -6168,11 +6168,20 @@ function generate() {
   }
 
   const results = $('#results');
+  const wasHidden = results.hidden;
   results.hidden = false;
-  // smooth scroll on first reveal
-  requestAnimationFrame(() => {
-    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  // Smooth-scroll to the projection ONLY on first reveal. R6 (UX flow):
+  // subsequent Generates already happen while #results is in view, and the
+  // newly-unlocked Gen-2 panels (societal brief, sibling cohort, trait
+  // history, divergence) sit BELOW the user's current scroll position —
+  // yanking them back up to the top of #results both back-tracks and
+  // hides those reveals. preserveNaturalVariation() already follows this
+  // pattern; mirror it here for parity.
+  if (wasHidden) {
+    requestAnimationFrame(() => {
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
 }
 
 function setupPillToggle(btnSelector, stateKey, onChange) {
