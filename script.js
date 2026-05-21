@@ -7589,7 +7589,19 @@ function updateBabyPreview() {
       <dt>${localLabel('Dimples')}</dt>       <dd>${display.dimples}${conf('dimples')}</dd>
   `;
   let personalityRows = '';
-  if (inAdult) {
+  // R17 pre-allocation gate (scaffold): in Adult mode at gen 1 with zero
+  // credits allocated, the OCEAN projection + archetype land BEFORE the user
+  // has done anything optimizer-shaped, creating the "ostensibly real baby"
+  // lock-in flagged by R6 Product. Inverting that flow renders a soft prompt
+  // placeholder instead, inviting allocation first. Flag is OFF this round —
+  // R18 flips it once the placeholder + CSS land cleanly. Gate condition
+  // intentionally limited to gen === 1 so gen >= 2 reveals are untouched.
+  // LOOP_REQUEST(narrative): refine projection-gated-placeholder copy + translate to 5 langs
+  const PROJECTION_GATE_ENABLED = false;
+  const gen = state.generateCount || 0;
+  const budgetUsed = computeBudgetUsed();
+  const projectionGated = PROJECTION_GATE_ENABLED && inAdult && gen === 1 && budgetUsed === 0;
+  if (inAdult && !projectionGated) {
     personalityRows = `
       <dt class="ocean-sep">${localLabel('Behavioral Projection')}</dt> <dd></dd>
       <dt>${localLabel('Openness')}</dt>           <dd>${display.openness}${conf('openness')}</dd>
@@ -7597,15 +7609,27 @@ function updateBabyPreview() {
       <dt>${localLabel('Extraversion')}</dt>       <dd>${display.extraversion}${conf('extraversion')}</dd>
       <dt>${localLabel('Agreeableness')}</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
       <dt>${localLabel('Neuroticism')}</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>`;
+  } else if (projectionGated) {
+    // Placeholder uses dt/dd to stay valid inside the parent <dl>. Empty dt
+    // anchors the row; dd carries the inviting prompt copy.
+    personalityRows = `
+      <dt class="ocean-sep projection-gated-placeholder-anchor"></dt>
+      <dd class="projection-gated-placeholder">${localLabel("Move your first allocation to see this version's projection.")}</dd>`;
   }
+  statsEl.classList.toggle('projection-gated', projectionGated);
   statsEl.innerHTML = physicalRows + personalityRows;
 
   // Derived-stat star row (Kids mode only — CSS hides in Standard).
   renderKidsDerivedStats(b);
 
   // archetype: key stays English (used for save/load); display is localized.
+  // When the projection gate is active, hide the archetype tag via class hook
+  // (Frontend pre-scaffolds CSS for .projection-gated) — text still computed
+  // so state.archetype persists for save/load.
   const archetype = calculateArchetype(b);
-  $('#archetype').textContent = localizeArchetype(archetype);
+  const archetypeEl = $('#archetype');
+  archetypeEl.textContent = localizeArchetype(archetype);
+  archetypeEl.classList.toggle('projection-gated', projectionGated);
   state.archetype = archetype;
 
   // chaos badge visibility
