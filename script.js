@@ -654,6 +654,11 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Adult panel headings
+  'Societal Outcomes Brief': { zh: '社会反应概述', ja: '社会的アウトカム ブリーフ', ko: '사회적 결과 개요', tr: 'Toplumsal Sonuçlar Özeti' },
+  'Modeled societal response to this projection. Each line fires from a specific allocation, trait, or environment combination — not a generic readout. These outcomes are modeled within the simulation using speculative social-psychological frameworks, not empirical findings.': { zh: '对本投影的社会反应建模。每一条都由特定的分配、性状或环境组合触发,而非通用文本。这些结果是在模拟器内,用思辨性的社会—心理框架建模出来的,并非实证研究结论。', ja: 'この投影に対する社会的反応のモデル。各行は、特定の割り当て・特性・環境の組み合わせから発火しており、定型の読み上げではない。これらの結果は、本シミュレーション内で思考実験的な社会心理学フレームを用いて構築されたものであり、実証研究の知見ではない。', ko: '이 투영에 대한 사회적 반응의 모형. 각 줄은 일반적인 출력값이 아니라 특정 할당·특성·환경의 조합에 의해 점화된다. 이 결과들은 시뮬레이션 내부에서 사변적 사회심리학 틀로 만들어진 것이며, 실증적 발견이 아니다.', tr: 'Bu projeksiyona yönelik modellenen toplumsal yanıt. Her satır belirli bir tahsis, özellik veya çevre kombinasyonundan tetiklenir; genel bir okumadan değil. Bu çıktılar simülasyon içinde sosyo-psikolojik kurgusal çerçevelerle modellenmiştir; ampirik bulgular değildir.' },
+  'Sibling Cohort · Variance Distribution': { zh: '兄弟姐妹同期组 · 方差分布', ja: 'きょうだいコホート · 分散分布', ko: '형제자매 코호트 · 분산 분포', tr: 'Kardeş Kohortu · Varyans Dağılımı' },
+  'Five plausible outcomes from identical parental inputs and allocation. The variance shows the uncertainty range of inheritance estimates — not behavioral probability.': { zh: '在完全相同的父母输入与分配下,五种合理的可能结果。方差展示的是遗传估计的不确定性范围,而非行为发生的概率。', ja: 'まったく同じ親の入力と割り当てから生まれうる五通りのアウトカム。ばらつきは、遺伝推定の不確実性レンジを示すものであり、行動が起こる確率ではない。', ko: '동일한 부모 입력과 동일한 할당에서 가능한 다섯 가지 결과. 분산은 유전 추정의 불확실성 범위를 보여줄 뿐, 행동이 일어날 확률을 의미하지 않는다.', tr: 'Aynı ebeveyn girdileri ve tahsisten ortaya çıkabilecek beş olası sonuç. Varyans, kalıtım tahminlerinin belirsizlik aralığını gösterir; davranış olasılığını değil.' },
   // Kids-arc panel headings & sublines
   'Things they might love': { zh: '他们也许会喜爱的东西', ja: 'その子が好きになるかもしれないもの', ko: '그 아이가 좋아할 만한 것들', tr: 'Sevebilecekleri şeyler' },
   'Specific, particular, and theirs.': { zh: '具体、特别,而且只属于他们。', ja: '具体的で、ささやかで、そしてその子だけのもの。', ko: '구체적이고, 특별하고, 오롯이 그들의 것.', tr: 'Özel, belirli ve sadece onlara ait.' },
@@ -8501,8 +8506,8 @@ function renderSocietalBrief() {
 
   panel.innerHTML = `
     <header class="societal-brief-head">
-      <h2>Societal Outcomes Brief <span class="beta-tag">Beta</span></h2>
-      <p class="subtle">Modeled societal response to this projection. Each line fires from a specific allocation, trait, or environment combination — not a generic readout. These outcomes are modeled within the simulation using speculative social-psychological frameworks, not empirical findings.</p>
+      <h2>${localLabel('Societal Outcomes Brief')} <span class="beta-tag">${localLabel('Beta')}</span></h2>
+      <p class="subtle">${localLabel('Modeled societal response to this projection. Each line fires from a specific allocation, trait, or environment combination — not a generic readout. These outcomes are modeled within the simulation using speculative social-psychological frameworks, not empirical findings.')}</p>
     </header>
     <div class="societal-grid">${sections}</div>`;
   panel.hidden = false;
@@ -8757,8 +8762,8 @@ function renderSiblingCohort() {
   }).join('');
   panel.innerHTML = `
     <header class="sibling-head">
-      <h2>Sibling Cohort · Variance Distribution <span class="beta-tag">Beta</span></h2>
-      <p class="subtle">Five plausible outcomes from identical parental inputs and allocation. The variance shows the uncertainty range of inheritance estimates — not behavioral probability.</p>
+      <h2>${localLabel('Sibling Cohort · Variance Distribution')} <span class="beta-tag">${localLabel('Beta')}</span></h2>
+      <p class="subtle">${localLabel('Five plausible outcomes from identical parental inputs and allocation. The variance shows the uncertainty range of inheritance estimates — not behavioral probability.')}</p>
     </header>
     <div class="sibling-strip">${cards}</div>`;
   panel.hidden = false;
