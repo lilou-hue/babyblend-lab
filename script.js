@@ -6627,6 +6627,14 @@ const state = {
   envDisclosureTouched: false, // R4: once user toggles env-modifiers <details>, mode-switch stops overriding their choice
   chaos: false,        // amplifies slider ranges + surprise
   generateCount: 0,    // how many times Generate has been clicked
+  // R17 revision: cross-mode generateCount fix. The projection gate fires on
+  // gen===1 in Adult, but generateCount also increments in Reflection/Kids —
+  // so a user who generates in Reflection first, then switches to Adult,
+  // arrives at "gen 1 in Adult" with the gate disabled. Track Adult-mode
+  // generations separately so the gate keys on the user's first Adult reveal,
+  // not the global Generate-button count.
+  lastGeneratedInAdult: false, // true iff most recent generate() was in Adult mode
+  adultGenerateCount: 0,       // Adult-mode-only counter for projection-gate keying
   consentAck: false,   // session-level: heritable-decision micro-ack (gates first non-zero allocation)
   alternates: [],      // generated alternate-baby cards
   futures: [],         // generated adult-life future cards (for current baby)
@@ -7600,7 +7608,12 @@ function updateBabyPreview() {
   const PROJECTION_GATE_ENABLED = false;
   const gen = state.generateCount || 0;
   const budgetUsed = computeBudgetUsed();
-  const projectionGated = PROJECTION_GATE_ENABLED && inAdult && gen === 1 && budgetUsed === 0;
+  // R17 revision: use Adult-mode-only counter so cross-mode generations
+  // (e.g. Reflection → Adult) don't accidentally hit the gen===1 gate. The
+  // gate should fire on the user's FIRST Adult reveal, not whenever the
+  // global Generate counter happens to land on 1 in Adult mode.
+  const adultGen = state.adultGenerateCount || 0;
+  const projectionGated = PROJECTION_GATE_ENABLED && inAdult && adultGen === 1 && budgetUsed === 0;
   if (inAdult && !projectionGated) {
     personalityRows = `
       <dt class="ocean-sep">${localLabel('Behavioral Projection')}</dt> <dd></dd>
@@ -9970,6 +9983,10 @@ function generate() {
   state.surprise = computeSurprise(state.parents);
   state.codename = generateCodename(state.parents);
   state.generateCount += 1;
+  // R17 revision: track Adult-mode generations so the projection gate keys on
+  // first-Adult-reveal rather than the cross-mode global counter.
+  state.lastGeneratedInAdult = (state.appMode === 'adult');
+  if (state.lastGeneratedInAdult) state.adultGenerateCount += 1;
   applyBudgetPanelGate();
 
   $('#codename').textContent = state.codename;
@@ -10078,6 +10095,10 @@ function preserveNaturalVariation() {
   state.surprise = computeSurprise(state.parents);
   state.codename = generateCodename(state.parents);
   state.generateCount += 1;
+  // R17 revision: mirror Adult-mode tracking from generate() so the projection
+  // gate stays consistent across both entry points.
+  state.lastGeneratedInAdult = (state.appMode === 'adult');
+  if (state.lastGeneratedInAdult) state.adultGenerateCount += 1;
   applyBudgetPanelGate();
 
   $('#codename').textContent = state.codename;
@@ -10642,10 +10663,16 @@ function renderConsentExplainer() {
 // it is equally non-consensual. Read this scale as propagation breadth,
 // never as moral approval. The y-axis is "how far the non-consent spreads",
 // not "how okay the non-consent is".
+// R17 revision: sociability lowered 1.0 → 0.4 to align with the behavioral-
+// genetics consensus that extraversion is ~40% heritable (Polderman et al.
+// 2015, "Meta-analysis of the heritability of human traits based on fifty
+// years of twin studies", Nature Genetics 47:702-9). The prior 1.0 weight
+// implied near-total heritability, overstating how widely a sociability
+// allocation propagates into the line.
 const INHERITANCE_BURDEN_WEIGHTS = {
   health: 0.1, resilience: 0.2, creativity: 0.4, empathy: 0.4,
-  cognition: 0.45, athleticism: 0.6, emotional: 1.0,
-  appearance: 1.0, sociability: 1.0
+  cognition: 0.45, athleticism: 0.6, sociability: 0.4,
+  emotional: 1.0, appearance: 1.0
 };
 function updateBudgetProjections(usedOverride) {
   const cohortEl   = $('#cohort-placement');
