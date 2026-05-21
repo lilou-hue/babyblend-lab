@@ -4292,52 +4292,112 @@ const KIDS_TRAIT_CONFLICTS = [
   {
     when: b => b.openness >= 8 && b.conscientiousness <= 4,
     tag: 'Lots of ideas, sometimes scattered',
-    note: 'Loves starting new things. Finishing can be harder. That\'s okay — many small starts are also wins.'
+    note: 'Loves starting new things. Finishing can be harder. That\'s okay — many small starts are also wins.',
+    i18n: {
+      zh: { tag: '想法很多,有时跳来跳去', note: '喜欢开始新东西,做完会比较难。这没关系——很多小小的开始本身就是赢。' },
+      ja: { tag: 'アイデアいっぱい、ちょっとあちこち', note: '新しいことを始めるのが大好き。最後までやり切るのは難しいこともある。それでだいじょうぶ——小さな「はじめ」もたくさんの勝ちです。' },
+      ko: { tag: '아이디어는 많고, 가끔은 흩어지는', note: '새로 시작하는 걸 좋아해요. 끝까지 하는 건 어려울 수도 있어요. 그래도 괜찮아요 — 작은 시작도 많은 승리예요.' },
+      tr: { tag: 'Bol fikir, biraz dağınık', note: 'Yeni şeylere başlamayı çok sever. Bitirmek zor olabilir. Sorun değil — küçük başlangıçlar da birer zafer.' }
+    }
   },
   {
     when: b => b.conscientiousness >= 8 && b.neuroticism >= 7,
     tag: 'A careful, sometimes worried kid',
-    note: 'Pays attention to details, and sometimes worries about getting things right. Lots of calm time helps.'
+    note: 'Pays attention to details, and sometimes worries about getting things right. Lots of calm time helps.',
+    i18n: {
+      zh: { tag: '细心、有时也会担心的孩子', note: '注意细节,有时会担心做不好。多一些安静的时间会有帮助。' },
+      ja: { tag: 'ていねいで、ときどき心配性な子', note: '細かいことに気がつき、上手にできるか心配することもある。落ち着く時間がたっぷりあるといい。' },
+      ko: { tag: '꼼꼼하고, 가끔은 걱정도 많은 아이', note: '작은 것까지 살피지만, 잘 해내야 한다고 걱정할 때도 있어요. 마음을 가라앉히는 시간이 충분히 도움이 돼요.' },
+      tr: { tag: 'Dikkatli, zaman zaman endişeli bir çocuk', note: 'Ayrıntılara dikkat eder, bazen "doğru yapamamak"tan endişelenir. Bol sakin zaman iyi gelir.' }
+    }
   },
   {
     when: b => b.openness >= 8 && b.extraversion <= 3,
     tag: 'A big imagination, in a quieter space',
-    note: 'Has a rich world inside their head. They might share it with one or two close friends.'
+    note: 'Has a rich world inside their head. They might share it with one or two close friends.',
+    i18n: {
+      zh: { tag: '大大的想象,留在安静的小空间', note: '脑袋里有一个丰盛的世界。也许只会跟一两个亲近的朋友分享。' },
+      ja: { tag: '大きな想像、しずかな場所で', note: '頭のなかにゆたかな世界をもつ。それを一人か二人の親しい友だちに見せるかも。' },
+      ko: { tag: '큰 상상력, 더 조용한 자리에서', note: '머릿속에 풍성한 세계가 있어요. 그건 한두 명의 친한 친구에게만 나눌 수도 있어요.' },
+      tr: { tag: 'Büyük bir hayal gücü, daha sessiz bir alanda', note: 'Kafasının içinde zengin bir dünya var. Bunu bir ya da iki yakın arkadaşıyla paylaşabilir.' }
+    }
   },
   {
     when: b => b.agreeableness >= 8 && b.extraversion <= 3,
     tag: 'A gentle, thoughtful friend',
-    note: 'Kind in small groups. People who get to know them feel lucky.'
+    note: 'Kind in small groups. People who get to know them feel lucky.',
+    i18n: {
+      zh: { tag: '温柔体贴的好朋友', note: '在小群体里很温暖。认识他们的人都觉得自己很幸运。' },
+      ja: { tag: 'やさしくて、よく気がつく友だち', note: '少人数のなかでとてもやさしい。知り合えた人たちは「ラッキー」と感じる。' },
+      ko: { tag: '다정하고 사려 깊은 친구', note: '작은 모임에서는 더없이 따뜻해요. 가깝게 지낸 사람들은 운이 좋다고 느껴요.' },
+      tr: { tag: 'Yumuşak başlı, düşünceli bir arkadaş', note: 'Küçük gruplarda çok kibardır. Onu tanıyanlar kendilerini şanslı sayar.' }
+    }
   },
   {
     when: b => b.extraversion >= 8 && b.neuroticism >= 7,
     tag: 'Sparkles in public, recharges in private',
-    note: 'Loves being around people. Also needs quiet time afterwards to refill.'
+    note: 'Loves being around people. Also needs quiet time afterwards to refill.',
+    i18n: {
+      zh: { tag: '在人前闪闪发光,在独处时充电', note: '喜欢和大家在一起。之后也需要安静的时间把自己再装满。' },
+      ja: { tag: 'みんなのなかで輝いて、ひとりの時間で充電する', note: '人と一緒にいるのが大好き。そのあとに、ひとりで満たし直すしずかな時間も必要。' },
+      ko: { tag: '사람들 앞에선 반짝, 혼자선 충전', note: '사람들과 어울리는 걸 좋아해요. 그러고 나면 다시 채울 조용한 시간도 필요해요.' },
+      tr: { tag: 'Sahnede parlar, yalnızken doldurur', note: 'İnsanlarla olmayı çok sever. Sonrasında kendini yeniden doldurmak için sessiz zamana ihtiyacı vardır.' }
+    }
   },
   {
     when: b => b.athletic >= 8 && b.conscientiousness <= 3,
     tag: 'Lots of energy, lots of motion',
-    note: 'Needs space to run, jump, climb. Structure helps channel all that joy.'
+    note: 'Needs space to run, jump, climb. Structure helps channel all that joy.',
+    i18n: {
+      zh: { tag: '满满的能量,满满的动力', note: '需要奔跑、跳跃、攀爬的空间。一点点结构会帮这份快乐找到方向。' },
+      ja: { tag: 'あふれるエネルギー、たくさんの動き', note: '走ったり、跳んだり、登ったりする場所が必要。少しの「型」があると、そのよろこびが行き場を見つける。' },
+      ko: { tag: '가득 찬 에너지, 끊임없는 움직임', note: '달리고 뛰고 오를 공간이 필요해요. 약간의 틀이 그 즐거움에 길을 내줘요.' },
+      tr: { tag: 'Bol enerji, bol hareket', note: 'Koşmak, zıplamak, tırmanmak için alana ihtiyaç duyar. Birazcık yapı, bu coşkuya yön bulmasına yardım eder.' }
+    }
   },
   {
     when: b => b.openness >= 8 && b.agreeableness <= 3,
     tag: 'A questioner who likes to challenge ideas',
-    note: 'Will ask \"why?\" a lot. May respectfully disagree with grown-ups.'
+    note: 'Will ask \"why?\" a lot. May respectfully disagree with grown-ups.',
+    i18n: {
+      zh: { tag: '喜欢追问、爱挑战想法的孩子', note: '会问很多次"为什么"。也可能很礼貌地不同意大人。' },
+      ja: { tag: '「なんで?」と問いかけ、考えに挑む子', note: '「どうして?」をたくさん口にする。大人にも、ていねいに反対意見を言うかも。' },
+      ko: { tag: '묻고 따지는 걸 좋아하는 아이', note: '"왜?" 라고 자주 물어요. 어른의 말에도 정중하게 다른 의견을 낼 수 있어요.' },
+      tr: { tag: 'Sorgulayan, fikirlere meydan okumayı seven biri', note: 'Çokça "neden?" diye soracak. Büyüklerine kibarca itiraz edebilir.' }
+    }
   },
   {
     when: b => b.conscientiousness <= 3 && b.neuroticism <= 3,
     tag: 'Sunny and a little wiggly',
-    note: 'Cheerful and easygoing. Routines help — and that\'s okay to need.'
+    note: 'Cheerful and easygoing. Routines help — and that\'s okay to need.',
+    i18n: {
+      zh: { tag: '阳光,有点动来动去', note: '开朗、随和。一些固定的小习惯会有帮助——需要它们也完全没关系。' },
+      ja: { tag: '明るくて、ちょっとそわそわ', note: '朗らかで、ゆったりしている。決まった習慣があると助けになる——それを「必要」とすることはまったく問題ない。' },
+      ko: { tag: '밝고, 살짝 들썩이는', note: '명랑하고 느긋해요. 일정한 루틴이 도움이 돼요 — 그게 필요한 것도 괜찮아요.' },
+      tr: { tag: 'Güneşli, biraz hareketli', note: 'Neşeli ve rahat. Rutinler işe yarar — ve buna ihtiyaç duyması son derece doğal.' }
+    }
   },
   {
     when: b => b.agreeableness >= 8 && b.neuroticism <= 3,
     tag: 'Steady kindness',
-    note: 'Calm and warm. The kind of kid friends naturally gather around.'
+    note: 'Calm and warm. The kind of kid friends naturally gather around.',
+    i18n: {
+      zh: { tag: '稳稳的善意', note: '平和又温暖。是朋友们自然而然就会围过来的那种孩子。' },
+      ja: { tag: '揺るがないやさしさ', note: 'おだやかで、あたたかい。友だちが自然と集まってくる、そういう子。' },
+      ko: { tag: '흔들리지 않는 다정함', note: '차분하고 따뜻해요. 친구들이 자연스레 곁으로 모이는 아이.' },
+      tr: { tag: 'Sarsılmaz bir nezaket', note: 'Sakin ve sıcak. Arkadaşlarının doğal olarak etrafında toplandığı türden bir çocuk.' }
+    }
   },
   {
     when: b => b.extraversion <= 3 && b.openness >= 8 && b.conscientiousness >= 7,
     tag: 'A quiet maker',
-    note: 'Likes making things on their own. Often happiest with their own little project.'
+    note: 'Likes making things on their own. Often happiest with their own little project.',
+    i18n: {
+      zh: { tag: '安静的创造者', note: '喜欢一个人做东西。常常和自己的小项目在一起时最开心。' },
+      ja: { tag: '静かな作り手', note: '自分ひとりで何かを作るのが好き。自分だけの小さな計画と一緒にいるときが、いちばん楽しそう。' },
+      ko: { tag: '조용히 만드는 아이', note: '혼자서 무언가 만드는 걸 좋아해요. 자기만의 작은 프로젝트와 있을 때 가장 행복해해요.' },
+      tr: { tag: 'Sessiz bir kurucu', note: 'Tek başına bir şeyler yapmaktan hoşlanır. Kendi küçük projesiyle baş başayken en mutludur.' }
+    }
   }
 ];
 
