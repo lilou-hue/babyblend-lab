@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
-  <title>About — BabyBlend Lab</title>
+  <title data-i18n="about.title">About — BabyBlend Lab</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -209,90 +209,171 @@
       .real-grid { grid-template-columns: 1fr; }
       .about-wrap { padding: 56px 20px 80px; }
     }
+
+    .about-lang {
+      position: fixed; top: 16px; right: 16px;
+      background: rgba(20, 22, 55, 0.7);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 6px 10px;
+      color: var(--ink);
+      font-size: 12px;
+      z-index: 10;
+    }
+    .about-lang select {
+      background: transparent;
+      color: var(--ink);
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .about-lang select option { color: #07071a; }
   </style>
 </head>
 <body>
-  <div class="about-wrap">
-    <a class="about-back" href="./">← Back to the lab</a>
+  <div class="about-lang">
+    <label for="about-lang-select" style="margin-right:6px;color:var(--ink-mute);" data-i18n="language.label">Language</label>
+    <select id="about-lang-select">
+      <option value="en">English</option>
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="ko">한국어</option>
+      <option value="tr">Türkçe</option>
+    </select>
+  </div>
 
-    <h1 class="about-title">About BabyBlend Lab</h1>
-    <p class="about-sub">A speculative simulation about the ethics of human enhancement.</p>
+  <div class="about-wrap">
+    <a class="about-back" href="./" data-i18n="about.back">← Back to the lab</a>
+
+    <h1 class="about-title" data-i18n="about.h1">About BabyBlend Lab</h1>
+    <p class="about-sub" data-i18n="about.sub">A speculative simulation about the ethics of human enhancement.</p>
 
     <section class="about-section">
-      <h2>What this is</h2>
-      <p>BabyBlend Lab is a fictional, single-page interactive about how a near-future consumer biotech product might present itself: institutional language, confidence bands, regulatory disclaimers, and a configuration interface for traits. You input two parents, optionally allocate <em>enhancement credits</em> across nine categories, and the system projects a possible child along with the social, regulatory, and identity consequences of those choices.</p>
-      <p>Nothing here predicts any real child. The mechanics are a deliberate caricature. The ethical questions the interface raises are not.</p>
+      <h2 data-i18n="about.what.h">What this is</h2>
+      <p data-i18n-html="about.what.p1">BabyBlend Lab is a fictional, single-page interactive about how a near-future consumer biotech product might present itself: institutional language, confidence bands, regulatory disclaimers, and a configuration interface for traits. You input two parents, optionally allocate <em>enhancement credits</em> across nine categories, and the system projects a possible child along with the social, regulatory, and identity consequences of those choices.</p>
+      <p data-i18n="about.what.p2">Nothing here predicts any real child. The mechanics are a deliberate caricature. The ethical questions the interface raises are not.</p>
     </section>
 
     <section class="about-section">
-      <h2>Three modes, three arguments</h2>
-      <p>The same fictional baby can be viewed in three registers. Each mode argues something different.</p>
+      <h2 data-i18n="about.modes.h">Three modes, three arguments</h2>
+      <p data-i18n="about.modes.intro">The same fictional baby can be viewed in three registers. Each mode argues something different.</p>
       <ul class="mode-list">
         <li>
-          <span class="mode-name">Adult</span>
-          A clinical biotech-product register. Treats the simulation as if it were a real consumer feature: Beta tags, cost tiers, regulatory notices, projection-confidence pills. The argument is <em>what you shouldn't optimize.</em> The Societal Outcomes Brief, the Cost / Access Tier strip, the Sibling Cohort variance row, the Divergence Events, and the Historical Drift timeline together show that the projection is fragile, unequal, and culturally local even at its most authoritative.
+          <span class="mode-name" data-i18n="about.modes.adult.name">Adult</span>
+          <span data-i18n-html="about.modes.adult.body">A clinical biotech-product register. Treats the simulation as if it were a real consumer feature: Beta tags, cost tiers, regulatory notices, projection-confidence pills. The argument is <em>what you shouldn't optimize.</em> The Societal Outcomes Brief, the Cost / Access Tier strip, the Sibling Cohort variance row, the Divergence Events, and the Historical Drift timeline together show that the projection is fragile, unequal, and culturally local even at its most authoritative.</span>
         </li>
         <li>
-          <span class="mode-name">Reflection</span>
-          A contemplative register. Treats the same baby as a person whose life cannot be sliders. The argument is <em>what these projections cannot see.</em> The Trait Constellation, Memory Cards, Inner Cohort, Lifetime Drift, and Pause Panel each surface a dimension of personhood the model omits — sensory texture, private rooms, decades of self-revision, the things a slider cannot ask about.
+          <span class="mode-name" data-i18n="about.modes.reflection.name">Reflection</span>
+          <span data-i18n-html="about.modes.reflection.body">A contemplative register. Treats the same baby as a person whose life cannot be sliders. The argument is <em>what these projections cannot see.</em> The Trait Constellation, Memory Cards, Inner Cohort, Lifetime Drift, and Pause Panel each surface a dimension of personhood the model omits — sensory texture, private rooms, decades of self-revision, the things a slider cannot ask about.</span>
         </li>
         <li>
-          <span class="mode-name">Kids</span>
-          A wonder / curiosity register. Treats the simulation as a friendly classroom artifact — softer palette, simpler labels, gentler questions. The lightest of the three by design.
+          <span class="mode-name" data-i18n="about.modes.kids.name">Kids</span>
+          <span data-i18n="about.modes.kids.body">A wonder / curiosity register. Treats the simulation as a friendly classroom artifact — softer palette, simpler labels, gentler questions. The lightest of the three by design.</span>
         </li>
       </ul>
     </section>
 
     <section class="about-section">
-      <h2>What's real, what's not</h2>
+      <h2 data-i18n="about.real.h">What's real, what's not</h2>
       <div class="real-grid">
         <div class="real-col real">
-          <h3>Real</h3>
+          <h3 data-i18n="about.real.title">Real</h3>
           <ul>
-            <li>Every event and citation in the intro timeline (1978 IVF, 1990 PGD, 2012 CRISPR-Cas9, 2018 He Jiankui twins, 2019 sentencing, 2020 Nobel Prize, 2023 UK Casgevy approval).</li>
-            <li>The Big Five (OCEAN) personality model and its ~40–60% twin-study heritability range.</li>
-            <li>The polygenic-with-Gaussian-noise inheritance shape used for OCEAN sliders.</li>
-            <li>The cosmetic-procedure statistic (ISAPS), "Snapchat dysmorphia" (JAMA Facial Plastic Surgery), BDD prevalence (Veale et al.), and the 75+ countries restricting heritable editing (Baylis et al.).</li>
+            <li data-i18n="about.real.li1">Every event and citation in the intro timeline (1978 IVF, 1990 PGD, 2012 CRISPR-Cas9, 2018 He Jiankui twins, 2019 sentencing, 2020 Nobel Prize, 2023 UK Casgevy approval).</li>
+            <li data-i18n="about.real.li2">The Big Five (OCEAN) personality model and its ~40–60% twin-study heritability range.</li>
+            <li data-i18n="about.real.li3">The polygenic-with-Gaussian-noise inheritance shape used for OCEAN sliders.</li>
+            <li data-i18n="about.real.li4">The cosmetic-procedure statistic (ISAPS), "Snapchat dysmorphia" (JAMA Facial Plastic Surgery), BDD prevalence (Veale et al.), and the 75+ countries restricting heritable editing (Baylis et al.).</li>
           </ul>
         </div>
         <div class="real-col not-real">
-          <h3>Fictional</h3>
+          <h3 data-i18n="about.fic.title">Fictional</h3>
           <ul>
-            <li>The Enhancement Allocation budget, cost-per-credit, Access Tier thresholds, regional access lines, and Cohort Placement percentile. They model how a real biotech product might price and rank these things, not what current technology can actually do.</li>
-            <li>The Societal Outcomes Brief lines. Heuristic; informed by social-science instincts about expectation effects and access mismatch, but not predictive.</li>
-            <li>The Divergence Events. Fictional biographies; the <em>principle</em> (that ordinary life events outweigh trait projections) is what's real.</li>
-            <li>The DiceBear avatars. Illustrated stand-ins, not photographs.</li>
+            <li data-i18n="about.fic.li1">The Enhancement Allocation budget, cost-per-credit, Access Tier thresholds, regional access lines, and Cohort Placement percentile. They model how a real biotech product might price and rank these things, not what current technology can actually do.</li>
+            <li data-i18n="about.fic.li2">The Societal Outcomes Brief lines. Heuristic; informed by social-science instincts about expectation effects and access mismatch, but not predictive.</li>
+            <li data-i18n-html="about.fic.li3">The Divergence Events. Fictional biographies; the <em>principle</em> (that ordinary life events outweigh trait projections) is what's real.</li>
+            <li data-i18n="about.fic.li4">The DiceBear avatars. Illustrated stand-ins, not photographs.</li>
           </ul>
         </div>
       </div>
     </section>
 
     <section class="about-section">
-      <h2>Process notes</h2>
-      <p>Built in vanilla HTML / CSS / JavaScript — no framework, no build step. Anyone can read the source. Avatar styles come from <a href="https://www.dicebear.com" style="color: var(--accent); text-decoration: none;">DiceBear</a>, loaded from a CDN.</p>
-      <p>Designed in iteration. The first version was a "make a cute baby" toy. Over many sessions it grew into a three-mode ethics interface. The arc the user moves through — playful curiosity through institutional optimization to quiet reflection — mirrors the arc the project itself went through during construction.</p>
-      <p>Hosted on GitHub Pages. The simulator is at <a href="./" style="color: var(--accent); text-decoration: none;">acceleration1st.com</a>.</p>
+      <h2 data-i18n="about.process.h">Process notes</h2>
+      <p data-i18n-html="about.process.p1">Built in vanilla HTML / CSS / JavaScript — no framework, no build step. Anyone can read the source. Avatar styles come from <a href="https://www.dicebear.com" style="color: var(--accent); text-decoration: none;">DiceBear</a>, loaded from a CDN.</p>
+      <p data-i18n="about.process.p2">Designed in iteration. The first version was a "make a cute baby" toy. Over many sessions it grew into a three-mode ethics interface. The arc the user moves through — playful curiosity through institutional optimization to quiet reflection — mirrors the arc the project itself went through during construction.</p>
+      <p data-i18n-html="about.process.p3">Hosted on GitHub Pages. The simulator is at <a href="./" style="color: var(--accent); text-decoration: none;">acceleration1st.com</a>.</p>
     </section>
 
     <section class="about-section">
-      <h2>Citations</h2>
+      <h2 data-i18n="about.cites.h">Citations</h2>
       <ol class="citations">
-        <li>Steptoe PC, Edwards RG. Birth after the reimplantation of a human embryo. <em>The Lancet</em>, 312(8085):366, 1978.</li>
-        <li>Handyside AH, Kontogianni EH, Hardy K, Winston RM. Pregnancies from biopsied human preimplantation embryos sexed by Y-specific DNA amplification. <em>Nature</em>, 344:768–770, 1990.</li>
-        <li>Jinek M, Chylinski K, Fonfara I, Hauer M, Doudna JA, Charpentier E. A programmable dual-RNA–guided DNA endonuclease in adaptive bacterial immunity. <em>Science</em>, 337(6096):816–821, 2012.</li>
-        <li>Cyranoski D, Ledford H. Genome-edited baby claim provokes international outcry. <em>Nature</em> news, 26 November 2018.</li>
-        <li>Royal Swedish Academy of Sciences. The Nobel Prize in Chemistry 2020. Press release, October 2020.</li>
-        <li>Medicines and Healthcare products Regulatory Agency (UK). MHRA authorises first gene therapy for sickle-cell disease and transfusion-dependent β-thalassaemia. 16 November 2023.</li>
-        <li>International Society of Aesthetic Plastic Surgery. <em>ISAPS Global Survey on Aesthetic / Cosmetic Procedures</em>, 2022.</li>
-        <li>Rajanala S, Maymone MBC, Vashi NA. Selfies — Living in the Era of Filtered Photographs. <em>JAMA Facial Plastic Surgery</em>, 20(6):443–444, 2018.</li>
-        <li>Veale D, Gledhill LJ, Christodoulou P, Hodsoll J. Body dysmorphic disorder in different settings: A systematic review and estimated weighted prevalence. <em>Body Image</em>, 18:168–186, 2016.</li>
-        <li>Baylis F, Darnovsky M, Hasson K, Krahn TM. Human Germline and Heritable Genome Editing: The Global Policy Landscape. <em>The CRISPR Journal</em>, 3(5):365–377, 2020.</li>
-        <li>Bouchard TJ Jr. Genes, environment, and personality. <em>Science</em>, 264(5166):1700–1701, 1994.</li>
-        <li>Plomin R, DeFries JC, Knopik VS, Neiderhiser JM. <em>Behavioral Genetics</em>, 6th ed. Worth Publishers, 2013.</li>
+        <li data-i18n-html="about.cite.1">Steptoe PC, Edwards RG. Birth after the reimplantation of a human embryo. <em>The Lancet</em>, 312(8085):366, 1978.</li>
+        <li data-i18n-html="about.cite.2">Handyside AH, Kontogianni EH, Hardy K, Winston RM. Pregnancies from biopsied human preimplantation embryos sexed by Y-specific DNA amplification. <em>Nature</em>, 344:768–770, 1990.</li>
+        <li data-i18n-html="about.cite.3">Jinek M, Chylinski K, Fonfara I, Hauer M, Doudna JA, Charpentier E. A programmable dual-RNA–guided DNA endonuclease in adaptive bacterial immunity. <em>Science</em>, 337(6096):816–821, 2012.</li>
+        <li data-i18n-html="about.cite.4">Cyranoski D, Ledford H. Genome-edited baby claim provokes international outcry. <em>Nature</em> news, 26 November 2018.</li>
+        <li data-i18n="about.cite.5">Royal Swedish Academy of Sciences. The Nobel Prize in Chemistry 2020. Press release, October 2020.</li>
+        <li data-i18n="about.cite.6">Medicines and Healthcare products Regulatory Agency (UK). MHRA authorises first gene therapy for sickle-cell disease and transfusion-dependent β-thalassaemia. 16 November 2023.</li>
+        <li data-i18n-html="about.cite.7">International Society of Aesthetic Plastic Surgery. <em>ISAPS Global Survey on Aesthetic / Cosmetic Procedures</em>, 2022.</li>
+        <li data-i18n-html="about.cite.8">Rajanala S, Maymone MBC, Vashi NA. Selfies — Living in the Era of Filtered Photographs. <em>JAMA Facial Plastic Surgery</em>, 20(6):443–444, 2018.</li>
+        <li data-i18n-html="about.cite.9">Veale D, Gledhill LJ, Christodoulou P, Hodsoll J. Body dysmorphic disorder in different settings: A systematic review and estimated weighted prevalence. <em>Body Image</em>, 18:168–186, 2016.</li>
+        <li data-i18n-html="about.cite.10">Baylis F, Darnovsky M, Hasson K, Krahn TM. Human Germline and Heritable Genome Editing: The Global Policy Landscape. <em>The CRISPR Journal</em>, 3(5):365–377, 2020.</li>
+        <li data-i18n-html="about.cite.11">Bouchard TJ Jr. Genes, environment, and personality. <em>Science</em>, 264(5166):1700–1701, 1994.</li>
+        <li data-i18n-html="about.cite.12">Plomin R, DeFries JC, Knopik VS, Neiderhiser JM. <em>Behavioral Genetics</em>, 6th ed. Worth Publishers, 2013.</li>
       </ol>
     </section>
 
-    <p class="meta">Fictional simulation. Not medical or genetic advice. Current ethical regulations vary globally.</p>
+    <p class="meta" data-i18n="about.meta">Fictional simulation. Not medical or genetic advice. Current ethical regulations vary globally.</p>
   </div>
+
+  <script>
+  // Standalone i18n for about.html — same localStorage key as the main app
+  // (babyblend.language.v1) so language choice persists across pages.
+  (function () {
+    const KEY = 'babyblend.language.v1';
+    const STR = window.__ABOUT_I18N || {};
+    function getLang() {
+      try { return localStorage.getItem(KEY) || 'en'; } catch { return 'en'; }
+    }
+    function setLang(l) {
+      try { localStorage.setItem(KEY, l); } catch {}
+    }
+    function t(key) {
+      const lang = getLang();
+      return (STR[lang] && STR[lang][key]) || (STR.en && STR.en[key]) || key;
+    }
+    function apply() {
+      const lang = getLang();
+      document.documentElement.lang = lang;
+      document.title = t('about.title');
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.textContent = t(el.dataset.i18n);
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        el.innerHTML = t(el.dataset.i18nHtml);
+      });
+    }
+    const sel = document.getElementById('about-lang-select');
+    if (sel) {
+      sel.value = getLang();
+      sel.addEventListener('change', () => { setLang(sel.value); apply(); });
+    }
+    apply();
+  })();
+  </script>
+  <script src="about-i18n.js"></script>
+  <script>
+  // Re-apply once about-i18n.js has loaded and exposed window.__ABOUT_I18N.
+  (function () {
+    function reapply() {
+      document.querySelectorAll('[data-i18n], [data-i18n-html]').forEach(()=>{});
+      const sel = document.getElementById('about-lang-select');
+      const event = new Event('change', { bubbles: true });
+      if (sel) sel.dispatchEvent(event);
+    }
+    if (document.readyState === 'complete') reapply();
+    else window.addEventListener('load', reapply);
+  })();
+  </script>
 </body>
 </html>

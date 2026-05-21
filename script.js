@@ -7641,6 +7641,7 @@ function updateBabyPreview() {
   renderSiblingCohort();
   renderDivergence();
   renderSocialResponse();
+  renderRegulatoryLetter();
 
   // Reflection-mode arc: same person, different rooms / decades.
   renderInnerCohort();
@@ -9147,6 +9148,157 @@ const TRAIT_HISTORY = [
       tr: { label: 'Tahmini', traits: ['Duygu düzenleme', 'Bilişsel dayanıklılık', 'Ağ duyarlılığı'], note: 'Modellenmiş uzantı; yine kayma yaşayabilir.' }
     } }
 ];
+
+/* ---------- Regulatory Letters (Adult mode) ----------
+ * Fictional bureaucratic correspondence from a fictional Global
+ * Heritable Traits Review Board, generated from the user's budget
+ * allocation. Ordered by priority (denial > flagged > approval >
+ * baseline). The letter is the narrative artifact Adult mode was
+ * missing — paperwork that arrives in the mail after the choice. */
+const LETTER_TEMPLATES = [
+  {
+    key: 'returned',
+    priority: 5,
+    when: c => (c.budget.cognition || 0) >= 8 && (c.budget.emotional || 0) >= 7,
+    board:   'GLOBAL HERITABLE TRAITS REVIEW BOARD',
+    office:  'Office of Joint Regulatory Review',
+    refCode: 'JRR',
+    subject: 'Returned for Revision.',
+    body: [
+      'The Committee has reviewed your submission. The requested allocation presents a COMBINED-RISK PROFILE that exceeds the Schedule of Permissible Combinations (§7.1.c).',
+      'Specifically: the COGNITIVE ENHANCEMENT package (≥8 credits) and the EMOTIONAL STABILITY MODIFICATION package (≥7 credits) cannot presently be authorized in combination.',
+      'This determination does not constitute a denial. The Committee invites the applicants to submit a revised allocation, or to consult with a licensed counselor regarding the available alternatives.',
+      'A counselor referral has been [[REDACTED]] from this notice.'
+    ],
+    signer: 'Chair',
+    signature: '[[REDACTED]]'
+  },
+  {
+    key: 'experimental',
+    priority: 4,
+    when: c => (c.budget.emotional || 0) >= 7,
+    board:   'GLOBAL HERITABLE TRAITS REVIEW BOARD',
+    office:  'Experimental Authorizations Desk',
+    refCode: 'EXP',
+    subject: 'Experimental Authorization Required.',
+    body: [
+      'The requested allocation includes EMOTIONAL STABILITY MODIFICATION. This package is classified EXPERIMENTAL under the current regulatory framework and is not commercially distributed through the standard channel.',
+      'Authorization may be granted under the following conditions:',
+      '  1. The applicants acknowledge the absence of long-term outcome data for this modification.',
+      '  2. The applicants have read and signed the Emotional Outcomes Variance Acknowledgement (Form 7-E).',
+      '  3. The Committee retains the right to amend or revoke authorization based on emergent cohort data.',
+      'This letter does not constitute medical advice. Outcomes affecting grief processing, emotional sensitivity, and long-term relational behavior are explicitly NOT WARRANTED.'
+    ],
+    signer: 'Director',
+    signature: '[[REDACTED]]'
+  },
+  {
+    key: 'cognitive',
+    priority: 3,
+    when: c => (c.budget.cognition || 0) >= 8,
+    board:   'GLOBAL HERITABLE TRAITS REVIEW BOARD',
+    office:  'Cognitive Enhancement Subcommittee',
+    refCode: 'CES',
+    subject: 'Conditional Approval — Restricted Category.',
+    body: [
+      'The Committee has reviewed your submission. The requested allocation includes the COGNITIVE ENHANCEMENT package, which remains under regulatory review in several jurisdictions including the European Union and the People\'s Republic of China.',
+      'Conditional approval is granted on the following terms:',
+      '  1. The child shall be enrolled in the Cognitive Outcomes Registry for a period of not less than thirty (30) years.',
+      '  2. The applicants shall disclose the enhancement status to any educational institution upon enrollment.',
+      '  3. Any subsequent application by the child for citizenship in a restricted jurisdiction may be affected by the registered status.',
+      'The Committee notes that the long-term cognitive outcomes of this intervention are NOT YET CHARACTERIZED IN A MULTI-DECADE COHORT.'
+    ],
+    signer: 'Subcommittee Chair',
+    signature: '[[REDACTED]]'
+  },
+  {
+    key: 'provisional',
+    priority: 2,
+    when: c => c.totalAlloc > 0,
+    board:   'GLOBAL HERITABLE TRAITS REVIEW BOARD',
+    office:  'Office of Application Standards',
+    refCode: 'HTR',
+    subject: 'Provisional Approval.',
+    body: [
+      'The Committee has reviewed your submission. Based on the declared parental profile and the requested enhancement allocation, the application is provisionally APPROVED, subject to the conditions enumerated below.',
+      'This approval is contingent on:',
+      '  1. Continued compliance with the Inheritance Disclosure Statute (§4.2.a, as amended).',
+      '  2. Quarterly developmental assessment through age 18.',
+      '  3. Acknowledgement that behavioral projections published by this office carry no warranty.',
+      'Outcome divergence from the modeled projection is expected and does not constitute grounds for revision or reimbursement.'
+    ],
+    signer: 'Director',
+    signature: '[[REDACTED]]'
+  },
+  {
+    key: 'baseline',
+    priority: 1,
+    when: () => true,
+    board:   'GLOBAL HERITABLE TRAITS REVIEW BOARD',
+    office:  'Universal Coverage Office',
+    refCode: 'UC',
+    subject: 'Baseline Confirmation.',
+    body: [
+      'The Committee acknowledges receipt of your submission. The declared allocation indicates ENHANCEMENT NIL across all categories. This application is processed under the Universal Coverage Schedule.',
+      'No modifications have been requested. No conditions apply.',
+      'This office notes that a sizeable share of contemporary applications are submitted under the same Schedule. The Committee makes no recommendation regarding the appropriateness of this choice.'
+    ],
+    signer: 'Coordinator',
+    signature: '[[REDACTED]]'
+  }
+];
+
+function pickLetter(budget, baby, env) {
+  const ctx = {
+    budget: budget || {},
+    baby:   baby   || {},
+    env:    env    || {},
+    totalAlloc: Object.values(budget || {}).reduce((s, v) => s + v, 0)
+  };
+  const sorted = LETTER_TEMPLATES.slice().sort((a, b) => b.priority - a.priority);
+  for (const t of sorted) {
+    try { if (t.when(ctx)) return t; } catch { /* skip */ }
+  }
+  return null;
+}
+
+function renderRegulatoryLetter() {
+  const host = $('#regulatory-letter-panel');
+  if (!host) return;
+  if (state.appMode !== 'adult' || !state.codename) {
+    host.hidden = true;
+    return;
+  }
+  const tpl = pickLetter(state.budget, state.baby, state.env);
+  if (!tpl) { host.hidden = true; return; }
+
+  const idTail = (state.codename || '').replace(/^Projection-/, '') || '0000-A';
+  const reference = `${tpl.refCode}-${idTail}`;
+  const applicationId = idTail;
+  const renderRed = txt => txt.replace(/\[\[REDACTED\]\]/g, '<span class="letter-redacted">REDACTED</span>');
+  const paragraphs = tpl.body.map(p => `<p>${renderRed(p)}</p>`).join('');
+
+  host.hidden = false;
+  host.innerHTML = `
+    <header class="letter-panel-head">
+      <h2>Regulatory Correspondence</h2>
+      <p class="subtle">Fictional document. Generated from the current allocation; updates as you re-allocate credits.</p>
+    </header>
+    <article class="letter-document" data-letter="${tpl.key}">
+      <header class="letter-letterhead">
+        <div class="letter-board">${tpl.board}</div>
+        <div class="letter-office">${tpl.office}</div>
+        <div class="letter-ref">Reference: <span class="letter-ref-code">${reference}</span></div>
+      </header>
+      <p class="letter-meta">Re: Application ${applicationId}. <span class="letter-subject">${tpl.subject}</span></p>
+      <div class="letter-body">${paragraphs}</div>
+      <footer class="letter-signature">
+        <p class="letter-sig-line">Yours sincerely,</p>
+        <p class="letter-sig-name">${renderRed(tpl.signature)}</p>
+        <p class="letter-sig-title">${tpl.signer}, ${tpl.office}</p>
+      </footer>
+    </article>`;
+}
 
 const SOCIETAL_RULES = {
   academic: {
