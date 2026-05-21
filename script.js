@@ -2892,7 +2892,7 @@ const ADULT_TRACES = {
     { text: 'Hosts well, then declines social contact for two or three days afterward.', tag: 'EN-mild' },
     { text: 'Keeps a fixed weekday morning routine; tolerates weekend variation without enthusiasm.', tag: 'CO-mild' },
     { text: 'Reschedules a disrupted plan promptly; the underlying preference for the original is rarely named aloud.', tag: 'CO-mild' },
-    { text: 'Defers to the group preference more often than statistically expected; raises the alternative once, briefly, after the fact.', tag: 'AN-mild' },
+    { text: "Goes along with the group's pick more often than they'd choose to; mentions their own option briefly, after.", tag: 'AN-mild' },
     { text: 'Carries minor unspoken irritations for several days; resolves them privately, without comment.', tag: 'AN-mild' }
   ],
   zh: [
@@ -2942,8 +2942,8 @@ const ADULT_TRACES = {
     { text: '把聚会办得周到,之后两三天不愿与人来往。', tag: 'EN-mild' },
     { text: '工作日保持固定的早晨流程;能容忍周末的变动,只是谈不上喜欢。', tag: 'CO-mild' },
     { text: '计划被打乱时会迅速重新安排;对原方案的偏好,几乎不会说出口。', tag: 'CO-mild' },
-    { text: '比统计上更常迁就群体的选择;事后会短短地提一句自己原本想去的。', tag: 'AN-mild' },
-    { text: '会把不大的小不满憋上几天;然后自己消化,不再提起。', tag: 'AN-mild' }
+    { text: '比自己真正想选的更常顺从群体;过后会短短地提一句自己原本想去的。', tag: 'AN-mild' },
+    { text: '会把不大的小不满憋上几天;之后默不作声地放下,不再提起。', tag: 'AN-mild' }
   ],
   ja: [
     '思春期につけていたノートを、いまも保管している。',
@@ -2992,7 +2992,7 @@ const ADULT_TRACES = {
     { text: 'もてなしは行き届いているが、その後の二、三日は人付き合いを断る。', tag: 'EN-mild' },
     { text: '平日の朝のルーティンは固定で、週末の変動は受け入れるが、楽しんではいない。', tag: 'CO-mild' },
     { text: '崩れた予定はすぐに組み直すが、元の案への思い入れを口に出すことはほとんどない。', tag: 'CO-mild' },
-    { text: '統計上の予想以上に集団の意向に合わせ、自分が望んだ案は、あとで一度だけ短く触れる。', tag: 'AN-mild' },
+    { text: '自分が本当に選ぶよりも多く、集団の意向に合わせる。自分の希望には、あとから短く一度だけ触れる。', tag: 'AN-mild' },
     { text: '小さな不満を口にせず数日抱え、誰にも言わずに、ひっそりと収める。', tag: 'AN-mild' }
   ],
   ko: [
@@ -3042,7 +3042,7 @@ const ADULT_TRACES = {
     { text: '손님 대접은 빈틈없이 해내지만, 그 뒤 이삼 일은 누구와도 만나지 않는다.', tag: 'EN-mild' },
     { text: '평일 아침 루틴은 고정되어 있고, 주말의 변동은 받아들이지만 즐기지는 않는다.', tag: 'CO-mild' },
     { text: '깨진 계획은 즉시 다시 짜되, 원래 안에 대한 선호는 거의 입 밖에 내지 않는다.', tag: 'CO-mild' },
-    { text: '통계적으로 예상되는 것보다 더 자주 집단의 선택에 따르고, 자신이 원했던 안은 일이 끝난 뒤 짧게 한 번 언급한다.', tag: 'AN-mild' },
+    { text: '본인이 정말 고를 만한 것보다 더 자주 집단의 선택에 따르고, 자신이 원했던 안은 일이 끝난 뒤 짧게 한 번 언급한다.', tag: 'AN-mild' },
     { text: '입 밖에 내지 않는 작은 불만을 며칠씩 안고 있다가, 아무 말 없이 혼자 정리한다.', tag: 'AN-mild' }
   ],
   tr: [
@@ -3092,7 +3092,7 @@ const ADULT_TRACES = {
     { text: 'Konuk ağırlamayı iyi yapar, ardından iki üç gün sosyal teması reddeder.', tag: 'EN-mild' },
     { text: 'Hafta içi sabah rutinini sabit tutar; hafta sonu sapmalarına katlanır, ama hoşnut olmadan.', tag: 'CO-mild' },
     { text: 'Bozulan planı hemen yeniden kurar; aslında ilkini tercih ettiğini pek dile getirmez.', tag: 'CO-mild' },
-    { text: 'İstatistiksel olarak beklenenden daha sık grup tercihine uyar; kendi seçeneğini iş bittikten sonra kısaca, bir kez dile getirir.', tag: 'AN-mild' },
+    { text: 'Kendisinin seçeceğinden daha sık grubun tercihine uyar; kendi seçeneğini iş bittikten sonra kısaca, bir kez dile getirir.', tag: 'AN-mild' },
     { text: 'Söze dökmediği ufak rahatsızlıkları birkaç gün taşır; kimseye söylemeden, içinde halleder.', tag: 'AN-mild' }
   ]
 };
@@ -4075,7 +4075,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
   later: {
     en: [
       'Adult personality largely stable; growth continues at slower pace.',
-      'A working life takes shape — whether as a settled career, a string of held-together jobs, or a path that had to be rebuilt mid-stride.',
+      'A working life takes shape — whether as a path that had to be rebuilt mid-stride, a string of held-together jobs, or a settled career.',
       'Long-term relationships and chosen family settle into recognizable shape.',
       'Health and energy patterns shifting; routines accommodate the change.',
       'Affective range often narrows somewhat with age, alongside more equanimity.',
@@ -4087,7 +4087,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     ],
     zh: [
       '成年人格大体稳定;成长仍在继续,但节奏放缓。',
-      '一段工作生涯逐渐成型——或是稳定的职业,或是一连串勉力维持的工作,或是一条不得不在中途重新铺设的路。',
+      '一段工作生涯逐渐成型——或是一条不得不在中途重新铺设的路,或是一连串勉力维持的工作,或是一份稳定的职业。',
       '长期关系与所选择的家庭,呈现出可识别的稳定形态。',
       '健康与精力的模式正在改变;日常生活习惯随之做出调整。',
       '随着年龄增长,情绪幅度往往会收窄一些,与之同时,心境也更平稳。',
@@ -4099,7 +4099,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     ],
     ja: [
       '成人後のパーソナリティはおおむね安定。成長は続くが、ペースは緩やかになる。',
-      '働く生活の形が定まる――落ち着いたキャリアであれ、つなぎ合わせて維持してきた職の連なりであれ、途中で一から組み直さざるを得なかった道であれ。',
+      '働く生活の形が定まる――途中で一から組み直さざるを得なかった道であれ、つなぎ合わせて維持してきた職の連なりであれ、落ち着いたキャリアであれ。',
       '長期の人間関係と「選んだ家族」が、見分けのつく形に落ち着く。',
       '健康とエネルギーのパターンが変化し、日々の習慣もそれに合わせて変わる。',
       '感情の幅は年齢とともにやや狭まる一方で、心の落ち着きは増す。',
@@ -4111,7 +4111,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     ],
     ko: [
       '성인기 인격은 대체로 안정되어 있고, 성장은 더 느린 속도로 이어진다.',
-      '일하는 삶의 형태가 자리를 잡는다 — 안정된 경력일 수도, 간신히 이어 붙여 온 일자리들의 연속일 수도, 중간에 처음부터 다시 깔아야 했던 길일 수도 있다.',
+      '일하는 삶의 형태가 자리를 잡는다 — 중간에 처음부터 다시 깔아야 했던 길일 수도, 간신히 이어 붙여 온 일자리들의 연속일 수도, 안정된 경력일 수도 있다.',
       '장기 관계와 스스로 택한 가족의 형태가, 알아볼 수 있는 모습으로 자리 잡는다.',
       '건강과 활력의 양상이 변하고, 일상 습관이 그 변화에 맞춰 조정된다.',
       '감정의 폭은 나이와 함께 다소 좁아지고, 동시에 평정심은 더 커진다.',
@@ -4123,7 +4123,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     ],
     tr: [
       'Yetişkin kişilik büyük ölçüde sabit; gelişim daha yavaş bir hızda sürer.',
-      'Bir çalışma hayatı biçimini alır — yerleşmiş bir kariyer, bir arada tutulmuş işlerden oluşan bir dizi ya da yarı yolda yeniden kurulması gereken bir güzergâh olarak.',
+      'Bir çalışma hayatı biçimini alır — yarı yolda yeniden kurulması gereken bir güzergâh, bir arada tutulmuş işlerden oluşan bir dizi ya da yerleşmiş bir kariyer olarak.',
       'Uzun süreli ilişkiler ve seçilmiş aile, tanınır bir biçime kavuşur.',
       'Sağlık ve enerji örüntüleri değişiyor; rutinler bu değişime uyum sağlıyor.',
       'Duygusal yelpaze yaşla birlikte sıklıkla biraz daralırken, dinginlik artar.',
@@ -4795,7 +4795,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'Might love a big group game, then want one quiet friend for the next hour.', tag: 'EN-mild' },
     { text: 'May love trying new things, but want their same favorite pajamas at the end of the day.', tag: 'CO-mild' },
     { text: 'Could like surprises, as long as someone tells them the surprise is coming.', tag: 'CO-mild' },
-    { text: 'Might say "I don\'t mind" when they actually do mind, just a little.',  tag: 'AN-mild' },
+    { text: 'Might say "I don\'t mind" when they actually do mind. Sometimes the practice becomes the pattern.',  tag: 'AN-mild' },
     { text: 'May go along with what their friend wants today, and pick the game themselves tomorrow.', tag: 'AN-mild' }
   ],
   zh: [
@@ -4837,7 +4837,7 @@ const KIDS_FUTURE_PATHS = {
     { text: '可能先爱热闹的集体游戏,接下来一个小时又只想找一个安静的朋友。', tag: 'EN-mild' },
     { text: '可能喜欢尝试新东西,但到了晚上还是想穿那件最熟悉的睡衣。', tag: 'CO-mild' },
     { text: '可能喜欢惊喜,只要有人先告诉他们惊喜要来了。', tag: 'CO-mild' },
-    { text: '可能嘴上说"我不介意",心里其实有那么一点点介意。', tag: 'AN-mild' },
+    { text: '可能嘴上说"我不介意",心里其实是介意的。说着说着,就成了习惯。', tag: 'AN-mild' },
     { text: '可能今天迁就朋友想玩的,明天再换自己想玩的来挑。', tag: 'AN-mild' }
   ],
   ja: [
@@ -4879,7 +4879,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'にぎやかな集団あそびのあと、次の一時間は静かな友だち一人と過ごしたくなるかも。', tag: 'EN-mild' },
     { text: '新しいことを試すのは好きだけれど、一日の終わりにはいつものお気に入りのパジャマを着たい子かも。', tag: 'CO-mild' },
     { text: 'サプライズは好き——ただし、「サプライズがあるよ」と先に教えてもらえれば。', tag: 'CO-mild' },
-    { text: '本当は少し気にしているのに、「気にしてないよ」と言ってしまうことがあるかも。', tag: 'AN-mild' },
+    { text: '本当は気にしているのに、「気にしてないよ」と言ってしまうかも。続けているうちに、それがその子の癖になっていく。', tag: 'AN-mild' },
     { text: '今日は友だちのやりたい遊びに合わせ、明日は自分のやりたい遊びを選ぶ——そんなふうにできるかも。', tag: 'AN-mild' }
   ],
   ko: [
@@ -4921,7 +4921,7 @@ const KIDS_FUTURE_PATHS = {
     { text: '큰 단체 놀이를 신나게 한 뒤, 한 시간쯤은 조용한 친구 한 명과 있고 싶어 할 수도 있어요.', tag: 'EN-mild' },
     { text: '새로운 걸 시도하는 건 좋아하지만, 하루의 끝에는 늘 좋아하는 그 잠옷을 입고 싶어 할지도 몰라요.', tag: 'CO-mild' },
     { text: '깜짝 선물을 좋아할 수 있어요 — 누군가 깜짝 선물이 올 거라고 미리 알려주기만 한다면요.', tag: 'CO-mild' },
-    { text: '사실은 조금 신경 쓰이는데도 "나는 괜찮아"라고 말해 버릴 때가 있을지도 몰라요.', tag: 'AN-mild' },
+    { text: '사실은 신경 쓰이는데도 "나는 괜찮아"라고 말해 버릴 수 있어요. 그게 반복되면, 어느새 습관이 되기도 해요.', tag: 'AN-mild' },
     { text: '오늘은 친구가 하고 싶은 놀이를 따라 주고, 내일은 자기가 하고 싶은 놀이를 골라 볼 수 있어요.', tag: 'AN-mild' }
   ],
   tr: [
@@ -4963,7 +4963,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'Kalabalık bir grup oyununu sevdikten sonra, bir sonraki saatte tek bir sessiz arkadaş isteyebilir.', tag: 'EN-mild' },
     { text: 'Yeni şeyler denemeyi sevse de, günün sonunda yine en sevdiği aynı pijamayı isteyebilir.', tag: 'CO-mild' },
     { text: 'Sürprizleri sevebilir — yeter ki birisi sürprizin geleceğini önceden söylesin.', tag: 'CO-mild' },
-    { text: 'Aslında biraz rahatsızken bile «benim için fark etmez» diyebilir.', tag: 'AN-mild' },
+    { text: 'Aslında rahatsızken bile «benim için fark etmez» diyebilir. Bunu yeterince söyleyince, alışkanlığa dönüşür.', tag: 'AN-mild' },
     { text: 'Bugün arkadaşının istediği oyuna uyabilir, yarın oyunu kendisi seçebilir.', tag: 'AN-mild' }
   ]
 };
