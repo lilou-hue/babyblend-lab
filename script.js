@@ -4467,8 +4467,9 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'Whether or not children arrive, the next generation enters their orbit.',
       { text: 'Caregiving for an aging parent, a sibling, or a partner interrupts the projected arc; identity reorganizes around who needs them.', life_shape: 'caretaking' },
       // R18: interruption shape coverage (was 0 entries → silent fallback).
-      // EN only this round; translations follow next round per R17 Science
-      // MAJOR (life_shape tags don't currently propagate across language arrays).
+      // R19: zh/ja/ko/tr translations added in parallel at the same index,
+      // tagged as objects so life_shape propagates across languages
+      // (the R17 Science MAJOR — tags previously only on EN).
       { text: 'A period of illness, loss, or external disruption pauses forward motion; identity and goals reorient as it lifts.', life_shape: 'interruption' },
       { text: 'A late bloom: the thing they are known for, by themselves and others, arrives after most peers assumed the shape was set.', life_shape: 'bloom' },
       { text: 'Economic precarity persists into this decade for a non-trivial share of cohorts; stability is not evenly distributed.', life_shape: 'precarity' }
@@ -4482,6 +4483,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '对那些做过与未做的选择,反思变得更频繁。',
       '无论是否有自己的孩子,下一代都已进入他/她的生活轨道。',
       '照护年迈的父母、手足或伴侣,打断了原本预设的人生轨道;身份围绕着"谁需要他/她"重新组织。',
+      { text: '一段疾病、失去或外部冲击的时期暂停了前行的脚步;当它过去时,自我认识与目标重新归位。', life_shape: 'interruption' },
       '一次迟到的绽放:他/她为人所识的那件事——在自己和他人眼中——出现在大多数同龄人都已认定形状已定之后。',
       '在这十年间,经济上的不稳定仍持续困扰着相当一部分同代人;稳定并非平均分布。'
     ],
@@ -4494,6 +4496,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'した選択、しなかった選択について振り返ることが多くなる。',
       '自分の子の有無にかかわらず、次の世代が生活圏に入ってくる。',
       '老いた親、きょうだい、あるいは伴侶のケアが、想定されていた軌道を中断させる。アイデンティティは「誰が自分を必要としているか」を軸に再編される。',
+      { text: '病、喪失、あるいは外的な混乱の時期が、前進を一時停止させる。それが過ぎたとき、自己認識と目標は再編される。', life_shape: 'interruption' },
       '遅咲き――本人にも周囲にも「この人といえばこれ」と認識されるものが、同世代の多くが「もう形は決まった」と見なした後に現れる。',
       'この十年に入っても、相当な割合のコホートでは経済的不安定さが続いている。安定は均等には分配されていない。'
     ],
@@ -4506,6 +4509,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '한 선택과 하지 않은 선택에 대한 성찰이 점점 더 자주 일어난다.',
       '자녀의 유무와 상관없이, 다음 세대가 생활권 안으로 들어온다.',
       '나이 든 부모, 형제자매, 혹은 배우자에 대한 돌봄이 예정된 궤적을 끊는다. 정체성은 "누가 자신을 필요로 하는가"를 중심으로 재편된다.',
+      { text: '질병, 상실, 또는 외부적 혼란의 시기가 전진을 일시 멈춘다. 그것이 지나갈 때, 정체성과 목표는 다시 정렬된다.', life_shape: 'interruption' },
       '늦은 개화: 본인과 주위 모두에게 그 사람을 그 사람이게 하는 것이, 또래 대부분이 이미 형태가 정해졌다고 여긴 뒤에 도착한다.',
       '이 10년대에 들어서도 적지 않은 코호트에서 경제적 불안정이 지속된다. 안정은 고르게 분배되어 있지 않다.'
     ],
@@ -4518,6 +4522,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'Yapılmış ve yapılmamış seçimler üzerinde düşünmek giderek sıklaşır.',
       'Çocuklar olsun ya da olmasın, sonraki kuşak onun yörüngesine girer.',
       'Yaşlanan bir ebeveyne, bir kardeşe ya da bir eşe bakım vermek, öngörülen ekseni keser; kimlik, kime ihtiyaç duyulduğu etrafında yeniden düzenlenir.',
+      { text: 'Bir hastalık, kayıp ya da dış kaynaklı sarsıntı dönemi ileri doğru hareketi duraklatır; bu dönem geçtiğinde, kimlik ve hedefler yeniden hizalanır.', life_shape: 'interruption' },
       'Geç açan bir çiçek: kişinin kendisi ve başkaları için onu tanıdığımız şey, akranların çoğunun biçimin artık oturduğunu varsaymasından sonra gelir.',
       'Bu on yılda da kohortların azımsanmayacak bir bölümü için ekonomik kırılganlık sürer; istikrar eşit biçimde dağılmamıştır.'
     ]
