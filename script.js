@@ -5670,6 +5670,21 @@ const KIDS_ARC_DISCLAIMERS = {
   }
 };
 
+/* R13 UX-FLOW: thematic closing affirmation rendered after the Differences
+ * panel items. Frames the Loves → Questions → Differences arc as landing on
+ * difference-as-identity-foundation rather than trailing off. Single line per
+ * language, wrapped as a 1-element array so `localList` + EN fallback apply.
+ * LOOP_REQUEST(narrative): write KIDS_ARC_CLOSING_AFFIRMATION (single line per
+ * language, framing difference-as-identity-foundation). EN below is a
+ * placeholder pending Narrative's register polish. */
+const KIDS_ARC_CLOSING_AFFIRMATION = {
+  en: ['Different is the most interesting thing about a person.'],
+  zh: ['不一样,正是一个人最有意思的地方。'],
+  ja: ['ちがうということが、その人のいちばんおもしろいところ。'],
+  ko: ['다르다는 것이, 한 사람에게서 가장 흥미로운 부분이에요.'],
+  tr: ['Farklı olmak, bir insanın en ilginç yanıdır.']
+};
+
 /* ---------- Seeded randomness ---------- */
 // Tiny deterministic hash → uint32. Same string in, same value out.
 function hashStr(s) {
@@ -8602,7 +8617,8 @@ function renderKidsDifferences() {
       <p class="kids-arc-disclaimer" id="kids-differences-desc">${localList(KIDS_ARC_DISCLAIMERS.differences)[0]}</p>
       <p class="subtle">Difference is the most interesting thing about a person.</p>
     </header>
-    <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
+    <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>
+    <p class="kids-arc-closing">${localList(KIDS_ARC_CLOSING_AFFIRMATION)[0]}</p>`;
   panel.setAttribute('aria-labelledby', 'kids-differences-title');
   panel.setAttribute('aria-describedby', 'kids-differences-desc');
   panel.hidden = false;
