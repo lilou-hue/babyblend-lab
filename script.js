@@ -4549,11 +4549,34 @@ function renderKidsPersonalitySlider(view, ranges, container) {
 
   const displayR = { min: dispMin, max: dispMax };
   const input = $('#s_' + view.kidsKey, row);
+  // Round 6 rev (UX, ETHICS): soft pure-text ack when a Kids-mode slider
+  // is dragged >1.0 display-unit away from the midparent. No modal, no
+  // animation, no gate — just a quiet line that appears in-place.
+  // LOOP_REQUEST(narrative): translate KIDS_SLIDER_EXTREME_ACK
+  const KIDS_SLIDER_EXTREME_ACK = "You're imagining possibilities — no actual choices are being made here.";
+  const midOceanForAck = (state.parents?.A && state.parents?.B)
+    ? (state.parents.A[view.oceanKey] + state.parents.B[view.oceanKey]) / 2
+    : null;
+  const midDisplayForAck = (midOceanForAck == null) ? null
+    : (view.invert ? (11 - midOceanForAck) : midOceanForAck);
   input.addEventListener('input', () => {
     const v = Number(input.value);
     state.baby[view.oceanKey] = view.invert ? (11 - v) : v;
     updateBandMarker(view.kidsKey, v, displayR);
     updateBabyPreview();
+    if (midDisplayForAck != null) {
+      let ack = row.querySelector('.kids-slider-extreme-ack');
+      if (Math.abs(v - midDisplayForAck) > 1.0) {
+        if (!ack) {
+          ack = document.createElement('p');
+          ack.className = 'kids-slider-extreme-ack subtle';
+          row.appendChild(ack);
+        }
+        ack.textContent = KIDS_SLIDER_EXTREME_ACK;
+      } else if (ack) {
+        ack.remove();
+      }
+    }
   });
   state.baby[view.oceanKey] = view.invert ? (11 - dispDef) : dispDef;
 }
@@ -4744,8 +4767,14 @@ function updateBabyPreview() {
   // micro-ack / progress hint.
   //   alt-A: 'These allocations will be carried by someone not yet present to weigh in on them.'
   //   alt-B: 'Whatever balance you choose here will be lived in by someone with no vote in the matter.'
+  // Round 6 rev (UX): in Kids mode the diagnostic "tradeoff" framing clashes
+  // with the affirmation register of the 3 Kids-arc panels, so suppress the
+  // whole block before any DOM is generated.
   const conflictsEl = $('#trait-conflicts');
-  if (conflictsEl) {
+  if (conflictsEl && isKids()) {
+    conflictsEl.hidden = true;
+    conflictsEl.innerHTML = '';
+  } else if (conflictsEl) {
     const showAwareness = (state.appMode === 'adult' && (state.generateCount || 0) >= 1 && !state.consentAck);
     const awarenessHtml = showAwareness
       ? `<p class="consent-awareness-note">The person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`
@@ -4771,17 +4800,12 @@ function updateBabyPreview() {
     }
   }
 
-  // Small italic reflection prompt — used only in Kids mode now (gentle).
-  // Reflection mode gets the richer Pause panel instead.
+  // Reflection prompt — Reflection mode uses the richer Pause panel.
+  // Round 6 rev (UX): Kids-mode prompt removed; the 3-panel Kids arc
+  // (Loves / Questions / Differences) carries the affirmation register
+  // on its own without a competing italic prompt.
   const reflEl = $('#reflection-prompt');
-  if (reflEl) {
-    if (isKids() && state.codename) {
-      reflEl.hidden = false;
-      reflEl.innerHTML = `<span class="reflection-mark">?</span> ${state.reflection || pickReflectionPrompt(state.codename)}`;
-    } else {
-      reflEl.hidden = true;
-    }
-  }
+  if (reflEl) { reflEl.hidden = true; }
 
   // Pause panel (Reflection mode only): observations + cannot-see + a prompt.
   renderPausePanel();
