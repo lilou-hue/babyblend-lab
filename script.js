@@ -8156,12 +8156,25 @@ function showConsentAckPrompt() {
       prompt.addEventListener('transitionend', cleanup, { once: true });
       setTimeout(cleanup, 500); // fallback if transitionend doesn't fire
       // Cross-fade the Gen-1 consent-awareness note: its hand-off partner
-      // (the micro-ack) just fired, so the early beat retires.
+      // (the micro-ack) just fired, so the early beat retires. The wrapper
+      // (#consent-awareness-leadin) carries its own visual chrome (padding,
+      // border, background) so it must collapse together with the inner
+      // note — otherwise an empty bordered box lingers between the note's
+      // fade-out and any future mode/gen change. Retire the wrapper on the
+      // same transition-end as the note so the three-beat rhythm ends
+      // cleanly instead of leaving a hollow container in the cascade.
       const note = document.querySelector('.consent-awareness-note');
+      const leadin = document.getElementById('consent-awareness-leadin');
       if (note) {
         note.classList.add('is-leaving');
-        note.addEventListener('transitionend', () => note.remove(), { once: true });
-        setTimeout(() => note.remove(), 500);
+        const retire = () => {
+          note.remove();
+          if (leadin) { leadin.innerHTML = ''; leadin.hidden = true; }
+        };
+        note.addEventListener('transitionend', retire, { once: true });
+        setTimeout(retire, 500);
+      } else if (leadin) {
+        leadin.innerHTML = ''; leadin.hidden = true;
       }
     });
   }
