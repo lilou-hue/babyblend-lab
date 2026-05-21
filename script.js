@@ -9122,9 +9122,8 @@ function buildHistorySection() {
   const cards = state.appMode === 'adult' ? REGULATORY_CARDS : HISTORY_CARDS;
   // Per-card i18n: if a card carries an `i18n` map keyed by lang code, use the
   // localized title/body for the active language; otherwise fall back to the
-  // card's default (English) fields. LOOP_REQUEST(narrative-or-systems): only
-  // the "Burden ≠ heritability" REGULATORY_CARDS entry is currently translated
-  // to zh/ja/ko/tr — the remaining cards still need translations.
+  // card's default (English) fields. All HISTORY_CARDS and REGULATORY_CARDS
+  // entries currently carry zh/ja/ko/tr translations.
   const lang = (state && state.language) ? state.language : 'en';
   content.innerHTML = cards.map(c => {
     const loc = (c.i18n && c.i18n[lang]) || {};
