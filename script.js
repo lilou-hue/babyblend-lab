@@ -3540,7 +3540,7 @@ const KIDS_EXPLAINERS = {
   freckles:  'Some kids get freckles when they spend time in the sun, especially if family does too.',
   dimples:   'Dimples are a fun little family trait. Some have them, some don\'t.',
   curiosity:  'Two quiet parents can still have a wildly curious kid. People surprise us!',
-  kindness:   'Kindness can be taught and grow over time — it\'s a habit, not just a trait.',
+  kindness:   'Kindness shows up differently depending on the situation. Some kids are warm in big groups, others one-on-one.',
   energy:     'Some kids are loud at home and shy at school, or the other way around.',
   focus:      'Focus grows with age, sleep, practice, and finding something that feels exciting.',
   confidence: 'Confidence changes a LOT as people grow up. Bumpy days are normal.'
@@ -3548,7 +3548,7 @@ const KIDS_EXPLAINERS = {
 
 // Soft framing for the Kids-mode futures block — injected once per generation
 // above the future-tree by the render path (see #future-block handling).
-const KIDS_FUTURES_PREAMBLE = "These are just stories of *possible* lives. Your real one might be completely different — and that's what makes it exciting.";
+const KIDS_FUTURES_PREAMBLE = "These are just stories of *possible* lives. Your real one might be completely different.";
 
 // One-line, dry framing appended to the popover on the 5 OCEAN-mapped Kids
 // sliders (curiosity/kindness/energy/focus/confidence). Explains WHY their
@@ -3729,7 +3729,7 @@ const KIDS_RANDOM_EVENTS = {
     'May have a favorite blanket for years (and that\'s okay).',
     'Could speak a secret language with a sibling or friend.',
     'Probably names every stuffed animal they own.',
-    'Will go through a dinosaur phase. It is destiny.',
+    'Has a strong chance of going through a dinosaur phase.',
     'May fall in love with one specific song and replay it 400 times.',
     'Probably collects coloring pencils like they\'re treasure.',
     'Could become an expert on one weird topic (volcanoes, octopuses, trains).',
@@ -3741,7 +3741,7 @@ const KIDS_RANDOM_EVENTS = {
     'Will probably try to teach the family dog something complicated.',
     'May develop a strong opinion about pancake shapes.',
     'Could win a school award for kindness one day.',
-    'Will photograph clouds and name every one.',
+    'Might photograph clouds and try to name them.',
     'May write secret notes in invisible ink (lemon juice).',
     'Could host the world\'s smallest tea party (for stuffed animals).',
     'Probably loves a particular cozy hoodie until it falls apart.'
@@ -3754,7 +3754,7 @@ const KIDS_RANDOM_EVENTS = {
     '也许会有一条心爱的毯子陪伴好几年(这没关系)。',
     '也许会和兄弟姐妹或好朋友讲一种只有彼此懂的暗语。',
     '大概会给每一只布偶都取名字。',
-    '一定会迷上恐龙。这是命中注定的。',
+    '很有可能会经历一段迷恐龙的时期。',
     '也许会爱上某一首歌,把它循环播放 400 遍。',
     '大概会把彩色铅笔当成宝贝一样收藏。',
     '也许会在某个奇特领域成为小专家(火山、章鱼、火车)。',
@@ -3766,7 +3766,7 @@ const KIDS_RANDOM_EVENTS = {
     '大概会试着教家里的小狗一些复杂的把戏。',
     '也许会对煎饼的形状有非常坚定的看法。',
     '也许有一天会因为善良而获得学校颁的奖。',
-    '会拍下每一朵云,还给每朵云起名字。',
+    '可能会拍下许多朵云,试着给它们起名字。',
     '也许会用隐形墨水(柠檬汁)写小秘密。',
     '也许会举办世界上最小的茶会(为布偶们办的)。',
     '大概会爱穿某件舒服的帽衫,直到它彻底破掉。'
@@ -3779,7 +3779,7 @@ const KIDS_RANDOM_EVENTS = {
     '何年もずっと同じお気に入りのブランケットを離さないかも(それでだいじょうぶ)。',
     'きょうだいや友だちと、ふたりだけの秘密の言葉で話すかも。',
     '持っているぬいぐるみ全部に、名前をつける子になりそう。',
-    '恐竜にハマる時期が、きっと来る。運命だ。',
+    '恐竜にハマる時期が来る可能性は高い。',
     'ある一曲を大好きになって、四百回くらい繰り返し聴くかも。',
     '色えんぴつを宝物みたいに集めるタイプかも。',
     'ちょっと変わったテーマ(火山、タコ、電車など)の専門家になるかも。',
@@ -3791,7 +3791,7 @@ const KIDS_RANDOM_EVENTS = {
     '家の犬に、ちょっとむずかしい技を教えようとする。',
     'パンケーキの形について、強いこだわりを持つかも。',
     'いつか「親切な子」として学校から表彰されるかも。',
-    '雲を写真に撮り、ぜんぶに名前をつける。',
+    '雲を写真に撮って、名前をつけてみるかも。',
     'あぶり出しのインク(レモン汁)で秘密の手紙を書くかも。',
     'ぬいぐるみのための、世界一ちいさなお茶会を開くかも。',
     'あるお気に入りのパーカーを、ぼろぼろになるまで着続けそう。'
@@ -3804,7 +3804,7 @@ const KIDS_RANDOM_EVENTS = {
     '좋아하는 담요 하나를 몇 년 동안 갖고 있을 수 있어요(그래도 괜찮아요).',
     '형제자매나 친구와 자기들끼리만 통하는 비밀스러운 말을 쓸 수 있어요.',
     '가진 인형마다 이름을 다 붙여줄 거예요.',
-    '공룡에 푹 빠지는 시기가 반드시 와요. 운명이에요.',
+    '공룡에 푹 빠지는 시기가 올 가능성이 커요.',
     '특정 노래 하나에 빠져서 400번쯤 반복해서 들을 수 있어요.',
     '색연필을 보물처럼 모을 가능성이 커요.',
     '화산이나 문어, 기차 같은 특이한 주제 하나의 전문가가 될 수 있어요.',
@@ -3816,7 +3816,7 @@ const KIDS_RANDOM_EVENTS = {
     '집 강아지에게 꽤 복잡한 무언가를 가르치려 들 거예요.',
     '팬케이크 모양에 대해 확고한 의견을 가질 수 있어요.',
     '언젠가 학교에서 친절상을 받을 수 있어요.',
-    '구름을 찍고 하나하나 이름을 붙일 거예요.',
+    '구름 사진을 찍고 이름을 붙여 볼지도 몰라요.',
     '보이지 않는 잉크(레몬즙)로 비밀 쪽지를 쓸 수 있어요.',
     '인형들을 위해 세상에서 가장 작은 다과회를 열 수 있어요.',
     '편한 후드티 하나를 너덜너덜해질 때까지 사랑할 거예요.'
@@ -3829,7 +3829,7 @@ const KIDS_RANDOM_EVENTS = {
     'Yıllarca aynı battaniyeyi sevebilir (sorun değil).',
     'Bir kardeşi ya da arkadaşıyla gizli bir dilde konuşabilir.',
     'Sahip olduğu her oyuncak hayvana isim verecektir.',
-    'Dinozor dönemi muhakkak gelecek. Kaderdir.',
+    'Bir dinozor dönemi geçirme ihtimali yüksek.',
     'Belirli bir şarkıya tutulup onu 400 kez dinleyebilir.',
     'Boya kalemlerini hazine gibi biriktirebilir.',
     'Tuhaf bir konuda uzmanlaşabilir (yanardağlar, ahtapotlar, trenler).',
@@ -3841,7 +3841,7 @@ const KIDS_RANDOM_EVENTS = {
     'Aile köpeğine karmaşık bir şey öğretmeye çalışacak.',
     'Pankek şekilleri konusunda güçlü bir görüşü olabilir.',
     'Bir gün okulda nezaket ödülü kazanabilir.',
-    'Bulutların fotoğrafını çekip her birine isim verecek.',
+    'Bulutların fotoğrafını çekip onlara isim vermeyi deneyebilir.',
     'Görünmez mürekkeple (limon suyu) gizli notlar yazabilir.',
     'Oyuncak hayvanlar için dünyanın en küçük çay partisini düzenleyebilir.',
     'Rahat bir kapüşonluyu eskiyene kadar sevebilir.'
@@ -3900,7 +3900,7 @@ const KIDS_LOVES = [
 ];
 
 const KIDS_QUESTIONS_FOR_THEM = [
-  'What does your room smell like?',
+  'What is the best smell you can think of?',
   'Have you ever made up a word that you use a lot?',
   'If you could have any pet that does not exist, what would it be?',
   'What is the weirdest dream you remember?',
@@ -4028,7 +4028,7 @@ const KIDS_REFLECTION_PROMPTS = [
   'What makes people unique?',
   'Would the world be boring if everyone were the same?',
   'What\'s something special about YOU that surprised your family?',
-  'If you could give every kid in the world one thing, what would it be?',
+  'What do you think every kid needs?',
   'Can two best friends be very different from each other? Why?'
 ];
 
