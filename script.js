@@ -6424,11 +6424,16 @@ function updateBabyPreview() {
     }
   }
 
-  // Societal Outcomes Brief + divergence + history + sibling cohort (Adult)
-  renderSocialResponse();
-  renderDivergence();
+  // Adult gen ≥ 2 panel order — R11 rev: trait-history → sibling-cohort →
+  // (variance break) → societal brief. Prior order placed Societal Brief
+  // and Trait History in an adjacent optimization-critique cluster; moving
+  // the Sibling Cohort variance panel between the trait-lens and
+  // societal-lens critiques separates the two evaluation frames so each
+  // lands on its own beat instead of compounding.
   renderTraitHistory();
   renderSiblingCohort();
+  renderDivergence();
+  renderSocialResponse();
 
   // Reflection-mode arc: same person, different rooms / decades.
   renderInnerCohort();
@@ -8179,7 +8184,7 @@ function showHumanityReminder(line) {
   showHumanityReminder._t = setTimeout(() => {
     banner.classList.remove('is-visible');
     setTimeout(() => { banner.hidden = true; }, 700);
-  }, 5500);
+  }, 8000);
 }
 
 /* ====================================================================
@@ -8327,10 +8332,11 @@ function generate() {
 
   updateBabyPreview();      // refresh display with new flavor (also renders divergence + history)
 
-  // Quietly remind users this is a person, not a profile, every few generations.
-  if (state.generateCount % 3 === 0 || state.appMode === 'reflection') {
-    showHumanityReminder();
-  }
+  // Quietly remind users this is a person, not a profile. R11 rev: fire on
+  // every generation (was every 3rd) and hold ~8s (was 5.5s) so the
+  // humanity framing has weight equivalent to the optimization output it
+  // accompanies — sparser firing let the optimization frame dominate.
+  showHumanityReminder();
 
   const results = $('#results');
   const wasHidden = results.hidden;
