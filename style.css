@@ -3330,15 +3330,20 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
    aligned projection-row rhythm above. Class is anticipatory; if UX
    Flow chooses a different selector, this rule is dead-stripped at
    verification time (R18). */
+/* R17rev: tighten padding/margin to match .burden-disclaimer family
+   (defer outer spacing to flex-gap on .budget-projections); bump font to
+   13.5px for clearer CTA hierarchy; switch to --ink @ 0.7 so low-vision
+   mobile users get sufficient contrast vs. the prior --ink-soft token. */
 .budget-projections .projection-gated-placeholder,
 .projection-gated-placeholder {
-  margin: 4px 0;
-  padding: 8px 12px;
-  font-size: 12px;
+  margin: 0;
+  padding: 4px 10px;
+  font-size: 13.5px;
   font-style: italic;
   line-height: 1.5;
   text-align: center;
-  color: var(--ink-soft);
+  color: var(--ink);
+  opacity: 0.7;
   letter-spacing: 0.3px;
 }
 
