@@ -3836,7 +3836,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'May love performing — songs, plays, magic tricks.',      tag: 'E' },
     { text: 'Probably gives the best hugs.',                          tag: 'A' },
     { text: 'May befriend every animal they meet.',                   tag: 'A' },
-    { text: 'Could be the family peacemaker.',                        tag: 'AN-pleaser' },
+    { text: 'May become the one who smooths family tensions — learning early that keeping the peace is their job.', tag: 'AN-pleaser' },
     { text: 'Might give surprisingly wise advice for their age.',     tag: 'AN-pleaser' },
     { text: 'May have a big imagination world full of characters.',   tag: 'N' },
     { text: 'Could love writing stories or making up songs.',         tag: 'N' },
@@ -3870,7 +3870,7 @@ const KIDS_FUTURE_PATHS = {
     { text: '也许会爱表演——唱歌、演戏、变魔术。', tag: 'E' },
     { text: '大概拥抱起来最暖。', tag: 'A' },
     { text: '也许遇见的每只小动物都会变成朋友。', tag: 'A' },
-    { text: '也许会是家里负责让大家和好的人。', tag: 'AN-pleaser' },
+    { text: '也许会成为给家里抚平矛盾的那个孩子——很小就学会:维持和气是自己的任务。', tag: 'AN-pleaser' },
     { text: '也许会说出比年龄成熟得多的建议。', tag: 'AN-pleaser' },
     { text: '也许内心有一个住着很多角色的想象世界。', tag: 'N' },
     { text: '也许会喜欢写故事或自己编歌。', tag: 'N' },
@@ -3904,7 +3904,7 @@ const KIDS_FUTURE_PATHS = {
     { text: '歌や劇、手品など、人前で何かをするのが大好きになるかも。', tag: 'E' },
     { text: 'たぶん、世界一あたたかいハグをしてくれる。', tag: 'A' },
     { text: '出会う動物すべてと仲良くなりそう。', tag: 'A' },
-    { text: '家族のなかの「仲なおりがかり」になるかも。', tag: 'AN-pleaser' },
+    { text: '家族の不穏な空気をならす役になるかも——「場を保つのは自分の仕事」と、小さいうちから覚えてしまうかもしれない。', tag: 'AN-pleaser' },
     { text: '年齢のわりに、はっとさせられる助言をくれるかも。', tag: 'AN-pleaser' },
     { text: 'たくさんの登場人物が住む、自分だけの大きな想像の世界をもつかも。', tag: 'N' },
     { text: 'お話を書いたり、歌をつくったりするのが好きになるかも。', tag: 'N' },
@@ -3938,7 +3938,7 @@ const KIDS_FUTURE_PATHS = {
     { text: '노래든 연극이든 마술이든, 무대에 서는 걸 좋아할 수 있어요.', tag: 'E' },
     { text: '아마 세상에서 가장 따뜻한 포옹을 해 줄 거예요.', tag: 'A' },
     { text: '만나는 동물마다 친구로 만들 수 있어요.', tag: 'A' },
-    { text: '가족 안에서 화해를 도맡는 아이가 될 수 있어요.', tag: 'AN-pleaser' },
+    { text: '가족의 긴장을 누그러뜨리는 아이가 될 수 있어요 — 평화를 지키는 게 자기 몫이라는 걸 어릴 때부터 배우면서요.', tag: 'AN-pleaser' },
     { text: '나이에 비해 놀랍도록 지혜로운 조언을 줄지도 몰라요.', tag: 'AN-pleaser' },
     { text: '수많은 인물들이 사는 자기만의 커다란 상상 세계를 가질 수 있어요.', tag: 'N' },
     { text: '이야기를 쓰거나 노래를 지어내는 걸 좋아할 수 있어요.', tag: 'N' },
@@ -3972,7 +3972,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'Sahneye çıkmayı sevebilir — şarkı, oyun ya da sihir gösterisi.', tag: 'E' },
     { text: 'Muhtemelen en güzel sarılan o olacak.', tag: 'A' },
     { text: 'Karşılaştığı her hayvanla dost olabilir.', tag: 'A' },
-    { text: 'Ailede barışı sağlayan kişi olabilir.', tag: 'AN-pleaser' },
+    { text: 'Ailedeki gerginlikleri yumuşatan çocuk olabilir — huzuru korumanın kendi işi olduğunu küçük yaşta öğrenerek.', tag: 'AN-pleaser' },
     { text: 'Yaşına göre şaşırtıcı derecede akıllı tavsiyeler verebilir.', tag: 'AN-pleaser' },
     { text: 'Pek çok karakterle dolu büyük bir hayal dünyası kurabilir.', tag: 'N' },
     { text: 'Hikaye yazmayı ya da kendi şarkılarını uydurmayı sevebilir.', tag: 'N' },
@@ -4487,17 +4487,28 @@ const KIDS_HUMANITY_REMINDERS = {
 /* Kids-arc panel sub-headers. Each entry is a single string, wrapped as a
  * 1-element array so we can reuse `localList` and its EN fallback. The
  * thesis under each header: these aren't predictions from genes.
- * LOOP_REQUEST(narrative): translate zh/ja/ko/tr entries — currently EN fallback.
  */
 const KIDS_ARC_DISCLAIMERS = {
   loves: {
-    en: ['Not predictions from genes — examples of what won\'t fit in a slider.']
+    en: ['Not predictions from genes — examples of what won\'t fit in a slider.'],
+    zh: ['这些不是基因给出的预言——只是滑杆装不下的那种小事。'],
+    ja: ['遺伝子からの予言ではなく——スライダーにはおさまらないもの、その例。'],
+    ko: ['유전자가 내놓는 예언이 아니라 — 슬라이더에 담기지 않는 것들의 예시예요.'],
+    tr: ['Genlerden gelen kehanetler değil — bir kaydıraca sığmayacak şeylere örnekler.']
   },
   questions: {
-    en: ['Questions a slider can\'t answer for you.']
+    en: ['Questions a slider can\'t answer for you.'],
+    zh: ['滑杆答不了的那些问题。'],
+    ja: ['スライダーが答えてはくれない問い。'],
+    ko: ['슬라이더가 대신 답해 줄 수 없는 질문들.'],
+    tr: ['Bir kaydıracın sizin yerinize cevaplayamayacağı sorular.']
   },
   differences: {
-    en: ['Reminders of what no slider can capture.']
+    en: ['Reminders of what no slider can capture.'],
+    zh: ['提醒一下:有些东西,滑杆永远抓不住。'],
+    ja: ['どんなスライダーにもとらえられないものについての、ささやかなリマインド。'],
+    ko: ['어떤 슬라이더로도 담을 수 없는 것들에 대한 작은 알림.'],
+    tr: ['Hiçbir kaydıracın yakalayamayacağı şeylere küçük bir hatırlatma.']
   }
 };
 
