@@ -986,7 +986,18 @@ const FUTURE_PATHS = {
     { text: 'At thirty-seven, finishes a project nobody asked for and nobody wants; keeps the binder anyway, on the high shelf, and refers to it twice a year.', tag: 'OC-tension' },
     { text: 'In their fifties hosts one Sunday a month, eight people, same start time; on the other Sundays does not answer the phone, and the eight people learn the rule.', tag: 'EN-tension' },
     { text: 'Changes the morning routine for a partner who needs the kitchen by 7; resents it for a year, then stops noticing, then forgets the old routine existed.', tag: 'CO-rigidity' },
-    { text: 'Says yes to one favor too many in their late twenties; carries the cost for years, and only afterwards learns that the friend never expected the yes in the first place.', tag: 'AN-pleaser' }
+    { text: 'Says yes to one favor too many in their late twenties; carries the cost for years, and only afterwards learns that the friend never expected the yes in the first place.', tag: 'AN-pleaser' },
+    // Tier-2 mild bands. Softer than the tier-1 entries above: same friction,
+    // quieter expression. Present-state observation, not outcome-determinism.
+    // LOOP_REQUEST(translator): zh/ja/ko/tr for the 8 mild entries below.
+    { text: 'Keeps a running list of side projects; finishes most of the small ones, lets two larger ones drift.', tag: 'OC-mild' },
+    { text: 'Renovates one room of the apartment carefully, then leaves the trim unfinished for a year.', tag: 'OC-mild' },
+    { text: 'Hosts dinner once a month and is quiet for two days afterward.', tag: 'EN-mild' },
+    { text: 'Likes a full Saturday with friends, then keeps Sunday entirely to themselves.', tag: 'EN-mild' },
+    { text: 'Keeps the same coffee order at the same cafe for years; notices when the barista changes.', tag: 'CO-mild' },
+    { text: 'Reroutes around one small change to the schedule and tells themselves it didn\'t bother them.', tag: 'CO-mild' },
+    { text: 'Picks the restaurant everyone else seems to want; mentions afterward, lightly, what they\'d have preferred.', tag: 'AN-mild' },
+    { text: 'Carries one small unspoken resentment for about a week; then lets it go, mostly.', tag: 'AN-mild' }
   ],
   zh: [
     { text: '在做完第一个之前就开始了三个项目;慢慢学会与此共处。', tag: 'O' },
@@ -2486,7 +2497,17 @@ const ADULT_TRACES = {
     "A grandparent's handwriting stays recognizable at a glance for life.",
     "Keeps one private vocabulary for moods that never gets shared with anyone.",
     'Decades later, repeats a single phrase a teacher once said, to a stranger.',
-    'Late in life, becomes a person their younger self would have liked.'
+    'Late in life, becomes a person their younger self would have liked.',
+    // Tier-2 mild-conflict traces. Clinical register, present-state.
+    // LOOP_REQUEST(translator): zh/ja/ko/tr for the 8 mild entries below.
+    { text: 'Maintains a list of unfinished projects; revisits about half of them once a year.', tag: 'OC-mild' },
+    { text: 'Files documents by a system only partly visible to anyone else; locates most things on the second try.', tag: 'OC-mild' },
+    { text: 'Accepts most invitations; reserves the following day for solitude.', tag: 'EN-mild' },
+    { text: 'Hosts well, then declines social contact for two or three days afterward.', tag: 'EN-mild' },
+    { text: 'Keeps a fixed weekday morning routine; tolerates weekend variation without enthusiasm.', tag: 'CO-mild' },
+    { text: 'Reschedules a disrupted plan promptly; the underlying preference for the original is rarely named aloud.', tag: 'CO-mild' },
+    { text: 'Defers to the group preference more often than statistically expected; raises the alternative once, briefly, after the fact.', tag: 'AN-mild' },
+    { text: 'Carries minor unspoken irritations for several days; resolves them privately, without comment.', tag: 'AN-mild' }
   ],
   zh: [
     '青春期留下的笔记本,至今还保留着。',
@@ -4113,7 +4134,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'Probably gives the best hugs.',                          tag: 'A' },
     { text: 'May befriend every animal they meet.',                   tag: 'A' },
     { text: 'May become the one who smooths family tensions — learning early that keeping the peace is their job.', tag: 'AN-pleaser' },
-    { text: 'Might give surprisingly wise advice for their age.',     tag: 'AN-pleaser' },
+    { text: 'May have to be the emotional adult in the room earlier than they should.', tag: 'AN-pleaser' },
     { text: 'May have a big imagination world full of characters.',   tag: 'N' },
     { text: 'Could love writing stories or making up songs.',         tag: 'N' },
     { text: 'Probably feels things deeply — that\'s a strength.',     tag: 'N' },
@@ -4125,7 +4146,17 @@ const KIDS_FUTURE_PATHS = {
     { text: 'Might be obsessed with one specific topic for years.',   tag: 'O' },
     { text: 'Probably collects something unusual — rocks, leaves, stickers.', tag: 'O' },
     { text: 'May invent games no one else understands.',              tag: 'O' },
-    { text: 'Could be the family\'s designated joke-teller.',         tag: 'E' }
+    { text: 'Could be the family\'s designated joke-teller.',         tag: 'E' },
+    // Tier-2 mild entries. Softer than the tier-1 lines above; kid-readable,
+    // warm. LOOP_REQUEST(translator): zh/ja/ko/tr for the 8 mild entries below.
+    { text: 'Might love a brand-new project one week and quietly forget it the next — both are real.', tag: 'OC-mild' },
+    { text: 'Could keep their room mostly tidy, then leave one drawer wonderfully chaotic.', tag: 'OC-mild' },
+    { text: 'May be cheerful at the party and tired on the car ride home — both are okay.', tag: 'EN-mild' },
+    { text: 'Might love a big group game, then want one quiet friend for the next hour.', tag: 'EN-mild' },
+    { text: 'May love trying new things, but want their same favorite pajamas at the end of the day.', tag: 'CO-mild' },
+    { text: 'Could like surprises, as long as someone tells them the surprise is coming.', tag: 'CO-mild' },
+    { text: 'Might say "I don\'t mind" when they actually do mind, just a little.',  tag: 'AN-mild' },
+    { text: 'May go along with what their friend wants today, and pick the game themselves tomorrow.', tag: 'AN-mild' }
   ],
   zh: [
     { text: '也许会喜欢动手做东西。', tag: 'O' },
@@ -4147,7 +4178,7 @@ const KIDS_FUTURE_PATHS = {
     { text: '大概拥抱起来最暖。', tag: 'A' },
     { text: '也许遇见的每只小动物都会变成朋友。', tag: 'A' },
     { text: '也许会成为给家里抚平矛盾的那个孩子——很小就学会:维持和气是自己的任务。', tag: 'AN-pleaser' },
-    { text: '也许会说出比年龄成熟得多的建议。', tag: 'AN-pleaser' },
+    { text: '也许在该当孩子的年纪,就被迫先做了房间里那个懂事的大人。', tag: 'AN-pleaser' },
     { text: '也许内心有一个住着很多角色的想象世界。', tag: 'N' },
     { text: '也许会喜欢写故事或自己编歌。', tag: 'N' },
     { text: '大概感受得很深——这其实是一种力量。', tag: 'N' },
@@ -4181,7 +4212,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'たぶん、世界一あたたかいハグをしてくれる。', tag: 'A' },
     { text: '出会う動物すべてと仲良くなりそう。', tag: 'A' },
     { text: '家族の不穏な空気をならす役になるかも——「場を保つのは自分の仕事」と、小さいうちから覚えてしまうかもしれない。', tag: 'AN-pleaser' },
-    { text: '年齢のわりに、はっとさせられる助言をくれるかも。', tag: 'AN-pleaser' },
+    { text: '本当はまだ甘えたい年齢で、その部屋の「大人の役」を引き受けることになるかも。', tag: 'AN-pleaser' },
     { text: 'たくさんの登場人物が住む、自分だけの大きな想像の世界をもつかも。', tag: 'N' },
     { text: 'お話を書いたり、歌をつくったりするのが好きになるかも。', tag: 'N' },
     { text: 'たぶん、ものごとを深く感じる子——それはきっと強さ。', tag: 'N' },
@@ -4215,7 +4246,7 @@ const KIDS_FUTURE_PATHS = {
     { text: '아마 세상에서 가장 따뜻한 포옹을 해 줄 거예요.', tag: 'A' },
     { text: '만나는 동물마다 친구로 만들 수 있어요.', tag: 'A' },
     { text: '가족의 긴장을 누그러뜨리는 아이가 될 수 있어요 — 평화를 지키는 게 자기 몫이라는 걸 어릴 때부터 배우면서요.', tag: 'AN-pleaser' },
-    { text: '나이에 비해 놀랍도록 지혜로운 조언을 줄지도 몰라요.', tag: 'AN-pleaser' },
+    { text: '아직 어려도 되는 나이에, 방 안에서 먼저 어른 노릇을 떠맡게 될지도 몰라요.', tag: 'AN-pleaser' },
     { text: '수많은 인물들이 사는 자기만의 커다란 상상 세계를 가질 수 있어요.', tag: 'N' },
     { text: '이야기를 쓰거나 노래를 지어내는 걸 좋아할 수 있어요.', tag: 'N' },
     { text: '아마 마음 깊이 느끼는 아이일 거예요 — 그건 큰 힘이에요.', tag: 'N' },
@@ -4249,7 +4280,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'Muhtemelen en güzel sarılan o olacak.', tag: 'A' },
     { text: 'Karşılaştığı her hayvanla dost olabilir.', tag: 'A' },
     { text: 'Ailedeki gerginlikleri yumuşatan çocuk olabilir — huzuru korumanın kendi işi olduğunu küçük yaşta öğrenerek.', tag: 'AN-pleaser' },
-    { text: 'Yaşına göre şaşırtıcı derecede akıllı tavsiyeler verebilir.', tag: 'AN-pleaser' },
+    { text: 'Çocuk olabileceği yaşta, odadaki «duygusal yetişkin» rolünü olması gerekenden erken üstlenmek zorunda kalabilir.', tag: 'AN-pleaser' },
     { text: 'Pek çok karakterle dolu büyük bir hayal dünyası kurabilir.', tag: 'N' },
     { text: 'Hikaye yazmayı ya da kendi şarkılarını uydurmayı sevebilir.', tag: 'N' },
     { text: 'Muhtemelen her şeyi derinden hisseder — bu bir güçtür.', tag: 'N' },
@@ -4698,7 +4729,7 @@ const KIDS_ADULT_FUTURES = [
   { headline: 'Maybe a gardener with the greenest yard around.', details: ['Knows every plant in the neighborhood.', 'Trades tomato seeds with friends.', 'Hums while watering.'], tags: ['urbanRural','family'] },
   { headline: 'Maybe a chef who feeds the whole street.',       details: ['Sundays smell like fresh bread.', 'Has a notebook full of family recipes.', 'Friends drop by hoping for leftovers.'], tags: ['family'] },
   { headline: 'Maybe a doctor who is great with kids.',         details: ['Has a sticker for every check-up.', 'Tells gentle jokes during scary moments.', 'Office is decorated with crayon drawings.'], tags: ['healthcare','family'] },
-  { headline: 'Maybe an inventor of small clever gadgets.',     details: ['Has built three useful tools that don\'t exist anywhere else.', 'Salvages broken things and gives them another life.', 'Friends bring them tricky problems.'], tags: ['education','economy'] },
+  { headline: 'Maybe an inventor of small clever gadgets.',     details: ['Has built three useful tools that don\'t exist anywhere else.', 'Builds tools that solve problems for people around them.', 'Friends bring them tricky problems.'], tags: ['education','economy'] },
   { headline: 'Maybe a librarian who knows every story.',       details: ['Reads to little kids every Saturday.', 'Has a list of \"underrated\" books.', 'Knows which shelves the kids hide behind on rainy days.'], tags: ['education','urbanRural'] },
   { headline: 'Maybe an animal trainer at a sanctuary.',        details: ['Speaks softly to bigger animals.', 'Knows every dog at the local park by name.', 'Has at least one rescue story to tell.'], tags: ['family','urbanRural'] },
   { headline: 'Maybe a writer of charming little books.',       details: ['Writes by hand in tiny journals.', 'Posts gentle stories online.', 'Friends quote their books on birthdays.'], tags: ['education','social'] },
@@ -7102,11 +7133,8 @@ function generateCodename(parents) {
 // overlap with the tension bands above — a baby never gets both tiers
 // of the same axis pair.
 //
-// LOOP_REQUEST(narrative): add FUTURE_PATHS entries tagged 'OC-mild',
-// 'EN-mild', 'CO-mild', 'AN-mild' (and KIDS_FUTURE_PATHS / ADULT_TRACES
-// equivalents) so the conflict branch below has softer content to
-// surface for the middle-band cases. Until then these tags fire but
-// fall back silently — same shape as a baby with no active conflicts.
+// R9 mild tags now have content in FUTURE_PATHS / KIDS_FUTURE_PATHS / ADULT_TRACES
+// (EN — see LOOP_REQUEST(translator) markers in each pool for zh/ja/ko/tr).
 const TRAIT_CONFLICT_RULES = [
   { when: b => (b.openness        || 0) >= 8 && (b.conscientiousness || 0) <= 4, tag: 'OC-tension'  },
   { when: b => (b.extraversion    || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'EN-tension'  },
@@ -7147,7 +7175,10 @@ function generateBabyFlavor(codename, baby) {
       : [];
     const reserved = conflictTraces.length ? pickN(conflictTraces, 1, rng) : [];
     const remaining = pickN(tracePool.filter(t => !reserved.includes(t)), 4 - reserved.length, rng);
-    const details = reserved.concat(remaining);
+    // ADULT_TRACES is a mixed pool: legacy strings + tagged {text, tag} objects
+    // added for R9 mild-conflict content. Normalize to plain strings here so
+    // downstream renderers don't have to know about the shape.
+    const details = reserved.concat(remaining).map(t => (t && typeof t === 'object') ? t.text : t);
     return { vibe: '', paths: details, events: [], headlines: [] };
   }
 
