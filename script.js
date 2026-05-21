@@ -80,7 +80,7 @@ const STRINGS = {
     'budget.proj.access': 'Projected Access Tier',
     'budget.proj.access.baseline': 'Universal · baseline',
     'budget.burden.disclaimer': 'All allocations remove the future subject\'s choice equally; the weight measures how widely the loss propagates, not whether it occurs.',
-    'budget.proj.burden': 'Inheritance Burden Index',
+    'budget.proj.burden': 'Identity Lock-In Index',
     'budget.proj.burden.minimal': 'Minimal',
     'consent.heading': 'Consent Implications',
     'consent.subtle': 'The subject of every allocation above cannot consent to it. The notes below state, in institutional terms, what that means.',
@@ -279,7 +279,7 @@ const STRINGS = {
     'budget.proj.access': '预测的可及性层级',
     'budget.proj.access.baseline': '通用 · 基线',
     'budget.burden.disclaimer': '所有分配都同等地剥夺了未来主体的选择权;权重衡量的,是这种损失向后代扩散的广度,而不是它"是否发生"。',
-    'budget.proj.burden': '遗传负担指数',
+    'budget.proj.burden': '身份锁定指数',
     'budget.proj.burden.minimal': '极低',
     'consent.heading': '同意层面的影响',
     'consent.subtle': '上述每一项分配的对象,都无法对此表达同意。下方的说明,以机构性的措辞写出这意味着什么。',
@@ -448,7 +448,7 @@ const STRINGS = {
     'budget.proj.access': '予測されるアクセス階層',
     'budget.proj.access.baseline': 'ユニバーサル · 基準',
     'budget.burden.disclaimer': 'いずれの割り当ても、未来の当事者から選択肢を等しく奪う。重み付けが測るのは、その喪失が世代へどれだけ広く波及するかであって、喪失そのものが起きるかどうかではない。',
-    'budget.proj.burden': '遺伝負担指数',
+    'budget.proj.burden': 'アイデンティティ・ロックイン指数',
     'budget.proj.burden.minimal': '最小',
     'consent.heading': '同意上の含意',
     'consent.subtle': '上記の割り当ての対象となる当事者は、それに同意することができない。下の各項目は、その意味を機構的な言葉で記すものである。',
@@ -617,7 +617,7 @@ const STRINGS = {
     'budget.proj.access': '예측된 접근 등급',
     'budget.proj.access.baseline': '보편 · 기준',
     'budget.burden.disclaimer': '모든 할당은 미래 당사자의 선택을 똑같이 빼앗는다. 가중치는 그 상실이 후대에 얼마나 널리 전파되는지를 측정할 뿐, 상실 자체가 일어나는가를 측정하지 않는다.',
-    'budget.proj.burden': '유전 부담 지수',
+    'budget.proj.burden': '정체성 고착 지수',
     'budget.proj.burden.minimal': '최소',
     'consent.heading': '동의 측면의 함의',
     'consent.subtle': '위의 할당이 향하는 당사자는, 그것에 동의할 수 없다. 아래 각 항목은 그것이 무엇을 의미하는지를 제도적 언어로 적어둔다.',
@@ -786,7 +786,7 @@ const STRINGS = {
     'budget.proj.access': 'Öngörülen Erişim Katmanı',
     'budget.proj.access.baseline': 'Evrensel · temel',
     'budget.burden.disclaimer': 'Tüm tahsisler gelecek öznenin seçimini eşit ölçüde elinden alır; ağırlık, bu kaybın ne kadar geniş yayıldığını ölçer, kaybın yaşanıp yaşanmayacağını değil.',
-    'budget.proj.burden': 'Kalıtsal Yük Endeksi',
+    'budget.proj.burden': 'Kimlik Sabitlenme Endeksi',
     'budget.proj.burden.minimal': 'Asgari',
     'consent.heading': 'Onay açısından sonuçlar',
     'consent.subtle': 'Yukarıdaki her tahsisin öznesi, bu kararlara rıza gösteremez. Aşağıdaki notlar, bunun ne anlama geldiğini kurumsal terimlerle ifade eder.',
@@ -4680,24 +4680,24 @@ const REGULATORY_CARDS = [
       tr: { title: 'Modellenen sonuç kavramları hakkında.', body: '"Societal Outcomes Brief"de görünen davranışsal sonuç kavramları — "identity-fatigue risk" (kimlik yorgunluğu riski), "care-runs-hot profile" (bakımı aşırı yüklenen profil) ve "algoritmik dağıtım yoluyla güçlendirilen görünüm temelli geri bildirim" gibi ifadeler — bu simülasyona ait kurgusal, spekülatif çerçevelerdir; ampirik sosyal bilim kategorileri değildir. Bunlar, tahsis, özellik ve çevre kaydıraçlarının kombinasyonlarından kurulan, bu projeksiyona anlatısal doku katmak için üretilmiş kurgusal okumalardır; gerçek bir araştırma literatürünün bulguları olarak okunmamalıdır. Brief\'in kurallarla tetiklenen satırları, simülasyon içi bir analistin olası gidişatları nasıl tahmin edebileceğini modeller; dünyada sonuçların gerçekte nasıl açılacağını değil.' }
     } },
   {
-    title: 'Burden ≠ heritability.',
-    body: 'The Inheritance Burden Index measures how widely an allocation\'s effects propagate into descendants — not how heritable a trait is, and not whether the allocation is "less wrong". Every heritable choice removes consent equally. Low-weighted classes (like health) shift with environment; high-weighted classes (identity, affect) lock in across generations.',
+    title: 'Lock-in ≠ heritability.',
+    body: 'The Identity Lock-In Index measures how widely an allocation\'s effects propagate into descendants — not how heritable a trait is, and not whether the allocation is "less wrong". Every heritable choice removes consent equally. Low-weighted classes (like health) shift with environment; high-weighted classes (identity, affect) lock in across generations.',
     i18n: {
       zh: {
-        title: '负担 ≠ 遗传率。',
-        body: '遗传负担指数衡量的是一个分配在后代中影响传播的广度——而不是某个性状的遗传率有多高，也不是该分配是否"罪轻一些"。任何可遗传的选择都同等地剥夺了同意权。低权重的类别（如健康）会随环境而变化；高权重的类别（身份、情感）则会在世代间锁定。'
+        title: '锁定 ≠ 遗传率。',
+        body: '身份锁定指数衡量的是一个分配在后代中影响传播的广度——而不是某个性状的遗传率有多高，也不是该分配是否"罪轻一些"。任何可遗传的选择都同等地剥夺了同意权。低权重的类别（如健康）会随环境而变化；高权重的类别（身份、情感）则会在世代间锁定。'
       },
       ja: {
-        title: '負担 ≠ 遺伝率。',
-        body: '遺伝負担指数が測るのは、ある選択の影響が子孫にどれだけ広く波及するかであって、形質の遺伝率の高さでも、その選択が「まだましかどうか」でもありません。遺伝に関わる選択は、どれも等しく同意を奪います。低重み付けの領域（健康など）は環境とともに揺らぎますが、高重み付けの領域（アイデンティティ、情動）は世代を越えて固定されます。'
+        title: 'ロックイン ≠ 遺伝率。',
+        body: 'アイデンティティ・ロックイン指数が測るのは、ある選択の影響が子孫にどれだけ広く波及するかであって、形質の遺伝率の高さでも、その選択が「まだましかどうか」でもありません。遺伝に関わる選択は、どれも等しく同意を奪います。低重み付けの領域（健康など）は環境とともに揺らぎますが、高重み付けの領域（アイデンティティ、情動）は世代を越えて固定されます。'
       },
       ko: {
-        title: '부담 ≠ 유전율.',
-        body: '유전 부담 지수가 측정하는 것은 어떤 선택의 영향이 후손에게 얼마나 널리 전파되는가이지, 형질의 유전율이 얼마나 높은지도, 그 선택이 "덜 잘못된" 것인지도 아닙니다. 유전 가능한 선택은 모두 동등하게 동의를 박탈합니다. 가중치가 낮은 영역(건강 등)은 환경에 따라 달라지지만, 가중치가 높은 영역(정체성, 정동)은 세대에 걸쳐 고착됩니다.'
+        title: '고착 ≠ 유전율.',
+        body: '정체성 고착 지수가 측정하는 것은 어떤 선택의 영향이 후손에게 얼마나 널리 전파되는가이지, 형질의 유전율이 얼마나 높은지도, 그 선택이 "덜 잘못된" 것인지도 아닙니다. 유전 가능한 선택은 모두 동등하게 동의를 박탈합니다. 가중치가 낮은 영역(건강 등)은 환경에 따라 달라지지만, 가중치가 높은 영역(정체성, 정동)은 세대에 걸쳐 고착됩니다.'
       },
       tr: {
-        title: 'Yük ≠ kalıtsallık.',
-        body: 'Kalıtsal Yük Endeksi, bir seçimin etkilerinin torunlara ne kadar geniş biçimde yayıldığını ölçer — bir özelliğin ne kadar kalıtsal olduğunu ya da seçimin "daha az yanlış" olup olmadığını değil. Kalıtsal olan her seçim rızayı eşit ölçüde elinden alır. Düşük ağırlıklı sınıflar (sağlık gibi) çevreyle birlikte değişir; yüksek ağırlıklı sınıflar (kimlik, duygulanım) kuşaklar boyunca yerleşir.'
+        title: 'Sabitlenme ≠ kalıtsallık.',
+        body: 'Kimlik Sabitlenme Endeksi, bir seçimin etkilerinin torunlara ne kadar geniş biçimde yayıldığını ölçer — bir özelliğin ne kadar kalıtsal olduğunu ya da seçimin "daha az yanlış" olup olmadığını değil. Kalıtsal olan her seçim rızayı eşit ölçüde elinden alır. Düşük ağırlıklı sınıflar (sağlık gibi) çevreyle birlikte değişir; yüksek ağırlıklı sınıflar (kimlik, duygulanım) kuşaklar boyunca yerleşir.'
       }
     }
   }
@@ -10307,7 +10307,7 @@ function renderConsentExplainer() {
 /* ---------- Adult budget projections ----------
  * Two derived indicators that respond to enhancement allocation. The
  * Cohort Placement reads as a percentile claim ("Projected: top 8% of
- * birth cohort by composite score"); the Inheritance Burden Index weights
+ * birth cohort by composite score"); the Identity Lock-In Index weights
  * spend by how much each priority package locks identity, appearance, or
  * affect into the descendant line vs. simply reducing disease risk —
  * what the future subject inherits without consent. Both update on every
