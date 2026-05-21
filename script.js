@@ -2112,32 +2112,188 @@ const TRAIT_CONFLICTS = [
 /* ---------- Adult Futures (one fictional life per card) ---------- */
 
 const ADULT_FUTURES = [
-  { headline: 'Marine biologist who names every octopus.',                            details: ['Has a complicated relationship with one specific anglerfish.', 'Wears the same hoodie to every conference for 11 years.', 'Holds a personal record: longest time spent at one tide pool.'], tags: ['education'] },
-  { headline: 'Exhausted but beloved startup founder.',                              details: ['Pitched a productivity app while half-asleep on a flight.', 'Has strong opinions about chairs.', 'Will eventually pivot to artisan pickles.'], tags: ['economy'] },
-  { headline: 'Art teacher who somehow knows every kid in town.',                    details: ['Carries glitter in their pocket "for emergencies."', 'Once made a 20-foot papier-mâché whale during summer break.', 'Has 14 framed crayon portraits.'], tags: ['family'] },
-  { headline: 'Conspiracy podcaster — but the wholesome kind.',                       details: ['Sincerely believes the moon is fine, actually.', 'Has guests on to debunk their own hosts.', 'Discovered, on episode 87, they are the conspiracy.'], tags: ['internet'] },
-  { headline: 'Astronaut who keeps a tiny indoor garden in orbit.',                   details: ['Has cried over a successful sprout. Twice.', 'Brings one (1) absurd snack on every mission.', 'Now answers questions in 3 languages.'], tags: ['education', 'multilingual'] },
-  { headline: 'Indie musician with one cult-favorite song.',                          details: ['Plays venues with exactly 47 people in them.', 'Their song is on a movie\'s closing credits no one watched.', 'Refuses to explain the lyrics. Lyrics are about pasta.'], tags: ['internet'] },
-  { headline: 'Chaotic internet celebrity (mostly accidental).',                      details: ['Went viral for explaining tax code while baking bread.', 'Owns four cameras and one ring light.', 'Has a calendar app that just says "vibes only."'], tags: ['internet'] },
-  { headline: 'High-school physics teacher of legend.',                                details: ['Has demonstrated centripetal force using a frozen turkey.', 'Refers to gravity as "her old friend."', 'Several students will go on to thank them by name.'], tags: ['education'] },
-  { headline: 'Animal shelter director who knows every dog\'s name.',                 details: ['Sleeps with at least one (1) cat per night.', 'Once convinced a city council to adopt a goose.', 'Cries at every adoption — staff has stopped asking.'], tags: ['family'] },
-  { headline: 'Mid-list novelist who finally finishes the trilogy.',                  details: ['Argued with their editor about commas for 4 years.', 'Has 11 unfinished drafts in a desk drawer.', 'One reader writes them every Christmas.'], tags: ['education'] },
-  { headline: 'Civic-organizer who fixes one impossible street.',                     details: ['Knows every neighbor by their grocery routine.', 'Has a binder. Several binders. Color-coded.', 'Will become a low-key local legend.'], tags: ['family'] },
-  { headline: 'Bartender / amateur philosopher / good listener.',                     details: ['Remembers every regular\'s order and their mother\'s birthday.', 'Has a side hustle reading tarot at brunch.', 'Once accidentally married two strangers via toast.'], tags: ['social'] },
-  { headline: 'Software engineer who maintains one cursed open-source tool.',         details: ['Tool is depended on by 600 companies.', 'Lives on hobby farm. Has chickens named after data structures.', 'Reviews pull requests in dry one-liners.'], tags: ['economy'] },
-  { headline: 'Roving sourdough evangelist.',                                          details: ['Travels with a starter named after a 19th-century philosopher.', 'Has converted three former rivals.', 'Bakes are 80% delicious, 20% lessons.'], tags: ['urbanRural'] },
-  { headline: 'Volunteer firefighter and small-town historian.',                      details: ['Has rescued one (1) cat. The cat owes them.', 'Writes the town\'s newsletter. It is unexpectedly funny.', 'Knows where every cornerstone is buried.'], tags: ['urbanRural', 'family'] },
-  { headline: 'Translator-by-day, sci-fi-writer-by-night.',                           details: ['Has translated 5 languages, invented 2 more.', 'Their pseudonym has its own fans.', 'Tea consumption: industrial.'], tags: ['multilingual'] },
-  { headline: 'Pediatrician who lets every kid name a fictional dinosaur.',           details: ['Office wallpaper is the resulting list.', 'Has been on a sticker shortage watchlist twice.', 'Knows when to refer out and when to wait.'], tags: ['healthcare'] },
-  { headline: 'Park ranger fluent in stars.',                                          details: ['Runs once-a-month "look up" nights for the town.', 'Speaks softly to bears. Has reasons.', 'Carries a beat-up copy of Annie Dillard everywhere.'], tags: ['urbanRural', 'education'] },
-  { headline: 'Logistics savant at a mid-sized warehouse.',                            details: ['Reorganized the loading bay; saved 40 minutes a day.', 'Knows the entire crew\'s coffee orders.', 'Plays the harmonica on lunch breaks.'], tags: ['economy'] },
-  { headline: 'Therapist who keeps a "patience plant" by the window.',                details: ['Refuses to keep a clock visible.', 'Has cried, professionally, only twice.', 'Reads three novels at once.'], tags: ['healthcare', 'family'] },
-  { headline: 'Mediocre-but-cherished community-theater director.',                   details: ['Cast a chicken once. The chicken got a callback.', 'Has saved every program from every show.', 'Friends with the lighting tech for life.'], tags: ['social'] },
-  { headline: 'Cooperative-board member of a tiny grocery.',                          details: ['Argues for the bulk-grains section in every meeting.', 'Knows which two members are secretly dating.', 'Bakes for every neighbor on their birthday.'], tags: ['urbanRural'] },
-  { headline: 'Aerospace technician with a side career in jazz piano.',               details: ['Plays a smoky lounge twice a month.', 'Has solved one truly puzzling shuttle malfunction.', 'Wears the same lucky watch to both jobs.'], tags: ['education'] },
-  { headline: 'Local linguist who documents an endangered dialect.',                   details: ['Records elders over kitchen tables; their files are precious.', 'Has been adopted, informally, by three families.', 'Is writing a dictionary by hand.'], tags: ['multilingual', 'family'] },
-  { headline: 'Bookstore owner running a wildly specific genre section.',             details: ['Genre section: "novels with one (1) lighthouse."', 'Hosts an unbearably charming monthly reading.', 'Has a cat named after a literary theorist.'], tags: ['urbanRural'] },
-  { headline: 'Climate-policy wonk who actually changes one law.',                    details: ['Spent 11 years on the same comma.', 'Reads regulatory PDFs for pleasure.', 'Hosts excellent dinner parties for very tired colleagues.'], tags: ['education', 'social'] }
+  { headline: 'Marine biologist who names every octopus.', details: ['Has a complicated relationship with one specific anglerfish.', 'Wears the same hoodie to every conference for 11 years.', 'Holds a personal record: longest time spent at one tide pool.'], tags: ['education'],
+    i18n: {
+      zh: { headline: '给每只章鱼取名字的海洋生物学家。', details: ['与一条特定的鮟鱇鱼有过一段复杂的感情。', '同一件连帽衫,穿去开了 11 年会议。', '个人纪录:在同一个潮汐池前停留时间最长。'] },
+      ja: { headline: 'タコ一匹ずつに名前をつける海洋生物学者。', details: ['一匹のアンコウとは複雑な関係を抱えている。', '同じパーカーを11年間、すべての学会に着ていく。', '個人記録:ひとつのタイドプールに留まり続けた最長時間。'] },
+      ko: { headline: '모든 문어에게 이름을 붙이는 해양생물학자.', details: ['어떤 한 마리 아귀와는 복잡한 관계를 맺고 있다.', '같은 후드티 한 벌을 11년 동안 모든 학회에 입고 다녔다.', '개인 기록: 한 조수 웅덩이에 가장 오래 머문 시간.'] },
+      tr: { headline: 'Her ahtapota isim koyan deniz biyoloğu.', details: ['Belirli bir fener balığıyla karmaşık bir ilişkisi var.', 'On bir yıl boyunca her konferansa aynı kapüşonluyla gitti.', 'Kişisel rekor: tek bir gelgit havuzunda geçirilen en uzun süre.'] }
+    } },
+  { headline: 'Exhausted but beloved startup founder.', details: ['Pitched a productivity app while half-asleep on a flight.', 'Has strong opinions about chairs.', 'Will eventually pivot to artisan pickles.'], tags: ['economy'],
+    i18n: {
+      zh: { headline: '精疲力竭却深受爱戴的创始人。', details: ['在飞机上半睡半醒之间介绍过一款生产力 App。', '对椅子有很坚定的看法。', '最终会转去做手工腌菜。'] },
+      ja: { headline: '疲れ果てているのに皆に愛される創業者。', details: ['飛行機の中で半分眠りながら、生産性アプリのピッチをした。', '椅子について強いこだわりがある。', 'いずれは手作りのピクルス事業に方向転換する。'] },
+      ko: { headline: '지쳐 있지만 사랑받는 스타트업 창업자.', details: ['비행기에서 반쯤 졸면서 생산성 앱을 피칭한 적이 있다.', '의자에 대해 확고한 의견을 가지고 있다.', '결국은 수제 피클 쪽으로 방향을 트게 된다.'] },
+      tr: { headline: 'Yorgun düşmüş ama herkesin sevdiği startup kurucusu.', details: ['Uçakta yarı uykulu, bir verimlilik uygulamasını sunmuş.', 'Sandalyeler konusunda kesin görüşleri var.', 'Sonunda el yapımı turşu işine dönecek.'] }
+    } },
+  { headline: 'Art teacher who somehow knows every kid in town.', details: ['Carries glitter in their pocket "for emergencies."', 'Once made a 20-foot papier-mâché whale during summer break.', 'Has 14 framed crayon portraits.'], tags: ['family'],
+    i18n: {
+      zh: { headline: '不知怎么就认识镇上每个孩子的美术老师。', details: ['口袋里随时带着金粉,"以防万一"。', '暑假期间做过一只六米长的纸塑鲸鱼。', '家里挂着 14 幅装裱过的蜡笔肖像。'] },
+      ja: { headline: '町じゅうの子を、なぜか全員知っている図工の先生。', details: ['ポケットには「いざというとき」のためのラメ。', '夏休みに6メートルの紙粘土クジラを作ったことがある。', '額装したクレヨンの肖像画を14枚持っている。'] },
+      ko: { headline: '어쩐 일인지 동네 아이들을 모두 아는 미술 선생님.', details: ['"비상용"이라며 주머니에 반짝이를 넣고 다닌다.', '여름방학에 6미터짜리 종이반죽 고래를 만든 적이 있다.', '액자에 든 크레용 초상화가 14점 있다.'] },
+      tr: { headline: 'Nasıl olduysa kasabadaki her çocuğu tanıyan resim öğretmeni.', details: ['Cebinde "acil durumlar için" sim taşır.', 'Bir yaz tatilinde 6 metrelik kâğıt hamurundan balina yaptı.', 'On dört çerçeveli mum boya portresi var.'] }
+    } },
+  { headline: 'Conspiracy podcaster — but the wholesome kind.', details: ['Sincerely believes the moon is fine, actually.', 'Has guests on to debunk their own hosts.', 'Discovered, on episode 87, they are the conspiracy.'], tags: ['internet'],
+    i18n: {
+      zh: { headline: '阴谋论播客主——但是治愈系的那种。', details: ['真心觉得"月亮其实没问题"。', '经常请嘉宾来反驳自家主持人。', '在第 87 集发现:自己就是那个阴谋。'] },
+      ja: { headline: '陰謀論ポッドキャスター——ただし、ほんわか系の。', details: ['「月、別に大丈夫」と本気で信じている。', '自分たち司会者の説を否定しに来るゲストを呼んでくる。', '第87回で気づく——陰謀は自分たちだった。'] },
+      ko: { headline: '음모론 팟캐스터 — 다정한 쪽의.', details: ['"사실 달은 멀쩡하다"라고 진심으로 믿는다.', '본인 진행자의 주장을 반박하러 오는 게스트를 모신다.', '87회에서 알게 된다 — 음모는 본인이었다는 것을.'] },
+      tr: { headline: 'Komplo podcastçisi — ama tatlı çeşidinden.', details: ['"Ayda hiçbir sorun yok aslında" diye içtenlikle inanır.', 'Kendi sunucularını çürütmeye gelen konukları davet eder.', '87. bölümde anlar: komplo aslında kendileridir.'] }
+    } },
+  { headline: 'Astronaut who keeps a tiny indoor garden in orbit.', details: ['Has cried over a successful sprout. Twice.', 'Brings one (1) absurd snack on every mission.', 'Now answers questions in 3 languages.'], tags: ['education', 'multilingual'],
+    i18n: {
+      zh: { headline: '在轨道上养着一座小小室内花园的宇航员。', details: ['因为一根成功发芽的小苗哭过——两次。', '每次任务都会带上一份(只一份)荒诞的小零食。', '现在用三种语言回答记者的问题。'] },
+      ja: { headline: '軌道上で小さな室内菜園を世話する宇宙飛行士。', details: ['うまく発芽した一本に、二度、涙したことがある。', 'どのミッションにも、ばかげたスナックを「ひとつ」だけ持ち込む。', 'いまは三か国語で記者の質問に答える。'] },
+      ko: { headline: '궤도 위에서 작은 실내 정원을 가꾸는 우주비행사.', details: ['잘 자라준 새싹 하나에 두 번 울어봤다.', '미션마다 어처구니없는 간식 한(1) 가지를 챙긴다.', '이제는 질문에 세 가지 언어로 답한다.'] },
+      tr: { headline: 'Yörüngede minik bir kapalı bahçe yetiştiren astronot.', details: ['Çimlenen bir filiz için ağladı — iki kez.', 'Her görevde bir(1) saçma atıştırmalık götürür.', 'Artık sorulara üç dilde cevap veriyor.'] }
+    } },
+  { headline: 'Indie musician with one cult-favorite song.', details: ['Plays venues with exactly 47 people in them.', 'Their song is on a movie\'s closing credits no one watched.', 'Refuses to explain the lyrics. Lyrics are about pasta.'], tags: ['internet'],
+    i18n: {
+      zh: { headline: '有一首小众神曲的独立音乐人。', details: ['演出场地里总刚好坐着 47 个人。', '那首歌出现在一部没人看的电影的片尾字幕里。', '拒绝解释歌词——其实歌词写的是意大利面。'] },
+      ja: { headline: '一曲だけがカルト的人気のインディーミュージシャン。', details: ['ライブ会場の客はいつもきっかり47人。', '例の曲は、誰も観なかった映画のエンドロールに流れている。', '歌詞の意味は決して語らない——内容はパスタについて。'] },
+      ko: { headline: '컬트적 인기를 가진 한 곡의 인디 뮤지션.', details: ['정확히 47명이 들어찬 공연장에서만 무대에 선다.', '그 곡은 아무도 안 본 영화의 엔딩 크레딧에 들어가 있다.', '가사 의미는 절대 설명하지 않는다 — 사실은 파스타 이야기다.'] },
+      tr: { headline: 'Tek bir kült favori şarkısı olan bağımsız müzisyen.', details: ['Tam tamına 47 kişinin olduğu mekânlarda çalar.', 'O şarkı, kimsenin izlemediği bir filmin jeneriğindedir.', 'Sözleri açıklamayı reddeder. Aslında konu makarna.'] }
+    } },
+  { headline: 'Chaotic internet celebrity (mostly accidental).', details: ['Went viral for explaining tax code while baking bread.', 'Owns four cameras and one ring light.', 'Has a calendar app that just says "vibes only."'], tags: ['internet'],
+    i18n: {
+      zh: { headline: '混乱型互联网名人(基本是不小心红的)。', details: ['因为一边烤面包一边讲税法而走红。', '拥有四台相机和一盏环形灯。', '日历 App 里只有一行字:"全凭感觉。"'] },
+      ja: { headline: '偶然できあがった、ちょっと混沌系のネット有名人。', details: ['パンを焼きながら税法を解説する動画でバズる。', 'カメラ4台とリングライト1個を持つ。', 'カレンダーアプリの予定欄には「フィーリングで」とだけ書いてある。'] },
+      ko: { headline: '어쩌다 보니 만들어진 카오스 인터넷 셀럽.', details: ['빵을 구우며 세법을 설명하다가 바이럴이 됐다.', '카메라 네 대와 링 라이트 하나가 있다.', '캘린더 앱에는 그저 "분위기 따라"라고만 적혀 있다.'] },
+      tr: { headline: 'Çoğunlukla tesadüfen oluşmuş kaotik internet ünlüsü.', details: ['Ekmek yaparken vergi yasasını anlatarak viral oldu.', 'Dört kamerası ve bir ring ışığı var.', 'Takviminde sadece "moduna göre" yazıyor.'] }
+    } },
+  { headline: 'High-school physics teacher of legend.', details: ['Has demonstrated centripetal force using a frozen turkey.', 'Refers to gravity as "her old friend."', 'Several students will go on to thank them by name.'], tags: ['education'],
+    i18n: {
+      zh: { headline: '传说级别的高中物理老师。', details: ['用一只冷冻火鸡示范过向心力。', '把万有引力称作"自己的老朋友"。', '好几位学生日后会专门指名感谢她。'] },
+      ja: { headline: '伝説の高校物理教師。', details: ['凍った七面鳥で求心力を実演したことがある。', '重力を「古い友人」と呼ぶ。', '何人もの教え子が、後年その人を名指しで感謝することになる。'] },
+      ko: { headline: '전설로 통하는 고등학교 물리 선생님.', details: ['냉동 칠면조로 구심력을 시연한 적이 있다.', '중력을 "오랜 친구"라 부른다.', '훗날 여러 제자가 이름을 콕 집어 감사의 인사를 남기게 된다.'] },
+      tr: { headline: 'Efsane lise fizik öğretmeni.', details: ['Donmuş bir hindiyle merkezcil kuvveti gösterdi.', 'Yerçekimini "eski dostum" diye anar.', 'Yıllar sonra birkaç öğrenci ona adıyla teşekkür edecek.'] }
+    } },
+  { headline: 'Animal shelter director who knows every dog\'s name.', details: ['Sleeps with at least one (1) cat per night.', 'Once convinced a city council to adopt a goose.', 'Cries at every adoption — staff has stopped asking.'], tags: ['family'],
+    i18n: {
+      zh: { headline: '记得每只狗名字的动物收容所所长。', details: ['每晚至少和一(1)只猫一起睡。', '曾经成功说服市议会"收养"一只大鹅。', '每次有动物被领养都会哭——员工早已不问了。'] },
+      ja: { headline: 'すべての犬の名前を覚えている動物保護施設の施設長。', details: ['毎晩、必ず一(1)匹の猫と一緒に眠る。', '市議会を説き伏せて、ガチョウを一羽「採用」させたことがある。', '動物が引き取られるたびに泣く——スタッフはもう何も尋ねない。'] },
+      ko: { headline: '모든 개의 이름을 기억하는 동물보호소 소장.', details: ['매일 밤 적어도 고양이 한(1) 마리와 함께 잔다.', '시의회를 설득해 거위 한 마리를 입양시킨 적이 있다.', '입양이 있을 때마다 운다 — 직원들은 이제 묻지도 않는다.'] },
+      tr: { headline: 'Her köpeğin adını bilen hayvan barınağı müdürü.', details: ['Her gece en az bir(1) kediyle uyur.', 'Bir kez belediye meclisini ikna edip bir kazı sahiplendirmiş.', 'Her sahiplendirmede ağlar — ekip artık sormuyor.'] }
+    } },
+  { headline: 'Mid-list novelist who finally finishes the trilogy.', details: ['Argued with their editor about commas for 4 years.', 'Has 11 unfinished drafts in a desk drawer.', 'One reader writes them every Christmas.'], tags: ['education'],
+    i18n: {
+      zh: { headline: '终于写完三部曲的中等销量小说家。', details: ['跟编辑为标点逗号吵了整整四年。', '抽屉里塞着 11 份未完稿。', '每年圣诞节都有同一位读者写信给他/她。'] },
+      ja: { headline: '三部作をようやく書き終えた、中堅の小説家。', details: ['編集者とコンマをめぐって四年争った。', '引き出しには未完成の原稿が11本眠っている。', 'クリスマスのたびに、同じ一人の読者から手紙が届く。'] },
+      ko: { headline: '마침내 삼부작을 끝낸 중견 소설가.', details: ['편집자와 쉼표 문제로 4년을 다퉜다.', '책상 서랍에 완성되지 못한 원고 열한 편이 있다.', '매년 크리스마스마다 같은 독자 한 명이 편지를 보낸다.'] },
+      tr: { headline: 'Üçlemesini sonunda bitiren orta düzeyde okunan romancı.', details: ['Editörüyle dört yıl boyunca virgüller üzerine tartıştı.', 'Çalışma masasının çekmecesinde on bir yarım taslak var.', "Her Noel'de aynı bir okuyucu ona mektup yazar."] }
+    } },
+  { headline: 'Civic-organizer who fixes one impossible street.', details: ['Knows every neighbor by their grocery routine.', 'Has a binder. Several binders. Color-coded.', 'Will become a low-key local legend.'], tags: ['family'],
+    i18n: {
+      zh: { headline: '把一条"不可能修好"的街道修复了的社区组织者。', details: ['通过买菜的习惯认识每一位邻居。', '拥有一本活页夹——准确说,好几本,全部彩色标签分类。', '会成为低调的当地传奇人物。'] },
+      ja: { headline: '「直しようのない」一本の通りを、なんとかしてしまう地域コーディネーター。', details: ['近所の人を、買い物の習慣から覚えている。', 'バインダーを一冊——いや、何冊も、色分けして管理している。', 'いつしか、知る人ぞ知るその土地の伝説になる。'] },
+      ko: { headline: '도저히 못 고친다던 한 거리를 결국 고친 동네 코디네이터.', details: ['이웃들을 그들의 장보기 습관으로 알아본다.', '바인더 한 권 — 사실 여러 권을, 색깔별로 정리해 둔다.', '어느새 동네에서 조용한 전설이 된다.'] },
+      tr: { headline: '"Düzelmez" denen bir caddeyi onaran sivil organizatör.', details: ['Her komşuyu market alışkanlığından tanır.', 'Bir klasörü var. Birkaç klasörü; hepsi renk kodlu.', 'Zamanla mütevazı bir yerel efsaneye dönüşecek.'] }
+    } },
+  { headline: 'Bartender / amateur philosopher / good listener.', details: ['Remembers every regular\'s order and their mother\'s birthday.', 'Has a side hustle reading tarot at brunch.', 'Once accidentally married two strangers via toast.'], tags: ['social'],
+    i18n: {
+      zh: { headline: '调酒师 / 业余哲学家 / 很好的倾听者。', details: ['记得每位常客的点单,也记得他们母亲的生日。', '副业是在早午餐时段帮人塔罗占卜。', '曾因为一次祝酒,不小心给两位陌生人办了一场婚礼。'] },
+      ja: { headline: 'バーテンダー 兼 アマチュア哲学者 兼 聞き上手。', details: ['すべての常連の注文と、その人の母親の誕生日を覚えている。', '副業として、ブランチ会場でタロット占いをやっている。', 'ある日の乾杯のセリフで、見知らぬ二人を「結婚」させてしまった。'] },
+      ko: { headline: '바텐더 겸 아마추어 철학자 겸 잘 들어주는 사람.', details: ['단골 모두의 주문과 그들의 어머니 생일까지 기억한다.', '사이드 잡으로 브런치에서 타로 점을 본다.', '어느 날 건배사 한 번으로 낯선 두 사람을 결혼시킨 적이 있다.'] },
+      tr: { headline: 'Barmen / amatör filozof / iyi bir dinleyici.', details: ['Her müdavimin siparişini ve annesinin doğum gününü hatırlar.', 'Brunchlerde tarot okumayı ek iş olarak yapar.', 'Bir keresinde kadeh kaldırırken iki yabancıyı kazara evlendirdi.'] }
+    } },
+  { headline: 'Software engineer who maintains one cursed open-source tool.', details: ['Tool is depended on by 600 companies.', 'Lives on hobby farm. Has chickens named after data structures.', 'Reviews pull requests in dry one-liners.'], tags: ['economy'],
+    i18n: {
+      zh: { headline: '维护着一款"被诅咒的"开源工具的软件工程师。', details: ['这工具被 600 家公司依赖。', '住在自家小农场,鸡的名字全是数据结构。', '审 Pull Request 时只用一句冷冰冰的注释。'] },
+      ja: { headline: '「呪われた」オープンソースツールを一人で守るソフトウェアエンジニア。', details: ['そのツールに依存している企業は600社。', '趣味の小さな農場で暮らし、鶏には全部データ構造の名前をつけている。', 'プルリクのレビューは、たいてい一行のドライな指摘で済ます。'] },
+      ko: { headline: "'저주받은' 오픈소스 도구 하나를 관리하는 소프트웨어 엔지니어.", details: ['그 도구에 의존하는 회사가 600곳에 이른다.', '취미로 운영하는 농장에 살며, 닭들 이름은 모두 자료 구조에서 따왔다.', '풀 리퀘스트 리뷰는 늘 건조한 한 줄로 끝낸다.'] },
+      tr: { headline: 'Bir "lanetli" açık kaynak aracı tek başına sürdüren yazılım mühendisi.', details: ['O aracı 600 şirket kullanıyor.', 'Hobi olarak kurduğu çiftlikte yaşar; tavuklarına veri yapılarının adını verir.', 'Pull request incelemelerini kuru, tek satırlık yorumlarla kapatır.'] }
+    } },
+  { headline: 'Roving sourdough evangelist.', details: ['Travels with a starter named after a 19th-century philosopher.', 'Has converted three former rivals.', 'Bakes are 80% delicious, 20% lessons.'], tags: ['urbanRural'],
+    i18n: {
+      zh: { headline: '四处布道的酸面包传教士。', details: ['随身带着一份以 19 世纪哲学家命名的面种。', '已经把三位曾经的对手"皈依"了酸面包。', '烤出来的成品 80% 是美味,20% 是教训。'] },
+      ja: { headline: '各地を巡るサワードウ伝道師。', details: ['19世紀の哲学者にちなんだ名前のスターターを連れて旅をしている。', 'かつてのライバル三人を「改宗」させた実績がある。', '焼くものは80%が美味、20%が教訓。'] },
+      ko: { headline: '사방을 떠도는 사워도우 전도사.', details: ['19세기 철학자의 이름을 붙인 스타터를 늘 가지고 다닌다.', '한때 라이벌이었던 세 사람을 사워도우로 개종시켰다.', '구운 빵은 80%가 맛, 20%가 교훈.'] },
+      tr: { headline: 'Diyar diyar gezen ekşi maya havarisi.', details: ['Yanında 19. yüzyıl filozofunun adını taşıyan bir başlatıcı taşır.', 'Eski rakiplerinden üçünü kendi tarafına çekti.', 'Ekmekleri %80 lezzet, %20 ders.'] }
+    } },
+  { headline: 'Volunteer firefighter and small-town historian.', details: ['Has rescued one (1) cat. The cat owes them.', 'Writes the town\'s newsletter. It is unexpectedly funny.', 'Knows where every cornerstone is buried.'], tags: ['urbanRural', 'family'],
+    i18n: {
+      zh: { headline: '既是志愿消防员又是小镇历史学家。', details: ['救过一(1)只猫。那只猫欠他/她一个人情。', '写小镇通讯。意想不到地有趣。', '知道每一块奠基石埋在哪里。'] },
+      ja: { headline: 'ボランティアの消防士であり、町の歴史家でもある人。', details: ['救った猫は一(1)匹。その猫には貸しがある。', '町のニュースレターを書いている。想像以上に面白い。', 'どの礎石がどこに埋まっているかをすべて知っている。'] },
+      ko: { headline: '자원 소방관이자 작은 마을의 역사학자.', details: ['구조한 고양이는 한(1) 마리. 그 고양이는 본인에게 빚을 졌다.', '마을 소식지를 쓴다. 의외로 무척 재미있다.', '모든 머릿돌이 어디에 묻혀 있는지 안다.'] },
+      tr: { headline: 'Hem gönüllü itfaiyeci hem küçük kasaba tarihçisi.', details: ['Bir(1) kediyi kurtardı. O kedi ona borçlu.', 'Kasabanın bültenini yazar. Beklenmedik biçimde komiktir.', 'Her temel taşının nereye gömüldüğünü bilir.'] }
+    } },
+  { headline: 'Translator-by-day, sci-fi-writer-by-night.', details: ['Has translated 5 languages, invented 2 more.', 'Their pseudonym has its own fans.', 'Tea consumption: industrial.'], tags: ['multilingual'],
+    i18n: {
+      zh: { headline: '白天做翻译,晚上写科幻的人。', details: ['翻译过 5 种语言,自己又发明了 2 种。', '笔名也已经有自己的粉丝团。', '茶叶消耗量:工业级。'] },
+      ja: { headline: '昼は翻訳者、夜はSF作家。', details: ['5つの言語を翻訳し、もう2つの言語を自分でつくった。', 'ペンネームには、その筆名だけのファンがいる。', 'お茶の消費量は産業規模。'] },
+      ko: { headline: '낮에는 번역가, 밤에는 SF 작가.', details: ['다섯 가지 언어를 번역하고, 두 가지 언어를 새로 만들어냈다.', '필명에도 별도의 팬이 있다.', '차 소비량: 산업적 규모.'] },
+      tr: { headline: 'Gündüz çevirmen, gece bilim kurgu yazarı.', details: ['Beş dilden çeviri yaptı, iki dili kendi icat etti.', 'Takma adının ayrı bir hayran kitlesi var.', 'Çay tüketimi: endüstriyel.'] }
+    } },
+  { headline: 'Pediatrician who lets every kid name a fictional dinosaur.', details: ['Office wallpaper is the resulting list.', 'Has been on a sticker shortage watchlist twice.', 'Knows when to refer out and when to wait.'], tags: ['healthcare'],
+    i18n: {
+      zh: { headline: '让每个小朋友给虚构恐龙取名字的儿科医生。', details: ['诊室墙纸上印满了这些名字。', '曾两次被列入"贴纸短缺关注名单"。', '知道什么时候要转诊,什么时候要再等等。'] },
+      ja: { headline: 'どの子にも架空の恐竜の名前をつけさせる小児科医。', details: ['診察室の壁紙には、その名前のリストが印刷されている。', '「シール在庫不足注意リスト」に二度名前が載った。', '紹介状を書くべきとき、待つべきときをよく心得ている。'] },
+      ko: { headline: '모든 아이에게 가상의 공룡 이름을 짓게 해주는 소아과 의사.', details: ['진료실 벽지에는 그 이름들이 가득 인쇄돼 있다.', '"스티커 부족 주의 명단"에 두 번 올랐다.', '의뢰서를 쓸 때와, 기다려야 할 때를 안다.'] },
+      tr: { headline: 'Her çocuğa hayali bir dinozora ad koyduran çocuk doktoru.', details: ['Muayene odasının duvar kâğıdı bu isimlerden oluşan listedir.', 'İki kez "çıkartma sıkıntısı izleme listesi"ne girdi.', 'Ne zaman sevk yapılacağını, ne zaman bekleneceğini iyi bilir.'] }
+    } },
+  { headline: 'Park ranger fluent in stars.', details: ['Runs once-a-month "look up" nights for the town.', 'Speaks softly to bears. Has reasons.', 'Carries a beat-up copy of Annie Dillard everywhere.'], tags: ['urbanRural', 'education'],
+    i18n: {
+      zh: { headline: '对星空了如指掌的公园管理员。', details: ['每月一次,为镇上举办"抬头看"夜晚活动。', '对熊讲话很轻——理由很多。', '随身带着一本翻烂的 Annie Dillard。'] },
+      ja: { headline: '星空に通じた公園レンジャー。', details: ['月に一度、町のために「空を見上げる夜」を主催する。', '熊にはやさしく話しかける——きちんと理由がある。', 'どこへ行くにも、よれよれのアニー・ディラードの本を携えている。'] },
+      ko: { headline: '별자리에 정통한 공원 레인저.', details: ['매달 한 번, 마을 사람들과 함께 "고개를 들어 보는 밤"을 연다.', '곰에게도 부드럽게 말한다 — 그럴 만한 이유가 있다.', '어디에나 너덜너덜한 애니 딜라드 책을 들고 다닌다.'] },
+      tr: { headline: 'Yıldızları akıcı konuşan park korucusu.', details: ['Ayda bir, kasaba için "yukarı bak" geceleri düzenler.', 'Ayılarla yumuşak bir sesle konuşur. Gerekçeleri var.', 'Yanından eski püskü bir Annie Dillard kitabı eksik olmaz.'] }
+    } },
+  { headline: 'Logistics savant at a mid-sized warehouse.', details: ['Reorganized the loading bay; saved 40 minutes a day.', 'Knows the entire crew\'s coffee orders.', 'Plays the harmonica on lunch breaks.'], tags: ['economy'],
+    i18n: {
+      zh: { headline: '在中等规模仓库里的物流奇才。', details: ['重新调整了装卸区,每天省下 40 分钟。', '记得全员的咖啡偏好。', '午休时吹口琴。'] },
+      ja: { headline: '中規模倉庫の物流の達人。', details: ['荷捌き場を組み直し、毎日40分を浮かせた。', '同僚全員のコーヒーの好みを覚えている。', '昼休みにはハーモニカを吹く。'] },
+      ko: { headline: '중간 규모 창고의 물류 천재.', details: ['적재 구역을 재구성해 매일 40분을 줄였다.', '동료 모두의 커피 취향을 알고 있다.', '점심시간에는 하모니카를 분다.'] },
+      tr: { headline: 'Orta ölçekli bir depoda lojistik dahisi.', details: ['Yükleme alanını yeniden düzenleyip günde 40 dakika kazandırdı.', 'Tüm ekibin kahve siparişlerini bilir.', 'Öğle aralarında mızıka çalar.'] }
+    } },
+  { headline: 'Therapist who keeps a "patience plant" by the window.', details: ['Refuses to keep a clock visible.', 'Has cried, professionally, only twice.', 'Reads three novels at once.'], tags: ['healthcare', 'family'],
+    i18n: {
+      zh: { headline: '在窗边养着一盆"耐心植物"的心理师。', details: ['拒绝把钟挂在显眼的位置。', '工作期间总共只哭过两次。', '同时在读三本小说。'] },
+      ja: { headline: '窓辺に「忍耐の植物」を置くセラピスト。', details: ['時計を見える場所には置かない、と決めている。', '仕事中に涙したのは、これまでにたった二度。', '小説を同時に三冊読んでいる。'] },
+      ko: { headline: "창가에 '인내의 화분'을 두는 심리치료사.", details: ['시계가 보이는 곳에 걸리는 것을 단호히 거부한다.', '일하면서 운 적은 단 두 번뿐이다.', '소설 세 권을 동시에 읽는다.'] },
+      tr: { headline: 'Pencere kenarında bir "sabır bitkisi" tutan terapist.', details: ['Görünür bir saat bulunmasına izin vermez.', 'Mesleği gereği yalnızca iki kez ağladı.', 'Aynı anda üç roman okur.'] }
+    } },
+  { headline: 'Mediocre-but-cherished community-theater director.', details: ['Cast a chicken once. The chicken got a callback.', 'Has saved every program from every show.', 'Friends with the lighting tech for life.'], tags: ['social'],
+    i18n: {
+      zh: { headline: '才华一般却深受爱戴的社区剧场导演。', details: ['给一只鸡选过角色。那只鸡还接到了二轮试镜。', '把每场演出的节目单都收着。', '与灯光技术员结下了一辈子的友谊。'] },
+      ja: { headline: '才能はそこそこなのに、皆に大事にされる地域劇場の演出家。', details: ['一度、鶏をオーディションした。鶏は二次面接まで進んだ。', '上演したすべての公演のプログラムを取ってある。', '照明スタッフとは生涯の友人になった。'] },
+      ko: { headline: '평범하지만 모두에게 사랑받는 지역 극단 연출가.', details: ['한 번은 닭에게 배역을 줬다. 그 닭은 콜백까지 받았다.', '모든 공연의 팸플릿을 빠짐없이 보관해 두었다.', '조명 담당 스태프와 평생의 친구가 됐다.'] },
+      tr: { headline: 'Vasat ama herkesin baş tacı olan mahalle tiyatrosu yönetmeni.', details: ['Bir keresinde bir tavuğa rol verdi. Tavuk geri çağrıldı.', 'Her oyunun her programını sakladı.', 'Işık teknisyeniyle ömür boyu sürecek bir dostluğu var.'] }
+    } },
+  { headline: 'Cooperative-board member of a tiny grocery.', details: ['Argues for the bulk-grains section in every meeting.', 'Knows which two members are secretly dating.', 'Bakes for every neighbor on their birthday.'], tags: ['urbanRural'],
+    i18n: {
+      zh: { headline: '小型合作社杂货店的理事会成员。', details: ['每次开会都为"散装杂粮区"力争。', '知道哪两位成员在悄悄约会。', '邻居生日时给每个人烤一份点心。'] },
+      ja: { headline: '小さな協同組合スーパーの理事の一人。', details: ['毎回の会議で「量り売り穀物コーナー」を擁護する。', 'メンバーのなかで誰と誰がこっそり付き合っているか知っている。', 'ご近所の誕生日には欠かさず焼き菓子を届ける。'] },
+      ko: { headline: '작은 협동조합 마트의 이사회 멤버.', details: ["회의 때마다 '벌크 곡물 코너'를 옹호한다.", '회원 중 누가 몰래 사귀고 있는지 알고 있다.', '이웃의 생일마다 빵이나 과자를 굽는다.'] },
+      tr: { headline: 'Küçük bir kooperatif marketin yönetim kurulu üyesi.', details: ['Her toplantıda "dökme tahıl reyonu" için savaşır.', 'Hangi iki üyenin gizlice flört ettiğini bilir.', 'Her komşunun doğum gününde fırından bir şeyler hazırlar.'] }
+    } },
+  { headline: 'Aerospace technician with a side career in jazz piano.', details: ['Plays a smoky lounge twice a month.', 'Has solved one truly puzzling shuttle malfunction.', 'Wears the same lucky watch to both jobs.'], tags: ['education'],
+    i18n: {
+      zh: { headline: '航天技师,副业是爵士钢琴。', details: ['每月有两次在烟雾缭绕的小酒馆里演奏。', '解决过一桩真正让人摸不着头脑的航天故障。', '两份工作都戴着同一只"幸运手表"。'] },
+      ja: { headline: '航空宇宙の整備士で、副業はジャズピアニスト。', details: ['月に二度、煙のこもったラウンジで演奏する。', '本当に厄介だったシャトルの故障を一度だけ解いたことがある。', '二つの仕事のどちらにも、同じ「ラッキー時計」を着けていく。'] },
+      ko: { headline: '항공우주 기술자이자 부업으로 재즈 피아노를 친다.', details: ['한 달에 두 번, 담배 연기 자욱한 라운지에서 연주한다.', '정말 골치 아팠던 셔틀 결함을 한 번 풀어낸 적이 있다.', "두 일터 모두에 같은 '행운의 시계'를 차고 간다."] },
+      tr: { headline: 'Havacılık teknisyeni; yan kariyer olarak caz piyanisti.', details: ["Ayda iki kez, duman içindeki bir lounge'da çalar.", 'Gerçekten içinden çıkılmaz bir mekik arızasını çözmüştür.', 'İki işine de aynı "uğurlu saatini" takar.'] }
+    } },
+  { headline: 'Local linguist who documents an endangered dialect.', details: ['Records elders over kitchen tables; their files are precious.', 'Has been adopted, informally, by three families.', 'Is writing a dictionary by hand.'], tags: ['multilingual', 'family'],
+    i18n: {
+      zh: { headline: '在记录一种濒危方言的本地语言学家。', details: ['在厨房餐桌旁录下长辈们的话语;那些音频弥足珍贵。', '已经被三家家庭"非正式地"收作家人。', '正在用手书写一部词典。'] },
+      ja: { headline: '消滅の危機にある方言を記録する地元の言語学者。', details: ['台所のテーブル越しに長老たちの語りを録音し続けている——その音源はかけがえのない宝物だ。', '三つの家族から、非公式に「家族の一員」として迎えられている。', '手書きで辞書を書いている。'] },
+      ko: { headline: '사라져가는 방언을 기록하는 지역 언어학자.', details: ['부엌 식탁에서 어르신들의 말씀을 녹음한다. 그 파일들은 너무도 귀중하다.', '세 가족이 비공식적으로 그를 "가족"으로 받아들였다.', '손으로 사전 한 권을 쓰고 있다.'] },
+      tr: { headline: 'Tehlikedeki bir lehçeyi kayıt altına alan yerel dilbilimci.', details: ['Mutfak masasında yaşlıları kaydeder; bu dosyalar paha biçilmezdir.', 'Üç aile tarafından gayriresmî biçimde "evlat" edinilmiştir.', 'Elle bir sözlük yazıyor.'] }
+    } },
+  { headline: 'Bookstore owner running a wildly specific genre section.', details: ['Genre section: "novels with one (1) lighthouse."', 'Hosts an unbearably charming monthly reading.', 'Has a cat named after a literary theorist.'], tags: ['urbanRural'],
+    i18n: {
+      zh: { headline: '经营一个极其细分小区的书店老板。', details: ['那个分区叫:"含一(1)座灯塔的小说"。', '每月办一次令人忍不住喜欢的朗读会。', '养着一只以文学理论家命名的猫。'] },
+      ja: { headline: '異常にニッチなコーナーを擁する書店の店主。', details: ['そのコーナーの名は「灯台が一(1)基出てくる小説」。', '毎月ひらく朗読会は、ばかばかしいほど魅力的。', '文芸理論家にちなんだ名前の猫がいる。'] },
+      ko: { headline: '유난히 좁고 분명한 코너를 운영하는 서점 주인.', details: ['그 코너의 이름은 "등대 한(1) 개가 등장하는 소설들".', '매달 여는 낭독회가 견딜 수 없을 만큼 사랑스럽다.', '문학 이론가의 이름을 딴 고양이를 키운다.'] },
+      tr: { headline: 'Olağanüstü spesifik bir köşesi olan kitapçı sahibi.', details: ['Köşenin adı: "İçinde bir(1) deniz feneri olan romanlar."', 'Aylık okuma etkinlikleri dayanılmaz derecede çekicidir.', 'Bir edebiyat kuramcısının adını taşıyan bir kedisi var.'] }
+    } },
+  { headline: 'Climate-policy wonk who actually changes one law.', details: ['Spent 11 years on the same comma.', 'Reads regulatory PDFs for pleasure.', 'Hosts excellent dinner parties for very tired colleagues.'], tags: ['education', 'social'],
+    i18n: {
+      zh: { headline: '真的让一条法律得以修改的气候政策专家。', details: ['在同一个逗号上耗了 11 年。', '把读监管 PDF 当作消遣。', '给极度疲惫的同事们办很棒的晚宴。'] },
+      ja: { headline: '一本の法律を本当に変えてしまった、気候政策のオタク。', details: ['同じコンマに11年を費やした。', '規制関連のPDFを娯楽として読む。', '疲れきった同僚たちのために、極上のディナーパーティーを開く。'] },
+      ko: { headline: '정말로 법 한 줄을 바꾼 기후 정책 마니아.', details: ['같은 쉼표 하나에 11년을 썼다.', '규제 관련 PDF를 취미로 읽는다.', '지친 동료들을 위해 훌륭한 만찬을 연다.'] },
+      tr: { headline: 'Gerçekten bir yasayı değiştirebilen iklim politikası uzmanı.', details: ['Aynı virgül üzerine 11 yıl harcadı.', "Hobi olarak regülasyon PDF'leri okur.", 'Çok yorgun meslektaşları için harika akşam yemekleri verir.'] }
+    } }
 ];
 
 /* ---------- Adult-mode pools (clinical, grounded) ---------- */
