@@ -5219,6 +5219,18 @@ body.app-kids .kids-only { display: revert; }
   line-height: 1.5;
   color: var(--ink-soft);
 }
+/* R10 rev (Ethics + Risk MAJOR): disclaimer was rendering at small-print
+   size, making the heading dominate it perceptually. Elevate to peer-of-
+   heading typography — larger size, near-ink contrast, slightly heavier
+   weight — so the "this is guesswork, not certainty" frame lands before
+   the list reads as facts. */
+.kids-arc-panel .kids-arc-disclaimer {
+  margin: 0 0 6px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  font-weight: 500;
+}
 
 .kids-arc-list {
   list-style: none;
@@ -5267,17 +5279,24 @@ body.app-kids .kids-only { display: revert; }
 
 @media (max-width: 640px) {
   .kids-arc-list { grid-template-columns: 1fr; }
+  /* R10 rev (MOBILE MAJOR): 28px side padding ate too much horizontal
+     real estate on narrow viewports — drop to 18px so two-line list
+     items don't wrap awkwardly. Vertical padding unchanged. */
+  .kids-arc-panel { padding: 28px 18px 24px; }
 }
 
-/* R10 (UX a11y): staggered fade-in so the three Kids-arc panels arrive
-   sequentially — gentle wonder, not a thud. Keys off `data-stage` set
-   by R9 in script.js render. Reduced-motion users skip the motion. */
+/* R10 rev (Visual Director + Narrative Design): duration 0.32s→0.5s to
+   match the app's `fadeUp` / `parent-advanced-reveal` motion language;
+   stagger intervals normalised to a uniform 0.3s "wonder cadence"
+   (0s / 0.3s / 0.6s) rather than the prior compressed 0.3s / 0.45s.
+   Keys off `data-stage` set by R9 in script.js render. Reduced-motion
+   users skip the motion. */
 .kids-arc-panel[data-stage] {
-  animation: kidsArcPanelIn 0.32s ease both;
+  animation: kidsArcPanelIn 0.5s ease both;
 }
 .kids-arc-panel[data-stage="1"] { animation-delay: 0s; }
 .kids-arc-panel[data-stage="2"] { animation-delay: 0.3s; }
-.kids-arc-panel[data-stage="3"] { animation-delay: 0.45s; }
+.kids-arc-panel[data-stage="3"] { animation-delay: 0.6s; }
 @keyframes kidsArcPanelIn {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
