@@ -2702,6 +2702,11 @@ body.app-kids .slider-explain:hover {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* R13 rev (Visual Director POLISH): guard the popover entrance for users
+   who request reduced motion — show without the slide-fade. */
+@media (prefers-reduced-motion: reduce) {
+  .slider-popover.is-open { animation: none !important; }
+}
 
 /* ---------- Humanity reminder banner ---------- */
 .reminder-banner {
@@ -3708,6 +3713,11 @@ body.mode-adult .alt-vibe {
   .hobby-constellation .hobby-node circle,
   .future-tree-svg .branch,
   .future-tree-svg .leaf circle,
+  /* R13 rev (Visual Director MAJOR): explicit body-scoped variants of the
+     reflection-mode tree drift/pulse — defensive belt-and-suspenders so
+     the guard wins regardless of cascade order or specificity tweaks. */
+  body.mode-reflection .future-tree-svg .branch,
+  body.mode-reflection .future-tree-svg .leaf circle,
   .slider-row .confidence-band-svg .band-fill { animation: none !important; }
 }
 
@@ -5250,6 +5260,20 @@ body.app-kids .kids-only { display: revert; }
   font-weight: 500;
 }
 
+/* R13 rev (UX + Narrative Design MAJOR): closing-affirmation slot under the
+   kids-arc list. Matches the disclaimer typography family (size, weight,
+   color) so the open/close brackets read as one atmospheric pair — the
+   disclaimer frames "this is guesswork," the closer reaffirms "and they
+   are still loved." Centered to set it apart from the list rhythm. */
+.kids-arc-panel .kids-arc-closing {
+  margin-top: 16px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  font-weight: 500;
+  text-align: center;
+  color: var(--ink);
+}
+
 .kids-arc-list {
   list-style: none;
   margin: 16px 0 0;
@@ -5321,6 +5345,13 @@ body.app-kids .kids-only { display: revert; }
      the hit area meets WCAG 2.5.5. Desktop sizing unchanged. */
   .style-btn,
   .gender-btn {
+    min-height: 44px; min-width: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  /* R13 rev (MOBILE MAJOR): .details-toggle used 6×14 padding + 11.5px
+     text → sub-44px tap target. Same R12 pattern: 44×44 min, inline-flex
+     center so the dashed pill keeps its compact silhouette. */
+  .details-toggle {
     min-height: 44px; min-width: 44px;
     display: inline-flex; align-items: center; justify-content: center;
   }
