@@ -4471,6 +4471,9 @@ const ADULT_TRAJECTORY_MILESTONES = {
       // R19: zh/ja/ko/tr translations added in parallel at the same index,
       // tagged as objects so life_shape propagates across languages
       // (the R17 Science MAJOR — tags previously only on EN).
+      // R20: caretaking entry wrapped across zh/ja/ko/tr — closes the last
+      // cross-lang shape-tag asymmetry; all 5 tagged shapes (stability×2,
+      // mixed, caretaking, interruption, bloom, precarity) now span all langs.
       { text: "A disruption in this decade — illness, job loss, caregiving crisis, or other shock — reshapes priorities. What emerges after is different from what was planned, and not always 'recovered'; some change reshapes the trajectory permanently.", life_shape: 'interruption' },
       { text: 'A late bloom: the thing they are known for, by themselves and others, arrives after most peers assumed the shape was set.', life_shape: 'bloom' },
       { text: 'Economic precarity persists into this decade for a non-trivial share of cohorts; stability is not evenly distributed.', life_shape: 'precarity' }
@@ -4483,7 +4486,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '随着年龄增长,情感表达的方式往往会发生变化——有时收窄,有时则更见深度。',
       '对那些做过与未做的选择,反思变得更频繁。',
       '无论是否有自己的孩子,下一代都已进入他/她的生活轨道。',
-      '照护年迈的父母、手足或伴侣,打断了原本预设的人生轨道;身份围绕着"谁需要他/她"重新组织。',
+      { text: '照护年迈的父母、手足或伴侣,打断了原本预设的人生轨道;身份围绕着"谁需要他/她"重新组织。', life_shape: 'caretaking' },
       { text: "这个十年里的一次扰动——疾病、失业、照护危机或其他冲击——重塑了优先事项。其后浮现的与原本计划的不同,也并非总能'复原';有些变化会永久地改变轨迹。", life_shape: 'interruption' },
       { text: '一次迟到的绽放:他/她为人所识的那件事——在自己和他人眼中——出现在大多数同龄人都已认定形状已定之后。', life_shape: 'bloom' },
       { text: '在这十年间,经济上的不稳定仍持续困扰着相当一部分同代人;稳定并非平均分布。', life_shape: 'precarity' }
@@ -4496,7 +4499,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '感情のあらわれ方は年齢とともに変わっていく――狭まっていくこともあれば、より深くなることもある。',
       'した選択、しなかった選択について振り返ることが多くなる。',
       '自分の子の有無にかかわらず、次の世代が生活圏に入ってくる。',
-      '老いた親、きょうだい、あるいは伴侶のケアが、想定されていた軌道を中断させる。アイデンティティは「誰が自分を必要としているか」を軸に再編される。',
+      { text: '老いた親、きょうだい、あるいは伴侶のケアが、想定されていた軌道を中断させる。アイデンティティは「誰が自分を必要としているか」を軸に再編される。', life_shape: 'caretaking' },
       { text: "この十年に訪れる混乱——病、失職、ケアの危機、その他の衝撃——が、優先順位を組み替える。その後に現れるものは、当初の計画とは違い、必ずしも『回復』するわけではない。なかには、軌道を恒久的に変える変化もある。", life_shape: 'interruption' },
       { text: '遅咲き――本人にも周囲にも「この人といえばこれ」と認識されるものが、同世代の多くが「もう形は決まった」と見なした後に現れる。', life_shape: 'bloom' },
       { text: 'この十年に入っても、相当な割合のコホートでは経済的不安定さが続いている。安定は均等には分配されていない。', life_shape: 'precarity' }
@@ -4509,7 +4512,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '감정이 드러나는 방식은 나이와 함께 달라진다 — 어떤 때는 좁아지고, 어떤 때는 깊어진다.',
       '한 선택과 하지 않은 선택에 대한 성찰이 점점 더 자주 일어난다.',
       '자녀의 유무와 상관없이, 다음 세대가 생활권 안으로 들어온다.',
-      '나이 든 부모, 형제자매, 혹은 배우자에 대한 돌봄이 예정된 궤적을 끊는다. 정체성은 "누가 자신을 필요로 하는가"를 중심으로 재편된다.',
+      { text: '나이 든 부모, 형제자매, 혹은 배우자에 대한 돌봄이 예정된 궤적을 끊는다. 정체성은 "누가 자신을 필요로 하는가"를 중심으로 재편된다.', life_shape: 'caretaking' },
       { text: "이 십 년 사이에 닥치는 혼란 — 질병, 실직, 돌봄의 위기, 그 외의 충격 — 은 우선순위를 다시 짠다. 그 뒤에 나타나는 것은 본래 계획과 다르며, 늘 '회복'되지도 않는다. 어떤 변화는 궤적을 영구히 바꾸어 놓는다.", life_shape: 'interruption' },
       { text: '늦은 개화: 본인과 주위 모두에게 그 사람을 그 사람이게 하는 것이, 또래 대부분이 이미 형태가 정해졌다고 여긴 뒤에 도착한다.', life_shape: 'bloom' },
       { text: '이 10년대에 들어서도 적지 않은 코호트에서 경제적 불안정이 지속된다. 안정은 고르게 분배되어 있지 않다.', life_shape: 'precarity' }
@@ -4522,7 +4525,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'Duyguların dışavurumu yaşla birlikte sıklıkla değişir — bazen daralır, bazen derinleşir.',
       'Yapılmış ve yapılmamış seçimler üzerinde düşünmek giderek sıklaşır.',
       'Çocuklar olsun ya da olmasın, sonraki kuşak onun yörüngesine girer.',
-      'Yaşlanan bir ebeveyne, bir kardeşe ya da bir eşe bakım vermek, öngörülen ekseni keser; kimlik, kime ihtiyaç duyulduğu etrafında yeniden düzenlenir.',
+      { text: 'Yaşlanan bir ebeveyne, bir kardeşe ya da bir eşe bakım vermek, öngörülen ekseni keser; kimlik, kime ihtiyaç duyulduğu etrafında yeniden düzenlenir.', life_shape: 'caretaking' },
       { text: "Bu on yıldaki bir sarsıntı — hastalık, iş kaybı, bakım krizi ya da başka bir şok — öncelikleri yeniden şekillendirir. Sonrasında ortaya çıkan, planlanandan farklıdır ve her zaman 'iyileşme' getirmez; bazı değişiklikler yörüngeyi kalıcı olarak değiştirir.", life_shape: 'interruption' },
       { text: 'Geç açan bir çiçek: kişinin kendisi ve başkaları için onu tanıdığımız şey, akranların çoğunun biçimin artık oturduğunu varsaymasından sonra gelir.', life_shape: 'bloom' },
       { text: 'Bu on yılda da kohortların azımsanmayacak bir bölümü için ekonomik kırılganlık sürer; istikrar eşit biçimde dağılmamıştır.', life_shape: 'precarity' }
