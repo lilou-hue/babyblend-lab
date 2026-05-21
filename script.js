@@ -4811,9 +4811,19 @@ function applyBudgetPanelGate() {
       // Mode/gen no longer qualifies — hard clear, no fade needed.
       leadin.innerHTML = '';
       leadin.hidden = true;
+    } else if (existing && !existing.classList.contains('is-leaving')) {
+      // R8 fix: eligible AND consentAck just flipped true. Previously this
+      // branch was a no-op (comment said "leave the note alone so any
+      // in-flight fade can finish"), but the slider-input path that flips
+      // consentAck never starts a fade — so the leadin leaked, sitting in
+      // the DOM until mode change. Kick off the cross-fade here so the
+      // ethical framing retires after the user's first non-zero allocation,
+      // matching the two-beat hand-off described in the original spec.
+      existing.classList.add('is-leaving');
+      const clearLeadin = () => { leadin.innerHTML = ''; leadin.hidden = true; };
+      existing.addEventListener('transitionend', clearLeadin, { once: true });
+      setTimeout(clearLeadin, 500); // fallback if transitionend doesn't fire
     }
-    // If eligible but consentAck just flipped true, leave the note alone
-    // so any in-flight `.is-leaving` fade can finish naturally.
   }
   // Budget panel: always visible in Adult mode; locked until first generation.
   // Unhidden AFTER the leadin so the ethical framing is committed to the DOM
