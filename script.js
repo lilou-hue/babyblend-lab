@@ -2666,7 +2666,7 @@ const ADULT_TRACES = {
     'Decades later, repeats a single phrase a teacher once said, to a stranger.',
     'Late in life, becomes a person their younger self would have liked.',
     // Tier-2 mild-conflict traces. Clinical register, present-state.
-    // LOOP_REQUEST(translator): zh/ja/ko/tr for the 8 mild entries below.
+    // R14 closed: zh/ja/ko/tr mild entries now mirror the 8 EN below.
     { text: 'Maintains a list of unfinished projects; revisits about half of them once a year.', tag: 'OC-mild' },
     { text: 'Files documents by a system only partly visible to anyone else; locates most things on the second try.', tag: 'OC-mild' },
     { text: 'Accepts most invitations; reserves the following day for solitude.', tag: 'EN-mild' },
@@ -2716,7 +2716,15 @@ const ADULT_TRACES = {
     '一眼便认得出祖辈的字迹。',
     '关于心情,有一套不与任何人分享的私人语汇。',
     '几十年后,会把某位老师说过的某句话,对一位陌生人重复出来。',
-    '晚年终于活成了年轻时的自己会喜欢的那种人。'
+    '晚年终于活成了年轻时的自己会喜欢的那种人。',
+    { text: '手头留着一份未完成项目的清单;每年大约会重看其中一半。', tag: 'OC-mild' },
+    { text: '用一套外人只看得懂一半的方式归档资料;大多数文件第二次才找到。', tag: 'OC-mild' },
+    { text: '大部分邀约都会接受;把次日留给独处。', tag: 'EN-mild' },
+    { text: '把聚会办得周到,之后两三天不愿与人来往。', tag: 'EN-mild' },
+    { text: '工作日保持固定的早晨流程;能容忍周末的变动,只是谈不上喜欢。', tag: 'CO-mild' },
+    { text: '计划被打乱时会迅速重新安排;对原方案的偏好,几乎不会说出口。', tag: 'CO-mild' },
+    { text: '比统计上更常迁就群体的选择;事后会短短地提一句自己原本想去的。', tag: 'AN-mild' },
+    { text: '会把不大的小不满憋上几天;然后自己消化,不再提起。', tag: 'AN-mild' }
   ],
   ja: [
     '思春期につけていたノートを、いまも保管している。',
@@ -2758,7 +2766,15 @@ const ADULT_TRACES = {
     '祖父母の手書きの文字を、一目で見分けられる。',
     '気分について、誰にも共有しない、自分だけの語彙を持っている。',
     'かつて先生に言われたある一言を、何十年もあとに、見知らぬ誰かに繰り返している。',
-    '晩年になって、若いころの自分が好きになるような人物に、ようやくなる。'
+    '晩年になって、若いころの自分が好きになるような人物に、ようやくなる。',
+    { text: '未完了の計画リストを手元に置き、年に一度、そのうち半分ほどを見直す。', tag: 'OC-mild' },
+    { text: '他人には半分しか見えない仕分けで書類をしまい、たいていは二度目で目当てを探し当てる。', tag: 'OC-mild' },
+    { text: '誘いの大半を受け、その翌日は孤独な時間に充てる。', tag: 'EN-mild' },
+    { text: 'もてなしは行き届いているが、その後の二、三日は人付き合いを断る。', tag: 'EN-mild' },
+    { text: '平日の朝のルーティンは固定で、週末の変動は受け入れるが、楽しんではいない。', tag: 'CO-mild' },
+    { text: '崩れた予定はすぐに組み直すが、元の案への思い入れを口に出すことはほとんどない。', tag: 'CO-mild' },
+    { text: '統計上の予想以上に集団の意向に合わせ、自分が望んだ案は、あとで一度だけ短く触れる。', tag: 'AN-mild' },
+    { text: '小さな不満を口にせず数日抱え、誰にも言わずに、ひっそりと収める。', tag: 'AN-mild' }
   ],
   ko: [
     '청소년기에 쓰던 공책을, 여전히 간직하고 있다.',
@@ -2800,7 +2816,15 @@ const ADULT_TRACES = {
     '조부모의 손글씨를, 한눈에 알아본다.',
     '감정에 대해, 아무에게도 말하지 않는 자기만의 어휘를 가지고 있다.',
     '어느 선생님이 했던 한 마디를, 수십 년이 지난 뒤 낯선 사람에게 다시 꺼낸다.',
-    '말년이 되어서야, 어린 시절의 자신이 좋아했을 만한 사람이 된다.'
+    '말년이 되어서야, 어린 시절의 자신이 좋아했을 만한 사람이 된다.',
+    { text: '미완성 계획 목록을 손에 두고, 일 년에 한 번 그중 절반 정도를 다시 들여다본다.', tag: 'OC-mild' },
+    { text: '남에게는 절반쯤만 보이는 방식으로 서류를 정리하고, 대부분은 두 번째 시도에서 찾아낸다.', tag: 'OC-mild' },
+    { text: '대부분의 초대를 받아들이고, 다음 날은 혼자만의 시간으로 비워둔다.', tag: 'EN-mild' },
+    { text: '손님 대접은 빈틈없이 해내지만, 그 뒤 이삼 일은 누구와도 만나지 않는다.', tag: 'EN-mild' },
+    { text: '평일 아침 루틴은 고정되어 있고, 주말의 변동은 받아들이지만 즐기지는 않는다.', tag: 'CO-mild' },
+    { text: '깨진 계획은 즉시 다시 짜되, 원래 안에 대한 선호는 거의 입 밖에 내지 않는다.', tag: 'CO-mild' },
+    { text: '통계적으로 예상되는 것보다 더 자주 집단의 선택에 따르고, 자신이 원했던 안은 일이 끝난 뒤 짧게 한 번 언급한다.', tag: 'AN-mild' },
+    { text: '입 밖에 내지 않는 작은 불만을 며칠씩 안고 있다가, 아무 말 없이 혼자 정리한다.', tag: 'AN-mild' }
   ],
   tr: [
     'Ergenlik dönemindeki defterleri hâlâ saklıyor.',
@@ -2842,7 +2866,15 @@ const ADULT_TRACES = {
     'Büyükannelerinin el yazısını bir bakışta tanıyor.',
     'Ruh hâlleri için, kimseyle paylaşmadığı kendine özgü bir sözlüğü var.',
     'Bir öğretmenin bir gün söylediği tek bir cümleyi, onlarca yıl sonra bir yabancıya tekrarlıyor.',
-    'Yaşlanınca, genç hâlinin sevebileceği türden bir insana dönüşüyor.'
+    'Yaşlanınca, genç hâlinin sevebileceği türden bir insana dönüşüyor.',
+    { text: 'Tamamlanmamış işlerden oluşan bir liste tutar; yılda bir kez, aşağı yukarı yarısını yeniden gözden geçirir.', tag: 'OC-mild' },
+    { text: 'Belgeleri, başkalarına ancak yarı yarıya görünen bir düzenle saklar; çoğunu ikinci denemede bulur.', tag: 'OC-mild' },
+    { text: 'Davetlerin çoğunu kabul eder; ertesi günü yalnızlığa ayırır.', tag: 'EN-mild' },
+    { text: 'Konuk ağırlamayı iyi yapar, ardından iki üç gün sosyal teması reddeder.', tag: 'EN-mild' },
+    { text: 'Hafta içi sabah rutinini sabit tutar; hafta sonu sapmalarına katlanır, ama hoşnut olmadan.', tag: 'CO-mild' },
+    { text: 'Bozulan planı hemen yeniden kurar; aslında ilkini tercih ettiğini pek dile getirmez.', tag: 'CO-mild' },
+    { text: 'İstatistiksel olarak beklenenden daha sık grup tercihine uyar; kendi seçeneğini iş bittikten sonra kısaca, bir kez dile getirir.', tag: 'AN-mild' },
+    { text: 'Söze dökmediği ufak rahatsızlıkları birkaç gün taşır; kimseye söylemeden, içinde halleder.', tag: 'AN-mild' }
   ]
 };
 
@@ -4537,7 +4569,7 @@ const KIDS_FUTURE_PATHS = {
     { text: 'May invent games no one else understands.',              tag: 'O' },
     { text: 'Could be the family\'s designated joke-teller.',         tag: 'E' },
     // Tier-2 mild entries. Softer than the tier-1 lines above; kid-readable,
-    // warm. LOOP_REQUEST(translator): zh/ja/ko/tr for the 8 mild entries below.
+    // warm. R14 closed: zh/ja/ko/tr mild entries now mirror the 8 EN below.
     { text: 'Might love a brand-new project one week and quietly forget it the next — both are real.', tag: 'OC-mild' },
     { text: 'Could keep their room mostly tidy, then leave one drawer wonderfully chaotic.', tag: 'OC-mild' },
     { text: 'May be cheerful at the party and tired on the car ride home — both are okay.', tag: 'EN-mild' },
@@ -4579,7 +4611,15 @@ const KIDS_FUTURE_PATHS = {
     { text: '也许会对某个特定的话题着迷好几年。', tag: 'O' },
     { text: '大概会收集些不太一样的东西——石头、树叶、贴纸。', tag: 'O' },
     { text: '也许会发明只有自己懂规则的游戏。', tag: 'O' },
-    { text: '也许会成为家里专门讲笑话的那个人。', tag: 'E' }
+    { text: '也许会成为家里专门讲笑话的那个人。', tag: 'E' },
+    { text: '这周可能特别迷上一个新计划,下周又悄悄忘掉——两种心情都很真实。', tag: 'OC-mild' },
+    { text: '可能把房间大致收拾整齐,却让某一个抽屉乱得有点可爱。', tag: 'OC-mild' },
+    { text: '在派对上很开心,回家的车上又困又累——两种感受都没问题。', tag: 'EN-mild' },
+    { text: '可能先爱热闹的集体游戏,接下来一个小时又只想找一个安静的朋友。', tag: 'EN-mild' },
+    { text: '可能喜欢尝试新东西,但到了晚上还是想穿那件最熟悉的睡衣。', tag: 'CO-mild' },
+    { text: '可能喜欢惊喜,只要有人先告诉他们惊喜要来了。', tag: 'CO-mild' },
+    { text: '可能嘴上说"我不介意",心里其实有那么一点点介意。', tag: 'AN-mild' },
+    { text: '可能今天迁就朋友想玩的,明天再换自己想玩的来挑。', tag: 'AN-mild' }
   ],
   ja: [
     { text: '何かを作るのが大好きになるかも。', tag: 'O' },
@@ -4613,7 +4653,15 @@ const KIDS_FUTURE_PATHS = {
     { text: 'ある一つのテーマに、何年も夢中になるかも。', tag: 'O' },
     { text: '石やはっぱ、シールなど、ちょっと変わったものを集める子になりそう。', tag: 'O' },
     { text: '自分にしかルールがわからない遊びを考えだすかも。', tag: 'O' },
-    { text: '家族のなかの「ジョーク担当」になるかも。', tag: 'E' }
+    { text: '家族のなかの「ジョーク担当」になるかも。', tag: 'E' },
+    { text: '今週は新しいプロジェクトに夢中で、来週にはそっと忘れているかも——どちらの気持ちも本物。', tag: 'OC-mild' },
+    { text: '部屋はだいたい整っているのに、ある一つの引き出しだけはにぎやかに散らかしておく子かも。', tag: 'OC-mild' },
+    { text: 'パーティーでは元気で、帰りの車では眠くて静か——どちらでも大丈夫。', tag: 'EN-mild' },
+    { text: 'にぎやかな集団あそびのあと、次の一時間は静かな友だち一人と過ごしたくなるかも。', tag: 'EN-mild' },
+    { text: '新しいことを試すのは好きだけれど、一日の終わりにはいつものお気に入りのパジャマを着たい子かも。', tag: 'CO-mild' },
+    { text: 'サプライズは好き——ただし、「サプライズがあるよ」と先に教えてもらえれば。', tag: 'CO-mild' },
+    { text: '本当は少し気にしているのに、「気にしてないよ」と言ってしまうことがあるかも。', tag: 'AN-mild' },
+    { text: '今日は友だちのやりたい遊びに合わせ、明日は自分のやりたい遊びを選ぶ——そんなふうにできるかも。', tag: 'AN-mild' }
   ],
   ko: [
     { text: '만드는 걸 정말 좋아할지도 몰라요.', tag: 'O' },
@@ -4647,7 +4695,15 @@ const KIDS_FUTURE_PATHS = {
     { text: '한 가지 주제에 몇 년이고 푹 빠질 수 있어요.', tag: 'O' },
     { text: '돌이나 잎사귀, 스티커처럼 좀 특별한 것들을 모을 가능성이 커요.', tag: 'O' },
     { text: '자기만 규칙을 아는 놀이를 만들어낼지도 몰라요.', tag: 'O' },
-    { text: '가족 안의 공식 농담 담당이 될 수 있어요.', tag: 'E' }
+    { text: '가족 안의 공식 농담 담당이 될 수 있어요.', tag: 'E' },
+    { text: '이번 주에는 새 프로젝트에 푹 빠졌다가, 다음 주에는 조용히 잊어버릴 수도 있어요 — 둘 다 진짜 마음이에요.', tag: 'OC-mild' },
+    { text: '방은 대체로 깔끔한데, 어떤 한 서랍만은 멋지게 어질러 두는 아이일 수 있어요.', tag: 'OC-mild' },
+    { text: '파티에서는 신이 났다가, 돌아오는 차 안에서는 졸리고 지칠 수 있어요 — 둘 다 괜찮아요.', tag: 'EN-mild' },
+    { text: '큰 단체 놀이를 신나게 한 뒤, 한 시간쯤은 조용한 친구 한 명과 있고 싶어 할 수도 있어요.', tag: 'EN-mild' },
+    { text: '새로운 걸 시도하는 건 좋아하지만, 하루의 끝에는 늘 좋아하는 그 잠옷을 입고 싶어 할지도 몰라요.', tag: 'CO-mild' },
+    { text: '깜짝 선물을 좋아할 수 있어요 — 누군가 깜짝 선물이 올 거라고 미리 알려주기만 한다면요.', tag: 'CO-mild' },
+    { text: '사실은 조금 신경 쓰이는데도 "나는 괜찮아"라고 말해 버릴 때가 있을지도 몰라요.', tag: 'AN-mild' },
+    { text: '오늘은 친구가 하고 싶은 놀이를 따라 주고, 내일은 자기가 하고 싶은 놀이를 골라 볼 수 있어요.', tag: 'AN-mild' }
   ],
   tr: [
     { text: 'Bir şeyler yapmayı çok sevebilir.', tag: 'O' },
@@ -4681,7 +4737,15 @@ const KIDS_FUTURE_PATHS = {
     { text: 'Belirli bir konuya yıllarca takılıp kalabilir.', tag: 'O' },
     { text: 'Muhtemelen alışılmadık şeyler biriktirir — taşlar, yapraklar, çıkartmalar.', tag: 'O' },
     { text: 'Sadece kendisinin anladığı oyunlar uydurabilir.', tag: 'O' },
-    { text: 'Ailenin resmi şakacısı olabilir.', tag: 'E' }
+    { text: 'Ailenin resmi şakacısı olabilir.', tag: 'E' },
+    { text: 'Bu hafta yepyeni bir projeye bayılıp gelecek hafta sessizce unutabilir — iki his de gerçek.', tag: 'OC-mild' },
+    { text: 'Odası genelde düzenliyken bir çekmeceyi tatlı bir karmaşaya bırakan çocuk olabilir.', tag: 'OC-mild' },
+    { text: 'Partide neşeli, eve dönüş yolundaki arabada yorgun olabilir — ikisi de sorun değil.', tag: 'EN-mild' },
+    { text: 'Kalabalık bir grup oyununu sevdikten sonra, bir sonraki saatte tek bir sessiz arkadaş isteyebilir.', tag: 'EN-mild' },
+    { text: 'Yeni şeyler denemeyi sevse de, günün sonunda yine en sevdiği aynı pijamayı isteyebilir.', tag: 'CO-mild' },
+    { text: 'Sürprizleri sevebilir — yeter ki birisi sürprizin geleceğini önceden söylesin.', tag: 'CO-mild' },
+    { text: 'Aslında biraz rahatsızken bile «benim için fark etmez» diyebilir.', tag: 'AN-mild' },
+    { text: 'Bugün arkadaşının istediği oyuna uyabilir, yarın oyunu kendisi seçebilir.', tag: 'AN-mild' }
   ]
 };
 
