@@ -5563,6 +5563,34 @@ const KIDS_ADULT_FUTURES = [
     if (missing.length) {
       console.warn('[BabyBlend] -mild trace entries missing non-EN translations:', missing);
     }
+    // R13: validate that every .tag field on trace-pool entries (any lang)
+    // is in the TRAIT_CONFLICT_RULES tag set. A typo like 'OC-mlid' would
+    // never match conflictTags.includes(t.tag) at the reservation step in
+    // generateBabyFlavor() and the entry would silently score as neutral.
+    // TRAIT_CONFLICT_RULES is declared further down in the file (TDZ here),
+    // so the valid set is duplicated as literals; if the rules change, this
+    // audit will flag the new tag, which is the intended nudge to update it.
+    const validConflictTags = new Set([
+      'OC-tension','EN-tension','CO-rigidity','AN-pleaser',
+      'OC-mild','EN-mild','CO-mild','AN-mild'
+    ]);
+    const drift = [];
+    for (const [name, pool] of Object.entries(tracePools)) {
+      if (!pool || typeof pool !== 'object') continue;
+      ['en','zh','ja','ko','tr'].forEach(lang => {
+        const arr = pool[lang];
+        if (!Array.isArray(arr)) return;
+        arr.forEach((entry, idx) => {
+          if (entry && typeof entry === 'object' && typeof entry.tag === 'string' &&
+              !validConflictTags.has(entry.tag)) {
+            drift.push(`${name}.${lang}[${idx}]:"${entry.tag}"`);
+          }
+        });
+      });
+    }
+    if (drift.length) {
+      console.warn('[BabyBlend] Trace-pool tags not in TRAIT_CONFLICT_RULES (will score neutral):', drift);
+    }
   } catch (e) { /* never block boot for an audit */ }
 })();
 
