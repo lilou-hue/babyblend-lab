@@ -8732,6 +8732,15 @@ function updateAvatar(b) {
  * the non-'mixed' LIFE_SHAPES keys so each baby gets one coherent adult
  * arc across renders. 'mixed' is a per-entry marker, not a codename
  * assignment. Returns null if no codename yet (boot, pre-name).
+ *
+ * SILENT FALL-THROUGH WARNING: if a shape has 0 tagged entries in
+ * ADULT_TRAJECTORY_MILESTONES, pickAgeTicker's filter wipes the pool and
+ * falls back to the unfiltered pool — so the baby silently gets a generic
+ * mixed-shape arc instead of its assigned shape. As of R18, 'interruption'
+ * has 0 entries and exhibits this behavior. Any codename hashed to
+ * 'interruption' draws from the unfiltered pool until coverage is added.
+ * LOOP_REQUEST(narrative): add `interruption` life_shape entries to
+ * ADULT_TRAJECTORY_MILESTONES (any bucket) so the fallback stops firing.
  */
 function pickCodenameLifeShape(codename) {
   if (!codename) return null;
@@ -8755,6 +8764,12 @@ function pickAgeTicker(age) {
     // unaffected: every entry passes the filter. If the filter wipes the
     // pool for any reason, fall back to the original so the picker never
     // returns nothing.
+    //
+    // UX SCOPE NOTE: in R18 only the 'later' bucket has tagged
+    // (object-with-life_shape) entries; 'early' and 'mid' are still plain
+    // strings, so the filter is effectively a no-op there (every entry is
+    // untagged and passes). Coherence per codename is therefore visible
+    // only at age >= 30 until Narrative tags the earlier buckets.
     const shape = pickCodenameLifeShape(state.codename);
     if (shape) {
       const filtered = pool.filter(e => {
@@ -10323,7 +10338,14 @@ function saveCurrentTimeline() {
     gender:   state.gender,
     genderExpression: state.genderExpression,
     chaos:    state.chaos,
-    surprise: state.surprise
+    surprise: state.surprise,
+    // R18: persist adult-mode counter + last-mode flag so projection-gate
+    // keying survives a save/load cycle. Without these, loading a saved
+    // baby that was deep into Adult mode resets adultGenerateCount to 0
+    // and the projection panels (gated on >= 2) disappear until the user
+    // re-generates twice in Adult mode.
+    adultGenerateCount:    state.adultGenerateCount ?? 0,
+    lastGeneratedInAdult:  state.lastGeneratedInAdult ?? false
   });
   while (list.length > MAX_SAVED) list.pop();
   persistSaved(list);
@@ -10392,6 +10414,11 @@ function loadTimeline(id) {
   state.futurePaths = entry.futurePaths || [];
   state.events = entry.events || [];
   state.archetype = entry.archetype;
+  // R18: restore adult-mode counter + flag with safe fallbacks. Older saved
+  // entries (pre-R18) lack these fields, so default to 0 / false — same as
+  // a fresh baby, preserving prior behavior for legacy saves.
+  state.adultGenerateCount   = entry.adultGenerateCount ?? 0;
+  state.lastGeneratedInAdult = entry.lastGeneratedInAdult ?? false;
 
   $('#codename').textContent = state.codename;
   renderSliders(state.ranges);
