@@ -6643,13 +6643,19 @@ function renderFutures() {
   if (!state.futures || state.futures.length === 0) {
     panel.hidden = true; return;
   }
-  grid.innerHTML = state.futures.map(f => `
+  const lang = (state && state.language) ? state.language : 'en';
+  grid.innerHTML = state.futures.map(f => {
+    const tr = (f.i18n && f.i18n[lang]) || {};
+    const headline = tr.headline || f.headline;
+    const details = tr.details || f.details;
+    return `
     <article class="future-card">
-      <h3 class="future-headline">${f.headline}</h3>
+      <h3 class="future-headline">${headline}</h3>
       <ul class="future-details">
-        ${f.details.map(d => `<li>${d}</li>`).join('')}
+        ${details.map(d => `<li>${d}</li>`).join('')}
       </ul>
-    </article>`).join('');
+    </article>`;
+  }).join('');
   panel.hidden = false;
   requestAnimationFrame(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 }
