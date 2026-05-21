@@ -7908,19 +7908,22 @@ function renderKidsLoves() {
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-loves');
   const picks = pickN(KIDS_LOVES, 4, rng);
-  // R9 rev (UX MAJOR coord): h2 carries `id="kids-loves-title"` so the
-  // section above can swap `aria-label` → `aria-labelledby` and have AT
-  // read the actual heading text (which can update with i18n later).
+  // R10 rev (UX MAJOR): set aria-labelledby + aria-describedby in JS so the
+  // h2 + disclaimer ids land atomically with the section's accessible name —
+  // previously static in HTML, but the targets only existed post-render,
+  // leaving AT users with an unlabeled section on initial page traversal.
   // R9 rev (NARRATIVE MAJOR): `data-stage="1"` lets CSS stagger the
   // three-panel reveal as a sequenced wonder beat, not a simultaneous one.
   panel.dataset.stage = '1';
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2 id="kids-loves-title">Things they might love</h2>
-      <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.loves)[0]}</p>
+      <p class="kids-arc-disclaimer" id="kids-loves-desc">${localList(KIDS_ARC_DISCLAIMERS.loves)[0]}</p>
       <p class="subtle">Specific, particular, and theirs.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
+  panel.setAttribute('aria-labelledby', 'kids-loves-title');
+  panel.setAttribute('aria-describedby', 'kids-loves-desc');
   panel.hidden = false;
 }
 
@@ -7930,16 +7933,19 @@ function renderKidsQuestions() {
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-questions');
   const picks = pickN(KIDS_QUESTIONS_FOR_THEM, 4, rng);
-  // R9 rev: see renderKidsLoves — h2 id + data-stage for aria-labelledby
-  // hookup (Frontend) and CSS reveal stagger (Narrative Design).
+  // R10 rev: see renderKidsLoves — aria-labelledby/describedby set on the
+  // panel right after innerHTML so the heading + disclaimer ids exist in the
+  // same render frame as the reference. CSS reveal stagger via data-stage.
   panel.dataset.stage = '2';
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2 id="kids-questions-title">Questions you could ask them</h2>
-      <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.questions)[0]}</p>
+      <p class="kids-arc-disclaimer" id="kids-questions-desc">${localList(KIDS_ARC_DISCLAIMERS.questions)[0]}</p>
       <p class="subtle">The kind you might not think to ask a grown-up.</p>
     </header>
     <ul class="kids-arc-list kids-arc-questions">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
+  panel.setAttribute('aria-labelledby', 'kids-questions-title');
+  panel.setAttribute('aria-describedby', 'kids-questions-desc');
   panel.hidden = false;
 }
 
@@ -7949,16 +7955,19 @@ function renderKidsDifferences() {
   if (state.appMode !== 'kids' || !state.codename) { panel.hidden = true; return; }
   const rng = seededRand(state.codename + '|kids-differences');
   const picks = pickN(KIDS_DIFFERENCES, 4, rng);
-  // R9 rev: see renderKidsLoves — h2 id + data-stage for aria-labelledby
-  // hookup (Frontend) and CSS reveal stagger (Narrative Design).
+  // R10 rev: see renderKidsLoves — aria-labelledby/describedby set on the
+  // panel right after innerHTML so the heading + disclaimer ids exist in the
+  // same render frame as the reference. CSS reveal stagger via data-stage.
   panel.dataset.stage = '3';
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2 id="kids-differences-title">What might make them <em>them</em></h2>
-      <p class="kids-arc-disclaimer">${localList(KIDS_ARC_DISCLAIMERS.differences)[0]}</p>
+      <p class="kids-arc-disclaimer" id="kids-differences-desc">${localList(KIDS_ARC_DISCLAIMERS.differences)[0]}</p>
       <p class="subtle">Difference is the most interesting thing about a person.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
+  panel.setAttribute('aria-labelledby', 'kids-differences-title');
+  panel.setAttribute('aria-describedby', 'kids-differences-desc');
   panel.hidden = false;
 }
 
