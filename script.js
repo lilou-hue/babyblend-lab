@@ -1795,8 +1795,8 @@ const HUMANITY_REMINDERS = {
     'Unexpected traits often become strengths.',
     'Personality traits show roughly 40-50% heritability; most variation traces to lived experience.',
     'Different traits create unexpected advantages.',
-    'A strength with one person becomes a liability with another.',
-    'What looks weak in one room becomes essential in another.',
+    'Stubbornness saves you under fire; costs you in meetings.',
+    'A weakness in one room might be exactly what the next room needs.',
     'Whoever this child becomes, they get the last word — not us.',
     'A simulator cannot see the friend who will move away at fifteen, the surgery at thirty, the parent who needs care at fifty.'
   ],
@@ -1807,8 +1807,8 @@ const HUMANITY_REMINDERS = {
     '出乎意料的特征往往成为优势。',
     '性格特征大约有 40–50% 的遗传性;大部分差异源于亲身经历。',
     '不同的特征带来意想不到的优势。',
-    '一个人身上的优点,到另一个人身上可能就是负担。',
-    '在一个房间里显得软弱的,在另一个房间里却不可或缺。',
+    '同样的固执,在战火中救你,在会议室里害你。',
+    '在一个房间里的弱点,也许正是下一个房间需要的东西。',
     '不管这个孩子将来成为什么样的人,最后说话的应是他们,不是我们。',
     '模拟器看不见那位十五岁时将搬走的朋友、三十岁时的那场手术、五十岁时需要照顾的父母。'
   ],
@@ -1819,8 +1819,8 @@ const HUMANITY_REMINDERS = {
     '思いがけない特性がしばしば強みになる。',
     '性格特性の遺伝率はおよそ40〜50%。変動の大半は実際に生きた経験に由来する。',
     '異なる特性が、思いがけない強みを生む。',
-    'ある人にとっての強みが、別の人にとっては重荷になる。',
-    'ある部屋で弱く見えるものが、別の部屋では欠かせないものになる。',
+    '頑固さは、銃火の下では命を救い、会議では仕事を壊す。',
+    'ある部屋での弱点こそ、次の部屋でまさに必要とされるものかもしれない。',
     'この子が誰になるにせよ、最後に決めるのは私たちではなく、その子自身である。',
     '模型には見えない——十五歳で去っていく友、三十歳での手術、五十歳に介護を必要とする親。'
   ],
@@ -1831,8 +1831,8 @@ const HUMANITY_REMINDERS = {
     '예상치 못한 특성이 종종 강점이 된다.',
     '성격 특성은 약 40~50%의 유전성을 보이며, 대부분의 차이는 실제 경험에서 비롯된다.',
     '서로 다른 특성이 뜻밖의 강점을 만든다.',
-    '한 사람에게 강점인 것이 다른 사람에게는 부담이 된다.',
-    '한 방에서 약해 보이는 것이 다른 방에서는 꼭 필요한 것이 된다.',
+    '고집은 총탄 아래에서는 당신을 살리고, 회의에서는 당신을 망친다.',
+    '이 방의 약점이, 다음 방에서는 바로 필요한 것일지도 모른다.',
     '이 아이가 어떤 사람이 되든, 마지막 말은 우리가 아닌 그 아이의 몫이다.',
     '시뮬레이터는 보지 못한다 — 열다섯에 떠나갈 친구도, 서른의 수술도, 쉰에 돌봄이 필요해질 부모도.'
   ],
@@ -1843,8 +1843,8 @@ const HUMANITY_REMINDERS = {
     'Beklenmedik özellikler çoğu zaman güce dönüşür.',
     "Kişilik özelliklerinin kalıtsallığı kabaca %40-50'dir; farklılığın çoğu yaşanmış deneyimden gelir.",
     'Farklı özellikler, beklenmedik avantajlar yaratır.',
-    'Bir insanda güç olan, başka birinde yük olur.',
-    'Bir odada zayıf görünen şey, başka bir odada vazgeçilmez olur.',
+    'İnatçılık, ateş altında seni kurtarır; toplantıda batırır.',
+    'Bir odadaki zayıflık, bir sonraki odanın tam da ihtiyaç duyduğu şey olabilir.',
     'Bu çocuk kim olursa olsun, son söz bizde değil onda olmalı.',
     'Bir simülatör göremez — on beşinde gidecek arkadaşı, otuzundaki ameliyatı, ellisinde bakıma muhtaç olacak ebeveyni.'
   ]
@@ -1856,35 +1856,35 @@ const NATURAL_VARIATION_MESSAGES = {
     'Unpredictability is part of humanity.',
     'Not every trait needs improvement.',
     'Difference is information, not error.',
-    'Variation exists beyond any design template.'
+    'Nature did not consult a design handbook.'
   ],
   zh: [
     '已保留人类多样性。',
     '不可预测性是人性的一部分。',
     '并非每一项特征都需要"改善"。',
     '差异是信息,不是错误。',
-    '差异存在于任何设计模板之外。'
+    '自然从未翻过设计手册。'
   ],
   ja: [
     '人間の多様性を保持しました。',
     '予測不可能性こそ人間性の一部である。',
     'すべての特性に「改善」が必要というわけではない。',
     '違いは情報であって、誤りではない。',
-    'ばらつきは、いかなる設計図の外側にも存在する。'
+    '自然は設計マニュアルを参照しなかった。'
   ],
   ko: [
     '인간의 다양성이 보존됨.',
     '예측 불가능함은 인간성의 일부다.',
     '모든 특성에 개선이 필요한 것은 아니다.',
     '차이는 정보이지 오류가 아니다.',
-    '다양성은 어떤 설계 도면 바깥에도 존재한다.'
+    '자연은 설계 지침서를 들춰 보지 않았다.'
   ],
   tr: [
     'İnsan çeşitliliği korundu.',
     'Öngörülemezlik, insanlığın bir parçasıdır.',
     'Her özelliğin iyileştirilmesi gerekmez.',
     'Fark, hata değil bilgidir.',
-    'Çeşitlilik, her türlü tasarım şablonunun dışında da vardır.'
+    'Doğa, bir tasarım el kitabına bakmadı.'
   ]
 };
 
