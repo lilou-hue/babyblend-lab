@@ -2129,7 +2129,7 @@ const REFLECTION_OBSERVATIONS = {
     'Two children with identical numbers can live very different lives.',
     "Half of what shapes them isn't on any of these sliders, and never will be.",
     'A trait that reads as a strength at age 8 may read as a wound at 28.',
-    "Optimization assumes a destination. There isn't one.",
+    "Optimization assumes there's an endpoint. This child's life has none.",
     "Most of who this child becomes will arrive from outside the plan.",
     'Every "ideal" you encoded here was, somewhere, an ordinary preference.',
     'This child will love things you would never have chosen for them.'
@@ -2141,7 +2141,7 @@ const REFLECTION_OBSERVATIONS = {
     '数字完全相同的两个孩子,可以过着截然不同的人生。',
     '塑造他们的一半,都不在任何一个滑块上,也永远不会在。',
     '八岁时是优点的特征,二十八岁时,也可能是伤口。',
-    '"优化"预设了一个终点。可是并没有终点。',
+    '"优化"预设了一个终点。这孩子的人生并没有终点。',
     '这孩子日后成为的样子,大半会从你的计划之外走进来。',
     '你在这里写进的每一个"理想",在某处,其实只是某人寻常的偏好。',
     '这孩子会爱上一些你从来不会替他/她选的东西。'
@@ -2153,7 +2153,7 @@ const REFLECTION_OBSERVATIONS = {
     '同じ数字を持つ二人の子が、まるで違う人生を生きることがあります。',
     'この子を形作るものの半分は、どのスライダーにも乗っておらず、これからも乗りません。',
     '8歳で長所だった特性が、28歳には傷として読み返されるかもしれません。',
-    '最適化は到達点を前提とします。けれど、到達点はありません。',
+    '最適化は到達点を前提とします。この子の人生には、到達点がありません。',
     'この子がやがてなる姿の大半は、あなたの計画の外側から訪れます。',
     'ここに書き込まれたあらゆる「理想」は、どこかでは誰かのありふれた好みでした。',
     'この子は、あなたなら決して選ばないようなものを愛するでしょう。'
@@ -2165,7 +2165,7 @@ const REFLECTION_OBSERVATIONS = {
     '숫자가 똑같은 두 아이가 전혀 다른 삶을 살 수 있습니다.',
     '그를 빚어가는 절반은 어느 슬라이더에도 들어 있지 않고, 앞으로도 그러할 것입니다.',
     '8살에 강점으로 읽히던 특성이 28살에는 상처로 읽힐 수도 있습니다.',
-    '최적화는 도달점을 가정합니다. 그러나 도달점은 없습니다.',
+    '최적화는 도달점을 가정합니다. 이 아이의 삶에는 도달점이 없습니다.',
     '이 아이가 자라 무엇이 되든, 그 대부분은 당신의 계획 바깥에서 찾아옵니다.',
     '여기에 새긴 모든 "이상"은, 어딘가에서는 누군가의 평범한 취향이었습니다.',
     '이 아이는 당신이 결코 골라주지 않았을 것들을 사랑하게 될 것입니다.'
@@ -2177,7 +2177,7 @@ const REFLECTION_OBSERVATIONS = {
     'Aynı sayılara sahip iki çocuk, çok farklı hayatlar yaşayabilir.',
     'Onları biçimlendirenin yarısı bu sürgülerin hiçbirinde değildir ve hiç olmayacak.',
     'Sekiz yaşında bir güç olarak okunan özellik, yirmi sekizinde bir yara olarak okunabilir.',
-    'Optimizasyon bir varış noktası varsayar. Yoktur.',
+    'Optimizasyon bir varış noktası varsayar. Bu çocuğun hayatının yok.',
     'Bu çocuğun olacağı şeyin büyük kısmı, planın dışından gelir.',
     'Burada kaydettiğin her "ideal", bir yerlerde, sıradan birinin sıradan bir tercihiydi.',
     'Bu çocuk, asla onun için seçmeyeceğin şeyleri sevecek.'
@@ -6452,18 +6452,18 @@ const KIDS_ARC_CLOSING_AFFIRMATION = {
   tr: ['Sizi şaşırtabilir; ve o şaşırtı, o insanın yaşadığı yerdir.']
 };
 
-/* R16 NARRATIVE: symmetric closing affirmation for Reflection mode — sits after
- * the Pause Panel's "Things this simulator cannot see" + reflection question.
- * Frame: this projection is one of many; the actual person belongs to themselves.
- * Restrained, anti-deterministic, lands on agency rather than tidy resolution.
- * Single line per language, wrapped as a 1-element array so `localList` + EN
- * fallback apply, mirroring KIDS_ARC_CLOSING_AFFIRMATION. UX Flow wires this. */
+/* R16 NARRATIVE rev: closing affirmation for Reflection mode. R16 6-reviewer
+ * convergence retired "The version this generated is one of many…" — read as
+ * AI-template, many/one symmetric frame, over-claimed self-determination vs.
+ * milestones' constraint, screenshot-misreadable. Replacement holds three
+ * truths in tension: partly theirs (agency), partly circumstance (constraint),
+ * entirely real (not a projection). 1-element arrays mirror KIDS arc. */
 const REFLECTION_ARC_CLOSING_AFFIRMATION = {
-  en: ['The version this generated is one of many. The one that arrives will be theirs.'],
-  zh: ['这只是无数可能中的一个版本。真正到来的那个人,属于他们自己。'],
-  ja: ['これは数えきれない可能性のうちのひとつにすぎません。実際に現れるその人は、その人自身のものです。'],
-  ko: ['이것은 수많은 가능성 중 하나일 뿐입니다. 실제로 도착할 그 사람은, 그 자신의 것입니다.'],
-  tr: ['Bu, sayısız olasılıktan yalnızca biri. Gerçekten gelecek olan kişi, kendisine ait olacak.']
+  en: ['What emerges will be partly theirs, partly circumstance, entirely real.'],
+  zh: ['真正出现的那个人,一部分是他们自己,一部分是境遇,而完完整整是真实的。'],
+  ja: ['実際に現れるその人は、一部はその人のもの、一部は巡り合わせ、そのすべてが現実です。'],
+  ko: ['실제로 모습을 드러내는 그 사람은, 일부는 그 자신, 일부는 상황, 전부가 실재입니다.'],
+  tr: ['Ortaya çıkacak olan, bir kısmı kendisine ait, bir kısmı koşullar, tamamı gerçek olacak.']
 };
 
 /* ---------- Seeded randomness ---------- */
