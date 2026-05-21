@@ -10350,7 +10350,10 @@ function saveCurrentTimeline() {
     // and the projection panels (gated on >= 2) disappear until the user
     // re-generates twice in Adult mode.
     adultGenerateCount:    state.adultGenerateCount ?? 0,
-    lastGeneratedInAdult:  state.lastGeneratedInAdult ?? false
+    lastGeneratedInAdult:  state.lastGeneratedInAdult ?? false,
+    // R19rev: persist aging-scrubber position so the ticker restores to
+    // the same age the user was viewing when they saved.
+    age:                   state.age ?? 17
   });
   while (list.length > MAX_SAVED) list.pop();
   persistSaved(list);
@@ -10424,6 +10427,7 @@ function loadTimeline(id) {
   // a fresh baby, preserving prior behavior for legacy saves.
   state.adultGenerateCount   = entry.adultGenerateCount ?? 0;
   state.lastGeneratedInAdult = entry.lastGeneratedInAdult ?? false;
+  state.age                  = entry.age ?? 17;
 
   $('#codename').textContent = state.codename;
   renderSliders(state.ranges);
@@ -10817,18 +10821,23 @@ function renderConsentExplainer() {
 // years of twin studies", Nature Genetics 47:702-9). The prior 1.0 weight
 // implied near-total heritability, overstating how widely a sociability
 // allocation propagates into the line.
-// R19 clarification — emotional & appearance retain 1.0. The weight is
-// LOCK-IN BREADTH (how strongly the trait's *identity* self-perpetuates
-// across generations in this simulation), not heritability %. Polderman
-// 2015 puts neuroticism at ~40% and height at ~80% heritable; facial
-// morphology runs ~50–75%. Pure trait inheritance is therefore lower than
-// 1.0 for both. But emotional self-concept cascades via parenting style +
-// cultural template — a parent who buys "calmer affect" frames the child's
-// emotional range as a chosen identity, which propagates as expectation
-// even where the allele does not. Appearance-based identity cascades via
-// intergenerational appearance pressure: the locked phenotype becomes the
-// family's visual baseline that subsequent generations are measured
-// against. Both are 1.0 for *cascade breadth*, not for genetic determinism.
+// R19rev clarification — three-reviewer convergence on heritability framing:
+//
+// LOCK-IN WEIGHT (not "breadth"): a proportional scalar in the cost = cost × units × weight
+// equation. Reflects how heavily this trait contributes to the simulation's three-generation
+// identity-lock Index — NOT a heritability percentage.
+//
+// Why emotional and appearance carry 1.0 (vs. sociability 0.4):
+//   - Real-world heritability: neuroticism ~40% (Polderman 2015), facial morphology ~50-75%,
+//     height ~80%. The 1.0 weight is NOT a heritability claim.
+//   - Cascades in this simulation: emotional self-concept propagates via parenting style
+//     + cultural template; appearance-based identity via intergenerational visual baseline.
+//   - Structural drivers (not modeled but acknowledged): cascades depend on institutional
+//     context — gendered beauty standards, labor-market parenting stress, healthcare access,
+//     algorithmic amplification, cosmetic-maintenance normalization — not biology alone.
+//   - Gender asymmetry: in lived experience appearance-pressure cascades unevenly by gender;
+//     this model weights all traits neutrally to avoid baking gender-specific burden into
+//     the calculation itself.
 const INHERITANCE_BURDEN_WEIGHTS = {
   health: 0.1, resilience: 0.2, creativity: 0.4, empathy: 0.4,
   cognition: 0.45, athleticism: 0.6, sociability: 0.4,
@@ -11231,6 +11240,11 @@ function init() {
       if (typeof renderKidsQuestions    === 'function') renderKidsQuestions();
       if (typeof renderKidsDifferences  === 'function') renderKidsDifferences();
       if (typeof renderHobbyConstellation === 'function' && state.baby) renderHobbyConstellation(state.baby);
+      // R19rev: aging-scrubber ticker carries localized age-band labels;
+      // re-render so a language switch swaps them immediately when a baby
+      // is already on screen (otherwise the ticker holds stale text until
+      // the user drags the slider).
+      if (state.codename && typeof renderAgingScrubber === 'function') renderAgingScrubber();
     });
   }
   applyTranslations();
