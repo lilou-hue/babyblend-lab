@@ -1188,11 +1188,11 @@ const LABEL_I18N = {
   // R17rev: pre-allocation projection-gate placeholder. Adult-mode register —
   // cold and clinical, not imperative. Frames the panel as a projection
   // contingent on allocation, not a checklist with one missing step.
-  'This projection reflects choices yet to be made. Allocate above, and the profile updates to match.': {
-    zh: '这份投影对应的是尚未做出的选择。在上方分配后,档案会随之更新。',
-    ja: '本投影は、まだなされていない選択を映している。上で割り当てが行われると、プロファイルはそれに合わせて更新される。',
-    ko: '이 투영은 아직 내려지지 않은 선택들에 대응한다. 위에서 할당이 이뤄지면, 프로파일은 그에 맞춰 갱신된다.',
-    tr: 'Bu projeksiyon henüz yapılmamış seçimleri yansıtır. Yukarıda tahsis yapıldıkça profil buna göre güncellenir.'
+  'This projection is provisional. It will shift as you make choices above.': {
+    zh: '本投影是暂定的。它会随着你在上方所做的选择而发生变化。',
+    ja: '本投影は暫定的なものである。上での選択が積み重なるにつれて変動する。',
+    ko: '이 투영은 잠정적이다. 위에서 선택이 이뤄짐에 따라 변동된다.',
+    tr: 'Bu projeksiyon geçicidir. Yukarıda seçimler yapıldıkça değişecektir.'
   },
   // Adult panel headings
   'Societal Outcomes Brief': { zh: '社会反应概述', ja: '社会的アウトカム ブリーフ', ko: '사회적 결과 개요', tr: 'Toplumsal Sonuçlar Özeti' },
@@ -4466,6 +4466,10 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'Reflection on choices made and not made becomes more frequent.',
       'Whether or not children arrive, the next generation enters their orbit.',
       { text: 'Caregiving for an aging parent, a sibling, or a partner interrupts the projected arc; identity reorganizes around who needs them.', life_shape: 'caretaking' },
+      // R18: interruption shape coverage (was 0 entries → silent fallback).
+      // EN only this round; translations follow next round per R17 Science
+      // MAJOR (life_shape tags don't currently propagate across language arrays).
+      { text: 'A period of illness, loss, or external disruption pauses forward motion; identity and goals reorient as it lifts.', life_shape: 'interruption' },
       { text: 'A late bloom: the thing they are known for, by themselves and others, arrives after most peers assumed the shape was set.', life_shape: 'bloom' },
       { text: 'Economic precarity persists into this decade for a non-trivial share of cohorts; stability is not evenly distributed.', life_shape: 'precarity' }
     ],
@@ -7667,7 +7671,7 @@ function updateBabyPreview() {
     // Cleaner fix (move outside <dl> as a <div>) deferred to R19 — that
     // requires CSS grid rework and is out of scope here.
     personalityRows = `
-      <dt class="ocean-sep projection-gated-placeholder" role="status" aria-live="polite">${localLabel('This projection reflects choices yet to be made. Allocate above, and the profile updates to match.')}</dt>`;
+      <dt class="ocean-sep projection-gated-placeholder" role="status" aria-live="polite">${localLabel('This projection is provisional. It will shift as you make choices above.')}</dt>`;
   }
   statsEl.classList.toggle('projection-gated', projectionGated);
   statsEl.innerHTML = physicalRows + personalityRows;
