@@ -2874,12 +2874,12 @@ const REGULATORY_NOTE_RULES = [
   {
     // Fires on the first non-zero enhancement allocation. Reconciles the
     // institutional voice with `renderRegionalAccess` by citing a real
-    // instrument (Oviedo Art. 13, Recital 6) instead of narrating the
+    // instrument (Oviedo Art. 13) instead of narrating the
     // structural-disadvantage externality. Stays single-line and dry.
     id: 'first-allocation',
     when: (b, total) => total > 0,
     severity: 'amber',
-    text: 'Per Oviedo Convention Art. 13 (Recital 6): heritable allocation creates a non-reversible advantage in the descendant line; unallocated cohorts retain no equivalent remedy.'
+    text: 'Per Oviedo Convention Art. 13: heritable allocation creates a non-reversible advantage in the descendant line; unallocated cohorts retain no equivalent remedy.'
   },
   {
     id: 'GE-3-cognition',
@@ -5658,7 +5658,7 @@ const SOCIETAL_RULES = {
     rules: [
       { when: c => c.budget.athleticism >= 8, line: 'Identity attachment to physical performance probable. Post-career risk elevated.' },
       { when: c => c.budget.cognition   >= 8, line: 'Intellectual-performance identity dependency likely.' },
-      { when: c => c.budget.appearance  >= 7, line: 'Cosmetic-maintenance normalization through adolescence.' },
+      { when: c => c.budget.appearance  >= 7, line: 'Cosmetic-maintenance becomes normalized as expected labor, disproportionately for female-presenting and non-white-coded individuals; cohort-level beauty standards shift, locking in optimization for this generation.' },
       { when: c => c.budget.emotional   >= 8, line: 'Reduced emotional reactivity may complicate grief processing and intimacy.' },
       { when: c => c.budget.resilience  >= 8, line: 'High pain-tolerance correlate may delay help-seeking.' },
       { when: c => c.budget.empathy     >= 8 && c.budget.resilience <= 4, line: 'Empathic overload without buffer: identity-fatigue risk.' }
@@ -5966,9 +5966,9 @@ function renderRegionalAccess(usedCredits) {
   // jurisdictional access pathways, not income cohorts. Access friction is
   // expressed in waiting periods and eligibility conditions, never percentiles.
   if      (usd < 50000)  lines = ['EU (Oviedo Convention Art. 13): heritable modification prohibited; indication-restricted somatic procedures only.', 'UK (HFEA 2008, Schedule 2): licensed in-vitro use only; clinics must hold a current HFEA treatment licence.', 'US: payer coverage discretionary; out-of-network rates apply outside HFEA-equivalent accredited centers.'];
-  else if (usd < 100000) lines = ['EU (draft IVD-Germ Lines Directive Art. 4): elective provision pending national transposition; self-pay only.', 'UK (HFEA 2008 §3ZA): pre-treatment counselling and licensed-clinic registration required; waiting period 9–14 months.', 'Non-aligned regions: no reimbursement pathway; cross-border referral on case basis under channel code RA-2.'];
-  else if (usd < 150000) lines = ['EU (draft IVD-Germ Lines Directive Art. 7): post-market review required; provision restricted to designated reference centres.', 'UK (HFEA 2008 §3ZA, special-direction): eligibility conditional on documented clinical indication; channel code RA-3 review window 6 months.', 'Asia-Pacific: jurisdiction-dependent; cross-border referral subject to receiving-state HFEA-equivalent licensing.'];
-  else if (usd < 200000) lines = ['EU + UK (draft IVD-Germ Lines Directive Art. 9; HFEA 2008 §4A): restricted approval; pre-authorization by the national competent authority required.', 'Eligibility conditional on clinical-indication documentation and counselling completion; waiting list 14–22 months at HFEA-licensed reference centres.', 'Non-aligned regions: not provisioned under current channel-code RA-4 listing.'];
+  else if (usd < 100000) lines = ['EU (draft IVD-Germ Lines Directive Art. 4): elective provision pending national transposition; self-pay only.', 'UK (HFEA 2008, Schedule 2): pre-treatment counselling and licensed-clinic registration required; waiting period 9–14 months.', 'Non-aligned regions: no reimbursement pathway; cross-border referral on case basis under channel code RA-2.'];
+  else if (usd < 150000) lines = ['EU (draft IVD-Germ Lines Directive Art. 7): post-market review required; provision restricted to designated reference centres.', 'UK (HFEA 2008, Schedule 2, special-direction): eligibility conditional on documented clinical indication; channel code RA-3 review window 6 months.', 'Asia-Pacific: jurisdiction-dependent; cross-border referral subject to receiving-state HFEA-equivalent licensing.'];
+  else if (usd < 200000) lines = ['EU + UK (draft IVD-Germ Lines Directive Art. 9; HFEA 2008, Schedule 2): restricted approval; pre-authorization by the national competent authority required.', 'Eligibility conditional on clinical-indication documentation and counselling completion; waiting list 14–22 months at HFEA-licensed reference centres.', 'Non-aligned regions: not provisioned under current channel-code RA-4 listing.'];
   else                   lines = ['Multi-jurisdictional (Oviedo Convention Art. 13): heritable provisions outside current treaty scope; authorization pending or withheld.', 'UK + EU: not provisioned under HFEA 2008 or the draft IVD-Germ Lines Directive; eligibility unresolved.', 'De facto pathway: extraterritorial facilities outside Oviedo signatory jurisdiction.'];
   if ((budget.cognition || 0) >= 6) lines.push('Cognitive optimization (CMP-2): EU partial restriction under the draft IVD-Germ Lines Directive Art. 6; UK HFEA review ongoing.');
   if ((budget.emotional || 0) >= 6) lines.push('Affective-band editing (CMP-4): experimental authorization required; subject to HFEA-equivalent cohort follow-up.');
