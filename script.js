@@ -6856,17 +6856,19 @@ function generateBabyFlavor(codename, baby) {
   }
 
   // FUNNY_TITLES entries may be plain strings or tagged objects ({text, tag}).
-  // Paradox entries (last 6 in each language) carry conflict tags. When any
-  // conflict is active, AVOID conflict-tagged vibes that name the same
-  // contradiction — the conflict FUTURE_PATHS already carry the friction, so a
-  // matching vibe reads as coping-as-coherence (quirk instead of tension).
-  // When no conflict is active, sample uniformly over the whole list.
+  // Paradox entries (last 6 in each language) carry conflict tags. Sample
+  // uniformly across the whole list regardless of active conflicts: the
+  // futures pool below already reserves ~33% of picks for conflict-tagged
+  // paths when conflicts fire (see TOTAL_PATHS reservation), so letting the
+  // vibe name the same tension keeps the archetype and the futures coherent
+  // rather than at cross-purposes. Earlier rounds filtered conflict-tagged
+  // vibes out here on the theory that a matching vibe + matching future
+  // read as quirk-instead-of-tension; in Kids mode especially, the
+  // variance-as-gift framing makes the contradiction an asset to name, not
+  // hide. Reflection mode shares this list and benefits from the same
+  // alignment.
   const vibes = localList(FUNNY_TITLES);
-  const vibePool = conflictTags.length
-    ? vibes.filter(v => !(v && typeof v === 'object' && v.tag && conflictTags.includes(v.tag)))
-    : vibes;
-  const pickFrom = vibePool.length ? vibePool : vibes;
-  const vibePick = pickFrom[Math.floor(rng() * pickFrom.length)];
+  const vibePick = vibes[Math.floor(rng() * vibes.length)];
   const vibe = (vibePick && typeof vibePick === 'object') ? vibePick.text : vibePick;
 
   const tagFor = {
