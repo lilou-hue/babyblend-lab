@@ -1179,6 +1179,15 @@ const LABEL_I18N = {
   'Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.': { zh: '仅为指示性参考。授权与等候期每季度修订;现行数值替代此前披露。', ja: '本表示は参考目的に限る。認可および待機期間は四半期ごとに見直されており、現在の値が従前の開示に優先する。', ko: '본 정보는 참고용이다. 인가와 대기 기간은 분기마다 갱신되며, 현재 값이 이전 공시에 우선한다.', tr: 'Bilgi amaçlıdır. Yetkilendirmeler ve bekleme süreleri üç ayda bir güncellenir; mevcut değerler önceki açıklamaların yerini alır.' },
   'Consent context expands at 50 credits.': { zh: '当积分达到 50 时,同意上下文会展开。', ja: '50クレジットに達すると、同意に関する文脈が展開される。', ko: '50 크레딧에 이르면 동의 관련 맥락이 펼쳐진다.', tr: '50 krediye ulaşıldığında onay bağlamı genişler.' },
   'No disclosure thresholds crossed yet.': { zh: '尚未跨越任何披露阈值。', ja: '開示の閾値はまだいずれも越えていない。', ko: '아직 어떤 공시 임계값도 넘지 않았습니다.', tr: 'Henüz hiçbir açıklama eşiği aşılmadı.' },
+  // R17rev: pre-allocation projection-gate placeholder. Adult-mode register —
+  // cold and clinical, not imperative. Frames the panel as a projection
+  // contingent on allocation, not a checklist with one missing step.
+  'This projection reflects choices yet to be made. Allocate above, and the profile updates to match.': {
+    zh: '这份投影对应的是尚未做出的选择。在上方分配后,档案会随之更新。',
+    ja: '本投影は、まだなされていない選択を映している。上で割り当てが行われると、プロファイルはそれに合わせて更新される。',
+    ko: '이 투영은 아직 내려지지 않은 선택들에 대응한다. 위에서 할당이 이뤄지면, 프로파일은 그에 맞춰 갱신된다.',
+    tr: 'Bu projeksiyon henüz yapılmamış seçimleri yansıtır. Yukarıda tahsis yapıldıkça profil buna göre güncellenir.'
+  },
   // Adult panel headings
   'Societal Outcomes Brief': { zh: '社会反应概述', ja: '社会的アウトカム ブリーフ', ko: '사회적 결과 개요', tr: 'Toplumsal Sonuçlar Özeti' },
   'Modeled societal response to this projection. Each line fires from a specific allocation, trait, or environment combination — not a generic readout. These outcomes are modeled within the simulation using speculative social-psychological frameworks, not empirical findings.': { zh: '对本投影的社会反应建模。每一条都由特定的分配、性状或环境组合触发,而非通用文本。这些结果是在模拟器内,用思辨性的社会—心理框架建模出来的,并非实证研究结论。', ja: 'この投影に対する社会的反応のモデル。各行は、特定の割り当て・特性・環境の組み合わせから発火しており、定型の読み上げではない。これらの結果は、本シミュレーション内で思考実験的な社会心理学フレームを用いて構築されたものであり、実証研究の知見ではない。', ko: '이 투영에 대한 사회적 반응의 모형. 각 줄은 일반적인 출력값이 아니라 특정 할당·특성·환경의 조합에 의해 점화된다. 이 결과들은 시뮬레이션 내부에서 사변적 사회심리학 틀로 만들어진 것이며, 실증적 발견이 아니다.', tr: 'Bu projeksiyona yönelik modellenen toplumsal yanıt. Her satır belirli bir tahsis, özellik veya çevre kombinasyonundan tetiklenir; genel bir okumadan değil. Bu çıktılar simülasyon içinde sosyo-psikolojik kurgusal çerçevelerle modellenmiştir; ampirik bulgular değildir.' },
@@ -4326,9 +4335,10 @@ const KIDS_AGE_TICKERS = {
  *
  * R17 Narrative: populated initial life_shape tags on the `later` bucket
  * (stability ×2, caretaking, bloom, precarity); early/mid buckets describe
- * pre-adult developmental milestones and intentionally stay untagged. The
- * mixed-shapes "working life takes shape" line in `later` also stays
- * untagged so it falls into the default pool. Selection wiring lands in R18.
+ * pre-adult developmental milestones and intentionally stay untagged.
+ * R17rev: the umbrella "working life takes shape" line now carries
+ * life_shape: 'mixed' so R18 selection treats it as the multi-shape default
+ * rather than an untagged outlier. Selection wiring lands in R18.
  */
 /* FRAMING (R16rev): LIFE_SHAPES is a narrative taxonomy, not a model grounded
  * in developmental psychology literature. These categories are simulational
@@ -4346,7 +4356,8 @@ const LIFE_SHAPES = {
   interruption: { id: 'interruption', label: 'interrupted-then-resumed' },
   bloom:        { id: 'bloom',        label: 'late-bloom' },
   precarity:    { id: 'precarity',    label: 'persistent-precarity' },
-  caretaking:   { id: 'caretaking',   label: 'identity-reorganized-via-care-obligation' }
+  caretaking:   { id: 'caretaking',   label: 'identity-reorganized-via-care-obligation' },
+  mixed:        { id: 'mixed',        label: 'multi-shape-default' }
 };
 
 const ADULT_TRAJECTORY_MILESTONES = {
@@ -4442,10 +4453,10 @@ const ADULT_TRAJECTORY_MILESTONES = {
   later: {
     en: [
       { text: 'Adult personality largely stable; growth continues at slower pace.', life_shape: 'stability' },
-      'A working life takes shape — whether as a path that had to be rebuilt mid-stride, a string of held-together jobs, or a settled career.',
+      { text: 'A working life takes shape — whether as a path that had to be rebuilt mid-stride, a string of held-together jobs, or a settled career.', life_shape: 'mixed' },
       { text: 'Long-term relationships and chosen family settle into recognizable shape.', life_shape: 'stability' },
       'Health and energy patterns shifting; routines accommodate the change.',
-      'Affective range often narrows somewhat with age, alongside more equanimity.',
+      'Affective expression often shifts with age; sometimes it narrows, sometimes it deepens.',
       'Reflection on choices made and not made becomes more frequent.',
       'Whether or not children arrive, the next generation enters their orbit.',
       { text: 'Caregiving for an aging parent, a sibling, or a partner interrupts the projected arc; identity reorganizes around who needs them.', life_shape: 'caretaking' },
@@ -4457,7 +4468,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '一段工作生涯逐渐成型——或是一条不得不在中途重新铺设的路,或是一连串勉力维持的工作,或是一份稳定的职业。',
       '长期关系与所选择的家庭,呈现出可识别的稳定形态。',
       '健康与精力的模式正在改变;日常生活习惯随之做出调整。',
-      '随着年龄增长,情绪幅度往往会收窄一些,与之同时,心境也更平稳。',
+      '随着年龄增长,情感表达的方式往往会发生变化——有时收窄,有时则更见深度。',
       '对那些做过与未做的选择,反思变得更频繁。',
       '无论是否有自己的孩子,下一代都已进入他/她的生活轨道。',
       '照护年迈的父母、手足或伴侣,打断了原本预设的人生轨道;身份围绕着"谁需要他/她"重新组织。',
@@ -4469,7 +4480,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '働く生活の形が定まる――途中で一から組み直さざるを得なかった道であれ、つなぎ合わせて維持してきた職の連なりであれ、落ち着いたキャリアであれ。',
       '長期の人間関係と「選んだ家族」が、見分けのつく形に落ち着く。',
       '健康とエネルギーのパターンが変化し、日々の習慣もそれに合わせて変わる。',
-      '感情の幅は年齢とともにやや狭まる一方で、心の落ち着きは増す。',
+      '感情のあらわれ方は年齢とともに変わっていく――狭まっていくこともあれば、より深くなることもある。',
       'した選択、しなかった選択について振り返ることが多くなる。',
       '自分の子の有無にかかわらず、次の世代が生活圏に入ってくる。',
       '老いた親、きょうだい、あるいは伴侶のケアが、想定されていた軌道を中断させる。アイデンティティは「誰が自分を必要としているか」を軸に再編される。',
@@ -4481,7 +4492,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       '일하는 삶의 형태가 자리를 잡는다 — 중간에 처음부터 다시 깔아야 했던 길일 수도, 간신히 이어 붙여 온 일자리들의 연속일 수도, 안정된 경력일 수도 있다.',
       '장기 관계와 스스로 택한 가족의 형태가, 알아볼 수 있는 모습으로 자리 잡는다.',
       '건강과 활력의 양상이 변하고, 일상 습관이 그 변화에 맞춰 조정된다.',
-      '감정의 폭은 나이와 함께 다소 좁아지고, 동시에 평정심은 더 커진다.',
+      '감정이 드러나는 방식은 나이와 함께 달라진다 — 어떤 때는 좁아지고, 어떤 때는 깊어진다.',
       '한 선택과 하지 않은 선택에 대한 성찰이 점점 더 자주 일어난다.',
       '자녀의 유무와 상관없이, 다음 세대가 생활권 안으로 들어온다.',
       '나이 든 부모, 형제자매, 혹은 배우자에 대한 돌봄이 예정된 궤적을 끊는다. 정체성은 "누가 자신을 필요로 하는가"를 중심으로 재편된다.',
@@ -4493,7 +4504,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'Bir çalışma hayatı biçimini alır — yarı yolda yeniden kurulması gereken bir güzergâh, bir arada tutulmuş işlerden oluşan bir dizi ya da yerleşmiş bir kariyer olarak.',
       'Uzun süreli ilişkiler ve seçilmiş aile, tanınır bir biçime kavuşur.',
       'Sağlık ve enerji örüntüleri değişiyor; rutinler bu değişime uyum sağlıyor.',
-      'Duygusal yelpaze yaşla birlikte sıklıkla biraz daralırken, dinginlik artar.',
+      'Duyguların dışavurumu yaşla birlikte sıklıkla değişir — bazen daralır, bazen derinleşir.',
       'Yapılmış ve yapılmamış seçimler üzerinde düşünmek giderek sıklaşır.',
       'Çocuklar olsun ya da olmasın, sonraki kuşak onun yörüngesine girer.',
       'Yaşlanan bir ebeveyne, bir kardeşe ya da bir eşe bakım vermek, öngörülen ekseni keser; kimlik, kime ihtiyaç duyulduğu etrafında yeniden düzenlenir.',
@@ -7604,7 +7615,12 @@ function updateBabyPreview() {
   // placeholder instead, inviting allocation first. Flag is OFF this round —
   // R18 flips it once the placeholder + CSS land cleanly. Gate condition
   // intentionally limited to gen === 1 so gen >= 2 reveals are untouched.
-  // LOOP_REQUEST(narrative): refine projection-gated-placeholder copy + translate to 5 langs
+  // R17rev Narrative: placeholder copy rewritten and translated. Old EN was
+  // imperative ("Move your first allocation...") and framed not-allocating as
+  // incomplete. The replacement keeps the gate's purpose visible (the panel is
+  // a projection, not a fact) while making allocation feel like a quiet
+  // invitation rather than a required first step. Translations match
+  // Adult-mode register (cold, clinical, not preachy) and live in LABEL_I18N.
   const PROJECTION_GATE_ENABLED = false;
   const gen = state.generateCount || 0;
   const budgetUsed = computeBudgetUsed();
@@ -7631,7 +7647,7 @@ function updateBabyPreview() {
     // and remains valid against the <dt>. The dl rhythm degrades gracefully:
     // the single term reads as a standalone heading-shaped row.
     personalityRows = `
-      <dt class="ocean-sep projection-gated-placeholder" role="status">${localLabel("Move your first allocation to see this version's projection.")}</dt>`;
+      <dt class="ocean-sep projection-gated-placeholder" role="status">${localLabel('This projection reflects choices yet to be made. Allocate above, and the profile updates to match.')}</dt>`;
   }
   statsEl.classList.toggle('projection-gated', projectionGated);
   statsEl.innerHTML = physicalRows + personalityRows;
