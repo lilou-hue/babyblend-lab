@@ -8704,6 +8704,19 @@ function updateAvatar(b) {
  * Single age slider (0..80) below the life-stage strip. Updates
  * the main avatar with an age-seeded variant and shows a mode-aware
  * ticker line describing this person at this age. */
+/* R18: pick a life_shape for this codename, deterministically. Drawn from
+ * the non-'mixed' LIFE_SHAPES keys so each baby gets one coherent adult
+ * arc across renders. 'mixed' is a per-entry marker, not a codename
+ * assignment. Returns null if no codename yet (boot, pre-name).
+ */
+function pickCodenameLifeShape(codename) {
+  if (!codename) return null;
+  const shapes = Object.keys(LIFE_SHAPES).filter(k => k !== 'mixed');
+  if (!shapes.length) return null;
+  const rng = seededRand(codename + '|life-shape');
+  return shapes[Math.floor(rng() * shapes.length)];
+}
+
 function pickAgeTicker(age) {
   const bucket = ageBucket(age);
   const rng = seededRand((state.codename || 'baby') + '|tick|' + age);
@@ -8712,6 +8725,21 @@ function pickAgeTicker(age) {
     pool = localList(KIDS_AGE_TICKERS[bucket]);
   } else if (state.appMode === 'adult') {
     pool = localList(ADULT_TRAJECTORY_MILESTONES[bucket]);
+    // R18: filter the adult pool to entries that share this codename's
+    // life_shape (or are untagged / 'mixed' — both treated as defaults
+    // eligible regardless of shape). Untagged early/mid buckets are
+    // unaffected: every entry passes the filter. If the filter wipes the
+    // pool for any reason, fall back to the original so the picker never
+    // returns nothing.
+    const shape = pickCodenameLifeShape(state.codename);
+    if (shape) {
+      const filtered = pool.filter(e => {
+        if (!e || typeof e !== 'object') return true; // untagged string
+        if (!e.life_shape || e.life_shape === 'mixed') return true;
+        return e.life_shape === shape;
+      });
+      if (filtered.length) pool = filtered;
+    }
   } else {
     // Reflection: reuse the existing memory pools (already stage-bucketed)
     // and localized into all 5 languages.
