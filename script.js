@@ -3362,6 +3362,13 @@ const PARENT_FIELDS = [
 // silently drift from the SLIDER_DEFS entries that drive range computation.
 const PERSONALITY_SIGMA = 1.75;
 
+// Segregational-variance coefficient (Falconer-flavored) for parent-disparity
+// widening of physical polygenic σ: σ_eff² = σ_base² + k · (|a−b|/span)² · span².
+// k ≈ 0.06 → at maximum disparity σ widens ~60%. OCEAN traits zero out the
+// disparity term (see range-builder), so this only applies to physical
+// polygenic sliders (e.g. athletic tendency).
+const DISPARITY_VARIANCE_K = 0.06;
+
 const SLIDER_DEFS = [
   { key: 'height',     label: 'Height potential',  unit: 'cm',     kind: 'continuous', hardMin: 140, hardMax: 210, expand: 5  },
   { key: 'athletic',   label: 'Athletic tendency',    unit: '/10', kind: 'polygenic',  hardMin: 1,   hardMax: 10, sigma: PERSONALITY_SIGMA },
@@ -3861,9 +3868,9 @@ function generateSliderRanges(parents) {
       const span = def.hardMax - def.hardMin;
       const isOcean = PERSONALITY_OCEAN_KEYS.has(def.key);
       const disparityFrac = (!isOcean && span > 0) ? Math.abs(a - b) / span : 0;
-      // 0.06 keeps the effect modest: at max disparity sigma widens ~60%.
-      // For OCEAN, disparityFrac is forced to 0 so σ_eff = σ_base.
-      const sigmaEff = Math.sqrt(def.sigma * def.sigma + 0.06 * disparityFrac * disparityFrac * span * span);
+      // DISPARITY_VARIANCE_K is hoisted up top. For OCEAN, disparityFrac is
+      // forced to 0 above so σ_eff = σ_base regardless of the coefficient.
+      const sigmaEff = Math.sqrt(def.sigma * def.sigma + DISPARITY_VARIANCE_K * disparityFrac * disparityFrac * span * span);
       const half = chaos ? span : (2 * sigmaEff);
       const lo = clamp(Math.floor(center - half), def.hardMin, def.hardMax);
       const hi = clamp(Math.ceil (center + half), def.hardMin, def.hardMax);
@@ -5480,11 +5487,13 @@ function generateCodename(parents) {
  * including 'OC-tension', 'EN-tension', 'CO-rigidity', 'AN-pleaser'
  * (and KIDS_FUTURE_PATHS / adult-mode equivalents) so the conflict
  * branch below has content to surface. */
+// Only .when and .tag are read; the prior `key` field was a dead duplicate
+// of `tag` and has been dropped.
 const TRAIT_CONFLICT_RULES = [
-  { key: 'OC-tension',  when: b => (b.openness        || 0) >= 8 && (b.conscientiousness || 0) <= 4, tag: 'OC-tension'  },
-  { key: 'EN-tension',  when: b => (b.extraversion    || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'EN-tension'  },
-  { key: 'CO-rigidity', when: b => (b.conscientiousness || 0) >= 8 && (b.openness        || 0) <= 4, tag: 'CO-rigidity' },
-  { key: 'AN-pleaser',  when: b => (b.agreeableness   || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'AN-pleaser'  }
+  { when: b => (b.openness        || 0) >= 8 && (b.conscientiousness || 0) <= 4, tag: 'OC-tension'  },
+  { when: b => (b.extraversion    || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'EN-tension'  },
+  { when: b => (b.conscientiousness || 0) >= 8 && (b.openness        || 0) <= 4, tag: 'CO-rigidity' },
+  { when: b => (b.agreeableness   || 0) >= 8 && (b.neuroticism       || 0) >= 7, tag: 'AN-pleaser'  }
 ];
 
 function activeConflictTags(b) {
