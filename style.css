@@ -5268,3 +5268,24 @@ body.app-kids .kids-only { display: revert; }
 @media (max-width: 640px) {
   .kids-arc-list { grid-template-columns: 1fr; }
 }
+
+/* R10 (UX a11y): staggered fade-in so the three Kids-arc panels arrive
+   sequentially — gentle wonder, not a thud. Keys off `data-stage` set
+   by R9 in script.js render. Reduced-motion users skip the motion. */
+.kids-arc-panel[data-stage] {
+  animation: kidsArcPanelIn 0.32s ease both;
+}
+.kids-arc-panel[data-stage="1"] { animation-delay: 0s; }
+.kids-arc-panel[data-stage="2"] { animation-delay: 0.3s; }
+.kids-arc-panel[data-stage="3"] { animation-delay: 0.45s; }
+@keyframes kidsArcPanelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kids-arc-panel[data-stage] {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
