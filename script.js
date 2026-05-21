@@ -654,6 +654,12 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // SVG ARIA labels
+  'Avatar failed to load': { zh: '头像加载失败', ja: 'アバターの読み込みに失敗しました', ko: '아바타를 불러오지 못했습니다', tr: 'Avatar yüklenemedi' },
+  'Predicted hobbies': { zh: '预测的爱好', ja: '予測される趣味', ko: '예측된 취미', tr: 'Öngörülen hobiler' },
+  'Three-generation lineage': { zh: '三代血脉', ja: '三世代の系譜', ko: '삼대 가계도', tr: 'Üç kuşaklık soy ağacı' },
+  'Branching future paths': { zh: '分支的未来路径', ja: '分岐する未来の道筋', ko: '분기하는 미래의 길', tr: 'Dallanan gelecek yolları' },
+  'Personality trait constellation': { zh: '性格特征星座图', ja: '性格特性のコンステレーション', ko: '성격 특성 별자리', tr: 'Kişilik özellikleri takımyıldızı' },
   // Parent panel ARIA labels
   'Randomize Parent A': { zh: '随机化 父母 A', ja: '親 A をランダム化', ko: '부모 A 무작위화', tr: 'Ebeveyn A’yı rastgele yap' },
   'Randomize Parent B': { zh: '随机化 父母 B', ja: '親 B をランダム化', ko: '부모 B 무작위화', tr: 'Ebeveyn B’yi rastgele yap' },
@@ -6287,7 +6293,7 @@ function buildParentForms() {
     const advanced = document.createElement('details');
     advanced.className = 'parent-advanced';
     advanced.dataset.parent = letter;
-    advanced.innerHTML = `<summary class="parent-advanced-summary">Temperament dials</summary>`;
+    advanced.innerHTML = `<summary class="parent-advanced-summary">${localLabel('Temperament dials')}</summary>`;
     const advancedBody = document.createElement('div');
     advancedBody.className = 'parent-advanced-body';
     advanced.appendChild(advancedBody);
@@ -6295,7 +6301,7 @@ function buildParentForms() {
     appearance.className = 'parent-appearance';
     appearance.dataset.parent = letter;
     appearance.open = !window.matchMedia('(max-width: 720px)').matches;
-    appearance.innerHTML = `<summary class="parent-appearance-summary">Visible traits</summary>`;
+    appearance.innerHTML = `<summary class="parent-appearance-summary">${localLabel('Visible traits')}</summary>`;
     const appearanceBody = document.createElement('div');
     appearanceBody.className = 'parent-appearance-body';
     appearance.appendChild(appearanceBody);
@@ -7325,7 +7331,7 @@ function renderHobbyConstellation(b) {
   // Central child marker.
   const center = `<circle cx="${cx}" cy="${cy}" r="9" class="hobby-center" />`;
 
-  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="hobby-constellation-svg" role="img" aria-label="Predicted hobbies">
+  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="hobby-constellation-svg" role="img" aria-label="${localLabel('Predicted hobbies')}">
     <g class="hobby-links">${lines}</g>
     ${center}
     <g class="hobby-nodes">${nodes}</g>
@@ -7474,7 +7480,7 @@ function renderLineageTree(b) {
   `;
 
   host.innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" class="lineage-svg" role="img" aria-label="Three-generation lineage">
+    <svg viewBox="0 0 ${W} ${H}" class="lineage-svg" role="img" aria-label="${localLabel('Three-generation lineage')}">
       <g class="lineage-lines">${branches}</g>
       <g class="lineage-nodes">
         <g class="node node-parent">${embedAvatarSvg(aSvg,    pos.pA.x,   pos.pA.y,   pos.pA.s,   pos.pA.s)}</g>
@@ -7570,7 +7576,7 @@ function renderFutureTree() {
     </g>`;
   });
 
-  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="future-tree-svg" role="img" aria-label="Branching future paths">${svg}</svg>`;
+  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="future-tree-svg" role="img" aria-label="${localLabel('Branching future paths')}">${svg}</svg>`;
 }
 
 /* ---------- Trait Constellation ----------
@@ -7666,7 +7672,7 @@ function renderTraitConstellation(b) {
     </g>`;
   });
 
-  host.innerHTML = `<svg viewBox="0 0 240 240" class="constellation-svg" role="img" aria-label="Personality trait constellation"><g class="bg-stars">${bg}</g><g class="links">${links}</g><g class="nodes">${nodes}</g></svg>`;
+  host.innerHTML = `<svg viewBox="0 0 240 240" class="constellation-svg" role="img" aria-label="${localLabel('Personality trait constellation')}"><g class="bg-stars">${bg}</g><g class="links">${links}</g><g class="nodes">${nodes}</g></svg>`;
 }
 
 /* ====================================================================
@@ -7930,7 +7936,7 @@ function buildAvatarSvg(b, styleName, g, seedHint) {
     return addTraitOverlays(svg, b, styleName);
   } catch (e) {
     console.error('DiceBear render failed:', e);
-    return '<div class="avatar-error">Avatar failed to load</div>';
+    return `<div class="avatar-error">${localLabel('Avatar failed to load')}</div>`;
   }
 }
 
