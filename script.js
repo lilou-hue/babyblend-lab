@@ -108,6 +108,22 @@ const STRINGS = {
     'ethics.body.adult': 'Fictional simulation for illustrative purposes. Current ethical regulations vary globally. Behavioral outcomes remain difficult to model reliably.',
     'footer.tagline': 'BabyBlend Lab · A speculative simulation · No data leaves your device',
     'footer.about': 'About & sources',
+    'style.lorelei': 'Lorelei',
+    'style.bigSmile': 'Big Smile',
+    'codename.placeholder': 'Tiny Prototype A-01',
+    'archetype.placeholder': 'Tiny Prototype',
+    'life_stage.heading': 'Across the years',
+    'intro.history.cite.1978': 'Steptoe & Edwards, <em>The Lancet</em>, 1978.',
+    'intro.history.cite.1990': 'Handyside et al., <em>Nature</em>, 1990.',
+    'intro.history.cite.2012': 'Jinek, Chylinski, Fonfara, Hauer, Doudna & Charpentier, <em>Science</em>, 2012.',
+    'intro.history.cite.2018': 'Cyranoski & Ledford, <em>Nature</em> news, November 2018.',
+    'intro.history.cite.2019': 'Xinhua / Reuters, December 2019.',
+    'intro.history.cite.2020': 'Royal Swedish Academy of Sciences, 2020.',
+    'intro.history.cite.2023': 'Medicines and Healthcare products Regulatory Agency, November 2023.',
+    'intro.culture.cite1': 'International Society of Aesthetic Plastic Surgery, Global Survey, 2022.',
+    'intro.culture.cite2': 'Rajanala, Maymone & Vashi, <em>JAMA Facial Plastic Surgery</em>, 2018.',
+    'intro.culture.cite3': 'Veale et al., systematic review, <em>Body Image</em>, 2016.',
+    'intro.culture.cite4': 'Baylis, Darnovsky, Hasson & Krahn, <em>The CRISPR Journal</em>, 2020.',
     'app.tagline': 'A fictional genetics-inspired simulator',
     'app.disclaimer': 'Educational speculation. Not medical, genetic, or clinical advice.',
     'mode.reflection': 'Reflection',
@@ -291,6 +307,22 @@ const STRINGS = {
     'ethics.body.adult': '为示例之用的虚构模拟。当前各地的伦理监管标准不一。行为层面的结果仍难以建立可靠的模型。',
     'footer.tagline': 'BabyBlend Lab · 一项思辨性的模拟 · 数据不会离开你的设备',
     'footer.about': '关于与资料来源',
+    'style.lorelei': 'Lorelei 风格',
+    'style.bigSmile': 'Big Smile 风格',
+    'codename.placeholder': '小小原型 A-01',
+    'archetype.placeholder': '小小原型',
+    'life_stage.heading': '岁月之间',
+    'intro.history.cite.1978': 'Steptoe 与 Edwards,《柳叶刀》(<em>The Lancet</em>),1978 年。',
+    'intro.history.cite.1990': 'Handyside 等,《自然》(<em>Nature</em>),1990 年。',
+    'intro.history.cite.2012': 'Jinek、Chylinski、Fonfara、Hauer、Doudna 与 Charpentier,《科学》(<em>Science</em>),2012 年。',
+    'intro.history.cite.2018': 'Cyranoski 与 Ledford,《自然》(<em>Nature</em>)新闻,2018 年 11 月。',
+    'intro.history.cite.2019': '新华社 / 路透社,2019 年 12 月。',
+    'intro.history.cite.2020': '瑞典皇家科学院,2020 年。',
+    'intro.history.cite.2023': '英国药品与保健品管理局(MHRA),2023 年 11 月。',
+    'intro.culture.cite1': '国际美容整形外科学会(ISAPS),《全球调查》,2022 年。',
+    'intro.culture.cite2': 'Rajanala、Maymone 与 Vashi,《JAMA Facial Plastic Surgery》,2018 年。',
+    'intro.culture.cite3': 'Veale 等,系统综述,《Body Image》,2016 年。',
+    'intro.culture.cite4': 'Baylis、Darnovsky、Hasson 与 Krahn,《CRISPR Journal》,2020 年。',
     'app.tagline': '一款受遗传学启发的虚构模拟器',
     'app.disclaimer': '教育性的推演。并非医疗、遗传或临床建议。',
     'mode.reflection': '沉思',
@@ -444,6 +476,22 @@ const STRINGS = {
     'ethics.body.adult': '例示を目的とした、架空のシミュレーション。現行の倫理規制は地域によって異なる。行動上の帰結を信頼性高くモデル化することは、依然として困難である。',
     'footer.tagline': 'BabyBlend Lab · 思考実験的シミュレーション · データは端末から外に出ません',
     'footer.about': '本サイトと出典について',
+    'style.lorelei': 'Lorelei スタイル',
+    'style.bigSmile': 'Big Smile スタイル',
+    'codename.placeholder': '小さな試作 A-01',
+    'archetype.placeholder': '小さな試作',
+    'life_stage.heading': '歳月を越えて',
+    'intro.history.cite.1978': 'Steptoe と Edwards、<em>The Lancet</em>、1978年。',
+    'intro.history.cite.1990': 'Handyside ほか、<em>Nature</em>、1990年。',
+    'intro.history.cite.2012': 'Jinek、Chylinski、Fonfara、Hauer、Doudna、Charpentier、<em>Science</em>、2012年。',
+    'intro.history.cite.2018': 'Cyranoski と Ledford、<em>Nature</em> ニュース、2018年11月。',
+    'intro.history.cite.2019': '新華社 / ロイター、2019年12月。',
+    'intro.history.cite.2020': 'スウェーデン王立科学アカデミー、2020年。',
+    'intro.history.cite.2023': '英国 医薬品・医療製品規制庁(MHRA)、2023年11月。',
+    'intro.culture.cite1': '国際美容外科学会(ISAPS)、グローバルサーベイ、2022年。',
+    'intro.culture.cite2': 'Rajanala、Maymone、Vashi、<em>JAMA Facial Plastic Surgery</em>、2018年。',
+    'intro.culture.cite3': 'Veale ほか、系統的レビュー、<em>Body Image</em>、2016年。',
+    'intro.culture.cite4': 'Baylis、Darnovsky、Hasson、Krahn、<em>The CRISPR Journal</em>、2020年。',
     'app.tagline': '遺伝学にインスパイアされた架空のシミュレーター',
     'app.disclaimer': '教育目的の推測的シミュレーション。医療・遺伝・臨床上の助言ではありません。',
     'mode.reflection': '内省',
@@ -597,6 +645,22 @@ const STRINGS = {
     'ethics.body.adult': '예시를 위한 가상의 시뮬레이션. 현재의 윤리 규제는 국가별로 다르다. 행동적 결과는 여전히 안정적으로 모형화하기 어렵다.',
     'footer.tagline': 'BabyBlend Lab · 사변적 시뮬레이션 · 어떤 데이터도 기기를 떠나지 않는다',
     'footer.about': '소개 및 출처',
+    'style.lorelei': 'Lorelei 스타일',
+    'style.bigSmile': 'Big Smile 스타일',
+    'codename.placeholder': '작은 프로토타입 A-01',
+    'archetype.placeholder': '작은 프로토타입',
+    'life_stage.heading': '세월 너머',
+    'intro.history.cite.1978': 'Steptoe와 Edwards, <em>The Lancet</em>, 1978년.',
+    'intro.history.cite.1990': 'Handyside 외, <em>Nature</em>, 1990년.',
+    'intro.history.cite.2012': 'Jinek, Chylinski, Fonfara, Hauer, Doudna와 Charpentier, <em>Science</em>, 2012년.',
+    'intro.history.cite.2018': 'Cyranoski와 Ledford, <em>Nature</em> 뉴스, 2018년 11월.',
+    'intro.history.cite.2019': '신화통신 / 로이터, 2019년 12월.',
+    'intro.history.cite.2020': '스웨덴 왕립과학원, 2020년.',
+    'intro.history.cite.2023': '영국 의약품·의료제품 규제청(MHRA), 2023년 11월.',
+    'intro.culture.cite1': '국제미용성형외과학회(ISAPS), 글로벌 서베이, 2022년.',
+    'intro.culture.cite2': 'Rajanala, Maymone와 Vashi, <em>JAMA Facial Plastic Surgery</em>, 2018년.',
+    'intro.culture.cite3': 'Veale 외, 체계적 고찰, <em>Body Image</em>, 2016년.',
+    'intro.culture.cite4': 'Baylis, Darnovsky, Hasson와 Krahn, <em>The CRISPR Journal</em>, 2020년.',
     'app.tagline': '유전학에서 영감을 받은 가상의 시뮬레이터',
     'app.disclaimer': '교육 목적의 사고 실험. 의료·유전·임상 자문이 아닙니다.',
     'mode.reflection': '성찰',
@@ -750,6 +814,22 @@ const STRINGS = {
     'ethics.body.adult': 'Açıklayıcı amaçlı kurgusal bir simülasyon. Mevcut etik düzenlemeler ülkeden ülkeye değişiklik gösterir. Davranışsal çıktıları güvenilir biçimde modellemek hâlâ zordur.',
     'footer.tagline': 'BabyBlend Lab · Spekülatif bir simülasyon · Hiçbir veri cihazınızdan ayrılmaz',
     'footer.about': 'Hakkında ve kaynaklar',
+    'style.lorelei': 'Lorelei stili',
+    'style.bigSmile': 'Big Smile stili',
+    'codename.placeholder': 'Küçük Prototip A-01',
+    'archetype.placeholder': 'Küçük Prototip',
+    'life_stage.heading': 'Yıllar boyunca',
+    'intro.history.cite.1978': 'Steptoe ve Edwards, <em>The Lancet</em>, 1978.',
+    'intro.history.cite.1990': 'Handyside ve diğ., <em>Nature</em>, 1990.',
+    'intro.history.cite.2012': 'Jinek, Chylinski, Fonfara, Hauer, Doudna ve Charpentier, <em>Science</em>, 2012.',
+    'intro.history.cite.2018': 'Cyranoski ve Ledford, <em>Nature</em> haber, Kasım 2018.',
+    'intro.history.cite.2019': 'Xinhua / Reuters, Aralık 2019.',
+    'intro.history.cite.2020': 'İsveç Kraliyet Bilimler Akademisi, 2020.',
+    'intro.history.cite.2023': 'Birleşik Krallık İlaç ve Sağlık Ürünleri Düzenleme Kurumu (MHRA), Kasım 2023.',
+    'intro.culture.cite1': 'Uluslararası Estetik Plastik Cerrahi Derneği (ISAPS), Küresel Araştırma, 2022.',
+    'intro.culture.cite2': 'Rajanala, Maymone ve Vashi, <em>JAMA Facial Plastic Surgery</em>, 2018.',
+    'intro.culture.cite3': 'Veale ve diğ., sistematik derleme, <em>Body Image</em>, 2016.',
+    'intro.culture.cite4': 'Baylis, Darnovsky, Hasson ve Krahn, <em>The CRISPR Journal</em>, 2020.',
     'app.tagline': 'Genetikten esinlenmiş kurgusal bir simülatör',
     'app.disclaimer': 'Eğitim amaçlı spekülasyon. Tıbbi, genetik veya klinik tavsiye değildir.',
     'mode.reflection': 'Düşünüm',
@@ -10630,6 +10710,28 @@ function init() {
         state.reflection  = pickReflectionPrompt(state.codename);
         updateBabyPreview();
       }
+      // Rebuild Adult-mode panels with localized labels — these were
+      // initially rendered at startup in EN and don't auto-re-render
+      // when language changes, leaving stale text behind.
+      if (typeof buildEnhancementBudget === 'function') buildEnhancementBudget();
+      // Invalidate any "once-rendered" caches so dependent panels can
+      // re-render with the active language on next tick.
+      ['consent-explainer', 'history-content'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) delete el.dataset.rendered;
+      });
+      if (typeof renderConsentExplainer === 'function') renderConsentExplainer();
+      if (typeof renderRegulatoryNotes  === 'function') renderRegulatoryNotes();
+      if (typeof renderRegionalAccess   === 'function') renderRegionalAccess();
+      if (typeof renderCaseFile         === 'function') renderCaseFile();
+      if (typeof renderSocietalBrief    === 'function') renderSocietalBrief();
+      if (typeof renderTraitHistory     === 'function') renderTraitHistory();
+      if (typeof renderInnerCohort      === 'function') renderInnerCohort();
+      if (typeof renderLifetimeDrift    === 'function') renderLifetimeDrift();
+      if (typeof renderKidsLoves        === 'function') renderKidsLoves();
+      if (typeof renderKidsQuestions    === 'function') renderKidsQuestions();
+      if (typeof renderKidsDifferences  === 'function') renderKidsDifferences();
+      if (typeof renderHobbyConstellation === 'function' && state.baby) renderHobbyConstellation(state.baby);
     });
   }
   applyTranslations();
