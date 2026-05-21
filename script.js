@@ -3849,8 +3849,19 @@ function generateSliderRanges(parents) {
         unit: def.unit || ''
       };
     } else if (def.kind === 'polygenic') {
-      // Polygenic-flavored: child ≈ midparent + Gaussian(σ_eff), ~50% heritability.
+      // Polygenic-flavored: child ≈ midparent + Gaussian(σ_eff).
       // Slider range ≈ midparent ± 2σ_eff (~95% interval).
+      // With PERSONALITY_SIGMA = 1.75 on a 1–10 scale, the 2σ band spans
+      // ±3.5 — i.e. the model implies *low* narrow-sense heritability for
+      // OCEAN: roughly h² ≈ 0.30–0.40 given a typical parental-population
+      // SD of ~2 on this scale, since V_residual_around_midparent
+      // ≈ V_pop · (1 − h²/2). This deliberately undershoots the high-end
+      // twin-study estimates (~0.50, Polderman et al. 2015) and sits closer
+      // to the non-twin family/adoption pooled range reported in the
+      // Vukasović & Bratko 2015 meta-analysis (~0.36–0.40). The wider band
+      // is the honest one: shared-environment confounds in twin designs
+      // inflate h², and a baby-builder UI should not pretend to predict
+      // personality more sharply than non-twin behavior-genetic data warrant.
       // Chaos mode widens to the full hardMin/hardMax range.
       // In Adult mode, Enhancement Allocation biases the center of the band.
       //
