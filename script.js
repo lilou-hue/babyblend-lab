@@ -4064,6 +4064,30 @@ function applyBudgetPanelGate() {
     applyBudgetInteractionLock(!interactionReady);
     ensureBudgetLockNotice(isAdult && !interactionReady);
   }
+  // Round 7 (UX): consent-awareness lead-in. Renders above the Enhancement
+  // Allocation header at gen ≥ 1 in Adult mode, so the ethical framing
+  // precedes the behavioral projection (personality stats / archetype)
+  // and the Consent Implications reveal. The line used to live inside the
+  // collapsed #trait-conflicts block at the bottom of the baby panel.
+  // When consentAck flips true we keep the existing `.is-leaving` fade
+  // pattern (see showConsentAckPrompt at line ~7220) — don't clobber the
+  // DOM mid-fade or the cross-fade hand-off won't play.
+  const leadin = $('#consent-awareness-leadin');
+  if (leadin) {
+    const eligible = isAdult && gen >= 1;
+    const show = eligible && !state.consentAck;
+    const existing = leadin.querySelector('.consent-awareness-note');
+    if (show && !existing) {
+      leadin.innerHTML = `<p class="consent-awareness-note">The person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`;
+      leadin.hidden = false;
+    } else if (!eligible) {
+      // Mode/gen no longer qualifies — hard clear, no fade needed.
+      leadin.innerHTML = '';
+      leadin.hidden = true;
+    }
+    // If eligible but consentAck just flipped true, leave the note alone
+    // so any in-flight `.is-leaving` fade can finish naturally.
+  }
   // Consent Implications: visible once ≥50 credits are allocated in Adult
   // mode. First reveal uses the same downward-settle motion as the OCEAN
   // /advanced disclosure (translateY 6px → 0, 0.45s) so the two read as
@@ -4917,30 +4941,23 @@ function updateBabyPreview() {
   renderKidsQuestions();
   renderKidsDifferences();
 
-  // Trait conflicts (tradeoff chips). In Adult mode after Gen 1, prepend a
-  // one-line consent-awareness note — the early beat of the two-beat
-  // consent rhythm. Round 3 (narrative): chosen line lands as a quiet
-  // spatial note rather than an ethical claim. The note cross-fades OUT
-  // once consentAck flips true so the same screen-space hands off to the
-  // micro-ack / progress hint.
-  //   alt-A: 'These allocations will be carried by someone not yet present to weigh in on them.'
-  //   alt-B: 'Whatever balance you choose here will be lived in by someone with no vote in the matter.'
-  // Round 6 rev (UX): in Kids mode the diagnostic "tradeoff" framing clashes
-  // with the affirmation register of the 3 Kids-arc panels, so suppress the
-  // whole block before any DOM is generated.
+  // Trait conflicts (tradeoff chips). Round 6 rev (UX): in Kids mode the
+  // diagnostic "tradeoff" framing clashes with the affirmation register of
+  // the 3 Kids-arc panels, so suppress the whole block before any DOM is
+  // generated.
+  // Round 7 (UX): the consent-awareness one-liner used to be prepended
+  // here at gen ≥ 1 in Adult mode. It now lives in #consent-awareness-leadin
+  // above the Enhancement Allocation header so the ethical framing arrives
+  // BEFORE the behavioral projection rather than buried at panel bottom.
+  // See applyBudgetPanelGate() for the new render site.
   const conflictsEl = $('#trait-conflicts');
   if (conflictsEl && isKids()) {
     conflictsEl.hidden = true;
     conflictsEl.innerHTML = '';
   } else if (conflictsEl) {
-    const showAwareness = (state.appMode === 'adult' && (state.generateCount || 0) >= 1 && !state.consentAck);
-    const awarenessHtml = showAwareness
-      ? `<p class="consent-awareness-note">The person this concerns is not in the room — and will inherit whichever balance you settle on.</p>`
-      : '';
     if (state.conflicts && state.conflicts.length) {
       conflictsEl.hidden = false;
       conflictsEl.innerHTML = `
-        ${awarenessHtml}
         <h3>Trait tradeoffs</h3>
         <div class="conflict-chips">
           ${state.conflicts.map(c => `
@@ -4949,9 +4966,6 @@ function updateBabyPreview() {
               <span class="conflict-note">${c.note}</span>
             </div>`).join('')}
         </div>`;
-    } else if (awarenessHtml) {
-      conflictsEl.hidden = false;
-      conflictsEl.innerHTML = awarenessHtml;
     } else {
       conflictsEl.hidden = true;
       conflictsEl.innerHTML = '';

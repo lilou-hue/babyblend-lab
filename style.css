@@ -3399,9 +3399,12 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
 }
 .budget-panel input[type="range"][disabled] { cursor: not-allowed; opacity: 0.55; }
 
-/* Gen-1 consent-awareness one-liner above the trait-conflicts chips.
-   Cross-fades out on micro-ack so the same screen-space hands off to the
-   intensity-progress hint (two-beat consent rhythm). */
+/* Gen-1 consent-awareness one-liner. Round 7: hoisted out of the
+   collapsed trait-conflicts block into #consent-awareness-leadin above
+   the Enhancement Allocation header so the ethical framing precedes the
+   behavioral projection. Cross-fades out on micro-ack so the same
+   screen-space hands off to the intensity-progress hint (two-beat
+   consent rhythm). */
 .consent-awareness-note {
   margin: 0 0 10px; padding: 6px 10px;
   font-size: 12px; font-style: italic; color: rgba(255, 220, 170, 0.92);
