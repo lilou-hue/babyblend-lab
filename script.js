@@ -1703,7 +1703,7 @@ const HUMANITY_REMINDERS = [
   'A trait\'s value depends on who, when, and where.',
   'Strengths and weaknesses are the same thing in different rooms.',
   'Whoever this child becomes, they get the last word — not us.',
-  'A simulator cannot anticipate a single real Tuesday afternoon.'
+  'A simulator cannot see the friend who will move away at fifteen, the surgery at thirty, the parent who needs care at fifty.'
 ];
 
 const NATURAL_VARIATION_MESSAGES = [
@@ -2595,7 +2595,7 @@ const ADULTHOOD_MEMORIES = {
     'A child whose hand fit perfectly in theirs.',
     "A parent's handwriting on an envelope, read again.",
     'A meeting at work that turned into something else.',
-    'A garden, kept badly, loved deeply.',
+    'A garden they kept badly but loved anyway.',
     'A move to a city they once swore against.',
     'A reconciliation they did not initiate.',
     'A morning they understood their own parent for the first time.',
@@ -2612,7 +2612,7 @@ const ADULTHOOD_MEMORIES = {
     '一只刚好可以握进自己手里的小手。',
     '信封上父母的字迹,被重新读过一次。',
     '一次原本只是工作的会面,后来成了别的什么。',
-    '照料得不算好,却深爱着的一座花园。',
+    '一座没怎么打理好、但还是一直深爱着的花园。',
     '搬去了一座曾经发誓不去的城市。',
     '不是由自己开口的那场和解。',
     '第一次真正理解自己父母的那个早晨。',
@@ -2629,7 +2629,7 @@ const ADULTHOOD_MEMORIES = {
     '自分の手にぴったり収まる、小さな手。',
     '封筒に書かれた親の文字を、もう一度読み返した日。',
     'もとは仕事の打ち合わせだったのに、別の何かになっていった出会い。',
-    'うまくは育てられなかったが、深く愛していた庭。',
+    'うまくは手入れできなかったけれど、それでも愛し続けていた庭。',
     'かつて「絶対住まない」と言い切っていた街への引っ越し。',
     '自分からは始められなかった、ある和解。',
     'はじめて自分の親を理解したと感じた、ある朝。',
@@ -2646,7 +2646,7 @@ const ADULTHOOD_MEMORIES = {
     '내 손에 꼭 맞게 들어왔던 한 아이의 손.',
     '봉투 위 부모의 글씨를 다시 읽은 날.',
     '본래 업무로 시작했지만 다른 무엇이 된 어떤 만남.',
-    '잘 가꾸지는 못했지만 깊이 사랑했던 정원.',
+    '잘 가꾸지는 못했지만 그래도 계속 아꼈던 정원.',
     '한때 절대 안 가겠다고 했던 도시로의 이사.',
     '내가 먼저 손 내밀지는 않은 어떤 화해.',
     '처음으로 자기 부모를 이해했다고 느낀 어느 아침.',
@@ -2663,7 +2663,7 @@ const ADULTHOOD_MEMORIES = {
     'Kendi elinin içine tam oturan küçük bir el.',
     'Bir zarfın üstünde, ebeveynlerinin el yazısını yeniden okudukları an.',
     'Aslında bir iş toplantısı olan, sonra başka bir şeye dönüşen bir buluşma.',
-    'Pek de iyi bakılamamış ama derinden sevilen bir bahçe.',
+    'Pek de iyi bakamadıkları, ama yine de hep sevdikleri bir bahçe.',
     'Bir zamanlar asla taşınmayacaklarına yemin ettikleri bir şehre taşınma.',
     'Başlatan kendileri olmayan bir barışma.',
     'İlk kez kendi ebeveynlerini anladıklarını hissettikleri bir sabah.',
@@ -3582,7 +3582,7 @@ const KIDS_ADULT_FUTURES = [
   { headline: 'Maybe a chef who feeds the whole street.',       details: ['Sundays smell like fresh bread.', 'Has a notebook full of family recipes.', 'Friends drop by hoping for leftovers.'], tags: ['family'] },
   { headline: 'Maybe a doctor who is great with kids.',         details: ['Has a sticker for every check-up.', 'Tells gentle jokes during scary moments.', 'Office is decorated with crayon drawings.'], tags: ['healthcare','family'] },
   { headline: 'Maybe an inventor of small clever gadgets.',     details: ['Has built three useful tools that don\'t exist anywhere else.', 'Tinkers in a sunny corner.', 'Friends bring them tricky problems.'], tags: ['education','economy'] },
-  { headline: 'Maybe a librarian who knows every story.',       details: ['Reads to little kids every Saturday.', 'Has a list of \"underrated\" books.', 'Smells faintly of old paper, in the best way.'], tags: ['education','urbanRural'] },
+  { headline: 'Maybe a librarian who knows every story.',       details: ['Reads to little kids every Saturday.', 'Has a list of \"underrated\" books.', 'Knows which shelves the kids hide behind on rainy days.'], tags: ['education','urbanRural'] },
   { headline: 'Maybe an animal trainer at a sanctuary.',        details: ['Speaks softly to bigger animals.', 'Knows every dog at the local park by name.', 'Has at least one rescue story to tell.'], tags: ['family','urbanRural'] },
   { headline: 'Maybe a writer of charming little books.',       details: ['Writes by hand in tiny journals.', 'Posts gentle stories online.', 'Friends quote their books on birthdays.'], tags: ['education','social'] },
   { headline: 'Maybe an athlete who also coaches younger kids.', details: ['Wakes up early for practice, smiles anyway.', 'Buys orange slices for the team.', 'Cheers loudest from the sidelines.'], tags: ['urbanRural','family'] },
@@ -3595,7 +3595,10 @@ const KIDS_ADULT_FUTURES = [
   { headline: 'Maybe a baker famous for one specific cookie.',  details: ['The recipe is a kind of secret.', 'Donates extras to the local school.', 'Apron is older than them.'], tags: ['family','urbanRural'] },
   { headline: 'Maybe an astronomer who throws stargazing nights.', details: ['Owns the friendliest telescope in town.', 'Knows the names of dozens of stars.', 'Brings hot cocoa to every event.'], tags: ['education','urbanRural'] },
   { headline: 'Maybe an architect designing tree-friendly schools.', details: ['Sketches buildings on napkins.', 'Loves natural light.', 'Has a treehouse phase that lasts decades.'], tags: ['education','urbanRural'] },
-  { headline: 'Maybe an organizer who brings the neighborhood together.', details: ['Plans block parties.', 'Knows everyone\'s grocery routine.', 'Has a binder of community ideas.'], tags: ['family','social'] }
+  { headline: 'Maybe an organizer who brings the neighborhood together.', details: ['Plans block parties.', 'Knows everyone\'s grocery routine.', 'Has a binder of community ideas.'], tags: ['family','social'] },
+  { headline: 'Maybe someone who pieces together three part-time jobs and one big dream.', details: ['Drives between two towns most weeks.', 'Keeps the dream in a notebook nobody else reads.', 'Has a regular at every job who asks how they\'re really doing.'], tags: ['economy','urbanRural'] },
+  { headline: 'Maybe someone whose first job didn\'t pay enough, so they tried again.', details: ['Moved back in with family for a year and didn\'t love it.', 'Learned a second skill at the library on Saturdays.', 'Found work that fit on the third try, not the first.'], tags: ['economy','family'] },
+  { headline: 'Maybe someone who took years off to care for a parent.', details: ['Learned how to read a hospital bill.', 'Kept one small hobby alive through the hardest months.', 'Came back to work slower, and steadier, than before.'], tags: ['family','healthcare'] }
 ];
 
 const KIDS_REFLECTION_PROMPTS = [
@@ -3609,7 +3612,7 @@ const KIDS_REFLECTION_PROMPTS = [
 
 const KIDS_HUMANITY_REMINDERS = [
   'People grow and change in ways no one can predict.',
-  'Everyone has something amazing inside them.',
+  'Every kid knows one thing nobody else in the room knows.',
   'Diversity makes the world more interesting.',
   'You are more than your traits — you are a whole story.'
 ];
