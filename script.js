@@ -6166,7 +6166,10 @@ function applyEnvDisclosureMode() {
   const d = $('#env-disclosure');
   if (!d) return;
   if (state.envDisclosureTouched) return;
-  d.open = state.appMode !== 'adult';
+  // R14 rev (Product POLISH): open env-disclosure by default in Adult
+  // mode too. Closing it hid a load-bearing input from optimizers; the
+  // 3-token summary helps but isn't a substitute for the sliders.
+  d.open = true;
   renderEnvSummaryTokens();
 }
 
@@ -7303,20 +7306,65 @@ function renderCaseFile() {
 function renderPausePanel() {
   const panel = $('#pause-panel');
   if (!panel) return;
-  if (state.appMode !== 'reflection' || !state.codename) {
+  // R14 rev (Product MAJOR): also render in Adult mode wrapped in a
+  // default-collapsed <details> so the ethical limits are always
+  // discoverable next to the optimization output without intruding.
+  const mode = state.appMode;
+  const isRefl = mode === 'reflection';
+  const isAdlt = mode === 'adult';
+  if ((!isRefl && !isAdlt) || !state.codename) {
     panel.hidden = true;
+    panel.style.display = '';
+    panel.classList.remove('pause-as-details');
     return;
   }
   panel.hidden = false;
+  // Inline display override defeats the body.mode-adult:not(.show-details)
+  // CSS rule that would otherwise hide the panel in Adult mode.
+  panel.style.display = isAdlt ? 'block' : '';
+  panel.classList.toggle('pause-as-details', isAdlt);
 
   const rng = seededRand(state.codename + '|pause');
   const obs = pickN(localList(REFLECTION_OBSERVATIONS), 2, rng);
   const cant = pickN(localList(CANNOT_MEASURE), 4, rng);
   const question = state.reflection || pickReflectionPrompt(state.codename);
 
-  $('#pause-observations').innerHTML = obs.map(o => `<li>${o}</li>`).join('');
-  $('#pause-cant-see').innerHTML     = cant.map(c => `<li>${c}</li>`).join('');
-  $('#pause-question').innerHTML     = `<span class="pause-q-mark">?</span> ${question}`;
+  const obsHtml  = obs.map(o => `<li>${o}</li>`).join('');
+  const cantHtml = cant.map(c => `<li>${c}</li>`).join('');
+  const qHtml    = `<span class="pause-q-mark">?</span> ${question}`;
+
+  if (isAdlt) {
+    // Render the same content inside a default-collapsed <details>.
+    // Preserve user's open/closed choice across re-renders.
+    const prev = $('#pause-details');
+    const wasOpen = prev ? prev.open : false;
+    const heading = $('#pause-heading');
+    const headingText = heading ? heading.textContent : 'A pause to consider';
+    const summary = localLabel('Limitations & ethics') || 'Limitations & ethics';
+    panel.innerHTML =
+      `<details id="pause-details"${wasOpen ? ' open' : ''}>` +
+        `<summary>${summary}</summary>` +
+        `<h3 id="pause-heading">${headingText}</h3>` +
+        `<ul class="pause-observations" id="pause-observations">${obsHtml}</ul>` +
+        `<h4 class="pause-cant-see-heading">Things this simulator cannot see</h4>` +
+        `<ul class="pause-cant-see" id="pause-cant-see">${cantHtml}</ul>` +
+        `<div class="pause-question" id="pause-question">${qHtml}</div>` +
+      `</details>`;
+    return;
+  }
+
+  // Reflection mode: ensure original (un-wrapped) structure is present.
+  if (!$('#pause-observations') || $('#pause-details')) {
+    panel.innerHTML =
+      `<h3 id="pause-heading">A pause to consider</h3>` +
+      `<ul class="pause-observations" id="pause-observations"></ul>` +
+      `<h4 class="pause-cant-see-heading">Things this simulator cannot see</h4>` +
+      `<ul class="pause-cant-see" id="pause-cant-see"></ul>` +
+      `<div class="pause-question" id="pause-question"></div>`;
+  }
+  $('#pause-observations').innerHTML = obsHtml;
+  $('#pause-cant-see').innerHTML     = cantHtml;
+  $('#pause-question').innerHTML     = qHtml;
 }
 
 /* ---------- Kids-mode derived stats (creativity, teamwork) ---------- */
