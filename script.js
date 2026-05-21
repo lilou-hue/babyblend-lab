@@ -4813,19 +4813,12 @@ function applyBudgetPanelGate() {
       // Mode/gen no longer qualifies — hard clear, no fade needed.
       leadin.innerHTML = '';
       leadin.hidden = true;
-    } else if (existing && !existing.classList.contains('is-leaving')) {
-      // R8 fix: eligible AND consentAck just flipped true. Previously this
-      // branch was a no-op (comment said "leave the note alone so any
-      // in-flight fade can finish"), but the slider-input path that flips
-      // consentAck never starts a fade — so the leadin leaked, sitting in
-      // the DOM until mode change. Kick off the cross-fade here so the
-      // ethical framing retires after the user's first non-zero allocation,
-      // matching the two-beat hand-off described in the original spec.
-      existing.classList.add('is-leaving');
-      const clearLeadin = () => { leadin.innerHTML = ''; leadin.hidden = true; };
-      existing.addEventListener('transitionend', clearLeadin, { once: true });
-      setTimeout(clearLeadin, 500); // fallback if transitionend doesn't fire
     }
+    // R8 rev: eligible-but-acked branch is intentionally a no-op. The fade
+    // is now driven ONLY by the explicit micro-ack button (showConsentAckPrompt
+    // handler crossfades the note directly), not by this gate — that decouples
+    // the ethical-framing retirement from any slider tick and preserves the
+    // three-beat rhythm called out by Ethics MAJOR + Narrative MAJOR.
   }
   // Budget panel: always visible in Adult mode; locked until first generation.
   // Unhidden AFTER the leadin so the ethical framing is committed to the DOM
@@ -7934,13 +7927,14 @@ function buildEnhancementBudget() {
     const valEl = row.querySelector('.val');
     input.addEventListener('input', () => {
       const requested = Number(input.value);
-      // Two-beat consent rhythm: the first non-zero allocation quietly moves
-      // the session from baseline play into optimization, then the progress
-      // hint leads toward the fuller consent panel at 50 credits.
-      if (requested > 0 && !state.consentAck) {
-        state.consentAck = true;
-        ensureConsentProgressHint();
-      }
+      // R8 rev (Ethics MAJOR + Narrative MAJOR): surface the micro-ack on the
+      // first non-zero allocation instead of silently flipping consentAck.
+      // Pre-ack slider exploration must NOT retire the ethical leadin — that
+      // collapsed three narrative beats (fade 450ms + 200ms gap + panel reveal
+      // 450ms) into a single tick. The cross-fade now fires ONLY when the
+      // user clicks the acknowledge button inside showConsentAckPrompt, so
+      // the ethical context stays present while they're choosing.
+      if (requested > 0 && !state.consentAck) showConsentAckPrompt();
       const otherCost = Object.entries(state.budget).reduce((sum, [k, v]) => {
         if (k === p.key) return sum;
         const pr = PRIORITIES.find(x => x.key === k);
