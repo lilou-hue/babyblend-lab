@@ -3881,14 +3881,62 @@ const TRAIT_CONFLICTS_CLINICAL = [
 ];
 
 const REGULATORY_CARDS = [
-  { title: 'Regulatory landscape.',             body: 'Genome editing oversight varies by jurisdiction. The EU, UK, US, and several Asian regulators hold non-aligned positions on heritable modifications.' },
-  { title: 'Historical precedent.',             body: 'Early-20th-century state programs grounded in claimed scientific authority resulted in significant documented harm. The underlying scientific basis was later widely rejected.' },
-  { title: 'Access and equity modeling.',       body: 'Distribution modeling consistently projects uneven access across socioeconomic lines.' },
-  { title: 'Phenotype vs. behavior confidence.', body: 'Confidence in physical-trait prediction substantially exceeds confidence in behavioral or cognitive outcome prediction.' },
-  { title: 'Cultural variability of targets.',  body: 'Trait desirability shows significant variation across regions and historical periods. Optimization targets are not culturally stable.' },
-  { title: 'Long-horizon outcome data.',         body: 'Multi-decade follow-up studies on early-modified cohorts do not yet exist at scale.' },
-  { title: 'On the regulatory citations.',        body: 'Oviedo Convention Article 13 and the UK HFEA 2008 cited throughout this interface are real instruments. The "EU IVD-Germ Lines Directive" is a near-future projection — not enacted law — used here to model how a Europe-wide heritable-editing framework would plausibly read once promulgated. Articles and provisions attributed to it are illustrative, not binding.' },
-  { title: 'On the classification shorthand.',    body: 'The Tier I–IV labels (Baseline / Moderate optimization / Elevated optimization / Boundary case) and the CMP-N classification codes (CMP-2 cognition, CMP-4 affective) are simulation framework designations — diegetic classification markers internal to this interface, not real regulatory classes. The RA-1 through RA-5 channel codes appearing in Regional Access strings and case-file metadata are similarly diegetic access-routing markers tied to budget tiers, not real regulatory notation. Rule-set prefixes visible in warning text (GE-, EM-, RES-, APP-, ATH-) are simulation-internal identifiers used to index allocation classes, not real regulatory citations.' },
+  { title: 'Regulatory landscape.', body: 'Genome editing oversight varies by jurisdiction. The EU, UK, US, and several Asian regulators hold non-aligned positions on heritable modifications.',
+    i18n: {
+      zh: { title: '监管格局。', body: '基因编辑的监管因地区而异。欧盟、英国、美国以及几个亚洲监管机构,在可遗传修改问题上立场并不一致。' },
+      ja: { title: '規制状況。', body: 'ゲノム編集の監督は法域ごとに異なる。EU、英国、米国、および複数のアジア当局は、遺伝に関わる改変について一致した立場をとっていない。' },
+      ko: { title: '규제 환경.', body: '유전체 편집에 대한 감독은 관할에 따라 다르다. EU, 영국, 미국, 그리고 일부 아시아 규제 기관은 유전 가능한 변경에 대해 서로 다른 입장을 취한다.' },
+      tr: { title: 'Düzenleyici çerçeve.', body: 'Genom düzenleme denetimi yargı çevresine göre değişir. AB, Birleşik Krallık, ABD ve birkaç Asya düzenleyicisi, kalıtsal değişiklikler konusunda uyumsuz tutumlara sahiptir.' }
+    } },
+  { title: 'Historical precedent.', body: 'Early-20th-century state programs grounded in claimed scientific authority resulted in significant documented harm. The underlying scientific basis was later widely rejected.',
+    i18n: {
+      zh: { title: '历史先例。', body: '20 世纪初某些国家以所谓"科学权威"为依据推行的项目,造成了大量有据可查的伤害。其背后的科学基础后来被广泛否定。' },
+      ja: { title: '歴史的前例。', body: '20世紀初頭、「科学的権威」を称した国家プログラムは、文献上、深刻な被害をもたらした。その科学的根拠は後年、広く否定されている。' },
+      ko: { title: '역사적 선례.', body: '20세기 초 "과학적 권위"를 내세운 국가 차원의 프로그램은 상당하고 문서화된 피해를 남겼다. 그 과학적 근거는 이후 광범위하게 부정되었다.' },
+      tr: { title: 'Tarihsel öncül.', body: '20. yüzyılın başında "bilimsel otorite" iddiasıyla yürütülen devlet programları belgelenmiş büyük zararlara yol açtı. Dayandığı bilimsel temel, sonradan büyük ölçüde reddedildi.' }
+    } },
+  { title: 'Access and equity modeling.', body: 'Distribution modeling consistently projects uneven access across socioeconomic lines.',
+    i18n: {
+      zh: { title: '可及性与公平性建模。', body: '分布建模一致地预测:沿社会经济线分布的可及性会是不均等的。' },
+      ja: { title: 'アクセスと公平性のモデリング。', body: '分布モデルは、社会経済階層に沿った不均等なアクセスを一貫して予測している。' },
+      ko: { title: '접근성과 형평성 모형화.', body: '분배 모형은 사회·경제적 계층을 따라 접근성이 불균등하게 나타날 것이라 일관되게 예측한다.' },
+      tr: { title: 'Erişim ve adalet modellemesi.', body: 'Dağılım modellemesi, sosyoekonomik kategoriler boyunca düzenli olarak eşitsiz erişim öngörür.' }
+    } },
+  { title: 'Phenotype vs. behavior confidence.', body: 'Confidence in physical-trait prediction substantially exceeds confidence in behavioral or cognitive outcome prediction.',
+    i18n: {
+      zh: { title: '表型 vs. 行为的预测置信度。', body: '对物理性状的预测置信度,远高于对行为或认知结果的预测置信度。' },
+      ja: { title: '表現型と行動の予測信頼度。', body: '身体的特性の予測に対する信頼度は、行動的・認知的アウトカムの予測に対する信頼度を大きく上回る。' },
+      ko: { title: '표현형 대 행동 결과의 예측 신뢰도.', body: '신체적 특성에 대한 예측 신뢰도는 행동적·인지적 결과에 대한 예측 신뢰도를 상당히 상회한다.' },
+      tr: { title: 'Fenotip vs. davranış öngörüsünde güven.', body: 'Fiziksel özelliklerin öngörüsündeki güven, davranışsal ya da bilişsel sonuçların öngörüsündeki güveni belirgin biçimde aşar.' }
+    } },
+  { title: 'Cultural variability of targets.', body: 'Trait desirability shows significant variation across regions and historical periods. Optimization targets are not culturally stable.',
+    i18n: {
+      zh: { title: '目标的文化变异性。', body: '哪些性状被视为"理想的",在不同地区和不同历史时期之间存在显著差异。优化目标在文化上并不稳定。' },
+      ja: { title: '目標の文化的可変性。', body: '「望ましい」とされる特性は地域や時代によって大きく異なる。最適化の目標は文化的に安定したものではない。' },
+      ko: { title: '목표의 문화적 가변성.', body: '바람직하다고 여겨지는 특성은 지역과 시대에 따라 크게 달라진다. 최적화 목표는 문화적으로 안정적이지 않다.' },
+      tr: { title: 'Hedeflerin kültürel değişkenliği.', body: '"İstenir" sayılan özellikler bölgeler ve tarihsel dönemler arasında ciddi farklılık gösterir. Optimizasyon hedefleri kültürel olarak istikrarlı değildir.' }
+    } },
+  { title: 'Long-horizon outcome data.', body: 'Multi-decade follow-up studies on early-modified cohorts do not yet exist at scale.',
+    i18n: {
+      zh: { title: '长期结果数据。', body: '针对早期接受修改的群组,数十年尺度的随访研究,目前尚未在规模上建立。' },
+      ja: { title: '長期アウトカム・データ。', body: '初期に改変を受けた集団に対する数十年規模の追跡研究は、現時点ではまだ大規模には存在しない。' },
+      ko: { title: '장기 결과 데이터.', body: '초기에 변경된 코호트를 대상으로 한 수십 년 단위의 추적 연구는 아직 충분한 규모로 존재하지 않는다.' },
+      tr: { title: 'Uzun ufuklu sonuç verileri.', body: 'Erken dönemde değiştirilmiş kohortlar üzerine on yılları kapsayan takip çalışmaları henüz büyük ölçekte mevcut değildir.' }
+    } },
+  { title: 'On the regulatory citations.', body: 'Oviedo Convention Article 13 and the UK HFEA 2008 cited throughout this interface are real instruments. The "EU IVD-Germ Lines Directive" is a near-future projection — not enacted law — used here to model how a Europe-wide heritable-editing framework would plausibly read once promulgated. Articles and provisions attributed to it are illustrative, not binding.',
+    i18n: {
+      zh: { title: '关于本界面所引用的法规。', body: '本界面中提到的《奥维耶多公约》第 13 条和英国 HFEA 2008,都是真实存在的法律文书。"欧盟 IVD-Germ Lines 指令"则是一项近未来推演——并非已经生效的法律——在此用来模拟一项覆盖全欧的可遗传编辑监管框架在颁布后可能的写法。归于该指令的条款仅作示例,不具约束力。' },
+      ja: { title: '本インターフェイスにおける規制引用について。', body: '本インターフェイスで言及されるオビエド条約 第13条および英国 HFEA 2008 は実在する法的文書である。一方、「EU IVD-Germ Lines 指令」は近未来の想定であり、施行されている法律ではない。ヨーロッパ全域における遺伝に関わる編集の枠組みが制定されたとすればどう書かれるかを示すための、説明用のシミュレーションに用いられている。これに帰せられる条項は例示であって、拘束力はない。' },
+      ko: { title: '본 인터페이스에서 인용된 규제에 관하여.', body: '본 인터페이스에서 언급되는 오비에도 협약 제13조와 영국 HFEA 2008은 실제 법적 문서이다. 반면 "EU IVD-Germ Lines 지침"은 시행되고 있는 법이 아니라 가까운 미래에 대한 가상의 투영으로, 유럽 전역의 유전 가능한 편집 규제 체계가 만들어졌을 때 어떻게 쓰일 수 있는지를 모형화하기 위해 사용된다. 여기에 부여된 조항들은 설명을 위한 예시이며, 구속력을 갖지 않는다.' },
+      tr: { title: 'Bu arayüzdeki düzenleyici atıflar hakkında.', body: 'Bu arayüzde değinilen Oviedo Sözleşmesi Madde 13 ve Birleşik Krallık HFEA 2008 gerçek hukuki belgelerdir. "AB IVD-Germ Lines Direktifi" ise yürürlüğe girmiş bir yasa değil, yakın geleceğe dair bir projeksiyondur; Avrupa genelinde kalıtsal düzenlemeleri kapsayan bir çerçevenin yürürlüğe girmesi durumunda nasıl okunabileceğini modellemek için kullanılır. Buraya atfedilen maddeler örnek niteliğindedir; bağlayıcı değildir.' }
+    } },
+  { title: 'On the classification shorthand.', body: 'The Tier I–IV labels (Baseline / Moderate optimization / Elevated optimization / Boundary case) and the CMP-N classification codes (CMP-2 cognition, CMP-4 affective) are simulation framework designations — diegetic classification markers internal to this interface, not real regulatory classes. The RA-1 through RA-5 channel codes appearing in Regional Access strings and case-file metadata are similarly diegetic access-routing markers tied to budget tiers, not real regulatory notation. Rule-set prefixes visible in warning text (GE-, EM-, RES-, APP-, ATH-) are simulation-internal identifiers used to index allocation classes, not real regulatory citations.',
+    i18n: {
+      zh: { title: '关于分类速记。', body: '本界面中的"Tier I–IV"标签(Baseline / Moderate optimization / Elevated optimization / Boundary case),以及 CMP-N 分类编码(CMP-2 cognition、CMP-4 affective),均为模拟框架内部使用的设定标签,而非现实存在的监管类别。出现在"区域可及性"字符串与档案元数据中的 RA-1 至 RA-5 通道编码,同样只是与预算等级相关联的虚构访问路径标记,并非真实的监管表述。警告文本中可见的规则集前缀(GE-、EM-、RES-、APP-、ATH-)也是用来索引分配类别的模拟内部标识符,并非真实的监管引用。' },
+      ja: { title: '分類略号について。', body: '本インターフェイス内の「Tier I–IV」表記(Baseline / Moderate optimization / Elevated optimization / Boundary case)と「CMP-N」分類コード(CMP-2 cognition、CMP-4 affective)は、いずれもシミュレーション内部のディエジェティック(物語内的)な分類マーカーであって、現実の規制クラスではない。「Regional Access」関連の文字列やケースファイルのメタデータに現れる RA-1〜RA-5 のチャネルコードも同様で、予算ティアに紐づいた物語内的なアクセス経路マーカーであり、実在の規制表記ではない。警告文中に見える規則セット接頭辞(GE-、EM-、RES-、APP-、ATH-)もまた、割り当てクラスを索引するためのシミュレーション内識別子であり、実際の規制引用ではない。' },
+      ko: { title: '분류 약어에 관하여.', body: '본 인터페이스의 "Tier I–IV" 표지(Baseline / Moderate optimization / Elevated optimization / Boundary case)와 CMP-N 분류 코드(CMP-2 cognition, CMP-4 affective)는 모두 시뮬레이션 내부에서 사용하는 가상의 분류 표지이며, 실제 규제 분류가 아니다. "지역 접근(Regional Access)" 문자열과 케이스 파일 메타데이터에 등장하는 RA-1~RA-5 채널 코드 역시 예산 등급과 연결된 가상의 접근 경로 표지이며, 실제 규제 표기가 아니다. 경고 문구에 보이는 규칙 세트 접두어(GE-, EM-, RES-, APP-, ATH-)도 할당 범주를 색인하기 위한 시뮬레이션 내부 식별자이며 실제 규제 인용이 아니다.' },
+      tr: { title: 'Sınıflandırma kısaltmaları hakkında.', body: 'Bu arayüzdeki "Tier I–IV" etiketleri (Baseline / Moderate optimization / Elevated optimization / Boundary case) ve CMP-N sınıflandırma kodları (CMP-2 cognition, CMP-4 affective), simülasyon çerçevesine ait kurgusal sınıflandırma işaretleridir; gerçek düzenleyici sınıflar değildir. Bölgesel Erişim metinlerinde ve dosya meta verisinde görünen RA-1’den RA-5’e kadarki kanal kodları da bütçe katmanlarına bağlanmış kurgusal erişim yönlendirme işaretleridir; gerçek düzenleyici notasyon değildir. Uyarı metinlerinde görünen kural seti önekleri (GE-, EM-, RES-, APP-, ATH-) ise tahsis sınıflarını dizinlemek için kullanılan simülasyon içi tanımlayıcılardır; gerçek düzenleyici atıflar değildir.' }
+    } },
   {
     title: 'Burden ≠ heritability.',
     body: 'The Inheritance Burden Index measures how widely an allocation\'s effects propagate into descendants — not how heritable a trait is, and not whether the allocation is "less wrong". Every heritable choice removes consent equally. Low-weighted classes (like health) shift with environment; high-weighted classes (identity, affect) lock in across generations.',
