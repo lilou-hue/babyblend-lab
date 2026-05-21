@@ -654,6 +654,13 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Kids-arc panel headings & sublines
+  'Things they might love': { zh: '他们也许会喜爱的东西', ja: 'その子が好きになるかもしれないもの', ko: '그 아이가 좋아할 만한 것들', tr: 'Sevebilecekleri şeyler' },
+  'Specific, particular, and theirs.': { zh: '具体、特别,而且只属于他们。', ja: '具体的で、ささやかで、そしてその子だけのもの。', ko: '구체적이고, 특별하고, 오롯이 그들의 것.', tr: 'Özel, belirli ve sadece onlara ait.' },
+  'Questions you could ask them': { zh: '你可以问他们的问题', ja: 'その子に聞いてみたい問い', ko: '그 아이에게 물어볼 수 있는 질문들', tr: 'Onlara sorabileceğin sorular' },
+  'The kind you might not think to ask a grown-up.': { zh: '那种你不会去问大人的问题。', ja: '大人になら聞かないような問いたち。', ko: '어른에게는 굳이 물어보지 않을 법한 종류의 질문.', tr: 'Bir yetişkine sormayı düşünmeyeceğin türden.' },
+  'What might make them them': { zh: '是什么让他们成为他们', ja: 'その子をその子たらしめるかもしれないこと', ko: '그 아이를 그 아이로 만드는 것들', tr: 'Onları onlar yapan şeyler' },
+  'Trait tradeoffs': { zh: '性格的取舍', ja: '特性のトレードオフ', ko: '특성의 트레이드오프', tr: 'Özellik ödünleşmeleri' },
   // Misc UI status / footnote strings
   'Baseline projection required before optimization packages unlock.': { zh: '需要先生成基线投影,优化套餐才会解锁。', ja: '最適化パッケージは、ベースライン投影を生成してから利用できるようになる。', ko: '최적화 패키지는 기준 투영을 먼저 생성해야 잠금이 풀린다.', tr: 'İyileştirme paketleri açılmadan önce temel projeksiyonun oluşturulması gerekir.' },
   'Copied to clipboard ✓': { zh: '已复制到剪贴板 ✓', ja: 'クリップボードにコピーしました ✓', ko: '클립보드로 복사됨 ✓', tr: 'Panoya kopyalandı ✓' },
@@ -6971,7 +6978,7 @@ function updateBabyPreview() {
     if (state.conflicts && state.conflicts.length) {
       conflictsEl.hidden = false;
       conflictsEl.innerHTML = `
-        <h3>Trait tradeoffs</h3>
+        <h3>${localLabel('Trait tradeoffs')}</h3>
         <div class="conflict-chips">
           ${state.conflicts.map(c => `
             <div class="conflict-chip" title="${c.note}">
@@ -8633,9 +8640,9 @@ function renderKidsLoves() {
   panel.dataset.stage = '1';
   panel.innerHTML = `
     <header class="kids-arc-head">
-      <h2 id="kids-loves-title">Things they might love</h2>
+      <h2 id="kids-loves-title">${localLabel('Things they might love')}</h2>
       <p class="kids-arc-disclaimer" id="kids-loves-desc">${localList(KIDS_ARC_DISCLAIMERS.loves)[0]}</p>
-      <p class="subtle">Specific, particular, and theirs.</p>
+      <p class="subtle">${localLabel('Specific, particular, and theirs.')}</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
   panel.setAttribute('aria-labelledby', 'kids-loves-title');
@@ -8655,9 +8662,9 @@ function renderKidsQuestions() {
   panel.dataset.stage = '2';
   panel.innerHTML = `
     <header class="kids-arc-head">
-      <h2 id="kids-questions-title">Questions you could ask them</h2>
+      <h2 id="kids-questions-title">${localLabel('Questions you could ask them')}</h2>
       <p class="kids-arc-disclaimer" id="kids-questions-desc">${localList(KIDS_ARC_DISCLAIMERS.questions)[0]}</p>
-      <p class="subtle">The kind you might not think to ask a grown-up.</p>
+      <p class="subtle">${localLabel('The kind you might not think to ask a grown-up.')}</p>
     </header>
     <ul class="kids-arc-list kids-arc-questions">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
   panel.setAttribute('aria-labelledby', 'kids-questions-title');
@@ -8677,7 +8684,7 @@ function renderKidsDifferences() {
   panel.dataset.stage = '3';
   panel.innerHTML = `
     <header class="kids-arc-head">
-      <h2 id="kids-differences-title">What might make them <em>them</em></h2>
+      <h2 id="kids-differences-title">${localLabel('What might make them them')}</h2>
       <p class="kids-arc-disclaimer" id="kids-differences-desc">${localList(KIDS_ARC_DISCLAIMERS.differences)[0]}</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>
