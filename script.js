@@ -654,6 +654,11 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Reflection / Adult section headings
+  'Same person, different rooms': { zh: '同一个人,不同的房间', ja: '同じ人、ちがう部屋', ko: '같은 사람, 다른 방들', tr: 'Aynı insan, farklı odalar' },
+  'Four contexts. One person each. The identity sliders did not model any of them.': { zh: '四种情境,各对应同一个人。身份滑块从未模拟过其中任何一种。', ja: '四つの場面、それぞれに同じ一人の人物。アイデンティティのスライダーは、そのどれもモデル化していない。', ko: '네 가지 상황. 각각 같은 한 사람. 정체성 슬라이더는 그 어느 것도 모델링하지 않았다.', tr: 'Dört bağlam. Her birinde aynı kişi. Kimlik kaydırıcıları bunların hiçbirini modellemedi.' },
+  'Institutional consent record': { zh: '机构同意记录', ja: '機関同意記録', ko: '기관 동의 기록', tr: 'Kurumsal onay kaydı' },
+  'Regulatory Context': { zh: '监管背景', ja: '規制コンテクスト', ko: '규제 컨텍스트', tr: 'Düzenleyici Bağlam' },
   // Stat-panel labels
   'Sex':                 { zh: '性别', ja: '性別', ko: '성별', tr: 'Cinsiyet' },
   'Height':              { zh: '身高', ja: '身長', ko: '신장', tr: 'Boy' },
@@ -1736,46 +1741,78 @@ const REFLECTION_EPIGRAPHS = {
  * Inner Cohort says: the one person who does is already many people. Same
  * identity, different rooms, different versions. Deterministic per codename. */
 const INNER_COHORT_CONTEXTS = [
-  { key: 'work',    label: 'At work',                       icon: '⌬', pool: [
-    'Slightly more composed than they really are.',
-    'Carries a notebook they only sometimes use.',
-    'Arrives a few minutes early to most things.',
-    'Closer to one colleague than the others, without naming it.',
-    'Holds a low-key opinion they have never voiced in a meeting.',
-    'Eats lunch the same way for years.',
-    'Says "no problem" more than they intend to.',
-    'Quiet when the room is loud; thoughtful when it isn\'t.'
-  ]},
-  { key: 'family',  label: 'With their family of origin',   icon: '⎈', pool: [
-    'Becomes younger again, gradually, every time they visit.',
-    'Speaks a private sibling language only the family follows.',
-    'Loses an argument they could have won.',
-    'Eats food they would not order in a restaurant.',
-    'Defers in ways their friends would not recognize.',
-    'Smiles at a joke they have heard fifty times.',
-    'Sleeps in a room that has not changed in twenty years.',
-    'Notices their parent has gotten older only in passing.'
-  ]},
-  { key: 'late',    label: 'Alone at 2am',                  icon: '☾', pool: [
-    'Re-reads the same paragraph in a book.',
-    'Replays a 2008 song from a memory they thought they had lost.',
-    'Opens the fridge without intending to eat.',
-    'Composes a text they will not send.',
-    'Decides something quietly that will reshape next year.',
-    'Lets a single thought spiral and then forgives themselves for it.',
-    'Notices the wallpaper.',
-    'Hears a sound and decides it is nothing.'
-  ]},
-  { key: 'beloved', label: 'With someone they love',        icon: '☉', pool: [
-    'Becomes someone slightly luminous.',
-    'Forgives faster than they would for anyone else.',
-    'Confuses their own preferences with the other person\'s.',
-    'Says things they would not write down.',
-    'Laughs at something only the two of them find funny.',
-    'Is more tired and less guarded.',
-    'Carries the other person\'s small habits home with them.',
-    'Hears their own voice get a little softer.'
-  ]}
+  { key: 'work', label: 'At work', icon: '⌬',
+    pool: [
+      'Slightly more composed than they really are.',
+      'Carries a notebook they only sometimes use.',
+      'Arrives a few minutes early to most things.',
+      'Closer to one colleague than the others, without naming it.',
+      'Holds a low-key opinion they have never voiced in a meeting.',
+      'Eats lunch the same way for years.',
+      'Says "no problem" more than they intend to.',
+      "Quiet when the room is loud; thoughtful when it isn't."
+    ],
+    i18n: {
+      zh: { label: '在工作中', pool: ['比真实的自己,稍微镇定一点。', '随身带着一本只偶尔翻一翻的笔记本。', '大多数场合都会提前几分钟到。', '跟某位同事比其他人都更亲近,只是从不挑明。', '心里有一种从未在会议上说出来的、低调的看法。', '多年来午饭吃得方式都一样。', '"没问题"这三个字,说得比自己以为的还要多。', '房间嘈杂时变得安静;房间安静时变得沉思。'] },
+      ja: { label: '仕事中の自分', pool: ['本当の自分より、ほんの少しだけ落ち着いて見える。', '時々しか開かないノートを、それでも持ち歩いている。', '多くの予定に、数分早く到着する。', '同僚の中の誰か一人と、特別に近い——口には出さないけれど。', '会議では一度も口にしたことのない、ひそやかな意見を持っている。', '何年も同じ食べ方で昼食をとっている。', '「だいじょうぶです」を、自分の予定よりずっと多く口にしてしまう。', '場がにぎやかなときには静かになり、静かなときには考えこむ。'] },
+      ko: { label: '일터에서', pool: ['실제 자기보다 살짝 더 차분해 보인다.', '가끔만 펼치는 노트를 늘 가지고 다닌다.', '대부분의 약속에 몇 분 일찍 도착한다.', '동료들 중 누군가 한 명과 더 가깝다 — 입에 올리지 않을 뿐.', '회의에서 한 번도 말한 적 없는, 조용한 의견을 품고 있다.', '몇 년째 똑같은 방식으로 점심을 먹는다.', '본인이 의도한 것보다 더 자주 "괜찮아요"라고 말한다.', '방이 시끄러우면 조용해지고, 조용해지면 생각에 잠긴다.'] },
+      tr: { label: 'İşte', pool: ['Aslında olduğundan biraz daha sakin görünür.', 'Ara sıra kullandığı bir defter taşır.', 'Çoğu randevuya birkaç dakika erken gelir.', 'Bir meslektaşına diğerlerinden daha yakındır, ama bunu söylemez.', 'Toplantıda hiç dile getirmediği, sakin bir görüşü vardır.', 'Yıllardır öğle yemeğini hep aynı şekilde yer.', '"Sorun değil" lafını niyetinden daha sık söyler.', 'Ortam gürültülüyken sessizleşir; sessizken düşünceli olur.'] }
+    }
+  },
+  { key: 'family', label: 'With their family of origin', icon: '⎈',
+    pool: [
+      'Becomes younger again, gradually, every time they visit.',
+      'Speaks a private sibling language only the family follows.',
+      'Loses an argument they could have won.',
+      'Eats food they would not order in a restaurant.',
+      'Defers in ways their friends would not recognize.',
+      'Smiles at a joke they have heard fifty times.',
+      'Sleeps in a room that has not changed in twenty years.',
+      'Notices their parent has gotten older only in passing.'
+    ],
+    i18n: {
+      zh: { label: '与原生家庭在一起时', pool: ['每次回家,都会一点一点地变回更年少的自己。', '用一种只有家人才听得懂的"兄弟姐妹之间的私语"。', '在一场原本可以赢的争论里,选择输掉。', '吃下一些自己在餐厅里绝不会点的菜。', '以朋友们认不出来的方式,主动让步。', '听到一个已经听过五十次的笑话,还是会笑出来。', '睡在一间二十年都没怎么变过的房间里。', '只是路过时,恍惚地察觉父母又老了一些。'] },
+      ja: { label: '生まれた家族といるとき', pool: ['帰省するたびに、少しずつ昔の年齢に戻っていく。', '家族にしか通じない、きょうだいだけの言葉づかいで話す。', '本来なら勝てた口論で、わざと負ける。', '自分なら店では絶対頼まない料理を食べる。', '友人たちが見たらわからないようなかたちで、譲ってしまう。', 'もう五十回は聞いた冗談に、それでも微笑む。', '二十年ほとんど変わっていない部屋で眠る。', '親が年をとっていることに、ふと、すれ違いざまに気づく。'] },
+      ko: { label: '원래 가족과 함께일 때', pool: ['본가에 갈 때마다 조금씩 더 어린 자기로 돌아간다.', '가족만 알아듣는, 형제자매끼리의 사적인 말투를 쓴다.', '충분히 이길 수 있었던 말다툼에서 굳이 진다.', '식당이라면 절대 시키지 않을 음식을 먹는다.', '친구들이 보면 못 알아볼 만큼 양보한다.', '이미 쉰 번은 들은 농담에도 미소를 짓는다.', '이십 년이 지나도 거의 그대로인 방에서 잠을 잔다.', '부모가 나이 들었다는 사실을 스치듯 알아챈다.'] },
+      tr: { label: 'Aslen ait olduğu aileyleyken', pool: ['Her ziyaretinde yavaş yavaş yine küçük bir hâline döner.', 'Yalnızca ailenin anladığı, kardeşlere özgü bir dilde konuşur.', 'Kazanabileceği bir tartışmayı kaybeder.', 'Lokantada asla sipariş etmeyeceği bir yemeği yer.', 'Arkadaşlarının tanıyamayacağı şekillerde geri çekilir.', 'Elli kez duyduğu bir şakaya yine de gülümser.', 'Yirmi yıldır neredeyse hiç değişmeyen bir odada uyur.', 'Anne-babasının yaşlandığını ancak geçerken fark eder.'] }
+    }
+  },
+  { key: 'late', label: 'Alone at 2am', icon: '☾',
+    pool: [
+      'Re-reads the same paragraph in a book.',
+      'Replays a 2008 song from a memory they thought they had lost.',
+      'Opens the fridge without intending to eat.',
+      'Composes a text they will not send.',
+      'Decides something quietly that will reshape next year.',
+      'Lets a single thought spiral and then forgives themselves for it.',
+      'Notices the wallpaper.',
+      'Hears a sound and decides it is nothing.'
+    ],
+    i18n: {
+      zh: { label: '凌晨两点,独自一人', pool: ['同一段话,在书里反复读了好几遍。', '把以为早已遗忘的、一首 2008 年的歌循环播放。', '不打算吃东西,却还是把冰箱打开了。', '写了一条不会发送出去的短信。', '默默作出某个决定,而这个决定会改变接下来的一整年。', '任由一个念头不停地打转,然后又原谅了这样的自己。', '突然注意到了墙纸的样子。', '听到一个声响,自己告诉自己:"应该没什么。"'] },
+      ja: { label: '深夜二時、ひとり', pool: ['同じ一段落を、本のなかで何度も読み返している。', 'もう忘れたと思っていた2008年のある曲を、繰り返し再生する。', '食べるつもりがないのに、冷蔵庫を開けている。', '送らないと決めているメッセージを、文字に起こす。', '来年の自分を作り変えるような決断を、静かに下す。', '一つの考えがぐるぐると渦を巻くのを許し、そんな自分も最後には許す。', 'ふと、壁紙の柄に目がいく。', 'ある音が聞こえて、「きっと何でもない」と自分を納得させる。'] },
+      ko: { label: '새벽 두 시, 혼자', pool: ['책 속의 같은 단락을 몇 번이고 다시 읽는다.', '잊었다고 생각했던 2008년의 노래 한 곡을 반복해서 듣는다.', '먹을 생각도 없으면서 냉장고 문을 연다.', '보낼 생각이 없는 메시지를 한 줄 한 줄 적어 본다.', '다가올 한 해를 바꿔놓을 결정을 조용히 내린다.', '한 가지 생각이 빙빙 돌게 두었다가, 그런 자기 자신도 결국 용서한다.', '문득 벽지가 눈에 들어온다.', '어떤 소리를 듣고, "아무것도 아니야"라고 스스로를 다독인다.'] },
+      tr: { label: 'Gecenin ikisinde, yalnız', pool: ['Bir kitaptaki aynı paragrafı tekrar tekrar okur.', 'Unuttuğunu sandığı bir 2008 şarkısını tekrar tekrar dinler.', 'Bir şey yemeye niyeti yokken buzdolabını açar.', 'Asla göndermeyeceği bir mesajı kelime kelime kurar.', 'Önümüzdeki yılı yeniden şekillendirecek bir karar verir, sessizce.', 'Tek bir düşüncenin etrafında dönmesine izin verir, sonra kendini bu yüzden affeder.', 'Birden duvar kâğıdını fark eder.', 'Bir ses duyar; "Hiçbir şey değil" diye geçer içinden.'] }
+    }
+  },
+  { key: 'beloved', label: 'With someone they love', icon: '☉',
+    pool: [
+      'Becomes someone slightly luminous.',
+      'Forgives faster than they would for anyone else.',
+      "Confuses their own preferences with the other person's.",
+      'Says things they would not write down.',
+      'Laughs at something only the two of them find funny.',
+      'Is more tired and less guarded.',
+      "Carries the other person's small habits home with them.",
+      'Hears their own voice get a little softer.'
+    ],
+    i18n: {
+      zh: { label: '与所爱之人在一起时', pool: ['变成一种微微发光的自己。', '比对任何人都更快地原谅。', '把自己的喜好和对方的喜好混在了一起。', '说出一些自己永远不会写下来的话。', '为了只有他们俩才觉得好笑的事而笑出声。', '比平时更累,也比平时更不设防。', '把对方那些小小的习惯,带回到了自己家里。', '听见自己的声音变得稍微柔软了一些。'] },
+      ja: { label: '大切な人と一緒のとき', pool: ['ほんの少しだけ、光をまとった人になる。', '他の誰に対するより、ずっと早く許してしまう。', '自分の好みと、相手の好みの境界が曖昧になっていく。', '自分では書き残さないような言葉を、口に出してしまう。', '二人にしか面白くないことに、心の底から笑う。', 'いつもより疲れていて、いつもより無防備。', '相手の小さな癖を、いつの間にか家まで連れて帰っている。', '自分の声が、いつもより少しやさしくなっているのに気づく。'] },
+      ko: { label: '사랑하는 사람과 함께일 때', pool: ['어딘가 살짝 빛을 띤 사람이 된다.', '다른 누구보다도 빨리 용서한다.', '자기 취향과 상대의 취향이 점점 헷갈리기 시작한다.', '글로는 결코 적지 않을 말을 입 밖으로 내놓는다.', '두 사람만 재미있어하는 무언가에 진심으로 웃는다.', '평소보다 지쳐 있고, 평소보다 무방비하다.', '상대의 사소한 습관 몇 가지를, 자기도 모르게 집까지 가져온다.', '자기 목소리가 조금 더 부드러워졌음을 알아챈다.'] },
+      tr: { label: 'Sevdiği biriyle birlikteyken', pool: ['Hafifçe ışıldayan bir hâline bürünür.', 'Başka kimseyi affedeceğinden çok daha hızlı affeder.', 'Kendi tercihleriyle karşısındakininkini karıştırır.', 'Asla yazmayacağı şeyleri söyler.', 'Yalnızca ikisinin komik bulduğu bir şeye güler.', 'Her zamankinden daha yorgun ve daha az korunaklıdır.', 'Karşısındakinin küçük alışkanlıklarını yanında, evine kadar taşır.', 'Kendi sesinin biraz yumuşadığını duyar.'] }
+    }
+  }
 ];
 
 /* ---------- Reflection: Lifetime Drift ("Same person, different decades") ----------
@@ -8229,21 +8266,27 @@ function renderInnerCohort() {
     return;
   }
   const rng = seededRand(state.codename + '|inner-cohort');
+  const lang = (state && state.language) ? state.language : 'en';
   const cards = INNER_COHORT_CONTEXTS.map(ctx => {
-    const picks = pickN(ctx.pool, 2, rng);
+    const tr = (ctx.i18n && ctx.i18n[lang]) || {};
+    const label = tr.label || ctx.label;
+    const pool = tr.pool || ctx.pool;
+    const picks = pickN(pool, 2, rng);
     return `
       <article class="inner-context" data-ctx="${ctx.key}">
         <header class="inner-context-head">
           <span class="inner-context-icon" aria-hidden="true">${ctx.icon}</span>
-          <span class="inner-context-label">${ctx.label}</span>
+          <span class="inner-context-label">${label}</span>
         </header>
         <ul class="inner-context-lines">${picks.map(p => `<li>${p}</li>`).join('')}</ul>
       </article>`;
   }).join('');
+  const heading = (typeof localLabel === 'function') ? localLabel('Same person, different rooms') : 'Same person, different rooms';
+  const subline = (typeof localLabel === 'function') ? localLabel('Four contexts. One person each. The identity sliders did not model any of them.') : 'Four contexts. One person each. The identity sliders did not model any of them.';
   panel.innerHTML = `
     <header class="inner-cohort-head">
-      <h2>Same person, different rooms</h2>
-      <p class="subtle">Four contexts. One person each. The identity sliders did not model any of them.</p>
+      <h2>${heading}</h2>
+      <p class="subtle">${subline}</p>
     </header>
     <div class="inner-cohort-grid">${cards}</div>`;
   panel.hidden = false;
