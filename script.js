@@ -7610,11 +7610,15 @@ function updateBabyPreview() {
       <dt>${localLabel('Agreeableness')}</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
       <dt>${localLabel('Neuroticism')}</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>`;
   } else if (projectionGated) {
-    // Placeholder uses dt/dd to stay valid inside the parent <dl>. Empty dt
-    // anchors the row; dd carries the inviting prompt copy.
+    // Placeholder is a single <dt role="status"> spanning the projection row.
+    // Earlier scaffold used an empty <dt> + centered <dd> to mimic a DL row,
+    // but the empty term confused screen readers (announced as a blank term
+    // followed by an orphan definition). role="status" makes the live-region
+    // intent explicit; CSS rule already targets .projection-gated-placeholder
+    // and remains valid against the <dt>. The dl rhythm degrades gracefully:
+    // the single term reads as a standalone heading-shaped row.
     personalityRows = `
-      <dt class="ocean-sep projection-gated-placeholder-anchor"></dt>
-      <dd class="projection-gated-placeholder">${localLabel("Move your first allocation to see this version's projection.")}</dd>`;
+      <dt class="ocean-sep projection-gated-placeholder" role="status">${localLabel("Move your first allocation to see this version's projection.")}</dt>`;
   }
   statsEl.classList.toggle('projection-gated', projectionGated);
   statsEl.innerHTML = physicalRows + personalityRows;
