@@ -3493,34 +3493,94 @@ const CLINICAL_REMINDERS = {
 const TRAIT_CONFLICTS_CLINICAL = [
   { when: b => b.openness >= 8 && b.conscientiousness <= 4,
     tag: 'Initiation-completion gap likely',
-    note: 'High exploratory drive paired with low structural tendency. Project completion rates statistically lower.' },
+    note: 'High exploratory drive paired with low structural tendency. Project completion rates statistically lower.',
+    i18n: {
+      zh: { tag: '可能存在"启动—完成"差距', note: '高探索倾向叠加低结构性。项目完成率统计上偏低。' },
+      ja: { tag: '着手と完了の間にギャップが見込まれる', note: '高い探索傾向と低い構造化傾向の組み合わせ。プロジェクト完了率は統計的に低い。' },
+      ko: { tag: '시작-완료 간 격차 가능성', note: '높은 탐색 욕구와 낮은 구조화 경향이 결합됨. 프로젝트 완료율이 통계적으로 낮음.' },
+      tr: { tag: 'Başlatma-tamamlama farkı olası', note: 'Yüksek keşif eğilimi ile düşük yapı eğilimi birlikte. Proje tamamlanma oranı istatistiksel olarak düşüktür.' }
+    } },
   { when: b => b.conscientiousness >= 8 && b.neuroticism >= 7,
     tag: 'Burnout risk: elevated',
-    note: 'High conscientiousness with elevated neuroticism. Stress accumulation likely without active recovery practices.' },
+    note: 'High conscientiousness with elevated neuroticism. Stress accumulation likely without active recovery practices.',
+    i18n: {
+      zh: { tag: '倦怠风险:升高', note: '高尽责性叠加偏高神经质。如缺乏积极的恢复策略,压力易累积。' },
+      ja: { tag: 'バーンアウトのリスク:上昇', note: '高い誠実性と上昇した神経症傾向の併存。能動的な回復習慣がなければ、ストレス蓄積が見込まれる。' },
+      ko: { tag: '번아웃 위험: 상승', note: '높은 성실성과 높아진 신경성이 결합됨. 능동적 회복이 없으면 스트레스 누적 가능성 높음.' },
+      tr: { tag: 'Tükenme riski: yüksek', note: 'Yüksek sorumluluk duygusu ile artmış nevrotizmin birlikteliği. Aktif iyileşme uygulamaları olmadan stres birikmesi olası.' }
+    } },
   { when: b => b.openness >= 8 && b.extraversion <= 3,
     tag: 'High internal cognition, low social signaling',
-    note: 'Significant private creative output; visibility-dependent careers underperform expectations.' },
+    note: 'Significant private creative output; visibility-dependent careers underperform expectations.',
+    i18n: {
+      zh: { tag: '内在认知活跃,外部社交信号弱', note: '私下创作产出可观;依赖可见度的职业表现常低于预期。' },
+      ja: { tag: '高い内的認知、低い社会的シグナリング', note: '私的な創作産出は大きいが、可視性に依存する職業では期待を下回る。' },
+      ko: { tag: '내적 인지 활발, 외적 사회 신호 약함', note: '사적 창작 산출은 크지만, 가시성 의존 직군에서는 기대 이하로 수행함.' },
+      tr: { tag: 'Yüksek iç biliş, düşük sosyal sinyal', note: 'Önemli ölçüde özel yaratıcı üretim; görünürlüğe bağlı kariyerler beklentinin altında performans gösterir.' }
+    } },
   { when: b => b.agreeableness >= 8 && b.extraversion <= 3,
     tag: 'Low advocacy for self-interest',
-    note: 'Cooperation prioritized over visibility. Career compensation tends to lag peer benchmarks.' },
+    note: 'Cooperation prioritized over visibility. Career compensation tends to lag peer benchmarks.',
+    i18n: {
+      zh: { tag: '自我利益的倡导能力较弱', note: '合作优先于可见度。职业薪酬常落后于同侪基线。' },
+      ja: { tag: '自己利益への主張は弱い', note: '可視性よりも協力を優先する。報酬は同世代の水準を下回る傾向。' },
+      ko: { tag: '자기 이익을 위한 발화가 적음', note: '가시성보다 협력을 우선함. 보수가 또래 기준치에 못 미치는 경향.' },
+      tr: { tag: 'Kendi çıkarına savunuculuk düşük', note: 'Görünürlük yerine işbirliği öncelenir. Ücret, akran kıyaslamalarının gerisinde kalma eğilimindedir.' }
+    } },
   { when: b => b.extraversion >= 8 && b.neuroticism >= 7,
     tag: 'Sociability with elevated reactivity',
-    note: 'High external engagement combined with stress sensitivity. Recovery time post-event statistically higher.' },
+    note: 'High external engagement combined with stress sensitivity. Recovery time post-event statistically higher.',
+    i18n: {
+      zh: { tag: '社交活跃但反应性偏高', note: '高度对外投入与高压力敏感性并存。事件后恢复时间统计上更长。' },
+      ja: { tag: '高い社交性と高い反応性の併存', note: '外部への高い関与と、ストレス感受性。出来事後の回復時間は統計的に長くなる。' },
+      ko: { tag: '사회성과 높은 반응성의 결합', note: '강한 외부 참여와 스트레스 민감성. 이벤트 이후 회복 시간이 통계적으로 더 김.' },
+      tr: { tag: 'Sosyallikle birlikte yüksek tepkisellik', note: 'Güçlü dış katılım ve stres duyarlılığı bir arada. Olay sonrası toparlanma süresi istatistiksel olarak daha uzun.' }
+    } },
   { when: b => b.athletic >= 8 && b.conscientiousness <= 3,
     tag: 'High activation, low structure',
-    note: 'Physical capacity exceeds organizational tendency. Outcomes depend heavily on external scaffolding.' },
+    note: 'Physical capacity exceeds organizational tendency. Outcomes depend heavily on external scaffolding.',
+    i18n: {
+      zh: { tag: '活动度高、结构性弱', note: '体能超出组织能力。结果高度依赖外部支持架构。' },
+      ja: { tag: '高い活性、低い構造化', note: '身体能力が組織化傾向を上回る。成果は外部の足場づくりに大きく依存する。' },
+      ko: { tag: '활성도 높음, 구조화 약함', note: '신체 능력이 조직화 능력을 앞선다. 결과는 외부 지원 구조에 크게 의존함.' },
+      tr: { tag: 'Yüksek hareket, düşük yapı', note: 'Fiziksel kapasite, organizasyon eğilimini aşar. Çıktılar dış destek yapılarına büyük ölçüde bağlıdır.' }
+    } },
   { when: b => b.openness >= 8 && b.agreeableness <= 3,
     tag: 'Disruptive cognition profile',
-    note: 'High novelty-seeking with low affiliative tendency. Conflict frequency above baseline.' },
+    note: 'High novelty-seeking with low affiliative tendency. Conflict frequency above baseline.',
+    i18n: {
+      zh: { tag: '颠覆性的认知特征', note: '高新奇追求叠加低亲和倾向。冲突频次高于基线。' },
+      ja: { tag: '破壊的な認知プロファイル', note: '強い新奇性追求と低い親和傾向。対立頻度はベースラインを上回る。' },
+      ko: { tag: '파괴적 인지 프로필', note: '강한 신기성 추구와 낮은 친화 경향의 결합. 갈등 빈도가 기준선보다 높음.' },
+      tr: { tag: 'Yıkıcı bir biliş profili', note: 'Yüksek yenilik arayışı ile düşük yakınlık eğilimi. Çatışma sıklığı temel düzeyin üzerindedir.' }
+    } },
   { when: b => b.conscientiousness <= 3 && b.neuroticism <= 3,
     tag: 'Low concern, low structure',
-    note: 'Outcomes show high variance. Stable in mood; unpredictable in trajectory.' },
+    note: 'Outcomes show high variance. Stable in mood; unpredictable in trajectory.',
+    i18n: {
+      zh: { tag: '低焦虑、低结构', note: '结果方差大。情绪稳定,轨迹难测。' },
+      ja: { tag: '低い不安、低い構造化', note: 'アウトカムの分散が大きい。気分は安定するが、軌跡は読みづらい。' },
+      ko: { tag: '낮은 우려, 낮은 구조화', note: '결과의 분산이 크다. 기분은 안정적이나 궤적은 예측하기 어려움.' },
+      tr: { tag: 'Düşük kaygı, düşük yapı', note: 'Çıktıların varyansı yüksektir. Duygu durumu istikrarlı, yörünge öngörülemez.' }
+    } },
   { when: b => b.agreeableness >= 8 && b.neuroticism <= 3,
     tag: 'Stable affiliative profile',
-    note: 'Below-baseline interpersonal friction. Caregiving roles correlate.' },
+    note: 'Below-baseline interpersonal friction. Caregiving roles correlate.',
+    i18n: {
+      zh: { tag: '稳定的亲和型剖面', note: '人际摩擦低于基线。与照护性角色相关。' },
+      ja: { tag: '安定した親和プロファイル', note: '対人摩擦はベースラインを下回る。ケア的役割との相関がみられる。' },
+      ko: { tag: '안정적 친화 프로필', note: '대인 마찰이 기준선보다 낮음. 돌봄 역할과 상관관계 있음.' },
+      tr: { tag: 'Kararlı yakınlık profili', note: 'Kişiler arası sürtüşme temel düzeyin altındadır. Bakım rolleriyle ilişkilidir.' }
+    } },
   { when: b => b.extraversion <= 3 && b.openness >= 8 && b.conscientiousness >= 7,
     tag: 'Independent execution profile',
-    note: 'High self-directed output; low public signal. Discovery by external observers tends to be delayed.' }
+    note: 'High self-directed output; low public signal. Discovery by external observers tends to be delayed.',
+    i18n: {
+      zh: { tag: '独立执行型剖面', note: '高度自驱产出;对外信号弱。外部观察者发现的时间通常较晚。' },
+      ja: { tag: '自律的実行プロファイル', note: '高い自己駆動の産出と、弱い公的シグナル。外部観察者による発見は遅れがちである。' },
+      ko: { tag: '자율 실행 프로필', note: '자기 주도적 산출은 높지만 외부 신호는 약함. 외부 관찰자의 발견은 늦어지는 경향.' },
+      tr: { tag: 'Bağımsız yürütme profili', note: 'Kendi kendine yüksek üretim; düşük kamusal sinyal. Dış gözlemcilerin keşfi gecikme eğilimindedir.' }
+    } }
 ];
 
 const REGULATORY_CARDS = [
