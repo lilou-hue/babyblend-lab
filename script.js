@@ -4406,11 +4406,11 @@ const KIDS_EXPLAINERS = {
   faceShape: 'Face shape comes from family. It also changes as kids grow up.',
   freckles:  'Some kids get freckles when they spend time in the sun, especially if family does too.',
   dimples:   'Dimples are a fun little family trait. Some have them, some don\'t.',
-  curiosity:  'Two quiet parents can still have a wildly curious kid. People surprise us! (And sometimes a curious kid gets in trouble for asking too much — same trait, different room.)',
+  curiosity:  'Two quiet parents can still have a wildly curious kid. People surprise us! (Curiosity is a strength — though sometimes curious questions get more questions back than answers. Same trait, different room.)',
   kindness:   'Kindness shows up differently depending on the situation. Some kids are warm in big groups, others one-on-one. (And sometimes wanting others to feel okay costs them their own quiet — same trait, real tradeoff.)',
   energy:     'Some kids are loud at home and shy at school, or the other way around. (And sometimes all that bounce makes it hard to settle down when it\'s time to sleep — same trait, harder hour.)',
-  focus:      'Focus grows with age, sleep, practice, and finding something that feels exciting. (And sometimes a kid stays so deep in one thing they miss what\'s happening around them — same trait, different cost.)',
-  confidence: 'Confidence changes a LOT as people grow up. Bumpy days are normal. (Some days a kid believes in what they can do, other days they don\'t — both are part of the same trait growing in.)'
+  focus:      'Focus grows with age, sleep, practice, and finding something that feels exciting. (Sometimes a kid gets so absorbed in one thing they lose track of time — that\'s focus working, not a cost.)',
+  confidence: 'Confidence changes a LOT as people grow up. Bumpy days are normal. (Sometimes the belief slides into not seeing how it lands for others — same trait, different cost.)'
 };
 
 // Soft framing for the Kids-mode futures block — injected once per generation
