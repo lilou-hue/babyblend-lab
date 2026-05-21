@@ -4463,7 +4463,7 @@ const KIDS_FUTURES_PREAMBLE = {
 // Second sentence notes that researchers use different (OCEAN) terms for
 // these same traits — surfacing the framework without preaching it.
 const KIDS_OCEAN_TOOLTIP = {
-  en: "Personality is shaped more by life experience, friendships, and luck than by genes alone. Genes matter, but they're roughly half the story. Researchers usually call these five traits openness, agreeableness, extraversion, conscientiousness, and emotional stability — the same ideas, with grown-up names.",
+  en: "Personality is shaped more by life experience, friendships, and luck than by genes alone. Genes matter, but they're roughly half the story (that's the population picture — not how much of any one kid). Researchers usually call these five traits openness, agreeableness, extraversion, conscientiousness, and emotional stability — the same ideas, with grown-up names.",
   zh: "性格更多是被生活经历、友谊和运气塑造的,而不仅仅是基因。基因当然重要,但大约只占一半。研究者通常把这五项特质称为开放性、宜人性、外向性、尽责性和情绪稳定性——同样的意思,只是用了成年人的称呼。",
   ja: "性格は遺伝子だけでなく、人生経験や友情、運によって形づくられる。遺伝子も大切だけれど、占めるのはだいたい半分ほど。研究者はこの五つの性質を「開放性」「協調性」「外向性」「誠実性」「情緒安定性」と呼ぶ——同じ概念に、おとな向けの名前をつけているだけだ。",
   ko: "성격은 유전자만이 아니라 삶의 경험과 우정, 그리고 운에 의해 더 많이 빚어진다. 유전자도 중요하지만, 대략 절반 정도다. 연구자들은 이 다섯 가지 특성을 개방성, 친화성, 외향성, 성실성, 정서적 안정성이라 부른다 — 같은 개념을, 어른의 언어로 부르는 것뿐이다.",
