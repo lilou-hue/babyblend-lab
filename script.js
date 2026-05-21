@@ -8917,11 +8917,13 @@ function generate() {
 
   updateBabyPreview();      // refresh display with new flavor (also renders divergence + history)
 
-  // Quietly remind users this is a person, not a profile. R11 rev: fire on
-  // every generation (was every 3rd) and hold ~8s (was 5.5s) so the
-  // humanity framing has weight equivalent to the optimization output it
-  // accompanies — sparser firing let the optimization frame dominate.
-  showHumanityReminder();
+  // Quietly remind users this is a person, not a profile. R12 rev: fire on
+  // every 2nd generation (1, 3, 5…) — compromise between R8's every-3rd and
+  // R11's every-1st. The 10-message EN pool repeats visibly within a typical
+  // session when fired every gen; halving the cadence roughly doubles the
+  // unique-message window while still keeping the humanity frame present.
+  // Hold remains ~8s so each firing carries equal weight to the projection.
+  if ((state.generateCount % 2) === 1) showHumanityReminder();
 
   const results = $('#results');
   const wasHidden = results.hidden;
