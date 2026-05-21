@@ -657,6 +657,12 @@ const LABEL_I18N = {
   // Parent panel collapsibles
   'Temperament dials': { zh: '气质刻度', ja: '気質ダイヤル', ko: '기질 다이얼', tr: 'Mizaç kadranları' },
   'Visible traits':    { zh: '可见特征', ja: '見た目の特性', ko: '눈에 보이는 특성', tr: 'Görünür özellikler' },
+  "Ethically: the child this affects isn't here yet — and they'll live with the choices you make.": {
+    zh: '从伦理上说:这个被影响的孩子还不在这里——而他/她将和你做出的选择一起生活。',
+    ja: '倫理的に言って——この影響を受ける子はまだここにいない。だがその子は、あなたの選んだ結果とともに生きていくことになる。',
+    ko: '윤리적으로 말하면, 영향을 받게 될 그 아이는 아직 여기에 없다 — 그러나 당신이 내리는 선택의 결과 속에서 살아가게 된다.',
+    tr: 'Etik açıdan: bu kararın etkilediği çocuk henüz burada değil — ama senin yaptığın seçimlerle birlikte yaşayacak.'
+  },
   // Ancestry dropdown values
   'Unspecified':    { zh: '未指定',     ja: '指定なし',     ko: '지정 안 함',   tr: 'Belirtilmemiş' },
   'European':       { zh: '欧裔',       ja: 'ヨーロッパ系', ko: '유럽계',       tr: 'Avrupa kökenli' },
@@ -5967,7 +5973,7 @@ function applyBudgetPanelGate() {
         // ethical framing rather than a description-of-fact, so an
         // out-of-context screenshot cannot read the sentence as endorsement
         // of "deciding for someone not in the room."
-        leadin.innerHTML = `<p class="consent-awareness-note">Ethically: the child this affects isn't here yet — and they'll live with the choices you make.</p>`;
+        leadin.innerHTML = `<p class="consent-awareness-note">${localLabel("Ethically: the child this affects isn't here yet — and they'll live with the choices you make.")}</p>`;
       }
       // Re-assert visibility on every eligible tick — defensive against
       // any path that might have left the node hidden.
