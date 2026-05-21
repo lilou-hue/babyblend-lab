@@ -9388,7 +9388,7 @@ const SOCIETAL_RULES = {
       { when: c => c.budget.sociability <= 2 && (c.baby.extraversion || 5) <= 4, line: 'Smaller, deeper peer cohort. Compatibility-dependent.' },
       { when: c => c.budget.emotional   >= 7, line: 'May be perceived as "cool" or "cold" by emotionally expressive peers.' },
       { when: c => c.budget.empathy     >= 7, line: 'Frequent emotional-caregiver role in peer groups.' },
-      { when: c => c.totalAlloc         >= 10 && (c.env.economy || 5) <= 4, line: 'Visibility of enhancement profile may stratify against non-modified peers.' },
+      { when: c => c.totalAlloc         >= 10 && (c.env.economy || 5) <= 4, line: 'Enhancement-visible profile in a low-resource economy: stratification against non-modified peers driven by structural access gaps.' },
       { when: c => (c.env.urbanRural || 5) >= 7, line: 'Smaller, less anonymous peer cohort. Reputation effects persist across years.' },
       { when: c => (c.env.urbanRural || 5) <= 3 && c.budget.appearance >= 5, line: 'Urban density amplifies appearance-based social attention.' },
       { when: c => (c.env.internet || 5) >= 8 && c.budget.appearance >= 5, line: 'Appearance-based feedback amplified by algorithmic distribution.' }
@@ -9399,12 +9399,12 @@ const SOCIETAL_RULES = {
     rules: [
       { when: c => c.budget.athleticism >= 8, line: 'Identity attachment to physical performance probable. Post-career risk elevated.' },
       { when: c => c.budget.cognition   >= 8, line: 'Intellectual-performance identity dependency likely.' },
-      { when: c => c.budget.appearance  >= 7, line: 'Cosmetic-maintenance normalization through adolescence.' },
+      { when: c => c.budget.appearance  >= 7, line: 'Cosmetic-maintenance normalization persists, driven by institutional pressure on female-presenting bodies — not by the trait itself.' },
       { when: c => c.budget.emotional   >= 8, line: 'Reduced emotional reactivity may complicate grief processing and intimacy.' },
       { when: c => c.budget.resilience  >= 8, line: 'High pain-tolerance correlate may delay help-seeking.' },
       { when: c => c.budget.empathy     >= 8 && c.budget.resilience <= 4, line: 'Empathic overload without buffer: identity-fatigue risk.' },
       { when: c => (c.env.family || 5) <= 4, line: 'Lower family-support buffer; identity formation may be more peer-driven.' },
-      { when: c => (c.env.family || 5) <= 3 && c.totalAlloc >= 10, line: 'Allocation/family-support mismatch: enhancement visibility may exceed safety net.' },
+      { when: c => (c.env.family || 5) <= 3 && c.totalAlloc >= 10, line: 'Allocation/family-support mismatch: enhancement visibility exceeds the safety net that structural support would otherwise provide.' },
       { when: c => (c.env.internet || 5) >= 7, line: 'Identity formation increasingly mediated by algorithmic feedback from age 11+.' },
       { when: c => (c.env.multilingual || 5) >= 7, line: 'Code-switching capacity develops early; identity flexibility above baseline.' }
     ]
