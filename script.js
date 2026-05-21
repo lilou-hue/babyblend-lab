@@ -5597,6 +5597,30 @@ const KIDS_ADULT_FUTURES = [
     if (drift.length) {
       console.warn('[BabyBlend] Trace-pool tags not in TRAIT_CONFLICT_RULES (will score neutral):', drift);
     }
+    // R13rev: mirror the trace-loop drift check across future pools so a
+    // typo on a future entry can't silently score as neutral. Two shapes:
+    // flat-array (ADULT_FUTURES*, KIDS_ADULT_FUTURES) and language-keyed
+    // (KIDS_FUTURE_PATHS — singular `.tag` per entry, per lang).
+    const futureDrift = [];
+    const checkEntry = (entry, where) => {
+      if (entry && typeof entry === 'object' && typeof entry.tag === 'string' &&
+          !validConflictTags.has(entry.tag)) futureDrift.push(`${where}:"${entry.tag}"`);
+    };
+    for (const [name, pool] of Object.entries({
+      ADULT_FUTURES, ADULT_FUTURES_CLINICAL, KIDS_ADULT_FUTURES
+    })) {
+      if (Array.isArray(pool)) pool.forEach((e, i) => checkEntry(e, `${name}[${i}]`));
+    }
+    for (const [name, pool] of Object.entries({ KIDS_FUTURE_PATHS })) {
+      if (!pool || typeof pool !== 'object') continue;
+      ['en','zh','ja','ko','tr'].forEach(lang => {
+        const arr = pool[lang];
+        if (Array.isArray(arr)) arr.forEach((e, i) => checkEntry(e, `${name}.${lang}[${i}]`));
+      });
+    }
+    if (futureDrift.length) {
+      console.warn('[BabyBlend] Future-pool tags not in TRAIT_CONFLICT_RULES (will score neutral):', futureDrift);
+    }
   } catch (e) { /* never block boot for an audit */ }
 })();
 
@@ -8825,7 +8849,11 @@ function showHumanityReminder(line) {
   const banner = $('#reminder-banner');
   if (!banner) return;
   const pool = pickPool(HUMANITY_REMINDERS, CLINICAL_REMINDERS, KIDS_HUMANITY_REMINDERS);
-  banner.textContent = line || pool[Math.floor(Math.random() * pool.length)];
+  // R13rev: seed off codename so the same simulation always surfaces the same
+  // reminder line (reproducibility); fall back to Math.random() when no codename
+  // is set yet (pre-generation), since there's nothing stable to seed against.
+  const rng = state.codename ? seededRand(state.codename + '|reminder') : Math.random;
+  banner.textContent = line || pool[Math.floor(rng() * pool.length)];
   banner.hidden = false;
   banner.classList.add('is-visible');
   clearTimeout(showHumanityReminder._t);
