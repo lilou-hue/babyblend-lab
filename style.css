@@ -5396,8 +5396,8 @@ body.app-kids .kids-only { display: revert; }
   .dna-helix { display: none; }
 }
 
-/* Make sure heading sits to the LEFT of the helix on wide screens */
-.budget-panel { position: relative; }
+/* Make sure heading sits to the LEFT of the helix on wide screens.
+   (.panel already sets position: relative — no need to re-declare here.) */
 .budget-panel h2 { padding-right: 90px; }
 
 @media (prefers-reduced-motion: reduce) {
