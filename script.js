@@ -1796,7 +1796,7 @@ const HUMANITY_REMINDERS = {
     'Personality traits show roughly 40-50% heritability; most variation traces to lived experience.',
     'Different traits create unexpected advantages.',
     'Stubbornness saves you under fire; costs you in meetings.',
-    'A weakness in one room might be exactly what the next room needs.',
+    'The traits that get a child sent to the principal\'s office often build the adult their family leans on.',
     'Whoever this child becomes, they get the last word — not us.',
     'A simulator cannot see the friend who will move away at fifteen, the surgery at thirty, the parent who needs care at fifty.'
   ],
@@ -1808,7 +1808,7 @@ const HUMANITY_REMINDERS = {
     '性格特征大约有 40–50% 的遗传性;大部分差异源于亲身经历。',
     '不同的特征带来意想不到的优势。',
     '同样的固执,在战火中救你,在会议室里害你。',
-    '在一个房间里的弱点,也许正是下一个房间需要的东西。',
+    '那些让孩子被叫到校长办公室的特质,日后常常长成被家人依靠的大人。',
     '不管这个孩子将来成为什么样的人,最后说话的应是他们,不是我们。',
     '模拟器看不见那位十五岁时将搬走的朋友、三十岁时的那场手术、五十岁时需要照顾的父母。'
   ],
@@ -1820,7 +1820,7 @@ const HUMANITY_REMINDERS = {
     '性格特性の遺伝率はおよそ40〜50%。変動の大半は実際に生きた経験に由来する。',
     '異なる特性が、思いがけない強みを生む。',
     '頑固さは、銃火の下では命を救い、会議では仕事を壊す。',
-    'ある部屋での弱点こそ、次の部屋でまさに必要とされるものかもしれない。',
+    '子どもが校長室に呼び出される原因になった気質が、やがて家族が頼れる大人をかたちづくることがある。',
     'この子が誰になるにせよ、最後に決めるのは私たちではなく、その子自身である。',
     '模型には見えない——十五歳で去っていく友、三十歳での手術、五十歳に介護を必要とする親。'
   ],
@@ -1832,7 +1832,7 @@ const HUMANITY_REMINDERS = {
     '성격 특성은 약 40~50%의 유전성을 보이며, 대부분의 차이는 실제 경험에서 비롯된다.',
     '서로 다른 특성이 뜻밖의 강점을 만든다.',
     '고집은 총탄 아래에서는 당신을 살리고, 회의에서는 당신을 망친다.',
-    '이 방의 약점이, 다음 방에서는 바로 필요한 것일지도 모른다.',
+    '아이를 교무실로 불려가게 만든 그 기질이, 훗날 가족이 기댈 어른을 만들기도 한다.',
     '이 아이가 어떤 사람이 되든, 마지막 말은 우리가 아닌 그 아이의 몫이다.',
     '시뮬레이터는 보지 못한다 — 열다섯에 떠나갈 친구도, 서른의 수술도, 쉰에 돌봄이 필요해질 부모도.'
   ],
@@ -1844,7 +1844,7 @@ const HUMANITY_REMINDERS = {
     "Kişilik özelliklerinin kalıtsallığı kabaca %40-50'dir; farklılığın çoğu yaşanmış deneyimden gelir.",
     'Farklı özellikler, beklenmedik avantajlar yaratır.',
     'İnatçılık, ateş altında seni kurtarır; toplantıda batırır.',
-    'Bir odadaki zayıflık, bir sonraki odanın tam da ihtiyaç duyduğu şey olabilir.',
+    'Çocuğu müdür odasına yollatan özellikler, çoğu zaman ailenin sırtını dayadığı yetişkini yetiştirir.',
     'Bu çocuk kim olursa olsun, son söz bizde değil onda olmalı.',
     'Bir simülatör göremez — on beşinde gidecek arkadaşı, otuzundaki ameliyatı, ellisinde bakıma muhtaç olacak ebeveyni.'
   ]
@@ -1855,35 +1855,35 @@ const NATURAL_VARIATION_MESSAGES = {
     'Human diversity preserved.',
     'Unpredictability is part of humanity.',
     'Not every trait needs improvement.',
-    'Difference is information, not error.',
+    'The traits a parent worries about at six often become the ones a partner falls in love with at twenty-six.',
     'Nature did not consult a design handbook.'
   ],
   zh: [
     '已保留人类多样性。',
     '不可预测性是人性的一部分。',
     '并非每一项特征都需要"改善"。',
-    '差异是信息,不是错误。',
+    '父母在孩子六岁时担心的那些特质,常常是二十六岁时被爱人深深爱上的地方。',
     '自然从未翻过设计手册。'
   ],
   ja: [
     '人間の多様性を保持しました。',
     '予測不可能性こそ人間性の一部である。',
     'すべての特性に「改善」が必要というわけではない。',
-    '違いは情報であって、誤りではない。',
+    '六歳の親が心配したその気質を、二十六歳のパートナーは愛おしいと思うことがある。',
     '自然は設計マニュアルを参照しなかった。'
   ],
   ko: [
     '인간의 다양성이 보존됨.',
     '예측 불가능함은 인간성의 일부다.',
     '모든 특성에 개선이 필요한 것은 아니다.',
-    '차이는 정보이지 오류가 아니다.',
+    '여섯 살 부모가 걱정했던 그 기질을, 스물여섯 살의 연인은 사랑스럽다고 여기곤 한다.',
     '자연은 설계 지침서를 들춰 보지 않았다.'
   ],
   tr: [
     'İnsan çeşitliliği korundu.',
     'Öngörülemezlik, insanlığın bir parçasıdır.',
     'Her özelliğin iyileştirilmesi gerekmez.',
-    'Fark, hata değil bilgidir.',
+    'Bir ebeveynin altı yaşında endişelendiği özellikler, çoğu zaman yirmi altı yaşında bir partnerin âşık olduğu özellikler hâline gelir.',
     'Doğa, bir tasarım el kitabına bakmadı.'
   ]
 };
@@ -2694,7 +2694,7 @@ const REFLECTION_TRACES = {
     'Has a name for the colour of a particular afternoon sky.',
     'Keeps the last birthday card their grandmother sent.',
     'Becomes friends with the corner-shop owner without quite meaning to.',
-    'Says one thing about themselves at work, the opposite to a stranger on a train.',
+    'Confesses, sometimes, to strangers on planes — things their closest friends don\'t know.',
     "Knows the date their first pet died, but not the date they got a driver's licence.",
     "Hums a song their mother hummed; doesn't know it's her song.",
     "Has a recurring dream about a hallway they've never seen awake.",
@@ -2726,7 +2726,7 @@ const REFLECTION_TRACES = {
     '心里给某一种下午天空的颜色起过名字。',
     '保留着祖母寄来的最后一张生日卡。',
     '不知不觉地,和街角小店老板成了朋友。',
-    '关于自己,在公司里说一种,在火车上对陌生人却说另一种。',
+    '有时会向飞机上的陌生人吐露——一些连最亲近的朋友都不知道的事。',
     '记得第一只宠物离世的日期,却不记得拿到驾照的日期。',
     '会哼妈妈曾经哼过的歌,却不知那是她的歌。',
     '反复梦见一条从未在醒着时见过的走廊。',
@@ -2758,7 +2758,7 @@ const REFLECTION_TRACES = {
     'ある午後の空の色に、自分だけの名前をつけている。',
     '祖母から最後に届いた誕生日カードを取っておく。',
     'いつのまにか、角の店の主人と友達になっている。',
-    '自分について、職場では一つのことを、電車で出会う見知らぬ人には正反対のことを話す。',
+    '飛行機で隣り合った見知らぬ人に、ふと打ち明けてしまう——いちばん親しい友人にも話していないことを。',
     '初めて飼ったペットの死んだ日は覚えているが、免許を取った日は思い出せない。',
     '母が口ずさんでいた歌を、自分でも口ずさむ。それが母の歌だとは気づかずに。',
     '目覚めているときには見たことのない廊下を、繰り返し夢に見る。',
@@ -2790,7 +2790,7 @@ const REFLECTION_TRACES = {
     '어느 오후 하늘의 빛깔에, 자기만의 이름을 붙여 두었다.',
     '할머니가 보낸 마지막 생일 카드를 간직하고 있다.',
     '딱히 그럴 생각도 없이, 동네 가게 주인과 친구가 되어 있다.',
-    '자기 자신에 대해, 직장에서는 어떤 말을 하고 기차에서 만난 낯선 이에게는 그 반대를 말한다.',
+    '가끔 비행기에서 만난 낯선 사람에게 털어놓는다 — 가장 가까운 친구도 모르는 이야기들을.',
     '처음 키운 반려동물이 죽은 날짜는 기억하지만, 운전면허를 딴 날짜는 기억하지 못한다.',
     '어머니가 흥얼거리던 노래를 따라 흥얼거리지만, 그게 어머니의 노래라는 걸 알지 못한다.',
     '깨어 있을 때 한 번도 본 적 없는 어떤 복도를, 자꾸 꿈에 본다.',
@@ -2822,7 +2822,7 @@ const REFLECTION_TRACES = {
     'Belirli bir öğleden sonra gökyüzü rengine kendi adını koymuştur.',
     'Büyükannesinin yolladığı son doğum günü kartını saklamaktadır.',
     'Pek de istemeden, köşedeki dükkân sahibiyle arkadaş olur.',
-    'Kendisi hakkında işte bir şey söyler, trende karşılaştığı bir yabancıya tam tersini.',
+    'Bazen uçakta yanına oturan yabancılara itiraf eder — en yakın arkadaşlarının bilmediği şeyleri.',
     'İlk evcil hayvanının öldüğü tarihi bilir; ama ehliyetini aldığı tarihi hatırlamaz.',
     'Annesinin mırıldandığı bir şarkıyı mırıldanır; bunun annesinin şarkısı olduğunu bilmez.',
     'Uyanıkken hiç görmediği bir koridorla ilgili tekrarlayan bir rüya görür.',
@@ -4958,12 +4958,12 @@ const KIDS_ADULT_FUTURES = [
       ko: { headline: '행복한 그림을 그리는 작가가 될지도 몰라요.', details: ['거의 매일 무언가를 그린다.', '친구네 집 벽에는 늘 그/그녀의 작품이 걸려 있다.', '차 소비량: 포근함 그 자체.'] },
       tr: { headline: 'Belki insanı mutlu eden işler üreten bir sanatçı olur.', details: ['Neredeyse her gün bir şeyler boyar.', 'Arkadaşlarının duvarlarında hep onun bir resmi vardır.', 'Çay tüketimi: sıcacık.'] }
     } },
-  { headline: 'Maybe a scientist asking giant questions.', details: ['Reads about space before bed.', 'Has a notebook full of \"why?\" questions.', 'Owns three kinds of magnifying glass.'], tags: ['education'],
+  { headline: 'Maybe a scientist asking giant questions.', details: ['Reads about space before bed.', 'Has a notebook full of \"why?\" questions.', 'Notices the small differences everyone else walks past.'], tags: ['education'],
     i18n: {
-      zh: { headline: '也许会成为追问大问题的科学家。', details: ['睡前会读关于宇宙的书。', '本子里写满了一个又一个"为什么"。', '家里有三种不同的放大镜。'] },
-      ja: { headline: 'もしかしたら、大きな問いを追いかける科学者に。', details: ['寝る前に宇宙の本を読む。', '「どうして?」がぎっしり書きこまれたノートを持っている。', '虫めがねを三種類持っている。'] },
-      ko: { headline: '커다란 질문을 던지는 과학자가 될지도 몰라요.', details: ['자기 전에 우주에 대한 책을 읽는다.', '"왜?"로 가득 찬 공책 한 권이 있다.', '돋보기를 세 종류나 가지고 있다.'] },
-      tr: { headline: 'Belki kocaman sorular soran bir bilim insanı olur.', details: ['Uyumadan önce uzayla ilgili kitap okur.', '"Neden?" sorularıyla dolu bir defteri vardır.', 'Üç farklı türde büyüteç sahibidir.'] }
+      zh: { headline: '也许会成为追问大问题的科学家。', details: ['睡前会读关于宇宙的书。', '本子里写满了一个又一个"为什么"。', '总能注意到别人匆匆走过、不曾留意的那些小差别。'] },
+      ja: { headline: 'もしかしたら、大きな問いを追いかける科学者に。', details: ['寝る前に宇宙の本を読む。', '「どうして?」がぎっしり書きこまれたノートを持っている。', 'みんなが気づかずに通り過ぎる、小さなちがいに目をとめる。'] },
+      ko: { headline: '커다란 질문을 던지는 과학자가 될지도 몰라요.', details: ['자기 전에 우주에 대한 책을 읽는다.', '"왜?"로 가득 찬 공책 한 권이 있다.', '다들 그냥 지나치는 작은 차이들을 놓치지 않고 알아챈다.'] },
+      tr: { headline: 'Belki kocaman sorular soran bir bilim insanı olur.', details: ['Uyumadan önce uzayla ilgili kitap okur.', '"Neden?" sorularıyla dolu bir defteri vardır.', 'Herkesin yanından geçip gittiği küçük farkları o fark eder.'] }
     } },
   { headline: 'Maybe a gardener with the greenest yard around.', details: ['Knows every plant in the neighborhood.', 'Trades tomato seeds with friends.', 'Hums while watering.'], tags: ['urbanRural','family'],
     i18n: {
@@ -5021,12 +5021,12 @@ const KIDS_ADULT_FUTURES = [
       ko: { headline: '어린 후배도 가르치는 운동선수가 될지도 몰라요.', details: ['새벽 훈련에도 웃으며 일어난다.', '경기 날 팀을 위해 오렌지를 사 온다.', '벤치 옆에서 가장 큰 목소리로 응원한다.'] },
       tr: { headline: 'Belki aynı zamanda küçük çocuklara koçluk yapan bir sporcu olur.', details: ['Antrenmana erken kalkar, yine de gülümser.', 'Takım için portakal dilimleri alır.', 'Kenardan en yüksek sesle tezahürat yapar.'] }
     } },
-  { headline: 'Maybe a musician who makes everyone want to dance.', details: ['Plays at neighborhood parties.', 'Writes one song a month.', 'Has at least two instruments hanging on a wall.'], tags: ['social'],
+  { headline: 'Maybe a musician who makes everyone want to dance.', details: ['Plays at neighborhood parties.', 'Writes one song a month.', 'Borrows instruments from anyone who\'ll lend; plays whatever lands in their hands.'], tags: ['social'],
     i18n: {
-      zh: { headline: '也许会成为让大家忍不住跳舞的音乐人。', details: ['在社区聚会上演奏。', '每月写一首新歌。', '墙上至少挂着两件乐器。'] },
-      ja: { headline: 'もしかしたら、聴いた人を踊りたくさせる音楽家に。', details: ['ご近所のパーティーで演奏する。', '一か月にひとつ、新しい曲をつくる。', '壁には最低二つの楽器が掛かっている。'] },
-      ko: { headline: '모두를 춤추게 만드는 음악가가 될지도 몰라요.', details: ['동네 파티에서 연주한다.', '한 달에 한 곡씩 새 노래를 쓴다.', '벽에는 적어도 두 가지 악기가 걸려 있다.'] },
-      tr: { headline: 'Belki herkesi dans ettiren bir müzisyen olur.', details: ['Mahalle partilerinde çalar.', 'Ayda bir şarkı yazar.', 'Duvarında en az iki enstrüman asılıdır.'] }
+      zh: { headline: '也许会成为让大家忍不住跳舞的音乐人。', details: ['在社区聚会上演奏。', '每月写一首新歌。', '愿意借出来的乐器,都借来弹一弹;到手什么就玩什么。'] },
+      ja: { headline: 'もしかしたら、聴いた人を踊りたくさせる音楽家に。', details: ['ご近所のパーティーで演奏する。', '一か月にひとつ、新しい曲をつくる。', '貸してくれる人がいれば、どの楽器でも借りる。手元に来たものを、その場で奏でる。'] },
+      ko: { headline: '모두를 춤추게 만드는 음악가가 될지도 몰라요.', details: ['동네 파티에서 연주한다.', '한 달에 한 곡씩 새 노래를 쓴다.', '빌려주는 사람만 있으면 어떤 악기든 빌린다. 손에 들어온 것을, 그 자리에서 연주한다.'] },
+      tr: { headline: 'Belki herkesi dans ettiren bir müzisyen olur.', details: ['Mahalle partilerinde çalar.', 'Ayda bir şarkı yazar.', 'Veren olursa her enstrümanı ödünç alır; eline ne geçerse onu çalar.'] }
     } },
   { headline: 'Maybe an explorer of wild places.', details: ['Goes camping in every season.', 'Photographs every interesting bird.', 'Writes postcards from each trip.'], tags: ['urbanRural','education'],
     i18n: {
@@ -5070,12 +5070,12 @@ const KIDS_ADULT_FUTURES = [
       ko: { headline: '단 한 가지 쿠키로 유명한 베이커가 될지도 몰라요.', details: ['그 레시피는 일종의 비밀이다.', '남은 쿠키는 동네 학교에 기부한다.', '앞치마가 자기보다 나이가 많다.'] },
       tr: { headline: 'Belki belirli bir kurabiyesiyle ünlü bir fırıncı olur.', details: ['Tarif biraz da sır gibidir.', 'Artanları yerel okula bağışlar.', 'Önlüğü kendisinden daha yaşlıdır.'] }
     } },
-  { headline: 'Maybe an astronomer who throws stargazing nights.', details: ['Owns the friendliest telescope in town.', 'Knows the names of dozens of stars.', 'Brings hot cocoa to every event.'], tags: ['education','urbanRural'],
+  { headline: 'Maybe an astronomer who throws stargazing nights.', details: ['Knows the night sky so well they teach others.', 'Knows the names of dozens of stars.', 'Brings hot cocoa to every event.'], tags: ['education','urbanRural'],
     i18n: {
-      zh: { headline: '也许会成为举办观星之夜的天文学家。', details: ['镇上最"亲切"的那台望远镜归她/他所有。', '能叫出几十颗星星的名字。', '每次活动都带上热可可。'] },
-      ja: { headline: 'もしかしたら、星見の夜を主催する天文学者に。', details: ['町でいちばんやさしい望遠鏡を持っている。', '何十もの星の名前を覚えている。', 'イベントには必ずホットココアを持っていく。'] },
-      ko: { headline: '별 보는 밤을 여는 천문학자가 될지도 몰라요.', details: ['동네에서 가장 다정한 망원경의 주인이다.', '별 수십 개의 이름을 알고 있다.', '행사 때마다 핫코코아를 준비해 온다.'] },
-      tr: { headline: 'Belki yıldız gözlem geceleri düzenleyen bir astronom olur.', details: ['Kasabanın en cana yakın teleskobu ondadır.', 'Onlarca yıldızın adını bilir.', 'Her etkinliğe sıcak kakao getirir.'] }
+      zh: { headline: '也许会成为举办观星之夜的天文学家。', details: ['对夜空熟到能给别人讲星星。', '能叫出几十颗星星的名字。', '每次活动都带上热可可。'] },
+      ja: { headline: 'もしかしたら、星見の夜を主催する天文学者に。', details: ['夜空をよく知っていて、人に教えられるほどになっている。', '何十もの星の名前を覚えている。', 'イベントには必ずホットココアを持っていく。'] },
+      ko: { headline: '별 보는 밤을 여는 천문학자가 될지도 몰라요.', details: ['밤하늘을 너무 잘 알아서, 다른 사람들에게 알려줄 정도다.', '별 수십 개의 이름을 알고 있다.', '행사 때마다 핫코코아를 준비해 온다.'] },
+      tr: { headline: 'Belki yıldız gözlem geceleri düzenleyen bir astronom olur.', details: ['Gece gökyüzünü o kadar iyi tanır ki başkalarına öğretebilir.', 'Onlarca yıldızın adını bilir.', 'Her etkinliğe sıcak kakao getirir.'] }
     } },
   { headline: 'Maybe an architect designing tree-friendly schools.', details: ['Sketches buildings on napkins.', 'Loves natural light.', 'Has a treehouse phase that lasts decades.'], tags: ['education','urbanRural'],
     i18n: {
