@@ -4728,23 +4728,23 @@ const REGULATORY_CARDS = [
     } },
   {
     title: 'Lock-in ≠ heritability.',
-    body: 'The Identity Lock-In Index measures how widely an allocation\'s effects propagate into descendants — not how heritable a trait is, and not whether the allocation is "less wrong". Every heritable choice removes consent equally. Low-weighted classes (like health) shift with environment; high-weighted classes (identity, affect) lock in across generations.',
+    body: 'The Identity Lock-In Index measures how widely an allocation\'s effects propagate into descendants — not how heritable a trait is, and not whether the allocation is "less wrong". The Index measures how widely a heritable allocation\'s effects propagate across descendants — not how rigidly any individual trait is fixed. Every heritable choice removes consent equally. Low-weighted classes (like health) shift with environment; high-weighted classes (identity, affect) lock in across generations.',
     i18n: {
       zh: {
         title: '锁定 ≠ 遗传率。',
-        body: '身份锁定指数衡量的是一个分配在后代中影响传播的广度——而不是某个性状的遗传率有多高，也不是该分配是否"罪轻一些"。任何可遗传的选择都同等地剥夺了同意权。低权重的类别（如健康）会随环境而变化；高权重的类别（身份、情感）则会在世代间锁定。'
+        body: '身份锁定指数衡量的是一个分配在后代中影响传播的广度——而不是某个性状的遗传率有多高，也不是该分配是否"罪轻一些"。该指数衡量的是一个可遗传的分配，其效应在后代中传播的广度——而不是任何单一性状被固定得有多么牢不可破。任何可遗传的选择都同等地剥夺了同意权。低权重的类别（如健康）会随环境而变化；高权重的类别（身份、情感）则会在世代间锁定。'
       },
       ja: {
         title: 'ロックイン ≠ 遺伝率。',
-        body: 'アイデンティティ・ロックイン指数が測るのは、ある選択の影響が子孫にどれだけ広く波及するかであって、形質の遺伝率の高さでも、その選択が「まだましかどうか」でもありません。遺伝に関わる選択は、どれも等しく同意を奪います。低重み付けの領域（健康など）は環境とともに揺らぎますが、高重み付けの領域（アイデンティティ、情動）は世代を越えて固定されます。'
+        body: 'アイデンティティ・ロックイン指数が測るのは、ある選択の影響が子孫にどれだけ広く波及するかであって、形質の遺伝率の高さでも、その選択が「まだましかどうか」でもありません。この指数が測るのは、遺伝に関わる選択の影響が子孫にどれだけ広く波及するかであって、個々の形質がどれほど強固に固定されるかではありません。遺伝に関わる選択は、どれも等しく同意を奪います。低重み付けの領域（健康など）は環境とともに揺らぎますが、高重み付けの領域（アイデンティティ、情動）は世代を越えて固定されます。'
       },
       ko: {
         title: '고착 ≠ 유전율.',
-        body: '정체성 고착 지수가 측정하는 것은 어떤 선택의 영향이 후손에게 얼마나 널리 전파되는가이지, 형질의 유전율이 얼마나 높은지도, 그 선택이 "덜 잘못된" 것인지도 아닙니다. 유전 가능한 선택은 모두 동등하게 동의를 박탈합니다. 가중치가 낮은 영역(건강 등)은 환경에 따라 달라지지만, 가중치가 높은 영역(정체성, 정동)은 세대에 걸쳐 고착됩니다.'
+        body: '정체성 고착 지수가 측정하는 것은 어떤 선택의 영향이 후손에게 얼마나 널리 전파되는가이지, 형질의 유전율이 얼마나 높은지도, 그 선택이 "덜 잘못된" 것인지도 아닙니다. 이 지수는 유전 가능한 선택의 효과가 후손 전체에 얼마나 널리 전파되는지를 측정하는 것이지, 개별 형질이 얼마나 견고하게 고정되는지를 측정하는 것이 아닙니다. 유전 가능한 선택은 모두 동등하게 동의를 박탈합니다. 가중치가 낮은 영역(건강 등)은 환경에 따라 달라지지만, 가중치가 높은 영역(정체성, 정동)은 세대에 걸쳐 고착됩니다.'
       },
       tr: {
         title: 'Sabitlenme ≠ kalıtsallık.',
-        body: 'Kimlik Sabitlenme Endeksi, bir seçimin etkilerinin torunlara ne kadar geniş biçimde yayıldığını ölçer — bir özelliğin ne kadar kalıtsal olduğunu ya da seçimin "daha az yanlış" olup olmadığını değil. Kalıtsal olan her seçim rızayı eşit ölçüde elinden alır. Düşük ağırlıklı sınıflar (sağlık gibi) çevreyle birlikte değişir; yüksek ağırlıklı sınıflar (kimlik, duygulanım) kuşaklar boyunca yerleşir.'
+        body: 'Kimlik Sabitlenme Endeksi, bir seçimin etkilerinin torunlara ne kadar geniş biçimde yayıldığını ölçer — bir özelliğin ne kadar kalıtsal olduğunu ya da seçimin "daha az yanlış" olup olmadığını değil. Endeks, kalıtsal bir tahsisin etkilerinin torunlar arasında ne kadar geniş yayıldığını ölçer — herhangi bir özelliğin ne kadar katı biçimde sabitlendiğini değil. Kalıtsal olan her seçim rızayı eşit ölçüde elinden alır. Düşük ağırlıklı sınıflar (sağlık gibi) çevreyle birlikte değişir; yüksek ağırlıklı sınıflar (kimlik, duygulanım) kuşaklar boyunca yerleşir.'
       }
     }
   }
@@ -10635,9 +10635,10 @@ function updateBudgetProjections(usedOverride) {
     tierEl.textContent = tier;
   }
 
-  // Inheritance burden: weighted sum of spend across all heritable
-  // priorities. Each priority's credits are scaled by how much it locks
-  // identity / phenotype / affect into descendants (see weights above).
+  // Identity Lock-In pressure calculation: weighted sum of spend across
+  // all heritable priorities. Each priority's credits are scaled by how
+  // much it locks identity / phenotype / affect into descendants (see
+  // weights above).
   const burdenCost = Object.entries(state.budget || {}).reduce((s, [k, v]) => {
     const pr = PRIORITIES.find(p => p.key === k);
     const w  = INHERITANCE_BURDEN_WEIGHTS[k] ?? 0.5;
@@ -10665,7 +10666,7 @@ function updateBudgetProjections(usedOverride) {
     pressureNote.textContent = note;
   }
 
-  // R3 revision: at higher burden tiers, append a single line of
+  // R3 revision: at higher lock-in tiers, append a single line of
   // institutional voice that names the limit of compliance remedy —
   // procedural language (post-market review, registry enrolment,
   // disclosure schedules) manages risk to the institution; it does not
@@ -10679,7 +10680,7 @@ function updateBudgetProjections(usedOverride) {
     if (pressure > 0.45) {
       if (!gapNote) { gapNote = document.createElement('p'); gapNote.className = 'consent-gap-note'; projHost.appendChild(gapNote); }
       gapNote.textContent = pressure > 0.75
-        ? 'Footnote: at this burden tier, compliance language (post-market review, registry enrolment, disclosure schedules) manages institutional risk; it does not restore the future subject’s consent. No instrument in this stack can.'
+        ? 'Footnote: at this lock-in tier, compliance language (post-market review, registry enrolment, disclosure schedules) manages institutional risk; it does not restore the future subject’s consent. No instrument in this stack can.'
         : 'Footnote: compliance language manages institutional risk; it does not restore the future subject’s consent.';
     } else if (gapNote) { gapNote.remove(); }
     let accessFoot = projHost.querySelector('.access-compound-foot');
