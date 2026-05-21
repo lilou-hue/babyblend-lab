@@ -5303,3 +5303,88 @@ body.app-kids .kids-only { display: revert; }
     transform: none;
   }
 }
+
+/* ====================================================================
+ * CSS-3D DNA helix — reactive atmospheric element
+ *
+ * Lives in the top-right of the Enhancement Allocation panel. Pure
+ * CSS, no JS dependency. Rotation speed and base-pair glow react to
+ * --opt-intensity (set by updateBudgetBar from credits used), so the
+ * helix literally spins faster as the user enhances more — the model
+ * itself accelerates as you accept more modifications.
+ * ==================================================================== */
+.dna-helix {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 64px;
+  height: 230px;
+  perspective: 900px;
+  pointer-events: none;
+  z-index: 1;
+}
+.dna-helix-rotator {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  /* 18s at 0 intensity, ~9s at full budget — accelerates with allocation */
+  animation: dnaHelixRotate calc(18s - var(--opt-intensity, 0) * 9s) linear infinite;
+}
+.dna-rung {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--i) * 11px + 12px);
+  width: 50px;
+  height: 1.5px;
+  margin-left: -25px;
+  background: linear-gradient(90deg,
+    var(--accent) 0%,
+    rgba(126, 224, 255, 0.0) 18%,
+    rgba(255, 155, 210, 0.0) 82%,
+    var(--accent-3) 100%);
+  /* Each rung rotates a little more around Y, creating the helical twist.
+     20 rungs × 24° = 480° → 1.33 full turns down the strand. */
+  transform: rotateY(calc(var(--i) * 24deg));
+  transform-style: preserve-3d;
+  border-radius: 1px;
+  opacity: calc(0.55 + var(--opt-intensity, 0) * 0.35);
+}
+.dna-rung::before,
+.dna-rung::after {
+  content: "";
+  position: absolute;
+  top: -2.5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 calc(6px + var(--opt-intensity, 0) * 10px) currentColor;
+  transition: box-shadow 0.4s ease;
+}
+.dna-rung::before {
+  left: -3px;
+  background: var(--accent);
+  color: var(--accent);
+}
+.dna-rung::after {
+  right: -3px;
+  background: var(--accent-3);
+  color: var(--accent-3);
+}
+
+@keyframes dnaHelixRotate {
+  to { transform: rotateY(360deg); }
+}
+
+/* Hide on small screens — fewer atmospheric elements competing on iPad */
+@media (max-width: 720px) {
+  .dna-helix { display: none; }
+}
+
+/* Make sure heading sits to the LEFT of the helix on wide screens */
+.budget-panel { position: relative; }
+.budget-panel h2 { padding-right: 90px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dna-helix-rotator { animation: none; }
+}
