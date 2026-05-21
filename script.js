@@ -4318,11 +4318,11 @@ const KIDS_AGE_TICKERS = {
  * adult future, instead of stitching one milestone from each linear bucket.
  *
  * Schema (lands inert in R16; selection still bucket-driven):
- *   each milestone entry MAY optionally carry a
- *     `life_shape: 'stability' | 'interruption' | 'bloom' | 'precarity'`
- *   tag. Untagged entries fall into the default pool. Narrative will
- *   populate tags across R17+; Systems will wire shape-aware selection
- *   in R18 once enough entries carry tags to make the pool non-degenerate.
+ *   each entry is either a flat string (untagged) or an object
+ *     { text: string, life_shape?: <key of LIFE_SHAPES> }.
+ *   Consumers must unwrap `.text` (pickAgeTicker does); the boot audit
+ *   warns on malformed entries or unknown shape values. R18 wires
+ *   shape-aware selection once enough entries carry tags.
  *
  * LOOP_REQUEST(narrative): populate life_shape tags on
  * ADULT_TRAJECTORY_MILESTONES entries — see LIFE_SHAPES constant below.
@@ -6315,13 +6315,17 @@ const KIDS_ADULT_FUTURES = [
     // typeof check makes this inert until objects appear.
     const validShapes = new Set(Object.keys(LIFE_SHAPES));
     const shapeDrift = [];
+    const malformed = [];
     Object.entries(ADULT_TRAJECTORY_MILESTONES).forEach(([bucket, byLang]) => {
       if (!byLang || typeof byLang !== 'object') return;
       Object.entries(byLang).forEach(([lang, arr]) => {
         if (!Array.isArray(arr)) return;
         arr.forEach((entry, idx) => {
-          if (entry && typeof entry === 'object' && 'life_shape' in entry &&
-              !validShapes.has(entry.life_shape)) {
+          if (!entry || typeof entry !== 'object') return;
+          if (typeof entry.text !== 'string') {
+            malformed.push(`${bucket}.${lang}[${idx}]:missing-text`);
+          }
+          if ('life_shape' in entry && !validShapes.has(entry.life_shape)) {
             shapeDrift.push(`${bucket}.${lang}[${idx}]:"${entry.life_shape}"`);
           }
         });
@@ -6329,6 +6333,9 @@ const KIDS_ADULT_FUTURES = [
     });
     if (shapeDrift.length) {
       console.warn('[BabyBlend] Milestone life_shape tags not in LIFE_SHAPES:', shapeDrift);
+    }
+    if (malformed.length) {
+      console.warn('[BabyBlend] Milestone entries not {text,life_shape?} or string:', malformed);
     }
   } catch (e) { /* never block boot for an audit */ }
 })();
@@ -8655,7 +8662,14 @@ function pickAgeTicker(age) {
     pool = localList(src);
   }
   if (!pool.length) return '';
-  return pool[Math.floor(rng() * pool.length)];
+  const picked = pool[Math.floor(rng() * pool.length)];
+  // R17 forward-compat: ADULT_TRAJECTORY_MILESTONES entries may become
+  // `{ text, life_shape }` objects once Narrative populates tags. Unwrap
+  // .text so a mid-flight schema change can't render "[object Object]".
+  if (picked && typeof picked === 'object' && typeof picked.text === 'string') {
+    return picked.text;
+  }
+  return (typeof picked === 'string') ? picked : '';
 }
 
 function renderAgingScrubber() {
