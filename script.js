@@ -4690,32 +4690,188 @@ const KIDS_TRAIT_CONFLICTS = [
 ];
 
 const KIDS_ADULT_FUTURES = [
-  { headline: 'Maybe a teacher who really listens.',          details: ['Knows every student\'s name on day one.', 'Keeps a treasure box of student art.', 'Always has chalk dust on at least one sleeve.'], tags: ['family','education'] },
-  { headline: 'Maybe a veterinarian for tiny animals.',        details: ['Has rescued at least two birds.', 'Talks to dogs in a special soothing voice.', 'Owns one very dramatic cat.'], tags: ['family','healthcare'] },
-  { headline: 'Maybe a builder of cool things.',               details: ['Carries a small notebook for ideas everywhere.', 'Has rebuilt their own bookshelf three times.', 'Loves the smell of fresh wood.'], tags: ['education'] },
-  { headline: 'Maybe an artist who makes happy work.',          details: ['Paints something almost every day.', 'Friends always have art on their walls.', 'Tea consumption: cozy.'], tags: ['social','urbanRural'] },
-  { headline: 'Maybe a scientist asking giant questions.',      details: ['Reads about space before bed.', 'Has a notebook full of \"why?\" questions.', 'Owns three kinds of magnifying glass.'], tags: ['education'] },
-  { headline: 'Maybe a gardener with the greenest yard around.', details: ['Knows every plant in the neighborhood.', 'Trades tomato seeds with friends.', 'Hums while watering.'], tags: ['urbanRural','family'] },
-  { headline: 'Maybe a chef who feeds the whole street.',       details: ['Sundays smell like fresh bread.', 'Has a notebook full of family recipes.', 'Friends drop by hoping for leftovers.'], tags: ['family'] },
-  { headline: 'Maybe a doctor who is great with kids.',         details: ['Has a sticker for every check-up.', 'Tells gentle jokes during scary moments.', 'Office is decorated with crayon drawings.'], tags: ['healthcare','family'] },
-  { headline: 'Maybe an inventor of small clever gadgets.',     details: ['Has built three useful tools that don\'t exist anywhere else.', 'Salvages broken things and gives them another life.', 'Friends bring them tricky problems.'], tags: ['education','economy'] },
-  { headline: 'Maybe a librarian who knows every story.',       details: ['Reads to little kids every Saturday.', 'Has a list of \"underrated\" books.', 'Knows which shelves the kids hide behind on rainy days.'], tags: ['education','urbanRural'] },
-  { headline: 'Maybe an animal trainer at a sanctuary.',        details: ['Speaks softly to bigger animals.', 'Knows every dog at the local park by name.', 'Has at least one rescue story to tell.'], tags: ['family','urbanRural'] },
-  { headline: 'Maybe a writer of charming little books.',       details: ['Writes by hand in tiny journals.', 'Posts gentle stories online.', 'Friends quote their books on birthdays.'], tags: ['education','social'] },
-  { headline: 'Maybe an athlete who also coaches younger kids.', details: ['Wakes up early for practice, smiles anyway.', 'Buys orange slices for the team.', 'Cheers loudest from the sidelines.'], tags: ['urbanRural','family'] },
-  { headline: 'Maybe a musician who makes everyone want to dance.', details: ['Plays at neighborhood parties.', 'Writes one song a month.', 'Has at least two instruments hanging on a wall.'], tags: ['social'] },
-  { headline: 'Maybe an explorer of wild places.',              details: ['Goes camping in every season.', 'Photographs every interesting bird.', 'Writes postcards from each trip.'], tags: ['urbanRural','education'] },
-  { headline: 'Maybe a designer of fun new games.',             details: ['Has invented a card game with 12 rules.', 'Playtests on a circle of patient friends.', 'Always carries a deck of cards.'], tags: ['education','social'] },
-  { headline: 'Maybe a translator helping people understand each other.', details: ['Speaks two languages by college.', 'Has pen pals on three continents.', 'Owns a shelf of dictionaries.'], tags: ['multilingual','education'] },
-  { headline: 'Maybe a maker of beautiful clothes.',            details: ['Sews most of what they wear.', 'Sells small batches at local markets.', 'Has saved every fabric scrap since age 10.'], tags: ['social','urbanRural'] },
-  { headline: 'Maybe a counselor who helps people feel okay.',  details: ['Listens really well.', 'Keeps fresh flowers in the office.', 'Knows when to say something — and when to wait.'], tags: ['healthcare','family'] },
-  { headline: 'Maybe a baker famous for one specific cookie.',  details: ['The recipe is a kind of secret.', 'Donates extras to the local school.', 'Apron is older than them.'], tags: ['family','urbanRural'] },
-  { headline: 'Maybe an astronomer who throws stargazing nights.', details: ['Owns the friendliest telescope in town.', 'Knows the names of dozens of stars.', 'Brings hot cocoa to every event.'], tags: ['education','urbanRural'] },
-  { headline: 'Maybe an architect designing tree-friendly schools.', details: ['Sketches buildings on napkins.', 'Loves natural light.', 'Has a treehouse phase that lasts decades.'], tags: ['education','urbanRural'] },
-  { headline: 'Maybe an organizer who brings the neighborhood together.', details: ['Plans block parties.', 'Knows everyone\'s grocery routine.', 'Has a binder of community ideas.'], tags: ['family','social'] },
-  { headline: 'Maybe someone who pieces together three part-time jobs and one big dream.', details: ['Drives between two towns most weeks.', 'Keeps the dream in a notebook nobody else reads.', 'Has a regular at every job who asks how they\'re really doing.'], tags: ['economy','urbanRural'] },
-  { headline: 'Maybe someone whose first job didn\'t pay enough, so they tried again.', details: ['Moved back in with family for a year and didn\'t love it.', 'Learned a second skill at the library on Saturdays.', 'Found work that fit on the third try, not the first.'], tags: ['economy','family'] },
-  { headline: 'Maybe someone who took years off to care for a parent.', details: ['Learned how to read a hospital bill.', 'Kept one small hobby alive through the hardest months.', 'Came back to work slower, and steadier, than before.'], tags: ['family','healthcare'] }
+  { headline: 'Maybe a teacher who really listens.', details: ['Knows every student\'s name on day one.', 'Keeps a treasure box of student art.', 'Always has chalk dust on at least one sleeve.'], tags: ['family','education'],
+    i18n: {
+      zh: { headline: '也许会成为一位真心倾听的老师。', details: ['开学第一天就能叫出每个学生的名字。', '收藏着一个装满学生作品的"宝盒"。', '袖子上多少总沾着一些粉笔灰。'] },
+      ja: { headline: 'もしかしたら、ちゃんと話を聞いてくれる先生に。', details: ['新学期初日に、全員の名前を覚えている。', '生徒の作品を入れた「たからばこ」を大切にしている。', '袖のどこかにいつもチョークの粉がついている。'] },
+      ko: { headline: '진심으로 귀 기울이는 선생님이 될지도 몰라요.', details: ['새 학기 첫날부터 모든 학생의 이름을 외운다.', '학생들의 작품을 모아둔 보물 상자가 있다.', '어느 한쪽 소매에는 늘 분필 가루가 묻어 있다.'] },
+      tr: { headline: 'Belki gerçekten dinleyen bir öğretmen olur.', details: ['İlk gün her öğrencisinin adını bilir.', 'Öğrenci eserlerinden oluşan bir "hazine kutusu" tutar.', 'Bir koluna her zaman tebeşir tozu sürülmüştür.'] }
+    } },
+  { headline: 'Maybe a veterinarian for tiny animals.', details: ['Has rescued at least two birds.', 'Talks to dogs in a special soothing voice.', 'Owns one very dramatic cat.'], tags: ['family','healthcare'],
+    i18n: {
+      zh: { headline: '也许会成为照顾小动物的兽医。', details: ['至少救助过两只小鸟。', '对狗狗说话时,声音特别温柔。', '家里有一只戏精级别的猫。'] },
+      ja: { headline: 'もしかしたら、小さな動物を診る獣医さんに。', details: ['少なくとも二羽の小鳥を助けたことがある。', '犬には特別やさしい声で話しかける。', 'とてもドラマチックな猫を一匹飼っている。'] },
+      ko: { headline: '작은 동물을 돌보는 수의사가 될지도 몰라요.', details: ['적어도 새 두 마리를 구조해 본 적이 있다.', '강아지에게 말할 때는 특별히 부드러운 목소리를 쓴다.', '몹시 드라마틱한 고양이 한 마리를 키운다.'] },
+      tr: { headline: 'Belki küçük hayvanların veterineri olur.', details: ['En az iki kuş kurtarmıştır.', 'Köpeklerle özel, yumuşak bir sesle konuşur.', 'Çok dramatik bir kedisi vardır.'] }
+    } },
+  { headline: 'Maybe a builder of cool things.', details: ['Carries a small notebook for ideas everywhere.', 'Has rebuilt their own bookshelf three times.', 'Loves the smell of fresh wood.'], tags: ['education'],
+    i18n: {
+      zh: { headline: '也许会成为做"酷东西"的工匠。', details: ['口袋里随时带着一本小本子记灵感。', '把自己房间的书架重做过三次。', '喜欢新切木头的味道。'] },
+      ja: { headline: 'もしかしたら、かっこいいものを作る人に。', details: ['アイデア用の小さなノートをいつも持ち歩いている。', '自分の本棚を三度作り直したことがある。', '削りたての木のにおいが大好き。'] },
+      ko: { headline: '멋진 것들을 만드는 사람이 될지도 몰라요.', details: ['아이디어용 작은 수첩을 늘 가지고 다닌다.', '자기 책장을 세 번이나 다시 만든 적이 있다.', '갓 깎은 나무 냄새를 사랑한다.'] },
+      tr: { headline: 'Belki havalı şeyler yapan biri olur.', details: ['Her yere küçük bir fikir defteri taşır.', 'Kendi kitaplığını üç kez yeniden yapmıştır.', 'Taze ağaç kokusuna bayılır.'] }
+    } },
+  { headline: 'Maybe an artist who makes happy work.', details: ['Paints something almost every day.', 'Friends always have art on their walls.', 'Tea consumption: cozy.'], tags: ['social','urbanRural'],
+    i18n: {
+      zh: { headline: '也许会成为画快乐作品的艺术家。', details: ['几乎每天都画点什么。', '朋友家的墙上总能看到她/他的画。', '茶饮消耗量:暖暖的小日子级别。'] },
+      ja: { headline: 'もしかしたら、人を笑顔にする作品を作るアーティストに。', details: ['ほぼ毎日、なにかしらを描いている。', '友人たちの部屋の壁には、いつもその人の絵がある。', 'お茶の消費量は「ほっこり」レベル。'] },
+      ko: { headline: '행복한 그림을 그리는 작가가 될지도 몰라요.', details: ['거의 매일 무언가를 그린다.', '친구네 집 벽에는 늘 그/그녀의 작품이 걸려 있다.', '차 소비량: 포근함 그 자체.'] },
+      tr: { headline: 'Belki insanı mutlu eden işler üreten bir sanatçı olur.', details: ['Neredeyse her gün bir şeyler boyar.', 'Arkadaşlarının duvarlarında hep onun bir resmi vardır.', 'Çay tüketimi: sıcacık.'] }
+    } },
+  { headline: 'Maybe a scientist asking giant questions.', details: ['Reads about space before bed.', 'Has a notebook full of \"why?\" questions.', 'Owns three kinds of magnifying glass.'], tags: ['education'],
+    i18n: {
+      zh: { headline: '也许会成为追问大问题的科学家。', details: ['睡前会读关于宇宙的书。', '本子里写满了一个又一个"为什么"。', '家里有三种不同的放大镜。'] },
+      ja: { headline: 'もしかしたら、大きな問いを追いかける科学者に。', details: ['寝る前に宇宙の本を読む。', '「どうして?」がぎっしり書きこまれたノートを持っている。', '虫めがねを三種類持っている。'] },
+      ko: { headline: '커다란 질문을 던지는 과학자가 될지도 몰라요.', details: ['자기 전에 우주에 대한 책을 읽는다.', '"왜?"로 가득 찬 공책 한 권이 있다.', '돋보기를 세 종류나 가지고 있다.'] },
+      tr: { headline: 'Belki kocaman sorular soran bir bilim insanı olur.', details: ['Uyumadan önce uzayla ilgili kitap okur.', '"Neden?" sorularıyla dolu bir defteri vardır.', 'Üç farklı türde büyüteç sahibidir.'] }
+    } },
+  { headline: 'Maybe a gardener with the greenest yard around.', details: ['Knows every plant in the neighborhood.', 'Trades tomato seeds with friends.', 'Hums while watering.'], tags: ['urbanRural','family'],
+    i18n: {
+      zh: { headline: '也许会成为院子最绿的园丁。', details: ['认得社区里每一株植物。', '常和朋友交换番茄种子。', '浇水时会哼歌。'] },
+      ja: { headline: 'もしかしたら、町でいちばん緑いっぱいの庭をもつ庭師に。', details: ['ご近所の植物すべてを覚えている。', '友だちとトマトの種を交換している。', '水やりをしながら鼻歌を歌う。'] },
+      ko: { headline: '동네에서 가장 푸른 마당을 가진 정원사가 될지도 몰라요.', details: ['동네의 모든 식물을 안다.', '친구들과 토마토 씨앗을 주고받는다.', '물을 주며 흥얼흥얼 노래를 부른다.'] },
+      tr: { headline: 'Belki mahallenin en yeşil bahçesine sahip bahçıvan olur.', details: ['Mahalledeki her bitkiyi tanır.', 'Arkadaşlarıyla domates tohumu takas eder.', 'Sulama yaparken mırıldanır.'] }
+    } },
+  { headline: 'Maybe a chef who feeds the whole street.', details: ['Sundays smell like fresh bread.', 'Has a notebook full of family recipes.', 'Friends drop by hoping for leftovers.'], tags: ['family'],
+    i18n: {
+      zh: { headline: '也许会成为给整条街做饭的厨师。', details: ['星期天总弥漫着新鲜面包的香味。', '本子里写满了家族传下来的食谱。', '朋友们会"顺路"过来,盼着能蹭点剩菜。'] },
+      ja: { headline: 'もしかしたら、ご近所みんなに振る舞うシェフに。', details: ['日曜日は、いつも焼きたてパンの匂いがする。', '家のレシピがぎっしり書かれたノートを持っている。', '友だちが「残りものない?」と立ち寄ってくる。'] },
+      ko: { headline: '온 동네를 먹이는 셰프가 될지도 몰라요.', details: ['일요일이면 갓 구운 빵 냄새가 난다.', '집안 레시피로 가득 찬 노트가 있다.', '친구들은 남은 음식이 있을까 기대하며 들른다.'] },
+      tr: { headline: 'Belki tüm sokağı doyuran bir aşçı olur.', details: ['Pazarları taze ekmek kokar.', 'Aile tariflerinin yazıldığı dolu bir defteri vardır.', 'Arkadaşları "artakalan var mı?" umuduyla uğrar.'] }
+    } },
+  { headline: 'Maybe a doctor who is great with kids.', details: ['Has a sticker for every check-up.', 'Tells gentle jokes during scary moments.', 'Office is decorated with crayon drawings.'], tags: ['healthcare','family'],
+    i18n: {
+      zh: { headline: '也许会成为很会哄孩子的医生。', details: ['每次体检后都会送一枚贴纸。', '在害怕的时刻讲温柔的小笑话。', '诊室里挂满了蜡笔画。'] },
+      ja: { headline: 'もしかしたら、子どもの扱いが上手なお医者さんに。', details: ['診察ごとに、ちいさなシールをプレゼントする。', '怖い場面で、やさしい冗談を言う。', '診察室はクレヨンの絵でいっぱい。'] },
+      ko: { headline: '아이들을 잘 다루는 의사가 될지도 몰라요.', details: ['진료할 때마다 스티커를 하나 챙겨준다.', '무서운 순간에도 다정한 농담을 건넨다.', '진료실이 크레용 그림으로 가득하다.'] },
+      tr: { headline: 'Belki çocuklarla arası harika olan bir doktor olur.', details: ['Her muayenede bir çıkartma verir.', 'Korkutucu anlarda yumuşacık şakalar yapar.', 'Muayenehanesi mum boya resimlerle süslüdür.'] }
+    } },
+  { headline: 'Maybe an inventor of small clever gadgets.', details: ['Has built three useful tools that don\'t exist anywhere else.', 'Salvages broken things and gives them another life.', 'Friends bring them tricky problems.'], tags: ['education','economy'],
+    i18n: {
+      zh: { headline: '也许会成为发明小巧机灵小工具的人。', details: ['做出过三件别的地方找不到的实用小工具。', '把坏掉的东西修好,再给它一次"生命"。', '朋友们一遇到棘手的小问题就来找她/他。'] },
+      ja: { headline: 'もしかしたら、小さくて気の利いた道具を発明する人に。', details: ['他には存在しない、便利な道具を三つ作ったことがある。', '壊れたものを直して、もう一度息を吹き込む。', '友だちは困った時にその人を頼ってくる。'] },
+      ko: { headline: '작고 영리한 도구를 만드는 발명가가 될지도 몰라요.', details: ['세상에 없던 실용적인 도구를 세 개 만든 적이 있다.', '망가진 것들을 손봐서 또 한 번의 삶을 준다.', '친구들은 곤란한 일이 생기면 그 사람을 찾아온다.'] },
+      tr: { headline: 'Belki küçük, akıllı aletlerin mucidi olur.', details: ['Başka hiçbir yerde olmayan üç işe yarar alet yaptı.', 'Bozuk eşyaları kurtarıp onlara ikinci bir hayat verir.', 'Arkadaşları zor sorunları ona getirir.'] }
+    } },
+  { headline: 'Maybe a librarian who knows every story.', details: ['Reads to little kids every Saturday.', 'Has a list of \"underrated\" books.', 'Knows which shelves the kids hide behind on rainy days.'], tags: ['education','urbanRural'],
+    i18n: {
+      zh: { headline: '也许会成为熟知每一个故事的图书管理员。', details: ['每周六给小朋友读绘本。', '随身带着一份"被低估的好书"清单。', '清楚下雨天孩子们会躲在哪几排书架后面。'] },
+      ja: { headline: 'もしかしたら、すべての物語を知る図書館員さんに。', details: ['毎週土曜日に、小さな子たちに絵本を読み聞かせる。', '「過小評価されている本」のリストを持っている。', '雨の日に子どもたちがどの本棚の影に隠れるか、全部知っている。'] },
+      ko: { headline: '모든 이야기를 아는 사서가 될지도 몰라요.', details: ['토요일마다 어린이들에게 책을 읽어준다.', '"숨겨진 명작" 목록을 늘 가지고 다닌다.', '비 오는 날 아이들이 어느 책장 뒤에 숨는지 안다.'] },
+      tr: { headline: 'Belki her hikâyeyi bilen bir kütüphaneci olur.', details: ['Her cumartesi minik çocuklara kitap okur.', '"Hak ettiği değeri görmeyen" kitaplardan bir listesi vardır.', 'Yağmurlu günlerde çocukların hangi rafların arkasına saklandığını bilir.'] }
+    } },
+  { headline: 'Maybe an animal trainer at a sanctuary.', details: ['Speaks softly to bigger animals.', 'Knows every dog at the local park by name.', 'Has at least one rescue story to tell.'], tags: ['family','urbanRural'],
+    i18n: {
+      zh: { headline: '也许会成为动物收容所里的训练员。', details: ['对体型大的动物总轻声细语。', '认得社区公园里每只狗的名字。', '至少有一个救援故事可以讲。'] },
+      ja: { headline: 'もしかしたら、動物保護施設のトレーナーに。', details: ['大きな動物にはやさしく、しずかに話しかける。', '近所の公園にいる犬の名前を全部覚えている。', '救助のエピソードを少なくとも一つは話せる。'] },
+      ko: { headline: '동물 보호소의 트레이너가 될지도 몰라요.', details: ['덩치 큰 동물에게도 부드럽게 말한다.', '동네 공원에 사는 모든 개의 이름을 안다.', '들려줄 수 있는 구조 이야기가 최소한 하나는 있다.'] },
+      tr: { headline: 'Belki bir barınakta hayvan eğitmeni olur.', details: ['Daha büyük hayvanlarla yumuşak bir sesle konuşur.', 'Mahalle parkındaki her köpeği adıyla bilir.', 'Anlatacak en az bir kurtarma hikâyesi vardır.'] }
+    } },
+  { headline: 'Maybe a writer of charming little books.', details: ['Writes by hand in tiny journals.', 'Posts gentle stories online.', 'Friends quote their books on birthdays.'], tags: ['education','social'],
+    i18n: {
+      zh: { headline: '也许会成为写小巧迷人小书的作者。', details: ['用手在小小的本子上写字。', '在网上发布温柔的小故事。', '朋友们生日时会引用她/他书里的句子。'] },
+      ja: { headline: 'もしかしたら、ちいさくて愛おしい本を書く作家に。', details: ['ちいさな手帳に、手書きで文章を綴っている。', 'やさしい物語をネットにそっと載せる。', '友だちは誕生日に、その本の一節を引用してくれる。'] },
+      ko: { headline: '사랑스러운 작은 책의 작가가 될지도 몰라요.', details: ['작은 노트에 손글씨로 글을 쓴다.', '온라인에 부드러운 이야기를 올린다.', '친구들은 생일에 그 책의 문장을 인용해준다.'] },
+      tr: { headline: 'Belki minicik, sevimli kitaplar yazan bir yazar olur.', details: ['Küçücük defterlere elle yazar.', 'Yumuşacık hikâyeler internete koyar.', 'Arkadaşları doğum günlerinde onun kitaplarından alıntı yapar.'] }
+    } },
+  { headline: 'Maybe an athlete who also coaches younger kids.', details: ['Wakes up early for practice, smiles anyway.', 'Buys orange slices for the team.', 'Cheers loudest from the sidelines.'], tags: ['urbanRural','family'],
+    i18n: {
+      zh: { headline: '也许会成为同时也教小朋友的运动员。', details: ['早起训练,还是笑得很灿烂。', '比赛日给队员买橙子。', '在场边喊得最大声。'] },
+      ja: { headline: 'もしかしたら、年下の子のコーチも務める選手に。', details: ['早起きの練習も、にこにこ顔で乗りこえる。', '試合の日にはチームのためにオレンジを差し入れる。', 'サイドラインからいちばん大きな声で応援する。'] },
+      ko: { headline: '어린 후배도 가르치는 운동선수가 될지도 몰라요.', details: ['새벽 훈련에도 웃으며 일어난다.', '경기 날 팀을 위해 오렌지를 사 온다.', '벤치 옆에서 가장 큰 목소리로 응원한다.'] },
+      tr: { headline: 'Belki aynı zamanda küçük çocuklara koçluk yapan bir sporcu olur.', details: ['Antrenmana erken kalkar, yine de gülümser.', 'Takım için portakal dilimleri alır.', 'Kenardan en yüksek sesle tezahürat yapar.'] }
+    } },
+  { headline: 'Maybe a musician who makes everyone want to dance.', details: ['Plays at neighborhood parties.', 'Writes one song a month.', 'Has at least two instruments hanging on a wall.'], tags: ['social'],
+    i18n: {
+      zh: { headline: '也许会成为让大家忍不住跳舞的音乐人。', details: ['在社区聚会上演奏。', '每月写一首新歌。', '墙上至少挂着两件乐器。'] },
+      ja: { headline: 'もしかしたら、聴いた人を踊りたくさせる音楽家に。', details: ['ご近所のパーティーで演奏する。', '一か月にひとつ、新しい曲をつくる。', '壁には最低二つの楽器が掛かっている。'] },
+      ko: { headline: '모두를 춤추게 만드는 음악가가 될지도 몰라요.', details: ['동네 파티에서 연주한다.', '한 달에 한 곡씩 새 노래를 쓴다.', '벽에는 적어도 두 가지 악기가 걸려 있다.'] },
+      tr: { headline: 'Belki herkesi dans ettiren bir müzisyen olur.', details: ['Mahalle partilerinde çalar.', 'Ayda bir şarkı yazar.', 'Duvarında en az iki enstrüman asılıdır.'] }
+    } },
+  { headline: 'Maybe an explorer of wild places.', details: ['Goes camping in every season.', 'Photographs every interesting bird.', 'Writes postcards from each trip.'], tags: ['urbanRural','education'],
+    i18n: {
+      zh: { headline: '也许会成为野外探险家。', details: ['一年四季都去露营。', '看到有趣的小鸟就拍下来。', '每趟旅行都会寄明信片回家。'] },
+      ja: { headline: 'もしかしたら、自然のなかを歩く探検家に。', details: ['一年中、季節を問わずキャンプに行く。', '気になる鳥を見つけたら必ず写真に撮る。', '旅先からハガキを送ってくれる。'] },
+      ko: { headline: '야생의 장소를 누비는 탐험가가 될지도 몰라요.', details: ['사계절 내내 캠핑을 다닌다.', '눈에 띄는 새가 있으면 다 사진에 담는다.', '여행지에서마다 엽서를 보낸다.'] },
+      tr: { headline: 'Belki vahşi yerlerin kâşifi olur.', details: ['Her mevsim kampa gider.', 'Gördüğü her ilginç kuşu fotoğraflar.', 'Her seyahatten bir kartpostal yollar.'] }
+    } },
+  { headline: 'Maybe a designer of fun new games.', details: ['Has invented a card game with 12 rules.', 'Playtests on a circle of patient friends.', 'Always carries a deck of cards.'], tags: ['education','social'],
+    i18n: {
+      zh: { headline: '也许会成为发明好玩新游戏的设计师。', details: ['做出过一款有 12 条规则的卡牌游戏。', '在一群有耐心的朋友身上做"内测"。', '随身带一副扑克牌。'] },
+      ja: { headline: 'もしかしたら、楽しい新作ゲームを作るデザイナーに。', details: ['12個のルールがあるカードゲームを発明した。', '辛抱強い友人たちにテストプレイしてもらう。', 'いつもカードを一組持ち歩いている。'] },
+      ko: { headline: '재미있는 새 게임을 만드는 디자이너가 될지도 몰라요.', details: ['규칙 12개짜리 카드 게임을 만들어 본 적이 있다.', '인내심 있는 친구들에게 플레이테스트를 부탁한다.', '늘 카드 한 벌을 들고 다닌다.'] },
+      tr: { headline: 'Belki eğlenceli yeni oyunlar tasarlayan biri olur.', details: ['On iki kurallı bir kart oyunu icat etti.', 'Sabırlı arkadaşlarının oluşturduğu bir çevrede oyununu test eder.', 'Cebinde hep bir deste kâğıt taşır.'] }
+    } },
+  { headline: 'Maybe a translator helping people understand each other.', details: ['Speaks two languages by college.', 'Has pen pals on three continents.', 'Owns a shelf of dictionaries.'], tags: ['multilingual','education'],
+    i18n: {
+      zh: { headline: '也许会成为帮人彼此理解的翻译。', details: ['上大学时就掌握了两种语言。', '在三个大洲都有笔友。', '家里有一整排词典。'] },
+      ja: { headline: 'もしかしたら、人と人をつなぐ翻訳者に。', details: ['大学に入る頃には、二つの言語を話せる。', '三つの大陸に文通相手がいる。', '辞書がずらりと並んだ本棚を持っている。'] },
+      ko: { headline: '사람들이 서로를 이해하도록 돕는 번역가가 될지도 몰라요.', details: ['대학에 들어갈 즈음에는 두 가지 언어를 한다.', '세 개 대륙에 펜팔 친구가 있다.', '사전이 한 줄 가득 꽂힌 책장이 있다.'] },
+      tr: { headline: 'Belki insanların birbirini anlamasına yardım eden bir çevirmen olur.', details: ['Üniversiteye geldiğinde iki dil konuşuyordur.', 'Üç ayrı kıtada mektup arkadaşı vardır.', 'Sözlüklerle dolu bir rafı vardır.'] }
+    } },
+  { headline: 'Maybe a maker of beautiful clothes.', details: ['Sews most of what they wear.', 'Sells small batches at local markets.', 'Has saved every fabric scrap since age 10.'], tags: ['social','urbanRural'],
+    i18n: {
+      zh: { headline: '也许会成为做漂亮衣服的人。', details: ['身上的衣服大多是自己缝的。', '在本地市集少量出售作品。', '从 10 岁起就保留着每一块碎布。'] },
+      ja: { headline: 'もしかしたら、すてきな服を仕立てる人に。', details: ['着ている服のほとんどを自分で縫う。', '地元の市で少量だけ販売する。', '10歳の頃から、はぎれを一つ残らずとってある。'] },
+      ko: { headline: '예쁜 옷을 만드는 사람이 될지도 몰라요.', details: ['입는 옷의 대부분을 직접 바느질해 만든다.', '동네 마켓에서 소량으로 판다.', '열 살 때부터 자투리 천을 하나도 빠짐없이 모아왔다.'] },
+      tr: { headline: 'Belki güzel kıyafetler yapan biri olur.', details: ['Giydiği şeylerin çoğunu kendi diker.', 'Yerel pazarlarda küçük partiler hâlinde satar.', 'On yaşından beri her kumaş parçasını saklamıştır.'] }
+    } },
+  { headline: 'Maybe a counselor who helps people feel okay.', details: ['Listens really well.', 'Keeps fresh flowers in the office.', 'Knows when to say something — and when to wait.'], tags: ['healthcare','family'],
+    i18n: {
+      zh: { headline: '也许会成为帮人安顿心情的咨询师。', details: ['特别会听人讲话。', '办公室里总放着新鲜的花。', '知道什么时候要说话——也知道什么时候要等一等。'] },
+      ja: { headline: 'もしかしたら、人の心を落ち着けるカウンセラーに。', details: ['本当によく話を聞く。', '相談室にはいつも新しい花が飾られている。', '言葉をかける時と、待つ時を心得ている。'] },
+      ko: { headline: '사람들의 마음을 다독여주는 상담사가 될지도 몰라요.', details: ['정말로 잘 듣는다.', '상담실에는 늘 신선한 꽃이 놓여 있다.', '말을 건넬 때와 기다려야 할 때를 안다.'] },
+      tr: { headline: 'Belki insanların iyi hissetmesine yardım eden bir danışman olur.', details: ['Gerçekten iyi dinler.', 'Ofisinde her zaman taze çiçek bulunur.', 'Ne zaman bir şey söylemesi gerektiğini — ve ne zaman beklemesi gerektiğini bilir.'] }
+    } },
+  { headline: 'Maybe a baker famous for one specific cookie.', details: ['The recipe is a kind of secret.', 'Donates extras to the local school.', 'Apron is older than them.'], tags: ['family','urbanRural'],
+    i18n: {
+      zh: { headline: '也许会成为以一款饼干闻名的烘焙师。', details: ['配方有点像家族秘方。', '多出来的饼干会送给附近的学校。', '围裙的年纪比自己还大。'] },
+      ja: { headline: 'もしかしたら、特定のひとつのクッキーで有名になるパン職人に。', details: ['そのレシピは、ちょっとした秘密。', '余りは地元の学校に寄付する。', '愛用のエプロンは、本人より年上。'] },
+      ko: { headline: '단 한 가지 쿠키로 유명한 베이커가 될지도 몰라요.', details: ['그 레시피는 일종의 비밀이다.', '남은 쿠키는 동네 학교에 기부한다.', '앞치마가 자기보다 나이가 많다.'] },
+      tr: { headline: 'Belki belirli bir kurabiyesiyle ünlü bir fırıncı olur.', details: ['Tarif biraz da sır gibidir.', 'Artanları yerel okula bağışlar.', 'Önlüğü kendisinden daha yaşlıdır.'] }
+    } },
+  { headline: 'Maybe an astronomer who throws stargazing nights.', details: ['Owns the friendliest telescope in town.', 'Knows the names of dozens of stars.', 'Brings hot cocoa to every event.'], tags: ['education','urbanRural'],
+    i18n: {
+      zh: { headline: '也许会成为举办观星之夜的天文学家。', details: ['镇上最"亲切"的那台望远镜归她/他所有。', '能叫出几十颗星星的名字。', '每次活动都带上热可可。'] },
+      ja: { headline: 'もしかしたら、星見の夜を主催する天文学者に。', details: ['町でいちばんやさしい望遠鏡を持っている。', '何十もの星の名前を覚えている。', 'イベントには必ずホットココアを持っていく。'] },
+      ko: { headline: '별 보는 밤을 여는 천문학자가 될지도 몰라요.', details: ['동네에서 가장 다정한 망원경의 주인이다.', '별 수십 개의 이름을 알고 있다.', '행사 때마다 핫코코아를 준비해 온다.'] },
+      tr: { headline: 'Belki yıldız gözlem geceleri düzenleyen bir astronom olur.', details: ['Kasabanın en cana yakın teleskobu ondadır.', 'Onlarca yıldızın adını bilir.', 'Her etkinliğe sıcak kakao getirir.'] }
+    } },
+  { headline: 'Maybe an architect designing tree-friendly schools.', details: ['Sketches buildings on napkins.', 'Loves natural light.', 'Has a treehouse phase that lasts decades.'], tags: ['education','urbanRural'],
+    i18n: {
+      zh: { headline: '也许会成为设计与树共处的学校的建筑师。', details: ['习惯在餐巾纸上画建筑草图。', '热爱自然光。', '迷恋树屋的时期会持续几十年。'] },
+      ja: { headline: 'もしかしたら、木とともに在る学校を設計する建築家に。', details: ['ナプキンに建物の下書きを描く。', '自然光が大好き。', 'ツリーハウスへの愛情は、数十年単位で続く。'] },
+      ko: { headline: '나무와 어울리는 학교를 설계하는 건축가가 될지도 몰라요.', details: ['냅킨에 건물 스케치를 한다.', '자연광을 무척 사랑한다.', '트리하우스에 대한 애정이 수십 년 이어진다.'] },
+      tr: { headline: 'Belki ağaç dostu okullar tasarlayan bir mimar olur.', details: ['Peçetelere bina çizimleri yapar.', 'Doğal ışığa bayılır.', 'Onlarca yıl süren bir ağaç ev tutkusu vardır.'] }
+    } },
+  { headline: 'Maybe an organizer who brings the neighborhood together.', details: ['Plans block parties.', 'Knows everyone\'s grocery routine.', 'Has a binder of community ideas.'], tags: ['family','social'],
+    i18n: {
+      zh: { headline: '也许会成为把街区聚到一起的组织者。', details: ['筹划街区派对。', '知道每个人的买菜习惯。', '有一本写满社区点子的活页夹。'] },
+      ja: { headline: 'もしかしたら、ご近所をひとつにつなぐオーガナイザーに。', details: ['ブロックごとのパーティーを企画する。', '近所の人の買い物習慣を覚えている。', 'コミュニティのアイデアがぎっしりのバインダーを持っている。'] },
+      ko: { headline: '동네를 하나로 묶는 오거나이저가 될지도 몰라요.', details: ['블록 파티를 기획한다.', '동네 사람들 모두의 장보기 습관을 안다.', '동네 아이디어들로 채워진 바인더 한 권이 있다.'] },
+      tr: { headline: 'Belki mahalleyi bir araya getiren bir organizatör olur.', details: ['Sokak partileri düzenler.', 'Herkesin market alışkanlığını bilir.', 'Mahalle fikirleriyle dolu bir klasörü vardır.'] }
+    } },
+  { headline: 'Maybe someone who pieces together three part-time jobs and one big dream.', details: ['Drives between two towns most weeks.', 'Keeps the dream in a notebook nobody else reads.', 'Has a regular at every job who asks how they\'re really doing.'], tags: ['economy','urbanRural'],
+    i18n: {
+      zh: { headline: '也许会成为靠三份兼职拼出一个大梦想的人。', details: ['大多数周都在两个小镇之间开车往返。', '把那个梦想写在没人会读的本子里。', '每份工作里都有一位会问她/他"你最近真的还好吗"的熟客。'] },
+      ja: { headline: 'もしかしたら、三つのパートタイムと一つの大きな夢を抱えて歩く人に。', details: ['ほとんどの週、二つの町を行き来して運転している。', 'その夢は、誰にも見られないノートにしまってある。', 'どの職場にも「最近、本当に大丈夫?」と聞いてくれる常連がいる。'] },
+      ko: { headline: '세 가지 알바와 하나의 큰 꿈으로 살아가는 사람이 될지도 몰라요.', details: ['대부분의 주에 두 동네를 오가며 운전한다.', '그 꿈은 아무도 읽지 않는 노트에 적어 둔다.', '직장마다 "요즘 진짜 괜찮아?" 하고 물어주는 단골이 있다.'] },
+      tr: { headline: 'Belki üç yarı zamanlı işi ve büyük bir hayali bir arada taşıyan biri olur.', details: ['Çoğu hafta iki kasaba arasında araba kullanır.', 'Hayalini, başka kimsenin okumadığı bir defterde saklar.', 'Her işyerinde "gerçekten nasılsın?" diye soran bir müdavimi vardır.'] }
+    } },
+  { headline: 'Maybe someone whose first job didn\'t pay enough, so they tried again.', details: ['Moved back in with family for a year and didn\'t love it.', 'Learned a second skill at the library on Saturdays.', 'Found work that fit on the third try, not the first.'], tags: ['economy','family'],
+    i18n: {
+      zh: { headline: '也许会成为第一份工资不够、于是再来一次的人。', details: ['搬回家住了一年,日子不好过。', '每个周六去图书馆学第二门技能。', '到第三次尝试,才找到合适的工作。'] },
+      ja: { headline: 'もしかしたら、最初の仕事の給料では足りず、もう一度やり直した人に。', details: ['一年実家に戻ったが、それは少し苦しい時期だった。', '土曜日は図書館で、もうひとつのスキルを学んだ。', '三度目の挑戦でようやく自分に合う仕事に出会った。'] },
+      ko: { headline: '첫 직장 월급이 부족해 다시 도전한 사람이 될지도 몰라요.', details: ['일 년 동안 다시 집으로 들어가 살았는데, 그 시간은 쉽지 않았다.', '토요일마다 도서관에서 두 번째 기술을 배웠다.', '세 번째 시도 끝에 자기에게 맞는 일을 찾았다.'] },
+      tr: { headline: 'Belki ilk işi yetmeyince yeniden deneyen biri olur.', details: ['Bir yıl aileyle yaşamak için geri taşındı, kolay olmadı.', 'Cumartesileri kütüphanede ikinci bir beceri öğrendi.', 'Üçüncü denemede kendine uyan işi buldu, ilkinde değil.'] }
+    } },
+  { headline: 'Maybe someone who took years off to care for a parent.', details: ['Learned how to read a hospital bill.', 'Kept one small hobby alive through the hardest months.', 'Came back to work slower, and steadier, than before.'], tags: ['family','healthcare'],
+    i18n: {
+      zh: { headline: '也许会成为为照顾父母而暂离工作好几年的人。', details: ['学会了看懂医院的账单。', '在最难熬的几个月里,留住了一项小小的兴趣。', '重新回到职场时,比从前更慢、也更稳。'] },
+      ja: { headline: 'もしかしたら、親の介護で何年か仕事を離れる人に。', details: ['病院の請求書の読み方を覚えた。', '一番つらかった数か月のあいだも、一つだけ小さな趣味を続けた。', '仕事に戻ったとき、以前よりゆっくりで、確かなペースになっていた。'] },
+      ko: { headline: '부모를 돌보느라 몇 년 동안 일을 쉬는 사람이 될지도 몰라요.', details: ['병원 청구서를 읽는 법을 배웠다.', '가장 힘들었던 몇 달 동안에도 작은 취미 하나는 끝까지 지켰다.', '다시 일자리로 돌아왔을 때, 전보다 느리고 단단해져 있었다.'] },
+      tr: { headline: 'Belki bir ebeveynine bakmak için yıllarca iş hayatına ara veren biri olur.', details: ['Bir hastane faturasını okumayı öğrendi.', 'En zor aylarda da küçük bir hobiyi sürdürdü.', 'İşe dönerken eskisine göre daha yavaş ama daha sağlam adımlarla geldi.'] }
+    } }
 ];
 
 const KIDS_REFLECTION_PROMPTS = [
