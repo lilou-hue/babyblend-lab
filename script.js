@@ -4327,11 +4327,23 @@ const KIDS_AGE_TICKERS = {
  * LOOP_REQUEST(narrative): populate life_shape tags on
  * ADULT_TRAJECTORY_MILESTONES entries — see LIFE_SHAPES constant below.
  */
+/* FRAMING (R16rev): LIFE_SHAPES is a narrative taxonomy, not a model grounded
+ * in developmental psychology literature. These categories are simulational
+ * metaphors for trajectory patterns observable in adult lives — they are not
+ * empirical life-stage theory, not a clinical typology, and not normative
+ * vs. deviant poles. 'Precarity' here describes a trajectory shape often
+ * produced by structural conditions (labor markets, housing, health systems,
+ * caregiving load) rather than an essential personality outcome, and
+ * 'caretaking' describes identity reorganization around obligation rather
+ * than a failure to individuate. Read every label as a story shape, not a
+ * diagnosis.
+ */
 const LIFE_SHAPES = {
   stability:    { id: 'stability',    label: 'settled' },
   interruption: { id: 'interruption', label: 'interrupted-then-resumed' },
   bloom:        { id: 'bloom',        label: 'late-bloom' },
-  precarity:    { id: 'precarity',    label: 'persistent-precarity' }
+  precarity:    { id: 'precarity',    label: 'persistent-precarity' },
+  caretaking:   { id: 'caretaking',   label: 'identity-reorganized-via-care-obligation' }
 };
 
 const ADULT_TRAJECTORY_MILESTONES = {
