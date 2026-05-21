@@ -10505,9 +10505,40 @@ function buildEnhancementBudget() {
 // injects a small acknowledge button inside #budget-panel. Once clicked,
 // state.consentAck flips true for the rest of the session and the prompt
 // removes itself. Persists per session via state (not localStorage).
+// Delegated handler at the panel level — robust against the button's
+// direct listener getting orphaned by any re-render path, and against
+// any invisible overlay sitting between the user and the original
+// button. Attached once per session via a data-attr guard.
+function ensureConsentAckDelegation() {
+  const panel = $('#budget-panel');
+  if (!panel || panel.dataset.consentAckDelegated === '1') return;
+  panel.dataset.consentAckDelegated = '1';
+  panel.addEventListener('click', (e) => {
+    const btn = e.target && e.target.closest && e.target.closest('.consent-ack-btn');
+    if (!btn) return;
+    const prompt = btn.closest('.consent-ack-prompt');
+    if (!prompt) return;
+    state.consentAck = true;
+    prompt.style.pointerEvents = 'none';
+    prompt.classList.add('is-leaving');
+    const remove = () => { try { prompt.remove(); } catch {} };
+    setTimeout(remove, 480);
+    try { ensureConsentProgressHint(); } catch (err) { console.error(err); }
+    // Retire the upstream consent-awareness-note + leadin together.
+    const note = document.querySelector('.consent-awareness-note');
+    const leadin = document.getElementById('consent-awareness-leadin');
+    const clearLeadin = () => { if (leadin) { leadin.innerHTML = ''; leadin.hidden = true; } };
+    if (note) {
+      note.classList.add('is-leaving');
+      setTimeout(() => { try { note.remove(); } catch {}; clearLeadin(); }, 480);
+    } else { clearLeadin(); }
+  });
+}
+
 function showConsentAckPrompt() {
   const panel = $('#budget-panel');
   if (!panel || state.consentAck) return;
+  ensureConsentAckDelegation();
   let prompt = panel.querySelector('.consent-ack-prompt');
   if (!prompt) {
     prompt = document.createElement('div');
