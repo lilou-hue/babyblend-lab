@@ -1,51 +1,50 @@
 # Loop State
 
 ```
-current_round: 17
-rounds_remaining_in_batch: 4
+current_round: 18
+rounds_remaining_in_batch: 3
 status: ready
-last_round_completed: 16
+last_round_completed: 17
 last_round_completed_at: 2026-05-22
 batch_summary: loop/rounds/batch-3-summary.md
 batch: 4
 ```
 
-## Next round focus (Round 17 — second of Batch 4, architectural)
+## Next round focus (Round 18 — third of Batch 4, architectural)
 
-R16 kickoff shipped: Burden Index rename (full 5-lang) + REFLECTION_ARC_CLOSING_AFFIRMATION slot + LIFE_SHAPES schema scaffold (Systems landed inert) + Phase-4 cleanup. R17 picks up the next architectural item.
+R17 scaffolded all the prerequisites. R18 can flip the pre-allocation gate flag + wire LIFE_SHAPES selection.
 
-### Per-role guidance for Round 17
+### Per-role guidance for Round 18
 
-- **Frontend** — Verification of R16 mobile/responsive changes. NO CHANGE likely.
-- **Systems** — Wait for Narrative's `life_shape` population; then wire selection in R18. NO CHANGE this round, OR pick a tiny audit / drift hunt.
-- **Narrative** — **Highest leverage: populate `life_shape` field on ADULT_TRAJECTORY_MILESTONES entries** (close Systems' R16 LOOP_REQUEST). Tag the ~20 milestone entries with `stability` / `interruption` / `bloom` / `precarity` / `caretaking`. EN entries are the structural drivers; if i18n parallel entries need the field too, add it across all 5 langs but the tag identifier is the same string. Likely 30-50 line diff (most entries get a single tag field).
-- **Education** — NO CHANGE likely. Surface settled.
-- **UX Flow** — **Pre-allocation slider gate** (architectural, held since Batch 1). When user is in Adult mode and hasn't allocated any credits yet, the trait projection / archetype / OCEAN stats should be gated behind a soft prompt ("Move your first allocation to see the projection") rather than showing default-state stats. Approach: identify the render path for the projection panel, add an early-return when `budgetUsed === 0` (or equivalent), render a placeholder prompt instead. Don't restructure the whole panel; just gate the projection content. Strict <80 lines. Higher-risk merge — test the gen-1 → gen ≥ 2 flow doesn't break.
+- **Frontend** — Likely NO CHANGE. Verify gate placeholder renders correctly when R18 flips the flag.
+- **Systems** — **Wire LIFE_SHAPES selection.** In the milestone picker (`pickAgeTicker` or similar — find via grep), extend selection logic to use the `life_shape` field. Approach: pass a `shape` hint, filter to matching entries OR fall through to default pool. Untagged + 'mixed' entries should still be selectable as default. Optional: add a cluster filter so mutually-exclusive shapes (stability + caretaking) don't co-occur. ~30-50 lines.
+- **Narrative** — Likely NO CHANGE. If you want to tag more entries in the "later" bucket (currently 5 of 23 tagged), do so. Otherwise hold.
+- **Education** — NO CHANGE likely.
+- **UX Flow** — **Flip `PROJECTION_GATE_ENABLED` to true.** Test gen-1 → first-allocation → gen-2 flow end-to-end. Confirm: (a) on first Adult generation with budget=0, placeholder shows instead of OCEAN stats; (b) first allocation triggers the projection panel; (c) gen-2 reveals are NEVER gated. Possibly add a small post-flip test or assertion.
 - **World Design** — NO CHANGE likely.
 
-### Carryovers (open before Round 17)
+### Carryovers (open before Round 18)
 
-- **LIFE_SHAPES population** — Narrative R17.
-- **LIFE_SHAPES selection wiring** — Systems R18 (after Narrative populates).
-- **Pre-allocation slider gate** — UX Flow R17.
-- **"Identity Lock-In Index" alternative name** — 4-reviewer concern, held. If reasserts, revisit.
+- **LIFE_SHAPES selection wiring** — Systems R18.
+- **PROJECTION_GATE_ENABLED flag flip** — UX Flow R18.
 - **Move consent-awareness AFTER projection** — held since R7.
-- **ADULT_TRAJECTORY linear-progression refactor** — partially scaffolded by LIFE_SHAPES; R18+ to wire.
-- **Kids-mode onboarding panel** — new mechanic, held.
-- **R12/R14 mid-pick stashes** — preserved.
-- **Pre-R5 style.css 180-line WIP** — re-stashed.
+- **Kids-mode onboarding panel** — held (new mechanic).
+- **R12/R14 mid-pick stashes** preserved.
 
 ## Batch 4 overall arc
 
-5 rounds, architectural. R16 done (1 of 5). R17-R20 remain. Halt at end of R20.
+5 rounds, architectural. R16 + R17 done. R18-R20 remain. Halt at end of R20.
 
 ## History
 
-### Round 16 (2026-05-22) — completed (Batch 4 Round 1, architectural kickoff)
-- 5 Phase-1 + 1 NO CHANGE + 5 Phase-4 + 1 NO CHANGE. Burden Index → Identity Lock-In Index full rename (5 langs); REFLECTION_ARC_CLOSING_AFFIRMATION slot + rewrite after 6-reviewer convergence; LIFE_SHAPES schema scaffolded with caretaking shape + framing docstring; Adult-mode closing dropped (register fit). See `loop/rounds/round-16/summary.md`.
+### Round 17 (2026-05-22) — completed (Batch 4 Round 2, architectural)
+- 5 Phase-1 + 1 NO CHANGE + 5 Phase-4 + 1 NO CHANGE. One Phase-4b conflict (UX Flow DL structure vs. Narrative copy) resolved by combining both. life_shape tags populated on 5 ADULT_TRAJECTORY entries; pre-allocation gate scaffolded behind feature flag; gate copy rewritten; cross-mode generateCount guard added; Sociability heritability weight corrected. See `loop/rounds/round-17/summary.md`.
+
+### Round 16 (2026-05-22) — completed (Batch 4 Round 1, kickoff)
+- 5 Phase-1 + 1 NO CHANGE + 5 Phase-4 + 1 NO CHANGE. Burden Index → Identity Lock-In Index rename; REFLECTION_ARC_CLOSING_AFFIRMATION; LIFE_SHAPES schema; Adult-mode closing dropped. See `loop/rounds/round-16/summary.md`.
 
 ### Batch 3 (2026-05-21) — completed
-- 5 rounds (R11-R15), 75 commits. Open-ended theme. See `loop/rounds/batch-3-summary.md`.
+- 5 rounds (R11-R15), 75 commits. See `loop/rounds/batch-3-summary.md`.
 
 ### Batch 2 (2026-05-21) — completed
 - 5 rounds (R6-R10), 89 commits. See `loop/rounds/batch-2-summary.md`.
