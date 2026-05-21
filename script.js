@@ -7873,13 +7873,14 @@ function renderPausePanel() {
   const obsHtml  = obs.map(o => `<li>${o}</li>`).join('');
   const cantHtml = cant.map(c => `<li>${c}</li>`).join('');
   const qHtml    = `<span class="pause-q-mark">?</span> ${question}`;
-  // R16 (Narrative parallel): closing affirmation slot — mirrors R13
-  // Kids-arc closing (renderKidsDifferences). Defensive: Narrative's
-  // REFLECTION_ARC_CLOSING_AFFIRMATION constant lands in parallel; if it
-  // hasn't merged yet, skip the slot rather than throw.
+  // R16 rev (Narrative MAJOR): closing affirmation is REFLECTION-MODE ONLY.
+  // R14 wrapped Adult mode's Pause Panel in a default-collapsed <details>;
+  // rendering the poetic closing there would bury it inside collapsed UI
+  // AND clash with Adult mode's institutional voice. Drop entirely for Adult.
+  // Defensive: REFLECTION_ARC_CLOSING_AFFIRMATION may not be loaded yet.
   const closingPool = (typeof REFLECTION_ARC_CLOSING_AFFIRMATION !== 'undefined')
     ? REFLECTION_ARC_CLOSING_AFFIRMATION : null;
-  const closingLine = closingPool ? localList(closingPool)[0] : '';
+  const closingLine = (isRefl && closingPool) ? localList(closingPool)[0] : '';
   const closingHtml = closingLine
     ? `<p class="reflection-arc-closing" role="doc-conclusion">${closingLine}</p>`
     : '';
@@ -7887,6 +7888,7 @@ function renderPausePanel() {
   if (isAdlt) {
     // Render the same content inside a default-collapsed <details>.
     // Preserve user's open/closed choice across re-renders.
+    // No closing affirmation in Adult mode (register fit + collapsed-burial).
     const prev = $('#pause-details');
     const wasOpen = prev ? prev.open : false;
     const heading = $('#pause-heading');
@@ -7900,7 +7902,6 @@ function renderPausePanel() {
         `<h4 class="pause-cant-see-heading">Things this simulator cannot see</h4>` +
         `<ul class="pause-cant-see" id="pause-cant-see">${cantHtml}</ul>` +
         `<div class="pause-question" id="pause-question">${qHtml}</div>` +
-        closingHtml +
       `</details>`;
     return;
   }
