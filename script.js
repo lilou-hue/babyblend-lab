@@ -3648,21 +3648,23 @@ const PRIORITIES = [
 const BUDGET_TOTAL = 200;
 
 // USD spend thresholds (cumulative speculative credit pricing) that gate
-// access-friction tiers in `updateBudgetProjections`. Same four breakpoints
-// (50k / 100k / 150k / 200k) are mirrored in the user-visible Regional
-// Access copy at `renderRegionalAccess` (~6520-6523) and the channel-code
-// divisor at ~6529; keeping them aligned matters for the access-friction
-// narrative, hence the single source of truth here.
-// LOOP_REQUEST(world-design): REGULATORY_NOTE_RULES USD thresholds at
-// ~5827-5830 are duplicated against BUDGET_TIER_THRESHOLDS; consider routing
-// through the constant. (Actual duplication site is `renderRegionalAccess`
-// at ~6520-6523 and the RA-channel divisor at ~6529 — same four values.)
+// access-friction tiers in `updateBudgetProjections` and the user-visible
+// Regional Access copy in `renderRegionalAccess`. The four breakpoints
+// (50k / 100k / 150k / 200k) and the RA-channel divisor below are sourced
+// from this single constant — keeping them aligned matters for the
+// access-friction narrative. Copy strings in renderRegionalAccess remain
+// EN-only literals (no i18n table), so no template-replaced numbers in
+// localized prose are at risk.
 const BUDGET_TIER_THRESHOLDS = {
   licensedClinic:   50000,  // 9–14mo waitlist · self-pay
   referenceCentre: 100000,  // 6mo review · RA-3
   restricted:      150000,  // 14–22mo waitlist · pre-authorization
   outsideTreaty:   200000   // authorization pending / withheld
 };
+// RA-channel codes (RA-1…RA-5) ladder up at each threshold; divisor equals
+// the first threshold so `Math.floor(usd / RA_CHANNEL_DIVISOR) + 1` produces
+// the right rung at each breakpoint.
+const RA_CHANNEL_DIVISOR = BUDGET_TIER_THRESHOLDS.licensedClinic;
 
 // Regulatory Context rules — each fires when its predicate matches the
 // current budget state. Surfaced in Adult mode as small clinical notes
@@ -7190,11 +7192,11 @@ function renderRegionalAccess(usedCredits) {
   // Lines Directive. Channel codes RA-1…RA-5 remain diegetic and refer to
   // jurisdictional access pathways, not income cohorts. Access friction is
   // expressed in waiting periods and eligibility conditions, never percentiles.
-  if      (usd < 50000)  lines = ['EU (Oviedo Convention Art. 13): heritable modification prohibited; indication-restricted somatic procedures only.', 'UK (HFEA 2008, Schedule 2): licensed in-vitro use only; clinics must hold a current HFEA treatment licence.', 'US: payer coverage discretionary; out-of-network rates apply outside HFEA-equivalent accredited centers.'];
-  else if (usd < 100000) lines = ['EU (draft IVD-Germ Lines Directive Art. 4): elective provision pending national transposition; self-pay only.', 'UK (HFEA 2008, Schedule 2): pre-treatment counselling and licensed-clinic registration required; waiting period 9–14 months.', 'Non-aligned regions: no reimbursement pathway; cross-border referral on case basis under channel code RA-2.'];
-  else if (usd < 150000) lines = ['EU (draft IVD-Germ Lines Directive Art. 7): post-market review required; provision restricted to designated reference centres.', 'UK (HFEA 2008, Schedule 2, special-direction): eligibility conditional on documented clinical indication; channel code RA-3 review window 6 months.', 'Asia-Pacific: jurisdiction-dependent; cross-border referral subject to receiving-state HFEA-equivalent licensing.'];
-  else if (usd < 200000) lines = ['EU + UK (draft IVD-Germ Lines Directive Art. 9; HFEA 2008, Schedule 2): restricted approval; pre-authorization by the national competent authority required.', 'Eligibility conditional on clinical-indication documentation and counselling completion; waiting list 14–22 months at HFEA-licensed reference centres.', 'Non-aligned regions: not provisioned under current channel-code RA-4 listing.'];
-  else                   lines = ['Multi-jurisdictional (Oviedo Convention Art. 13): heritable provisions outside current treaty scope; authorization pending or withheld.', 'UK + EU: not provisioned under HFEA 2008 or the draft IVD-Germ Lines Directive; eligibility unresolved.', 'De facto pathway: extraterritorial facilities outside Oviedo signatory jurisdiction.'];
+  if      (usd < BUDGET_TIER_THRESHOLDS.licensedClinic)   lines = ['EU (Oviedo Convention Art. 13): heritable modification prohibited; indication-restricted somatic procedures only.', 'UK (HFEA 2008, Schedule 2): licensed in-vitro use only; clinics must hold a current HFEA treatment licence.', 'US: payer coverage discretionary; out-of-network rates apply outside HFEA-equivalent accredited centers.'];
+  else if (usd < BUDGET_TIER_THRESHOLDS.referenceCentre)  lines = ['EU (draft IVD-Germ Lines Directive Art. 4): elective provision pending national transposition; self-pay only.', 'UK (HFEA 2008, Schedule 2): pre-treatment counselling and licensed-clinic registration required; waiting period 9–14 months.', 'Non-aligned regions: no reimbursement pathway; cross-border referral on case basis under channel code RA-2.'];
+  else if (usd < BUDGET_TIER_THRESHOLDS.restricted)       lines = ['EU (draft IVD-Germ Lines Directive Art. 7): post-market review required; provision restricted to designated reference centres.', 'UK (HFEA 2008, Schedule 2, special-direction): eligibility conditional on documented clinical indication; channel code RA-3 review window 6 months.', 'Asia-Pacific: jurisdiction-dependent; cross-border referral subject to receiving-state HFEA-equivalent licensing.'];
+  else if (usd < BUDGET_TIER_THRESHOLDS.outsideTreaty)    lines = ['EU + UK (draft IVD-Germ Lines Directive Art. 9; HFEA 2008, Schedule 2): restricted approval; pre-authorization by the national competent authority required.', 'Eligibility conditional on clinical-indication documentation and counselling completion; waiting list 14–22 months at HFEA-licensed reference centres.', 'Non-aligned regions: not provisioned under current channel-code RA-4 listing.'];
+  else                                                    lines = ['Multi-jurisdictional (Oviedo Convention Art. 13): heritable provisions outside current treaty scope; authorization pending or withheld.', 'UK + EU: not provisioned under HFEA 2008 or the draft IVD-Germ Lines Directive; eligibility unresolved.', 'De facto pathway: extraterritorial facilities outside Oviedo signatory jurisdiction.'];
   // CMP-N codes (e.g. CMP-2 cognition, CMP-4 affective) are diegetic
   // category identifiers — not a real classification scheme. They sit
   // alongside the diegetic channel-code RA-N ladder above; the IVD-Germ
@@ -7204,7 +7206,7 @@ function renderRegionalAccess(usedCredits) {
   if ((budget.emotional || 0) >= 6) lines.push('Affective-band editing (CMP-4): experimental authorization required; subject to HFEA-equivalent cohort follow-up.');
   host.hidden = false;
   host.innerHTML = `
-    <h4>Regional Access &middot; channel code RA-${Math.min(5, Math.max(1, Math.floor(usd / 50000) + 1))}</h4>
+    <h4>Regional Access &middot; channel code RA-${Math.min(5, Math.max(1, Math.floor(usd / RA_CHANNEL_DIVISOR) + 1))}</h4>
     <ul class="regional-list">${lines.slice(0, 4).map(l => `<li>${l}</li>`).join('')}</ul>
     <p class="regional-foot">Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.</p>`;
 }
