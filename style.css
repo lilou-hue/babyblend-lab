@@ -5283,6 +5283,23 @@ body.app-kids .kids-only { display: revert; }
   color: var(--ink);
 }
 
+/* R16 scaffold (Frontend pre-add for UX Flow): mirror of .kids-arc-closing
+   for the Reflection-mode arc panel. Same size/weight/centering rhythm so
+   the closing affirmation reads as a peer of the disclaimer, but uses the
+   reflection serif (where active) and italic register for a poetic/
+   humanistic accent that fits Reflection's tonal language. Falls back to
+   --ink gracefully if no reflection-serif var is bound. */
+.reflection-arc-closing {
+  margin-top: 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  font-weight: 500;
+  text-align: center;
+  color: var(--ink);
+  font-family: var(--reflection-serif, inherit);
+  font-style: italic;
+}
+
 .kids-arc-list {
   list-style: none;
   margin: 16px 0 0;
