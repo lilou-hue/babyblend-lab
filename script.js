@@ -10439,9 +10439,19 @@ function showConsentAckPrompt() {
     const btn = prompt.querySelector('.consent-ack-btn');
     if (btn) btn.addEventListener('click', () => {
       state.consentAck = true;
-      // Fade the prompt out, then remove it on transition end.
+      // Make the dismiss synchronous-first, then layer the fade on top for
+      // browsers that honor the transition. Previously the whole flow
+      // depended on transitionend OR a 500ms fallback — if any downstream
+      // call inside cleanup threw, the prompt could appear "stuck" because
+      // the visible removal hadn't happened yet. Now the prompt becomes
+      // pointer-event-inert immediately, then disappears once the fade
+      // resolves OR the fallback fires.
       prompt.classList.add('is-leaving');
-      const cleanup = () => { prompt.remove(); ensureConsentProgressHint(); };
+      prompt.style.pointerEvents = 'none';      // belt-and-braces immediate
+      const cleanup = () => {
+        try { prompt.remove(); } catch {}
+        try { ensureConsentProgressHint(); } catch (e) { console.error('consent progress hint failed:', e); }
+      };
       prompt.addEventListener('transitionend', cleanup, { once: true });
       setTimeout(cleanup, 500); // fallback if transitionend doesn't fire
       // Cross-fade the Gen-1 consent-awareness note: its hand-off partner
@@ -10467,11 +10477,14 @@ function showConsentAckPrompt() {
       };
       if (note) {
         note.classList.add('is-leaving');
-        const retire = () => { note.remove(); clearLeadin(); };
+        const retire = () => {
+          try { note.remove(); } catch {}
+          try { clearLeadin(); } catch (e) { console.error('clearLeadin failed:', e); }
+        };
         note.addEventListener('transitionend', retire, { once: true });
         setTimeout(retire, 500);
       } else {
-        clearLeadin();
+        try { clearLeadin(); } catch (e) { console.error('clearLeadin failed:', e); }
       }
     });
   }
