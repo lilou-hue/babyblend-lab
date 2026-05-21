@@ -4294,7 +4294,13 @@ const REGULATORY_NOTE_RULES = [
 
 // Lead paragraph (Education + World Design): the canonical "why this is a consent
 // question" copy, front-loaded with the future person rather than the institution.
-const CONSENT_EXPLAINER = 'The person these allocations are for does not yet exist. Heritable modifications are decided before they are born — so they cannot consent, and they cannot opt out later. Parents make many decisions for children; heritable edits differ in one respect: they are written into the biology and passed forward. Medical-ethics frameworks and the Council of Europe Oviedo Convention (Article 13) treat heritable choices as a distinct consent class from somatic or environmental ones.';
+const CONSENT_EXPLAINER = {
+  en: 'The person these allocations are for does not yet exist. Heritable modifications are decided before they are born — so they cannot consent, and they cannot opt out later. Parents make many decisions for children; heritable edits differ in one respect: they are written into the biology and passed forward. Medical-ethics frameworks and the Council of Europe Oviedo Convention (Article 13) treat heritable choices as a distinct consent class from somatic or environmental ones.',
+  zh: '这些分配所指向的那个人,此刻尚未存在。可遗传的修改是在他/她出生之前就被决定的——因此他/她无法表达同意,也无法在事后退出。父母会替孩子作出许多决定;可遗传编辑有一点不同:它们被写入生物层面,并继续向下传递。医学伦理框架和欧洲委员会《奥维耶多公约》(第 13 条)将可遗传的选择视为与体细胞或环境层面的选择不同的一个独立同意类别。',
+  ja: 'この割り当ての対象となる人物は、まだ存在しない。遺伝に関わる改変は、その人が生まれる前に決められる——したがって本人は同意することもできず、後から降りることもできない。親は子どものために多くの決定を下すが、遺伝に関わる編集には一点ちがいがある。それは生物のレベルに書き込まれ、世代を超えて受け渡されるという点だ。医学倫理の枠組みや欧州評議会のオビエド条約(第13条)は、遺伝に関わる選択を、体細胞や環境に関わる選択とは別個の同意カテゴリとして扱っている。',
+  ko: '이 할당이 향하는 그 사람은 아직 존재하지 않는다. 유전 가능한 변경은 그가 태어나기 전에 결정된다 — 따라서 그는 동의할 수도, 나중에 빠져나올 수도 없다. 부모는 아이를 위해 많은 결정을 내리지만, 유전 가능한 편집은 한 가지 점에서 다르다. 그것은 생물학적 층위에 새겨져 다음 세대로 전해진다. 의료윤리 프레임워크와 유럽평의회 오비에도 협약(제13조)은 유전 가능한 선택을 체세포적·환경적 선택과는 다른, 별개의 동의 범주로 다룬다.',
+  tr: 'Bu tahsislerin yönelik olduğu kişi henüz mevcut değil. Kalıtsal değişiklikler, o doğmadan önce kararlaştırılır — bu yüzden onaylayamaz, sonradan da çekilemez. Ebeveynler çocukları adına pek çok karar verir; kalıtsal düzenlemelerin bir farkı vardır: biyolojik düzeye yazılır ve sonraki kuşaklara aktarılır. Tıbbi etik çerçeveleri ve Avrupa Konseyi Oviedo Sözleşmesi (Madde 13), kalıtsal seçimleri somatik ya da çevresel seçimlerden ayrı, başlı başına bir onay kategorisi olarak ele alır.'
+};
 
 // Structured rows (World Design + Narrative): grounded prose, fixed cite, Access row.
 const CONSENT_IMPLICATIONS = [
