@@ -1094,6 +1094,21 @@ body.mode-adult .life-stage[data-age="47"] .life-stage-avatar svg { filter: drop
   color: var(--ink-soft);
   min-height: 2.2em;
 }
+/* R18rev (Risk + Science + Sociology MAJOR convergence): disclosure microcopy
+   beneath the trajectory ticker. Codename-deterministic life_shape selection
+   reads as destiny without an explicit disclaimer; this italic, muted line
+   reframes the milestone as one path among many. Sits flush under the ticker,
+   small and quiet so it doesn't compete with the milestone itself. Hidden by
+   default; revealed in adult mode only. */
+.aging-scrubber .trajectory-disclaimer {
+  margin: 4px 0 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  font-style: italic;
+  opacity: 0.78;
+}
+.aging-scrubber .trajectory-disclaimer[hidden] { display: none; }
 
 /* Reflection: italic serif ticker, warm violet glow. */
 body.mode-reflection .aging-scrubber {

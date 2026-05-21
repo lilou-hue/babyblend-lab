@@ -1179,6 +1179,12 @@ const LABEL_I18N = {
   'Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.': { zh: '仅为指示性参考。授权与等候期每季度修订;现行数值替代此前披露。', ja: '本表示は参考目的に限る。認可および待機期間は四半期ごとに見直されており、現在の値が従前の開示に優先する。', ko: '본 정보는 참고용이다. 인가와 대기 기간은 분기마다 갱신되며, 현재 값이 이전 공시에 우선한다.', tr: 'Bilgi amaçlıdır. Yetkilendirmeler ve bekleme süreleri üç ayda bir güncellenir; mevcut değerler önceki açıklamaların yerini alır.' },
   'Consent context expands at 50 credits.': { zh: '当积分达到 50 时,同意上下文会展开。', ja: '50クレジットに達すると、同意に関する文脈が展開される。', ko: '50 크레딧에 이르면 동의 관련 맥락이 펼쳐진다.', tr: '50 krediye ulaşıldığında onay bağlamı genişler.' },
   'No disclosure thresholds crossed yet.': { zh: '尚未跨越任何披露阈值。', ja: '開示の閾値はまだいずれも越えていない。', ko: '아직 어떤 공시 임계값도 넘지 않았습니다.', tr: 'Henüz hiçbir açıklama eşiği aşılmadı.' },
+  // R18rev (Risk + Science + Sociology MAJOR convergence): trajectory
+  // disclosure microcopy. Renders beneath the age-ticker in adult mode so the
+  // milestone reads as one possible path among many, not a codename-locked
+  // forecast. Phrasing chosen short and second-person-neutral to fit the
+  // case-file register without softening into self-help.
+  'These are one set of patterns this person might encounter — not a forecast.': { zh: '这只是这个人可能经历的一组模式 —— 而非预言。', ja: 'これは、この人物が経験しうる一つのパターン群にすぎず、予測ではない。', ko: '이는 이 사람이 마주칠 수 있는 하나의 패턴 묶음일 뿐 — 예측이 아니다.', tr: 'Bunlar bu kişinin karşılaşabileceği örüntülerden yalnızca biri — bir öngörü değil.' },
   // R17rev: pre-allocation projection-gate placeholder. Adult-mode register —
   // cold and clinical, not imperative. Frames the panel as a projection
   // contingent on allocation, not a checklist with one missing step.
@@ -7646,8 +7652,15 @@ function updateBabyPreview() {
     // intent explicit; CSS rule already targets .projection-gated-placeholder
     // and remains valid against the <dt>. The dl rhythm degrades gracefully:
     // the single term reads as a standalone heading-shaped row.
+    // R18rev (Mobile MAJOR): added explicit aria-live="polite" alongside
+    // role="status". role="status" implies aria-live="polite" but several
+    // mobile screen readers (TalkBack, VoiceOver on older iOS) don't
+    // consistently honor the implicit binding inside a <dt>; declaring it
+    // explicitly removes the ambiguity without restructuring the <dl>.
+    // Cleaner fix (move outside <dl> as a <div>) deferred to R19 — that
+    // requires CSS grid rework and is out of scope here.
     personalityRows = `
-      <dt class="ocean-sep projection-gated-placeholder" role="status">${localLabel('This projection reflects choices yet to be made. Allocate above, and the profile updates to match.')}</dt>`;
+      <dt class="ocean-sep projection-gated-placeholder" role="status" aria-live="polite">${localLabel('This projection reflects choices yet to be made. Allocate above, and the profile updates to match.')}</dt>`;
   }
   statsEl.classList.toggle('projection-gated', projectionGated);
   statsEl.innerHTML = physicalRows + personalityRows;
@@ -8785,6 +8798,20 @@ function renderAgingScrubber() {
       : (age === 0 ? 'newborn' : `${age} years old`);
   }
   if (ticker) ticker.textContent = pickAgeTicker(age);
+  // R18rev: trajectory disclosure microcopy — adult mode only. The codename-
+  // deterministic life_shape filter inside pickAgeTicker reads as destiny
+  // without this line; rendering it adjacent to the ticker makes the
+  // non-determinism visible at the disclosure surface, not buried in a
+  // help panel.
+  const disclaimer = $('#trajectory-disclaimer');
+  if (disclaimer) {
+    if (state.appMode === 'adult') {
+      disclaimer.textContent = localLabel('These are one set of patterns this person might encounter — not a forecast.');
+      disclaimer.hidden = false;
+    } else {
+      disclaimer.hidden = true;
+    }
+  }
 }
 
 // Throttled slider listener — only re-render avatar at ~animation
