@@ -2299,26 +2299,146 @@ const ADULT_FUTURES = [
 /* ---------- Adult-mode pools (clinical, grounded) ---------- */
 
 const ADULT_FUTURES_CLINICAL = [
-  { headline: 'Physician with chronic burnout.',                                   details: ['Works in a competitive teaching hospital.', 'Has not taken a full vacation in six years.', 'Considering a career pivot to research.'], tags: ['healthcare','education'] },
-  { headline: 'Startup founder, unstable work-life balance.',                       details: ['Series B raised; sleep schedule largely theoretical.', 'Lost two close friendships during product launches.', 'Now invests quietly in mental-health platforms.'], tags: ['economy','education'] },
-  { headline: 'Former competitive athlete; identity recalibration.',                 details: ['Retired at 31 after a knee injury.', 'Coaches a youth program in their hometown.', 'Adjusting to a smaller public profile.'], tags: ['urbanRural','social'] },
-  { headline: 'Multilingual diplomat.',                                              details: ['Posted to two regions over the last decade.', 'Lives out of suitcases six months a year.', 'Maintains correspondence with former colleagues across four time zones.'], tags: ['multilingual','education'] },
-  { headline: 'Independent artist with financial instability.',                      details: ['Sells consistently; rarely at sustainable prices.', 'Maintains a teaching side income.', 'Reports being content with the trade.'], tags: ['social','urbanRural'] },
-  { headline: 'Research scientist; social isolation tendencies.',                    details: ['Lead author on three significant papers.', 'Most active social ties are online.', 'Maintains a small, close in-person circle.'], tags: ['education'] },
-  { headline: 'Public-defender attorney.',                                           details: ['Above-average caseload.', 'Strong reputation with clients; modest compensation.', 'Has begun mentoring junior attorneys.'], tags: ['family','social'] },
-  { headline: 'Veterinarian, small-animal practice.',                                details: ['Practice partners with a wildlife rescue.', 'Actively manages compassion fatigue.', 'Three cats and one unexpected hen.'], tags: ['family','healthcare'] },
-  { headline: 'Senior software engineer, mid-career plateau.',                       details: ['Senior IC at a stable mid-size firm.', 'Has declined three management offers.', 'Maintains an open-source library used in global production.'], tags: ['economy'] },
-  { headline: 'Architect, adaptive-reuse projects.',                                 details: ['Portfolio is mostly former industrial sites.', 'Lectures occasionally at a public university.', 'Avoids social media; reachable by email.'], tags: ['urbanRural','education'] },
-  { headline: 'Nurse practitioner, rural clinic.',                                   details: ['Covers two adjacent counties.', 'Has trained four community-health workers.', 'Considering a federal grant application.'], tags: ['healthcare','urbanRural'] },
-  { headline: 'Civil engineer, transit infrastructure.',                              details: ['Working on a multi-decade light-rail project.', 'Pragmatic politically; rigorous technically.', 'Has not enjoyed a public hearing yet.'], tags: ['urbanRural','economy'] },
-  { headline: 'Career changer: finance to teaching.',                                details: ['Took a 60% pay cut at 38.', 'Teaches high-school economics.', 'Reports the trade was correct.'], tags: ['education','economy'] },
-  { headline: 'Wildlife biologist, coastal monitoring.',                              details: ['Two seasons a year on remote stations.', 'Maintains a long-distance relationship.', 'Publishes annually; reads constantly.'], tags: ['education','urbanRural'] },
-  { headline: 'Therapist, private practice.',                                        details: ['Specializes in early-career professionals.', 'Practices in a major metropolitan area.', 'Deliberately limits weekly caseload.'], tags: ['healthcare','urbanRural'] },
-  { headline: 'Process engineer, second-generation.',                                 details: ['Works at the same plant their parent did.', 'Leads a small continuous-improvement team.', 'Has helped avert plant closure twice.'], tags: ['family','economy'] },
-  { headline: 'Charge nurse, neonatal ICU.',                                         details: ['Sixteen years on the unit.', 'Quietly central to staff retention.', 'Knows when to push policy and when to wait.'], tags: ['healthcare'] },
-  { headline: 'Mid-list author with steady readership.',                              details: ['Two books a year; no breakout.', 'Co-owns a small bookstore.', 'Has declined two adaptation offers.'], tags: ['education'] },
-  { headline: 'Civic technology lead.',                                              details: ['Builds software for state agencies.', 'Frustrated weekly; effective monthly.', 'Has shipped services used by hundreds of thousands.'], tags: ['economy','social'] },
-  { headline: 'Restaurateur, single location.',                                      details: ['Eight years stable; never expanded.', 'Suppliers are personal relationships.', 'Closes for two weeks in August without public explanation.'], tags: ['urbanRural','family'] }
+  { headline: 'Physician with chronic burnout.', details: ['Works in a competitive teaching hospital.', 'Has not taken a full vacation in six years.', 'Considering a career pivot to research.'], tags: ['healthcare','education'],
+    i18n: {
+      zh: { headline: '长期处于慢性倦怠的临床医师。', details: ['任职于一家竞争激烈的教学医院。', '六年来未休过一次完整的假期。', '正在考虑转向研究方向。'] },
+      ja: { headline: '慢性的なバーンアウトを抱える臨床医。', details: ['競争の激しい教育病院に勤務。', 'この六年間、まとまった休暇を取っていない。', '研究職への転身を検討中。'] },
+      ko: { headline: '만성 번아웃을 겪고 있는 의사.', details: ['경쟁이 치열한 교육 병원에서 근무한다.', '6년 동안 제대로 된 휴가를 쓴 적이 없다.', '연구직 전환을 고려 중이다.'] },
+      tr: { headline: 'Kronik tükenmişlik yaşayan hekim.', details: ['Rekabetçi bir eğitim hastanesinde çalışıyor.', 'Altı yıldır tam tatile çıkmadı.', 'Araştırmaya geçişi düşünüyor.'] }
+    } },
+  { headline: 'Startup founder, unstable work-life balance.', details: ['Series B raised; sleep schedule largely theoretical.', 'Lost two close friendships during product launches.', 'Now invests quietly in mental-health platforms.'], tags: ['economy','education'],
+    i18n: {
+      zh: { headline: '工作与生活严重失衡的创业者。', details: ['完成 B 轮融资;作息表基本只存在于理论中。', '产品发布期间失去了两段亲近的友谊。', '如今低调地在心理健康平台进行投资。'] },
+      ja: { headline: 'ワークライフバランスが不安定なスタートアップ創業者。', details: ['シリーズB調達済み。睡眠スケジュールはほぼ理論上の概念。', '製品ローンチの過程で親しい友人を二人失った。', '今は静かにメンタルヘルス系プラットフォームへ投資している。'] },
+      ko: { headline: '워라밸이 불안정한 스타트업 창업자.', details: ['시리즈 B 라운드 마감. 수면 일정은 사실상 이론적 개념.', '제품 출시 와중에 가까운 친구 두 명과 멀어졌다.', '지금은 조용히 멘탈헬스 플랫폼에 투자한다.'] },
+      tr: { headline: 'İş-yaşam dengesi kararsız startup kurucusu.', details: ['B turu kapatıldı; uyku düzeni büyük ölçüde teorik.', 'Lansmanlar sırasında iki yakın dostunu kaybetti.', 'Şimdi sessizce ruh sağlığı platformlarına yatırım yapıyor.'] }
+    } },
+  { headline: 'Former competitive athlete; identity recalibration.', details: ['Retired at 31 after a knee injury.', 'Coaches a youth program in their hometown.', 'Adjusting to a smaller public profile.'], tags: ['urbanRural','social'],
+    i18n: {
+      zh: { headline: '退役的竞技运动员,正在重新校准自我认同。', details: ['31 岁因膝伤退役。', '在故乡指导一项青少年项目。', '正在适应一个不那么公开的身份。'] },
+      ja: { headline: '元競技アスリート、アイデンティティの再調整中。', details: ['膝の怪我により31歳で引退。', '故郷のユースプログラムでコーチを務めている。', '以前より公的注目が少ない暮らしに慣れつつある。'] },
+      ko: { headline: '은퇴한 운동선수, 정체성을 재조정 중.', details: ['무릎 부상으로 31세에 은퇴했다.', '고향에서 청소년 프로그램을 지도한다.', '대중적 노출이 줄어든 삶에 적응 중이다.'] },
+      tr: { headline: 'Eski profesyonel sporcu; kimliğini yeniden ayarlıyor.', details: ['Diz sakatlığı nedeniyle 31 yaşında bıraktı.', 'Memleketinde bir gençlik programını çalıştırıyor.', 'Daha düşük profilli bir yaşama alışıyor.'] }
+    } },
+  { headline: 'Multilingual diplomat.', details: ['Posted to two regions over the last decade.', 'Lives out of suitcases six months a year.', 'Maintains correspondence with former colleagues across four time zones.'], tags: ['multilingual','education'],
+    i18n: {
+      zh: { headline: '掌握多语言的外交官。', details: ['过去十年间被派驻两个不同地区。', '一年中有六个月在行李箱里生活。', '与跨四个时区的前同事保持着书信往来。'] },
+      ja: { headline: '複数言語を操る外交官。', details: ['過去10年間で2つの地域に赴任。', '一年の半年はスーツケース暮らし。', '四つの時間帯の元同僚たちと文通を続けている。'] },
+      ko: { headline: '다국어 구사 외교관.', details: ['지난 십 년간 두 지역에 부임했다.', '한 해의 절반은 짐가방을 풀지 않고 산다.', '네 개의 시간대에 흩어진 옛 동료들과 서신을 이어간다.'] },
+      tr: { headline: 'Çok dilli diplomat.', details: ['Son on yılda iki bölgeye atandı.', 'Yılın altı ayını valizlerle geçiriyor.', 'Dört farklı zaman dilimindeki eski meslektaşlarıyla yazışmaya devam ediyor.'] }
+    } },
+  { headline: 'Independent artist with financial instability.', details: ['Sells consistently; rarely at sustainable prices.', 'Maintains a teaching side income.', 'Reports being content with the trade.'], tags: ['social','urbanRural'],
+    i18n: {
+      zh: { headline: '收入不稳定的独立艺术家。', details: ['作品稳定卖出,但定价很少能持续维生。', '维持着一份兼职教学收入。', '本人表示对这种取舍是满意的。'] },
+      ja: { headline: '収入が不安定な独立系アーティスト。', details: ['コンスタントに売れるが、生活に十分な値段で売れることは少ない。', '副収入として教える仕事を続けている。', '本人は、その取り引きに満足していると言う。'] },
+      ko: { headline: '수입이 불안정한 독립 예술가.', details: ['꾸준히 작품을 판매하지만, 지속 가능한 가격을 받는 일은 드물다.', '강의로 부수입을 유지한다.', '본인은 이런 교환에 만족한다고 말한다.'] },
+      tr: { headline: 'Mali açıdan istikrarsız bağımsız sanatçı.', details: ['Düzenli satıyor; ama nadiren sürdürülebilir fiyatlardan.', 'Yan gelir olarak öğretmenlik yapıyor.', 'Bu takasdan memnun olduğunu söylüyor.'] }
+    } },
+  { headline: 'Research scientist; social isolation tendencies.', details: ['Lead author on three significant papers.', 'Most active social ties are online.', 'Maintains a small, close in-person circle.'], tags: ['education'],
+    i18n: {
+      zh: { headline: '社交相对孤立的科研工作者。', details: ['是三篇重要论文的第一作者。', '最活跃的社交关系几乎都在线上。', '现实生活中保持一个小而亲密的圈子。'] },
+      ja: { headline: '社会的孤立傾向のある研究者。', details: ['重要論文三本の筆頭著者。', '活発な対人関係のほとんどはオンライン上。', '対面の付き合いは少数の親しい輪に限定。'] },
+      ko: { headline: '사회적 고립 경향이 있는 연구자.', details: ['중요한 논문 세 편의 제1저자.', '가장 활발한 사회적 관계는 온라인에 있다.', '오프라인에서는 작고 친밀한 무리만 유지한다.'] },
+      tr: { headline: 'Sosyal izolasyon eğilimi olan araştırmacı.', details: ['Üç önemli makalede başyazar.', 'En aktif sosyal bağları çevrimiçi.', 'Yüz yüze sınırlı, yakın bir çevre tutuyor.'] }
+    } },
+  { headline: 'Public-defender attorney.', details: ['Above-average caseload.', 'Strong reputation with clients; modest compensation.', 'Has begun mentoring junior attorneys.'], tags: ['family','social'],
+    i18n: {
+      zh: { headline: '公设辩护人。', details: ['案件量高于平均水平。', '当事人评价极佳,薪酬却仅是中等。', '已开始指导新入行的律师。'] },
+      ja: { headline: '公選弁護人。', details: ['案件量は平均を上回る。', '依頼人からの信頼は厚く、報酬は控えめ。', '若手弁護士の指導を始めている。'] },
+      ko: { headline: '국선변호사.', details: ['사건 부담이 평균보다 많다.', '의뢰인 사이 평판은 좋지만 보수는 평범하다.', '신입 변호사 멘토링을 시작했다.'] },
+      tr: { headline: 'Kamu savunucusu avukat.', details: ['Ortalamanın üzerinde dosya yükü.', 'Müvekkilleri arasında saygın; geliri mütevazı.', 'Genç avukatlara mentorluk yapmaya başladı.'] }
+    } },
+  { headline: 'Veterinarian, small-animal practice.', details: ['Practice partners with a wildlife rescue.', 'Actively manages compassion fatigue.', 'Three cats and one unexpected hen.'], tags: ['family','healthcare'],
+    i18n: {
+      zh: { headline: '从事小动物诊疗的兽医。', details: ['诊所与一家野生动物救助机构合作。', '会主动管理自己的"共情疲劳"。', '家里有三只猫和一只意外加入的母鸡。'] },
+      ja: { headline: '小動物専門の獣医師。', details: ['野生動物救護団体と連携した診療所を運営。', '共感疲労を意識的にケアしている。', '猫三匹と、なぜか一羽の雌鶏が同居している。'] },
+      ko: { headline: '소동물 진료를 보는 수의사.', details: ['병원이 야생동물 구조 단체와 협력한다.', '공감 피로를 적극적으로 관리한다.', '고양이 세 마리와 어쩌다 함께 살게 된 암탉 한 마리가 있다.'] },
+      tr: { headline: 'Küçük hayvanlara bakan veteriner.', details: ['Klinik, yaban hayatı kurtarma derneğiyle ortak çalışıyor.', 'Şefkat yorgunluğunu aktif olarak yönetiyor.', 'Üç kedi ve beklenmedik bir tavuk var.'] }
+    } },
+  { headline: 'Senior software engineer, mid-career plateau.', details: ['Senior IC at a stable mid-size firm.', 'Has declined three management offers.', 'Maintains an open-source library used in global production.'], tags: ['economy'],
+    i18n: {
+      zh: { headline: '处于中期平台期的资深软件工程师。', details: ['在一家稳定的中型公司任高级独立工程师。', '已三次婉拒晋升管理岗的邀请。', '维护着一个被全球生产环境使用的开源库。'] },
+      ja: { headline: 'キャリア中盤で停滞期にあるシニアソフトウェアエンジニア。', details: ['安定した中堅企業でシニアの個人貢献者(IC)。', '管理職への打診を三度断った。', '世界中の本番環境で使われているオープンソースライブラリを維持している。'] },
+      ko: { headline: '경력 중반에 정체기를 맞은 시니어 소프트웨어 엔지니어.', details: ['안정적인 중견 회사의 시니어 개인 기여자(IC).', '관리직 제안을 세 번 거절했다.', '전 세계 프로덕션에서 쓰이는 오픈소스 라이브러리를 유지한다.'] },
+      tr: { headline: 'Kariyerinin ortasında plato yaşayan kıdemli yazılım mühendisi.', details: ['Sağlam, orta büyüklükte bir firmada kıdemli IC.', 'Üç yönetim teklifini reddetti.', 'Küresel ölçekte kullanılan açık kaynak bir kütüphaneyi sürdürüyor.'] }
+    } },
+  { headline: 'Architect, adaptive-reuse projects.', details: ['Portfolio is mostly former industrial sites.', 'Lectures occasionally at a public university.', 'Avoids social media; reachable by email.'], tags: ['urbanRural','education'],
+    i18n: {
+      zh: { headline: '专攻"旧建筑再利用"项目的建筑师。', details: ['作品集大多是改造过的旧工业场地。', '在一所公立大学偶尔授课。', '不用社交媒体,可通过邮件联系。'] },
+      ja: { headline: 'アダプティブリユース(再利用)設計を専門とする建築家。', details: ['ポートフォリオの大半は、旧工業跡地の改修。', '公立大学で時折講義を行う。', 'SNSは避け、連絡はメールで。'] },
+      ko: { headline: '재생 건축(adaptive reuse)을 다루는 건축가.', details: ['포트폴리오의 대부분이 옛 공업 부지 리노베이션이다.', '공립 대학에서 가끔 강의한다.', 'SNS는 멀리하고, 이메일로만 닿을 수 있다.'] },
+      tr: { headline: 'Yeniden kullanım projelerine odaklı mimar.', details: ['Portföyünün çoğu eski sanayi alanları.', 'Bir devlet üniversitesinde ara sıra ders verir.', 'Sosyal medyadan uzak durur; e-postayla ulaşılır.'] }
+    } },
+  { headline: 'Nurse practitioner, rural clinic.', details: ['Covers two adjacent counties.', 'Has trained four community-health workers.', 'Considering a federal grant application.'], tags: ['healthcare','urbanRural'],
+    i18n: {
+      zh: { headline: '在乡村诊所工作的执业护理师。', details: ['同时负责两个相邻县的医疗服务。', '已培养了四名社区卫生工作者。', '正在考虑申请一项联邦经费。'] },
+      ja: { headline: '農村クリニック勤務のナースプラクティショナー。', details: ['隣接する二つの郡をカバーしている。', '地域保健ワーカーを四人育てた。', '連邦助成金の申請を検討中。'] },
+      ko: { headline: '시골 진료소의 전문 간호사(NP).', details: ['이웃한 두 카운티를 함께 담당한다.', '지역사회 보건 인력 네 명을 양성했다.', '연방 보조금 신청을 검토 중이다.'] },
+      tr: { headline: 'Kırsal kliniğin hemşire-pratisyeni.', details: ['Komşu iki ilçeye birden hizmet veriyor.', 'Dört toplum sağlığı çalışanı yetiştirdi.', 'Federal bir hibe başvurusunu değerlendiriyor.'] }
+    } },
+  { headline: 'Civil engineer, transit infrastructure.', details: ['Working on a multi-decade light-rail project.', 'Pragmatic politically; rigorous technically.', 'Has not enjoyed a public hearing yet.'], tags: ['urbanRural','economy'],
+    i18n: {
+      zh: { headline: '从事公共交通基础设施的土木工程师。', details: ['正在参与一个跨越数十年的轻轨项目。', '在政治上务实,在技术上严谨。', '至今没在任何一场公开听证会上感到愉快过。'] },
+      ja: { headline: '公共交通インフラを担当する土木技術者。', details: ['数十年規模のライトレール計画に携わっている。', '政治的にはプラグマティック、技術面では厳密。', '公聴会を楽しいと思えたことは一度もない。'] },
+      ko: { headline: '대중교통 인프라를 담당하는 토목 엔지니어.', details: ['수십 년에 걸친 경전철 프로젝트를 맡고 있다.', '정치적으로는 실용주의, 기술적으로는 엄격하다.', '단 한 번도 즐겁게 끝낸 공청회가 없다.'] },
+      tr: { headline: 'Toplu taşıma altyapısında çalışan inşaat mühendisi.', details: ['On yılları kapsayan bir hafif raylı sistem projesinde çalışıyor.', 'Siyaseten pragmatik, teknik olarak titiz.', 'Henüz keyif aldığı bir halk toplantısı olmadı.'] }
+    } },
+  { headline: 'Career changer: finance to teaching.', details: ['Took a 60% pay cut at 38.', 'Teaches high-school economics.', 'Reports the trade was correct.'], tags: ['education','economy'],
+    i18n: {
+      zh: { headline: '从金融转行去教书的人。', details: ['38 岁那年接受了 60% 的减薪。', '现在教高中经济学。', '本人表示这个选择是对的。'] },
+      ja: { headline: '金融から教育へキャリアを変えた人。', details: ['38歳で年収を6割減らす決断をした。', '高校で経済学を教えている。', '本人は、その判断は正しかったと語る。'] },
+      ko: { headline: '금융에서 교직으로 옮긴 사람.', details: ['서른여덟에 연봉의 60% 삭감을 받아들였다.', '고등학교에서 경제학을 가르친다.', '본인은 옳은 선택이었다고 말한다.'] },
+      tr: { headline: 'Finanstan eğitime geçen kariyer dönüştürücü.', details: ['Otuz sekizinde %60 maaş kesintisini kabul etti.', 'Lisede ekonomi dersi veriyor.', 'Tercihin doğru olduğunu söylüyor.'] }
+    } },
+  { headline: 'Wildlife biologist, coastal monitoring.', details: ['Two seasons a year on remote stations.', 'Maintains a long-distance relationship.', 'Publishes annually; reads constantly.'], tags: ['education','urbanRural'],
+    i18n: {
+      zh: { headline: '从事海岸监测的野生生物学家。', details: ['每年有两个季节驻守在偏远的观测站。', '与伴侣维持着远距离关系。', '每年发表一篇论文,常年保持阅读。'] },
+      ja: { headline: '沿岸モニタリングを行う野生生物学者。', details: ['年に二季節は遠隔の観測ステーションで過ごす。', '遠距離恋愛を続けている。', '毎年論文を発表し、絶えず読書している。'] },
+      ko: { headline: '해안 모니터링을 하는 야생생물학자.', details: ['일 년 중 두 시즌을 외딴 관측소에서 보낸다.', '장거리 연애를 이어가고 있다.', '매년 한 편씩 논문을 내고, 끊임없이 책을 읽는다.'] },
+      tr: { headline: 'Kıyı izleme yapan yaban hayatı biyoloğu.', details: ['Yılın iki sezonunu uzak istasyonlarda geçirir.', 'Uzun mesafeli bir ilişki yürütüyor.', 'Her yıl yayımlar; sürekli okur.'] }
+    } },
+  { headline: 'Therapist, private practice.', details: ['Specializes in early-career professionals.', 'Practices in a major metropolitan area.', 'Deliberately limits weekly caseload.'], tags: ['healthcare','urbanRural'],
+    i18n: {
+      zh: { headline: '在私人诊所执业的心理治疗师。', details: ['专长是职业生涯早期的职场人。', '在一个主要的大都市区开业。', '会有意识地控制每周的接案量。'] },
+      ja: { headline: '個人開業のセラピスト。', details: ['キャリア初期の専門職を専門にしている。', '大都市圏で開業している。', '週ごとの受け入れ件数を意識的に抑えている。'] },
+      ko: { headline: '개업한 심리치료사.', details: ['커리어 초기의 직장인을 전문으로 한다.', '대도시 권역에서 활동한다.', '주간 사례 수를 일부러 제한한다.'] },
+      tr: { headline: 'Özel muayenehanesi olan terapist.', details: ['Kariyerinin başındaki profesyonellere odaklanıyor.', 'Büyük bir metropolde çalışıyor.', 'Haftalık vaka sayısını bilinçli olarak sınırlıyor.'] }
+    } },
+  { headline: 'Process engineer, second-generation.', details: ['Works at the same plant their parent did.', 'Leads a small continuous-improvement team.', 'Has helped avert plant closure twice.'], tags: ['family','economy'],
+    i18n: {
+      zh: { headline: '与父辈在同一座工厂工作的二代流程工程师。', details: ['和父亲(或母亲)曾经一样,在同一座工厂上班。', '负责一支不大的"持续改进"小组。', '曾两次帮工厂避免被关停。'] },
+      ja: { headline: '親と同じ工場で働く二代目プロセスエンジニア。', details: ['親が働いていた工場と同じ職場にいる。', '小規模な改善チームを率いている。', '工場閉鎖を二度回避するのに貢献した。'] },
+      ko: { headline: '부모와 같은 공장에서 일하는 2세대 공정 엔지니어.', details: ['부모님이 일하던 그 공장에서 일한다.', '작은 지속적 개선(CI) 팀을 이끈다.', '공장 폐쇄를 두 번 막는 데 일조했다.'] },
+      tr: { headline: 'İkinci kuşak süreç mühendisi.', details: ['Ebeveyniyle aynı fabrikada çalışıyor.', 'Küçük bir sürekli iyileştirme ekibini yönetiyor.', 'Fabrikanın kapanmasını iki kez önlemeye yardım etti.'] }
+    } },
+  { headline: 'Charge nurse, neonatal ICU.', details: ['Sixteen years on the unit.', 'Quietly central to staff retention.', 'Knows when to push policy and when to wait.'], tags: ['healthcare'],
+    i18n: {
+      zh: { headline: '新生儿重症监护室的护士长。', details: ['在同一个病区工作了十六年。', '在留住团队成员这件事上,是默默的主心骨。', '知道何时推动制度变革,何时按兵不动。'] },
+      ja: { headline: 'NICU(新生児集中治療室)のチャージナース。', details: ['同じ病棟で十六年勤務。', 'スタッフの定着において、目立たないが要となる存在。', '制度に踏み込むべき時と、待つべき時を心得ている。'] },
+      ko: { headline: '신생아 중환자실의 차지 간호사.', details: ['같은 병동에서 16년째 일한다.', '직원 유지에 있어 조용하지만 핵심적인 존재.', '제도를 밀어붙일 때와 기다려야 할 때를 안다.'] },
+      tr: { headline: 'Yenidoğan yoğun bakım servisinde charge nurse.', details: ['Aynı serviste on altı yıldır görevde.', 'Ekip kalıcılığının sessiz merkezi.', 'Politika değişikliğini ne zaman zorlayacağını, ne zaman bekleyeceğini bilir.'] }
+    } },
+  { headline: 'Mid-list author with steady readership.', details: ['Two books a year; no breakout.', 'Co-owns a small bookstore.', 'Has declined two adaptation offers.'], tags: ['education'],
+    i18n: {
+      zh: { headline: '拥有稳定读者群的中等销量作者。', details: ['每年出两本书,从未有过爆款。', '与人合开一家小书店。', '已拒绝过两次影视改编邀约。'] },
+      ja: { headline: '安定した読者を持つ中堅作家。', details: ['年に二冊刊行、ブレイクは未だになし。', '小さな書店を共同経営している。', '映像化のオファーを二件断った。'] },
+      ko: { headline: '꾸준한 독자층을 가진 중견 작가.', details: ['일 년에 두 권을 내지만, 한 번도 크게 터진 적은 없다.', '작은 서점을 공동 운영한다.', '영상화 제안을 두 번 거절했다.'] },
+      tr: { headline: 'İstikrarlı okur kitlesi olan orta düzey yazar.', details: ['Yılda iki kitap; büyük çıkış yok.', 'Küçük bir kitapçının ortağı.', 'İki uyarlama teklifini reddetti.'] }
+    } },
+  { headline: 'Civic technology lead.', details: ['Builds software for state agencies.', 'Frustrated weekly; effective monthly.', 'Has shipped services used by hundreds of thousands.'], tags: ['economy','social'],
+    i18n: {
+      zh: { headline: '公共部门技术负责人。', details: ['为州政府机构开发软件。', '每周都被气得不行,每月又能拿出成果。', '已交付的服务被几十万人使用。'] },
+      ja: { headline: 'シビックテックのリード。', details: ['州政府機関向けのソフトウェアを作っている。', '週単位ではうんざりするが、月単位では結果を出している。', '何十万人もが利用するサービスをリリース済み。'] },
+      ko: { headline: '시빅테크 리드.', details: ['주(州) 정부 기관용 소프트웨어를 만든다.', '주 단위로는 좌절하고, 월 단위로는 성과를 낸다.', '수십만 명이 사용하는 서비스를 출시했다.'] },
+      tr: { headline: 'Sivil teknoloji lideri.', details: ['Eyalet kurumları için yazılım geliştiriyor.', 'Haftalık moralsiz; aylık etkili.', 'Yüz binlerce kişinin kullandığı hizmetler yayımladı.'] }
+    } },
+  { headline: 'Restaurateur, single location.', details: ['Eight years stable; never expanded.', 'Suppliers are personal relationships.', 'Closes for two weeks in August without public explanation.'], tags: ['urbanRural','family'],
+    i18n: {
+      zh: { headline: '只经营一家店面的餐厅老板。', details: ['稳定经营了八年,从未开过分店。', '与供应商之间是私人关系。', '每年八月不公开理由地停业两周。'] },
+      ja: { headline: '一店舗だけのレストランオーナー。', details: ['八年間安定経営、店舗は増やさず。', '仕入れ先はすべて個人的なつながり。', '毎年八月、説明なしに二週間休業する。'] },
+      ko: { headline: '한 곳만 운영하는 레스토랑 주인.', details: ['8년째 안정적, 확장은 한 적 없다.', '거래처와는 개인적인 관계로 일한다.', '매년 8월에 별도 공지 없이 2주간 문을 닫는다.'] },
+      tr: { headline: 'Tek şubeli restoran sahibi.', details: ['Sekiz yıldır istikrarlı; hiç şube açmadı.', 'Tedarikçiler kişisel ilişkiler üzerinden.', 'Her ağustosta kamuya açıklama yapmadan iki hafta kapanır.'] }
+    } }
 ];
 
 // Behavioral trace notes — small, specific human details that read as
