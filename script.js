@@ -6709,7 +6709,7 @@ function applyEnvDisclosureMode() {
 }
 
 // R5 (Product): when #env-disclosure is CLOSED in Adult mode, surface a
-// compact 3-token summary (home / school / locale) near the burden bar
+// compact 3-token summary (home / school / locale) near the lock-in bar
 // so the env context driving the projection is visible at a glance —
 // closes the R4 hidden-dependency gap. Reads live #env_* values; no new
 // state fields. Hidden whenever the disclosure is open or mode != adult.
@@ -10650,7 +10650,7 @@ function updateBudgetProjections(usedOverride) {
   if (pressureEl) pressureEl.style.width = (pressure * 100).toFixed(0) + '%';
   if (pressureNote) {
     // Notes describe what passes forward (Narrative R3) under World Design
-    // R3's weighted heritable-burden math — disease-risk packages weight low,
+    // R3's weighted heritable lock-in math — disease-risk packages weight low,
     // identity/affect packages weight high. Pattern: severity · what passes
     // forward. R8 rev: at idle (no allocations) the Index now reads as
     // unset rather than "minimal" — previously the tier-0 copy implied a
