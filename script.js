@@ -654,6 +654,12 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Misc UI status / footnote strings
+  'Baseline projection required before optimization packages unlock.': { zh: '需要先生成基线投影,优化套餐才会解锁。', ja: '最適化パッケージは、ベースライン投影を生成してから利用できるようになる。', ko: '최적화 패키지는 기준 투영을 먼저 생성해야 잠금이 풀린다.', tr: 'İyileştirme paketleri açılmadan önce temel projeksiyonun oluşturulması gerekir.' },
+  'Copied to clipboard ✓': { zh: '已复制到剪贴板 ✓', ja: 'クリップボードにコピーしました ✓', ko: '클립보드로 복사됨 ✓', tr: 'Panoya kopyalandı ✓' },
+  'Couldn’t copy automatically — please copy from the alert.': { zh: '无法自动复制——请从弹窗中手动复制。', ja: '自動コピーに失敗しました——アラートからコピーしてください。', ko: '자동 복사에 실패했어요 — 알림창에서 직접 복사해 주세요.', tr: 'Otomatik kopyalanamadı — lütfen uyarıdan elle kopyalayın.' },
+  'Saved ✓': { zh: '已保存 ✓', ja: '保存しました ✓', ko: '저장됨 ✓', tr: 'Kaydedildi ✓' },
+  'Footnote: inheritance compounds via access — cohorts able to allocate carry advantages forward; cohorts that cannot do not catch up by genetics alone.': { zh: '脚注:不平等通过"可及性"在世代间累积——能够进行分配的群组,把优势带向后代;无法分配的群组,仅靠遗传无法追上。', ja: '脚注:不平等は「アクセス」を介して世代を超えて累積する——割り当てができる集団は優位を引き継ぎ、できない集団は遺伝だけでは追いつかない。', ko: '각주: 불평등은 "접근성"을 매개로 세대를 거치며 누적된다 — 할당이 가능한 집단은 이점을 다음 세대로 전하고, 그렇지 못한 집단은 유전만으로는 따라잡지 못한다.', tr: 'Dipnot: eşitsizlik erişim üzerinden kuşaklara yayılır — tahsis yapabilen kohortlar avantajları öne taşır; yapamayanlar yalnızca genetikle bu farkı kapatamaz.' },
   // Parent panel collapsibles
   'Temperament dials': { zh: '气质刻度', ja: '気質ダイヤル', ko: '기질 다이얼', tr: 'Mizaç kadranları' },
   'Visible traits':    { zh: '可见特征', ja: '見た目の特性', ko: '눈에 보이는 특성', tr: 'Görünür özellikler' },
@@ -6139,7 +6145,7 @@ function ensureBudgetLockNotice(showLock) {
     if (!notice) {
       notice = document.createElement('p');
       notice.className = 'budget-lock-notice';
-      notice.textContent = 'Baseline projection required before optimization packages unlock.';
+      notice.textContent = localLabel('Baseline projection required before optimization packages unlock.');
       const intro = panel.querySelector('.subtle');
       if (intro && intro.nextSibling) panel.insertBefore(notice, intro.nextSibling);
       else panel.appendChild(notice);
@@ -8927,16 +8933,20 @@ function copyProfile() {
     ta.style.position = 'fixed'; ta.style.opacity = '0';
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); status.textContent = 'Copied to clipboard ✓'; }
-    catch { status.textContent = 'Couldn’t copy automatically — please copy from the alert.'; alert(text); }
+    try { document.execCommand('copy'); status.textContent = localLabel('Copied to clipboard ✓'); }
+    catch { status.textContent = localLabel('Couldn’t copy automatically — please copy from the alert.'); alert(text); }
     document.body.removeChild(ta);
   };
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text)
-      .then(() => { status.textContent = 'Copied to clipboard ✓'; })
+      .then(() => { status.textContent = localLabel('Copied to clipboard ✓'); })
       .catch(fallback);
   } else { fallback(); }
-  setTimeout(() => { if (status.textContent.startsWith('Copied')) status.textContent = ''; }, 2200);
+  setTimeout(() => {
+    const en = 'Copied to clipboard ✓';
+    const copied = localLabel(en);
+    if (status.textContent === copied || status.textContent === en || status.textContent.startsWith('Copied')) status.textContent = '';
+  }, 2200);
 }
 
 /* ====================================================================
@@ -9230,8 +9240,8 @@ function saveCurrentTimeline() {
   renderSavedList();
   const status = $('#copy-status');
   if (status) {
-    status.textContent = 'Saved ✓';
-    setTimeout(() => { if (status.textContent === 'Saved ✓') status.textContent = ''; }, 1800);
+    status.textContent = localLabel('Saved ✓');
+    setTimeout(() => { if (status.textContent === localLabel('Saved ✓') || status.textContent === 'Saved ✓') status.textContent = ''; }, 1800);
   }
 }
 
@@ -9738,7 +9748,7 @@ function updateBudgetProjections(usedOverride) {
       if (!accessFoot) {
         accessFoot = document.createElement('p');
         accessFoot.className = 'access-compound-foot';
-        accessFoot.textContent = 'Footnote: inheritance compounds via access — cohorts able to allocate carry advantages forward; cohorts that cannot do not catch up by genetics alone.';
+        accessFoot.textContent = localLabel('Footnote: inheritance compounds via access — cohorts able to allocate carry advantages forward; cohorts that cannot do not catch up by genetics alone.');
         const tierRow = projHost.querySelector('#access-tier');
         const anchor = tierRow ? tierRow.closest('.projection-row') : null;
         if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(accessFoot, anchor.nextSibling);
