@@ -3405,6 +3405,26 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
    behavioral projection. Cross-fades out on micro-ack so the same
    screen-space hands off to the intensity-progress hint (two-beat
    consent rhythm). */
+
+/* Container for the leadin — Round 7 rev: without a panel chrome the
+   italic one-liner gets visually dominated by the backdrop-blurred
+   budget-panel that follows. Borrow the .consent-ack-prompt palette
+   (dark inset, warm amber border) so the ethical framing reads as a
+   peer of the micro-ack that succeeds it. */
+#consent-awareness-leadin {
+  margin: 12px 0;
+  padding: 10px 12px;
+  background: rgba(7, 9, 30, 0.6);
+  border: 1px solid rgba(255, 210, 138, 0.28);
+  border-left: 3px solid rgba(255, 210, 138, 0.55);
+  border-radius: 8px;
+}
+#consent-awareness-leadin .consent-awareness-note {
+  margin: 0;
+  border-left: none;
+  padding: 0;
+}
+
 .consent-awareness-note {
   margin: 0 0 10px; padding: 6px 10px;
   font-size: 12px; font-style: italic; color: rgba(255, 220, 170, 0.92);
@@ -3653,7 +3673,8 @@ body.mode-adult .alt-vibe {
   .avatar-glow,
   .chaos-pill.is-active,
   .reminder-banner,
-  .history-content { animation: none !important; transition: none !important; }
+  .history-content,
+  .history-chevron { animation: none !important; transition: none !important; }
 }
 
 /* ====================================================================
