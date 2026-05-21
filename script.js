@@ -654,6 +654,15 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Adult case-file labels
+  'Simulation Codename': { zh: '模拟代号', ja: 'シミュレーション・コードネーム', ko: '시뮬레이션 코드네임', tr: 'Simülasyon Kod Adı' },
+  'Cohort': { zh: '群组', ja: 'コホート', ko: '코호트', tr: 'Kohort' },
+  'Profile': { zh: '档案', ja: 'プロファイル', ko: '프로파일', tr: 'Profil' },
+  'Generated': { zh: '生成时间', ja: '生成日時', ko: '생성 시각', tr: 'Oluşturuldu' },
+  'Optimization Intensity': { zh: '优化强度', ja: '最適化の強度', ko: '최적화 강도', tr: 'Optimizasyon Yoğunluğu' },
+  'Disclosure': { zh: '披露', ja: '開示区分', ko: '공시', tr: 'Açıklama' },
+  'I understand this is a heritable decision.': { zh: '我明白这是一个可遗传的决定。', ja: 'これは遺伝に関わる決定であることを、私は理解しています。', ko: '이것이 유전 가능한 결정임을 이해합니다.', tr: 'Bunun kalıtsal bir karar olduğunu anlıyorum.' },
+  'Acknowledge & continue': { zh: '已知悉,继续', ja: '了承して進む', ko: '이해하고 계속하기', tr: 'Onayla ve devam et' },
   // Adult panel mini-strings
   'Outcome trajectory no longer matches the modeled projection. Reprojection recommended.': { zh: '实际轨迹已不再与所建模的投影一致。建议重新投影。', ja: 'アウトカムの軌跡は、モデル化された投影に一致しなくなっている。再投影を推奨する。', ko: '실제 궤적이 모델링된 투영과 더 이상 일치하지 않습니다. 재투영을 권장합니다.', tr: 'Sonuç yörüngesi artık modellenen projeksiyonla örtüşmüyor. Yeniden projeksiyon önerilir.' },
   'Issued for indicative purposes. Authorizations and waiting-list intervals are revised quarterly; current values supersede prior disclosures.': { zh: '仅为指示性参考。授权与等候期每季度修订;现行数值替代此前披露。', ja: '本表示は参考目的に限る。認可および待機期間は四半期ごとに見直されており、現在の値が従前の開示に優先する。', ko: '본 정보는 참고용이다. 인가와 대기 기간은 분기마다 갱신되며, 현재 값이 이전 공시에 우선한다.', tr: 'Bilgi amaçlıdır. Yetkilendirmeler ve bekleme süreleri üç ayda bir güncellenir; mevcut değerler önceki açıklamaların yerini alır.' },
@@ -7126,12 +7135,12 @@ function renderCaseFile() {
   host.dataset.lastTier = tier;
   host.dataset.lastCodename = state.codename;
   host.innerHTML = `
-    <div class="case-row"><span class="case-label">Simulation Codename</span><span class="case-value">${state.codename}</span></div>
-    <div class="case-row"><span class="case-label">Cohort</span><span class="case-value">ENH-2042</span></div>
-    <div class="case-row"><span class="case-label">Profile</span><span class="case-value">v${profileV}</span></div>
-    <div class="case-row"><span class="case-label">Generated</span><span class="case-value">${tsStr}</span></div>
-    <div class="case-row"><span class="case-label">Optimization Intensity</span><span class="case-value case-tier">${tier}</span></div>
-    <div class="case-row"><span class="case-label">Disclosure</span><span class="case-value">${disclosure}</span></div>
+    <div class="case-row"><span class="case-label">${localLabel('Simulation Codename')}</span><span class="case-value">${state.codename}</span></div>
+    <div class="case-row"><span class="case-label">${localLabel('Cohort')}</span><span class="case-value">ENH-2042</span></div>
+    <div class="case-row"><span class="case-label">${localLabel('Profile')}</span><span class="case-value">v${profileV}</span></div>
+    <div class="case-row"><span class="case-label">${localLabel('Generated')}</span><span class="case-value">${tsStr}</span></div>
+    <div class="case-row"><span class="case-label">${localLabel('Optimization Intensity')}</span><span class="case-value case-tier">${tier}</span></div>
+    <div class="case-row"><span class="case-label">${localLabel('Disclosure')}</span><span class="case-value">${disclosure}</span></div>
   `;
 }
 
@@ -9509,8 +9518,8 @@ function showConsentAckPrompt() {
     prompt = document.createElement('div');
     prompt.className = 'consent-ack-prompt';
     prompt.innerHTML = `
-      <p class="consent-ack-copy">I understand this is a heritable decision.</p>
-      <button type="button" class="btn btn-small consent-ack-btn">Acknowledge & continue</button>`;
+      <p class="consent-ack-copy">${localLabel('I understand this is a heritable decision.')}</p>
+      <button type="button" class="btn btn-small consent-ack-btn">${localLabel('Acknowledge & continue')}</button>`;
     const grid = panel.querySelector('#budget-grid');
     if (grid && grid.parentNode) grid.parentNode.insertBefore(prompt, grid);
     else panel.appendChild(prompt);
