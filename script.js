@@ -6382,6 +6382,20 @@ const KIDS_ARC_CLOSING_AFFIRMATION = {
   tr: ['Sizi şaşırtabilir; ve o şaşırtı, o insanın yaşadığı yerdir.']
 };
 
+/* R16 NARRATIVE: symmetric closing affirmation for Reflection mode — sits after
+ * the Pause Panel's "Things this simulator cannot see" + reflection question.
+ * Frame: this projection is one of many; the actual person belongs to themselves.
+ * Restrained, anti-deterministic, lands on agency rather than tidy resolution.
+ * Single line per language, wrapped as a 1-element array so `localList` + EN
+ * fallback apply, mirroring KIDS_ARC_CLOSING_AFFIRMATION. UX Flow wires this. */
+const REFLECTION_ARC_CLOSING_AFFIRMATION = {
+  en: ['The version this generated is one of many. The one that arrives will be theirs.'],
+  zh: ['这只是无数可能中的一个版本。真正到来的那个人,属于他们自己。'],
+  ja: ['これは数えきれない可能性のうちのひとつにすぎません。実際に現れるその人は、その人自身のものです。'],
+  ko: ['이것은 수많은 가능성 중 하나일 뿐입니다. 실제로 도착할 그 사람은, 그 자신의 것입니다.'],
+  tr: ['Bu, sayısız olasılıktan yalnızca biri. Gerçekten gelecek olan kişi, kendisine ait olacak.']
+};
+
 /* ---------- Seeded randomness ---------- */
 // Tiny deterministic hash → uint32. Same string in, same value out.
 function hashStr(s) {
