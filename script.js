@@ -655,6 +655,15 @@ function localGender(g) {
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
   // Life-stage / memory-snapshot labels
+  // Ancestry dropdown values
+  'Unspecified':    { zh: '未指定',     ja: '指定なし',     ko: '지정 안 함',   tr: 'Belirtilmemiş' },
+  'European':       { zh: '欧裔',       ja: 'ヨーロッパ系', ko: '유럽계',       tr: 'Avrupa kökenli' },
+  'East Asian':     { zh: '东亚裔',     ja: '東アジア系',   ko: '동아시아계',   tr: 'Doğu Asya kökenli' },
+  'South Asian':    { zh: '南亚裔',     ja: '南アジア系',   ko: '남아시아계',   tr: 'Güney Asya kökenli' },
+  'African':        { zh: '非洲裔',     ja: 'アフリカ系',   ko: '아프리카계',   tr: 'Afrika kökenli' },
+  'Latin American': { zh: '拉丁美洲裔', ja: 'ラテンアメリカ系', ko: '라틴 아메리카계', tr: 'Latin Amerika kökenli' },
+  'Middle Eastern': { zh: '中东裔',     ja: '中東系',       ko: '중동계',       tr: 'Orta Doğu kökenli' },
+  'Mixed':          { zh: '混合',       ja: 'ミックス',     ko: '혼합',         tr: 'Karışık' },
   'Trait Popularity · Historical Drift': { zh: '理想性状的流变 · 历史漂移', ja: '理想とされる特性の歴史的ドリフト', ko: '바람직한 특성의 역사적 표류', tr: 'İstenen Özellik · Tarihsel Kayma' },
   'Beta': { zh: '测试版', ja: 'ベータ', ko: '베타', tr: 'Beta' },
   "What gets called a 'desirable' trait drifts across eras. Optimization targets are not culturally stable.": { zh: '何为"理想性状",在不同时代不断漂移。优化目标在文化上并不稳定。', ja: '「望ましい特性」と呼ばれるものは、時代ごとに漂流する。最適化の目標は文化的に安定しない。', ko: "'바람직한 특성'이라 불리는 것은 시대를 따라 표류한다. 최적화 목표는 문화적으로 안정적이지 않다.", tr: "'İstenir' sayılan özellik çağdan çağa kayar. Optimizasyon hedefleri kültürel olarak istikrarlı değildir." },
@@ -6112,7 +6121,8 @@ function buildParentForms() {
           <input id="${id}" name="${f.key}" type="number" min="${f.min}" max="${f.max}" value="${def}" />`;
       } else if (f.type === 'select') {
         const opts = f.options.map(o => {
-          const lbl = (f.optionLabels && f.optionLabels[o]) || titleCase(o);
+          const baseLbl = (f.optionLabels && f.optionLabels[o]) || titleCase(o);
+          const lbl = (typeof localLabel === 'function') ? localLabel(baseLbl) : baseLbl;
           return `<option value="${o}" ${o===def?'selected':''}>${lbl}</option>`;
         }).join('');
         field.innerHTML = `
