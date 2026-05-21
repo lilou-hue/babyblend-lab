@@ -7849,6 +7849,16 @@ function renderPausePanel() {
   const obsHtml  = obs.map(o => `<li>${o}</li>`).join('');
   const cantHtml = cant.map(c => `<li>${c}</li>`).join('');
   const qHtml    = `<span class="pause-q-mark">?</span> ${question}`;
+  // R16 (Narrative parallel): closing affirmation slot — mirrors R13
+  // Kids-arc closing (renderKidsDifferences). Defensive: Narrative's
+  // REFLECTION_ARC_CLOSING_AFFIRMATION constant lands in parallel; if it
+  // hasn't merged yet, skip the slot rather than throw.
+  const closingPool = (typeof REFLECTION_ARC_CLOSING_AFFIRMATION !== 'undefined')
+    ? REFLECTION_ARC_CLOSING_AFFIRMATION : null;
+  const closingLine = closingPool ? localList(closingPool)[0] : '';
+  const closingHtml = closingLine
+    ? `<p class="reflection-arc-closing" role="doc-conclusion">${closingLine}</p>`
+    : '';
 
   if (isAdlt) {
     // Render the same content inside a default-collapsed <details>.
@@ -7866,18 +7876,24 @@ function renderPausePanel() {
         `<h4 class="pause-cant-see-heading">Things this simulator cannot see</h4>` +
         `<ul class="pause-cant-see" id="pause-cant-see">${cantHtml}</ul>` +
         `<div class="pause-question" id="pause-question">${qHtml}</div>` +
+        closingHtml +
       `</details>`;
     return;
   }
 
   // Reflection mode: ensure original (un-wrapped) structure is present.
-  if (!$('#pause-observations') || $('#pause-details')) {
+  // Re-template whenever the closing slot's presence flips (or struct missing)
+  // so the <p class="reflection-arc-closing"> appears/disappears cleanly.
+  const hasClosingEl = !!panel.querySelector('.reflection-arc-closing');
+  const needsClosing = !!closingHtml;
+  if (!$('#pause-observations') || $('#pause-details') || hasClosingEl !== needsClosing) {
     panel.innerHTML =
       `<h3 id="pause-heading">A pause to consider</h3>` +
       `<ul class="pause-observations" id="pause-observations"></ul>` +
       `<h4 class="pause-cant-see-heading">Things this simulator cannot see</h4>` +
       `<ul class="pause-cant-see" id="pause-cant-see"></ul>` +
-      `<div class="pause-question" id="pause-question"></div>`;
+      `<div class="pause-question" id="pause-question"></div>` +
+      closingHtml;
   }
   $('#pause-observations').innerHTML = obsHtml;
   $('#pause-cant-see').innerHTML     = cantHtml;
