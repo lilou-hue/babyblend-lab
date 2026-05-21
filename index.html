@@ -413,7 +413,7 @@
             <span class="surprise-bar"><span class="surprise-bar-fill" id="surprise-fill"></span></span>
             <span class="surprise-pct" id="surprise-pct">0%</span>
           </div>
-          <p class="surprise-note" id="surprise-note">How likely the baby strays from a simple average of the parents.</p>
+          <p class="surprise-note" id="surprise-note" data-i18n="surprise.note">How likely the baby strays from a simple average of the parents.</p>
         </div>
 
         <div class="actions">
@@ -467,8 +467,8 @@
 
         <div class="kids-stars-row" id="kids-stars" aria-hidden="true">
           <dl>
-            <dt>Creativity</dt> <dd id="kids-creativity-stars">☆☆☆☆☆</dd>
-            <dt>Teamwork</dt>   <dd id="kids-teamwork-stars">☆☆☆☆☆</dd>
+            <dt data-i18n="kids.stars.creativity">Creativity</dt> <dd id="kids-creativity-stars">☆☆☆☆☆</dd>
+            <dt data-i18n="kids.stars.teamwork">Teamwork</dt>     <dd id="kids-teamwork-stars">☆☆☆☆☆</dd>
           </dl>
         </div>
 
@@ -484,7 +484,7 @@
 
         <section class="aging-scrubber" id="aging-scrubber" hidden>
           <div class="scrubber-head">
-            <span class="scrubber-label" id="scrubber-label">See them at</span>
+            <span class="scrubber-label" id="scrubber-label" data-i18n="scrubber.label">See them at</span>
             <span class="scrubber-value" id="scrubber-value">17 years old</span>
           </div>
           <input type="range" id="age-slider" min="0" max="80" step="1" value="17" aria-label="Age" />
@@ -532,7 +532,7 @@
 
         <div class="trait-conflicts" id="trait-conflicts" hidden></div>
 
-        <button type="button" class="details-toggle" id="details-toggle" aria-expanded="false">Show more</button>
+        <button type="button" class="details-toggle" id="details-toggle" aria-expanded="false" data-i18n="details.show_more">Show more</button>
 
         <div class="future-block" id="future-block" hidden>
           <h3 id="future-block-heading">
@@ -543,17 +543,17 @@
           <div class="future-tree" id="future-tree" aria-hidden="true"></div>
           <ul class="future-paths" id="future-paths" hidden></ul>
           <div class="random-events playful-only" id="random-events"></div>
-          <h3 class="future-news-heading playful-only">In the local news, decades later…</h3>
+          <h3 class="future-news-heading playful-only" data-i18n="news.heading">In the local news, decades later…</h3>
           <ul class="future-headlines playful-only" id="future-headlines"></ul>
         </div>
 
         <div class="reflection-prompt" id="reflection-prompt" hidden></div>
 
         <section class="pause-panel" id="pause-panel" aria-labelledby="pause-heading" hidden>
-          <h3 id="pause-heading">A pause to consider</h3>
+          <h3 id="pause-heading" data-i18n="pause.heading">A pause to consider</h3>
           <ul class="pause-observations" id="pause-observations"></ul>
 
-          <h4 class="pause-cant-see-heading">Things this simulator cannot see</h4>
+          <h4 class="pause-cant-see-heading" data-i18n="pause.cant_see">Things this simulator cannot see</h4>
           <ul class="pause-cant-see" id="pause-cant-see"></ul>
 
           <div class="pause-question" id="pause-question"></div>
