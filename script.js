@@ -3741,7 +3741,6 @@ const KIDS_REFLECTION_PROMPTS = [
   'Can two best friends be very different from each other? Why?'
 ];
 
-// LOOP_REQUEST(translator): EN[1] was rewritten in R6 to drop the "amazing inside them" platitude; zh/ja/ko/tr below still carry the old line.
 const KIDS_HUMANITY_REMINDERS = {
   en: [
     'People grow and change in ways no one can predict.',
@@ -3751,25 +3750,25 @@ const KIDS_HUMANITY_REMINDERS = {
   ],
   zh: [
     '人会以谁都无法预料的方式成长和改变。',
-    '每个人心里都有一种了不起的东西。',
+    '每个孩子都知道一件房间里其他人都不知道的事。',
     '多样性让世界更有意思。',
     '你不只是那些特征——你是一个完整的故事。'
   ],
   ja: [
     '人は、誰にも予測できないかたちで成長し、変わっていく。',
-    '誰の中にも、すごいものが宿っている。',
+    'どの子も、その部屋にいる誰も知らないことを一つ知っている。',
     'ちがいがあるから、世界はおもしろい。',
     'あなたは特徴の寄せ集めではない——一つの物語そのものだ。'
   ],
   ko: [
     '사람은 누구도 예측할 수 없는 방식으로 자라고 변한다.',
-    '누구에게나 안에 멋진 무언가가 있어요.',
+    '모든 아이는 그 방의 다른 누구도 모르는 한 가지를 알고 있어요.',
     '다양성이 세상을 더 흥미롭게 만들어요.',
     '너는 특성들의 합이 아니에요 — 하나의 온전한 이야기예요.'
   ],
   tr: [
     'İnsanlar, kimsenin tahmin edemediği şekillerde büyür ve değişir.',
-    'Herkesin içinde harika bir şey vardır.',
+    'Her çocuk, odadaki başka kimsenin bilmediği bir şeyi bilir.',
     'Çeşitlilik, dünyayı daha ilginç kılar.',
     'Sen özelliklerinin toplamından çok daha fazlasısın — koca bir hikâyesin.'
   ]
@@ -4710,8 +4709,13 @@ function renderKidsPersonalitySlider(view, ranges, container) {
   // Round 6 rev (UX, ETHICS): soft pure-text ack when a Kids-mode slider
   // is dragged >1.0 display-unit away from the midparent. No modal, no
   // animation, no gate — just a quiet line that appears in-place.
-  // LOOP_REQUEST(narrative): translate KIDS_SLIDER_EXTREME_ACK
-  const KIDS_SLIDER_EXTREME_ACK = "You're imagining possibilities — no actual choices are being made here.";
+  const KIDS_SLIDER_EXTREME_ACK = {
+    en: ["You're imagining possibilities — no actual choices are being made here."],
+    zh: ['你只是在想象各种可能——这里没有人在做真正的选择。'],
+    ja: ['いろんな可能性を想像しているだけ——ここで本当の選択をしているわけじゃないよ。'],
+    ko: ['여러 가능성을 상상해 보는 거예요 — 여기서 실제로 선택이 이뤄지진 않아요.'],
+    tr: ['Olasılıkları hayal ediyorsun — burada gerçek bir seçim yapılmıyor.']
+  };
   const midOceanForAck = (state.parents?.A && state.parents?.B)
     ? (state.parents.A[view.oceanKey] + state.parents.B[view.oceanKey]) / 2
     : null;
@@ -4730,7 +4734,7 @@ function renderKidsPersonalitySlider(view, ranges, container) {
           ack.className = 'kids-slider-extreme-ack subtle';
           row.appendChild(ack);
         }
-        ack.textContent = KIDS_SLIDER_EXTREME_ACK;
+        ack.textContent = localList(KIDS_SLIDER_EXTREME_ACK)[0];
       } else if (ack) {
         ack.remove();
       }
