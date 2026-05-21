@@ -8109,31 +8109,133 @@ function computeTraitConflicts(b) {
  * Rare life events that override the modeled projection. The thesis is
  * 'humans cannot fully be engineered'; the divergence makes it concrete
  * by invalidating the brief with one ordinary biographical fact. */
-const DIVERGENCE_EVENTS = [
-  "Grandparent's death at age 14 quietly reshapes their emotional architecture.",
-  "Falls hard for a high-school teacher who teaches them Russian poetry. Career bends.",
-  "Develops a chronic illness at 26. Identity reorganizes around it.",
-  "A close friend dies young. They become unrecognizable for a decade.",
-  "One book — encountered at 19 — recalibrates everything.",
-  "A mentor takes unexpected interest. Trajectory accelerates in a direction nobody modeled.",
-  "Loses their first job during a recession. Quietly chooses art.",
-  "Has a child earlier than projected. Time pivots.",
-  "Survives a near-fatal accident at 31. Reorganizes around the survival.",
-  "Falls in love with a partner who lives six time zones away. Geography rewrites the projection.",
-  "Develops an obsession with a single craft that compounds over twenty years.",
-  "A sibling becomes seriously ill. Caregiving rewrites their twenties.",
-  "Moves to a country they have never been to and stays.",
-  "Joins a small movement at 22. The movement becomes their life.",
-  "Reads an obituary that names them as second cousin. Family arrives.",
-  "Is the only person present at a stranger's emergency. Career changes within a year.",
-  "A teacher's offhand comment at age 9 quietly anchors their adult identity.",
-  "Comes out at 34. Everything before reads differently afterward.",
-  "Inherits a small piece of property from a relative they barely knew. It anchors them.",
-  "Finds a single piece of art at 17 that determines what they want to do with their hands.",
-  "Becomes briefly internet-famous for an accident at 22. Recovers slowly.",
-  "Loses their faith. Or finds one. Either way, the projection bends.",
-  "Adopts a child late in life. Resists every model that called this implausible."
-];
+const DIVERGENCE_EVENTS = {
+  en: [
+    "Grandparent's death at age 14 quietly reshapes their emotional architecture.",
+    "Falls hard for a high-school teacher who teaches them Russian poetry. Career bends.",
+    "Develops a chronic illness at 26. Identity reorganizes around it.",
+    "A close friend dies young. They become unrecognizable for a decade.",
+    "One book — encountered at 19 — recalibrates everything.",
+    "A mentor takes unexpected interest. Trajectory accelerates in a direction nobody modeled.",
+    "Loses their first job during a recession. Quietly chooses art.",
+    "Has a child earlier than projected. Time pivots.",
+    "Survives a near-fatal accident at 31. Reorganizes around the survival.",
+    "Falls in love with a partner who lives six time zones away. Geography rewrites the projection.",
+    "Develops an obsession with a single craft that compounds over twenty years.",
+    "A sibling becomes seriously ill. Caregiving rewrites their twenties.",
+    "Moves to a country they have never been to and stays.",
+    "Joins a small movement at 22. The movement becomes their life.",
+    "Reads an obituary that names them as second cousin. Family arrives.",
+    "Is the only person present at a stranger's emergency. Career changes within a year.",
+    "A teacher's offhand comment at age 9 quietly anchors their adult identity.",
+    "Comes out at 34. Everything before reads differently afterward.",
+    "Inherits a small piece of property from a relative they barely knew. It anchors them.",
+    "Finds a single piece of art at 17 that determines what they want to do with their hands.",
+    "Becomes briefly internet-famous for an accident at 22. Recovers slowly.",
+    "Loses their faith. Or finds one. Either way, the projection bends.",
+    "Adopts a child late in life. Resists every model that called this implausible."
+  ],
+  zh: [
+    "祖辈在他/她 14 岁那年离世,悄悄重塑了他/她的情感架构。",
+    "深深迷上了一位教自己俄罗斯诗歌的高中老师,职业方向就此弯折。",
+    "26 岁开始患上一种慢性疾病。身份认同重新围绕它组织起来。",
+    "一位密友英年早逝。接下来的十年里,他/她变得几乎认不出来。",
+    "19 岁时遇到的一本书,把一切都重新校准了。",
+    "一位导师出乎意料地对他/她产生了兴趣。轨迹朝着无人模拟过的方向加速。",
+    "在一次经济衰退中失去了第一份工作。悄悄地选择了艺术。",
+    "比预测中更早就有了孩子。时间被重新分配。",
+    "31 岁时,在一场几乎致命的事故中活了下来。整个人围绕"幸存"重新组织。",
+    "爱上了一位住在六个时区之外的伴侣。地理改写了原本的预测。",
+    "对某一门手艺生出长达二十年、不断累积的执着。",
+    "一位手足重病。整个二十多岁,被照护这件事改写了。",
+    "搬去一个从未去过的国家,然后留了下来。",
+    "22 岁那年加入一个小小的运动。这个运动后来成了他/她的全部生活。",
+    "读到一则讣告,在里面看到自己被列为远房表亲。家族就此到来。",
+    "在一位陌生人遇险时,自己是现场唯一的人。一年之内,职业改变。",
+    "9 岁时一位老师不经意的一句话,默默地锚定了成年后的身份。",
+    "34 岁出柜。在那之前的一切,事后都显出不同的意义。",
+    "从一位几乎不认识的亲戚那里继承了一小块地产,它变成了他/她的锚点。",
+    "17 岁时遇见的一件艺术品,决定了他/她想用双手去做什么。",
+    "22 岁因为一场意外短暂地在互联网上"红"了一次。恢复得很慢。",
+    "失去了自己的信仰。或者获得了一种。无论哪种,原本的预测都会弯折。",
+    "在人生晚期收养了一个孩子。抵抗住了一切将这种可能称作"不切实际"的模型。"
+  ],
+  ja: [
+    "14歳のときの祖父母の死が、その人の感情のかたちを、ひそかに変えていく。",
+    "ロシア詩を教えてくれた高校の先生に、深く心を奪われる。職業の道筋が、そこから曲がる。",
+    "26歳で慢性疾患を抱えるようになる。アイデンティティはそれを軸に組み直される。",
+    "親しい友人が若くして亡くなる。その後の十年で、本人は別人のようになる。",
+    "19歳で出会った一冊の本が、すべてを再調整する。",
+    "あるメンターが思いがけず関心を寄せてくる。誰もモデル化していなかった方向へ、軌跡が一気に加速する。",
+    "不況の中で初めての仕事を失う。静かに芸術の道を選ぶ。",
+    "予測より早く子どもを授かる。時間の使い方そのものが変わる。",
+    "31歳で、九死に一生の事故を生き延びる。「生き延びたこと」を中心に、人生が再構成される。",
+    "六つの時間帯の向こうに住むパートナーと恋に落ちる。地理が、それまでの予測を書き換える。",
+    "ある一つの手仕事への執着が、二十年かけて積み重なっていく。",
+    "きょうだいが重い病にかかる。二十代の十年が、まるごと介護の時間に書き換えられる。",
+    "行ったこともない国に移り住み、そのまま暮らし続ける。",
+    "22歳で、ある小さな運動に加わる。その運動が、人生そのものになっていく。",
+    "ある訃報を読み、その中で「またいとこ」として自分の名前を見つける。家族がそこから現れる。",
+    "見知らぬ人の緊急時に、その場に居合わせたのが自分だけだった——それから一年以内に、職業が変わる。",
+    "9歳のときに先生がふと口にしたひとことが、大人としての自分を静かに支えていく。",
+    "34歳でカミングアウトする。それ以前のすべてが、ちがう意味で読み直される。",
+    "ほとんど知らない親戚から、小さな土地を受け継ぐ。それがその後の人生の錨になる。",
+    "17歳で出会った一つの作品が、その人が「自分の手で何をしたいか」を決めてしまう。",
+    "22歳のときの事故をきっかけに、ほんの一時期だけネットで有名になる。立ち直るのに、時間がかかる。",
+    "信仰を失う。あるいは、新しい信仰に出会う。どちらにしても、それまでの予測は曲がっていく。",
+    "人生の後半で、子どもを養子に迎える。「それはありえない」と切り捨てたあらゆるモデルに、静かに抗う。"
+  ],
+  ko: [
+    "열네 살에 맞은 조부모의 죽음이, 그 사람의 정서 구조를 조용히 바꾸어 놓는다.",
+    "러시아 시를 가르치던 고등학교 선생님에게 깊이 빠진다. 진로가 그 자리에서 휘어진다.",
+    "스물여섯에 만성 질환을 얻는다. 정체성이 그것을 중심으로 다시 짜인다.",
+    "가까운 친구가 일찍 세상을 떠난다. 그 뒤로 십 년 동안, 본인은 알아보기 힘들 만큼 달라진다.",
+    "열아홉에 만난 한 권의 책이 모든 것을 다시 맞춰 놓는다.",
+    "한 멘토가 뜻밖에 그에게 관심을 기울인다. 어떤 모형도 그리지 못한 방향으로, 인생 궤적이 가속한다.",
+    "경기 침체기에 첫 직장을 잃는다. 조용히, 예술을 택한다.",
+    "예측보다 일찍 아이를 갖게 된다. 시간의 무게중심이 그 순간 옮겨간다.",
+    "서른한 살에 거의 죽을 뻔한 사고를 살아남는다. 삶 전체가 '살아남았다는 사실' 위에 재편된다.",
+    "여섯 시간대 너머에 사는 사람과 사랑에 빠진다. 지리가 본래의 예측을 다시 쓴다.",
+    "한 가지 기술에 대한 집착이, 이십 년에 걸쳐 차곡차곡 쌓여간다.",
+    "형제 가운데 한 명이 큰 병에 걸린다. 이십 대 전부가 돌봄의 시간으로 다시 쓰인다.",
+    "한 번도 가본 적 없는 나라로 옮겨가 그대로 산다.",
+    "스물둘에 작은 한 운동에 합류한다. 그 운동이 곧 평생이 된다.",
+    "어느 부고에서 자신이 '재종'으로 호명된 것을 본다. 그 자리에서 가족이 도착한다.",
+    "낯선 이의 위급 상황에 자기 혼자만 그 자리에 있었다 — 일 년 안에 직업이 바뀐다.",
+    "아홉 살 때 선생님이 무심코 한 말이, 어른이 된 정체성을 조용히 붙들어 준다.",
+    "서른넷에 커밍아웃한다. 그 이전의 모든 것이 이후엔 다르게 읽힌다.",
+    "거의 알지 못하던 친척에게서 작은 토지를 물려받는다. 그것이 삶의 닻이 된다.",
+    "열일곱에 만난 한 작품이, 자기 손으로 무엇을 하고 싶은가를 결정해 버린다.",
+    "스물둘에 사고로 한때 인터넷에서 유명해진다. 회복은 더디게 온다.",
+    "신앙을 잃는다. 또는 새로 갖게 된다. 어느 쪽이든, 본래의 예측은 휘어진다.",
+    "인생 후반에 아이를 입양한다. '그건 비현실적'이라고 단정 짓던 모든 모형에 조용히 저항한다."
+  ],
+  tr: [
+    "On dört yaşındayken büyük ebeveyninin ölümü, duygusal mimarilerini sessizce yeniden şekillendirir.",
+    "Onlara Rus şiiri öğreten bir lise öğretmenine derinden tutulur. Kariyer hattı oradan kıvrılır.",
+    "Yirmi altısında kronik bir hastalık edinir. Kimlik, bu hastalık ekseninde yeniden düzenlenir.",
+    "Yakın bir arkadaş genç yaşta ölür. On yıl boyunca tanınmaz hale gelir.",
+    "On dokuz yaşında karşılaştıkları bir kitap her şeyi yeniden ayarlar.",
+    "Bir mentor beklenmedik bir ilgi gösterir. Yörünge, hiç kimsenin modellemediği bir yöne doğru hızlanır.",
+    "İlk işini bir resesyon döneminde kaybeder. Sessizce sanatı seçer.",
+    "Öngörülenden erken bir çocuk sahibi olur. Zaman bir anda eksenini değiştirir.",
+    "Otuz birinde ölümcül olabilecek bir kazadan sağ çıkar. Hayat bu sağ kalış üzerine yeniden kurulur.",
+    "Altı zaman dilimi ötede yaşayan biriyle âşık olur. Coğrafya, önceki tüm öngörüleri yeniden yazar.",
+    "Tek bir zanaata duydukları tutkunun yirmi yıllık birikimi gerçekleşir.",
+    "Bir kardeşi ağır bir hastalığa tutulur. Yirmili yaşlar, bakım yıllarına dönüşür.",
+    "Hiç gitmedikleri bir ülkeye taşınır ve orada kalır.",
+    "Yirmi ikisinde küçük bir harekete katılır. O hareket, hayatlarının kendisi olur.",
+    "Bir ölüm ilanında kendilerini 'ikinci dereceden kuzen' olarak bulurlar. Aile, oradan ortaya çıkar.",
+    "Bir yabancının acil durumunda olay yerindeki tek kişi olurlar — bir yıl içinde kariyer değişir.",
+    "Bir öğretmenin dokuz yaşındayken söylediği gelişigüzel bir cümle, yetişkin kimliklerini sessizce yerleştirir.",
+    "Otuz dört yaşında açılırlar. Öncesindeki her şey, ardından farklı okunur.",
+    "Neredeyse hiç tanımadıkları bir akrabadan küçük bir mülk miras alırlar. Bu, hayatlarına demir atar.",
+    "On yedisinde karşılaştıkları bir sanat eseri, elleriyle ne yapmak istediklerini belirler.",
+    "Yirmi ikisinde yaşadıkları bir kazayla internette kısa süreliğine ünlenirler. Toparlanma yavaş gelir.",
+    "İnançlarını kaybederler. Ya da yeni bir inanç bulurlar. Hangisi olursa olsun, öngörü kıvrılır.",
+    "Hayatlarının ileri evresinde bir çocuk evlat edinirler. Bunu 'gerçekçi değil' diyen tüm modellere sessizce karşı dururlar."
+  ]
+};
 
 /* ---------- Trait Popularity Through History (Adult mode) ----------
  * Five eras showing what each decade idealized as a 'desirable' trait.
@@ -8269,7 +8371,10 @@ const renderSocialResponse = renderSocietalBrief;
 /* ---------- Divergence rendering ---------- */
 function rollDivergence() {
   const rng = seededRand((state.codename || 'baby') + '|divergence|' + Date.now());
-  state.divergence = DIVERGENCE_EVENTS[Math.floor(rng() * DIVERGENCE_EVENTS.length)];
+  {
+    const divs = localList(DIVERGENCE_EVENTS);
+    state.divergence = divs[Math.floor(rng() * divs.length)];
+  }
   renderDivergence();
 }
 
