@@ -4299,6 +4299,30 @@ const KIDS_AGE_TICKERS = {
   }
 };
 
+/* R16: LIFE_SHAPES — narrative taxonomy for non-linear adult trajectories.
+ * The bucket keys on ADULT_TRAJECTORY_MILESTONES (early/mid/later/etc.) imply
+ * a single forward arc, but adult lives bend: people get interrupted and
+ * resume, bloom late, persist in precarity, or settle early. Tagging each
+ * entry with a life_shape lets selection pick a coherent shape across an
+ * adult future, instead of stitching one milestone from each linear bucket.
+ *
+ * Schema (lands inert in R16; selection still bucket-driven):
+ *   each milestone entry MAY optionally carry a
+ *     `life_shape: 'stability' | 'interruption' | 'bloom' | 'precarity'`
+ *   tag. Untagged entries fall into the default pool. Narrative will
+ *   populate tags across R17+; Systems will wire shape-aware selection
+ *   in R18 once enough entries carry tags to make the pool non-degenerate.
+ *
+ * LOOP_REQUEST(narrative): populate life_shape tags on
+ * ADULT_TRAJECTORY_MILESTONES entries — see LIFE_SHAPES constant below.
+ */
+const LIFE_SHAPES = {
+  stability:    { id: 'stability',    label: 'settled' },
+  interruption: { id: 'interruption', label: 'interrupted-then-resumed' },
+  bloom:        { id: 'bloom',        label: 'late-bloom' },
+  precarity:    { id: 'precarity',    label: 'persistent-precarity' }
+};
+
 const ADULT_TRAJECTORY_MILESTONES = {
   early: {
     en: [
@@ -6259,6 +6283,29 @@ const KIDS_ADULT_FUTURES = [
     }
     if (futureDrift.length) {
       console.warn('[BabyBlend] Future-pool tags not in TRAIT_CONFLICT_RULES (will score neutral):', futureDrift);
+    }
+    // R16: life_shape schema drift. ADULT_TRAJECTORY_MILESTONES entries may
+    // optionally carry a `life_shape` field once Narrative starts populating
+    // tags in R17+. Warn if any entry uses a shape not in LIFE_SHAPES so a
+    // typo (e.g. 'bllom') doesn't silently fall into the default pool when
+    // shape-aware selection lands. Entries are currently flat strings; the
+    // typeof check makes this inert until objects appear.
+    const validShapes = new Set(Object.keys(LIFE_SHAPES));
+    const shapeDrift = [];
+    Object.entries(ADULT_TRAJECTORY_MILESTONES).forEach(([bucket, byLang]) => {
+      if (!byLang || typeof byLang !== 'object') return;
+      Object.entries(byLang).forEach(([lang, arr]) => {
+        if (!Array.isArray(arr)) return;
+        arr.forEach((entry, idx) => {
+          if (entry && typeof entry === 'object' && 'life_shape' in entry &&
+              !validShapes.has(entry.life_shape)) {
+            shapeDrift.push(`${bucket}.${lang}[${idx}]:"${entry.life_shape}"`);
+          }
+        });
+      });
+    });
+    if (shapeDrift.length) {
+      console.warn('[BabyBlend] Milestone life_shape tags not in LIFE_SHAPES:', shapeDrift);
     }
   } catch (e) { /* never block boot for an audit */ }
 })();
