@@ -1446,7 +1446,7 @@ const FUTURE_PATHS = {
     { text: 'Says yes to one favor too many in their late twenties; carries the cost for years, and only afterwards learns that the friend never expected the yes in the first place.', tag: 'AN-pleaser' },
     // Tier-2 mild bands. Softer than the tier-1 entries above: same friction,
     // quieter expression. Present-state observation, not outcome-determinism.
-    // LOOP_REQUEST(translator): zh/ja/ko/tr for the 8 mild entries below.
+    // R15: zh/ja/ko/tr translations added below — last R9 carryover closed.
     { text: 'Keeps a running list of side projects; finishes most of the small ones, lets two larger ones drift.', tag: 'OC-mild' },
     { text: 'Renovates one room of the apartment carefully, then leaves the trim unfinished for a year.', tag: 'OC-mild' },
     { text: 'Hosts dinner once a month and is quiet for two days afterward.', tag: 'EN-mild' },
@@ -1511,7 +1511,15 @@ const FUTURE_PATHS = {
     { text: '三十七岁那年完成了一个没人要求、也没人想要的项目;却把活页夹放上高高的书架,每年仍翻看两次。', tag: 'OC-tension' },
     { text: '五十多岁起,每月只接待一个周日,八位客人,固定时间;其余的周日不接电话,那八个人渐渐摸清了规矩。', tag: 'EN-tension' },
     { text: '为一个早晨七点要用厨房的伴侣改变了自己的晨间习惯;怨了一整年,后来不再在意,再后来连自己原来的习惯都忘了。', tag: 'CO-rigidity' },
-    { text: '二十多岁末尾的某天,多答应了一个其实不该接的人情;为此付出多年代价,事后才发现那位朋友其实从未指望自己点头。', tag: 'AN-pleaser' }
+    { text: '二十多岁末尾的某天,多答应了一个其实不该接的人情;为此付出多年代价,事后才发现那位朋友其实从未指望自己点头。', tag: 'AN-pleaser' },
+    { text: '手头总有一份副业清单;小的多半会做完,两件大的就让它们漂着。', tag: 'OC-mild' },
+    { text: '把公寓里一个房间认真翻新,门窗收边的活儿却一年都没收尾。', tag: 'OC-mild' },
+    { text: '每月办一次晚餐;之后两天都安安静静的。', tag: 'EN-mild' },
+    { text: '喜欢和朋友过一整天的周六,然后把周日完全留给自己。', tag: 'EN-mild' },
+    { text: '几年来在同一家咖啡馆点同一杯咖啡;店员换了人会留意到。', tag: 'CO-mild' },
+    { text: '日程有一点小变动就绕开走,然后告诉自己没怎么放在心上。', tag: 'CO-mild' },
+    { text: '选了大家似乎都想去的那家餐馆;事后又轻描淡写地提一句,自己原本更想去哪儿。', tag: 'AN-mild' },
+    { text: '把一桩没说出口的小小不满揣上一星期左右;之后大致就放下了。', tag: 'AN-mild' }
   ],
   ja: [
     { text: '最初の一つを終える前に三つの計画に手をつけ、そのことと折り合いをつけていく。', tag: 'O' },
@@ -1568,7 +1576,15 @@ const FUTURE_PATHS = {
     { text: '三十七のとき、誰にも頼まれていない、誰も望まなかった計画を仕上げる——それでもファイルを高い棚に置き、年に二度はそれを開く。', tag: 'OC-tension' },
     { text: '五十代になると、月に一度だけ、八人、同じ時間に客を迎える——他の日曜には電話に出ない。八人もやがてその約束を覚える。', tag: 'EN-tension' },
     { text: '朝七時に台所を使いたい連れ合いのために、朝のルーティンを変える——一年は不満を抱き、やがて気にならなくなり、もとの習慣があったことすら忘れていく。', tag: 'CO-rigidity' },
-    { text: '二十代の終わり頃、引き受けすぎたひとつの頼みごとが何年もの代償となる——あとになって、頼んだ友人の方は最初から「はい」を期待していなかったと知る。', tag: 'AN-pleaser' }
+    { text: '二十代の終わり頃、引き受けすぎたひとつの頼みごとが何年もの代償となる——あとになって、頼んだ友人の方は最初から「はい」を期待していなかったと知る。', tag: 'AN-pleaser' },
+    { text: '副業のリストをいつも手元に置いている。小さなものはたいてい仕上げ、大きなもの二つは流れるに任せている。', tag: 'OC-mild' },
+    { text: '部屋を一つだけ丁寧に直し、その縁の仕上げを一年ほど放っておく。', tag: 'OC-mild' },
+    { text: '月に一度ディナーを開き、そのあと二日ほど静かに過ごす。', tag: 'EN-mild' },
+    { text: '友人と過ごす土曜を満喫し、日曜はまるごと自分のために空けておく。', tag: 'EN-mild' },
+    { text: '同じ店で同じコーヒーを何年も注文し、店員が代わると気づく。', tag: 'CO-mild' },
+    { text: '予定のちょっとした変更を避けて回り道し、別に気にしていないと自分に言い聞かせる。', tag: 'CO-mild' },
+    { text: 'みんなが行きたがっていそうな店を選び、後から軽く、本当はどこに行きたかったかを口にする。', tag: 'AN-mild' },
+    { text: '口にしない小さな不満を一週間ほど抱え、それからおおむね手放す。', tag: 'AN-mild' }
   ],
   ko: [
     { text: '첫 번째를 끝내기 전에 세 가지 일을 벌이고, 그 사실과 함께 살아가는 법을 배운다.', tag: 'O' },
@@ -1625,7 +1641,15 @@ const FUTURE_PATHS = {
     { text: '서른일곱에 아무도 부탁하지 않았고 아무도 원하지 않는 일을 끝낸다 — 그래도 그 바인더를 높은 선반에 올려두고, 일 년에 두 번씩 꺼내 본다.', tag: 'OC-tension' },
     { text: '쉰이 넘으면 한 달에 일요일 한 번, 여덟 명, 같은 시각에 손님을 맞는다 — 다른 일요일에는 전화를 받지 않고, 그 여덟 사람도 그 규칙을 익히게 된다.', tag: 'EN-tension' },
     { text: '아침 일곱 시에 부엌이 필요한 배우자를 위해 아침 루틴을 바꾼다 — 일 년은 못마땅해하고, 나중엔 신경 쓰지 않게 되고, 마침내 예전 습관이 있었다는 사실조차 잊는다.', tag: 'CO-rigidity' },
-    { text: '이십 대 후반, 한 번 너무 많이 도와주겠다고 답한 그 일이 몇 년 동안 부담으로 남는다 — 시간이 지나서야 정작 그 친구는 처음부터 "그래"를 기대조차 하지 않았음을 알게 된다.', tag: 'AN-pleaser' }
+    { text: '이십 대 후반, 한 번 너무 많이 도와주겠다고 답한 그 일이 몇 년 동안 부담으로 남는다 — 시간이 지나서야 정작 그 친구는 처음부터 "그래"를 기대조차 하지 않았음을 알게 된다.', tag: 'AN-pleaser' },
+    { text: '곁다리 작업 목록을 늘 갖고 있다. 작은 것은 대체로 마무리하고, 큰 둘은 그냥 흘러가게 둔다.', tag: 'OC-mild' },
+    { text: '집의 방 하나를 공들여 손보고, 마감재 작업은 일 년 동안 손대지 않고 둔다.', tag: 'OC-mild' },
+    { text: '한 달에 한 번 손님을 초대해 저녁을 차리고, 그 뒤 이틀은 조용히 보낸다.', tag: 'EN-mild' },
+    { text: '친구들과 보내는 토요일을 좋아하고, 일요일은 통째로 자기 자신을 위해 비워둔다.', tag: 'EN-mild' },
+    { text: '같은 카페에서 같은 커피를 몇 년이고 주문하고, 바리스타가 바뀌면 알아본다.', tag: 'CO-mild' },
+    { text: '일정의 사소한 변동을 피해 돌아가면서, 별로 신경 쓰이지 않았다고 자기에게 말한다.', tag: 'CO-mild' },
+    { text: '모두가 가고 싶어 하는 듯한 식당을 고르고, 끝난 뒤에야 가볍게 자기는 어디가 더 좋았는지 말한다.', tag: 'AN-mild' },
+    { text: '입 밖에 내지 않은 작은 서운함을 한 주쯤 품다가, 대체로 흘려보낸다.', tag: 'AN-mild' }
   ],
   tr: [
     { text: 'Birinciyi bitirmeden üç işe birden başlar; bununla yaşamayı öğrenir.', tag: 'O' },
@@ -1682,7 +1706,15 @@ const FUTURE_PATHS = {
     { text: 'Otuz yedisinde kimsenin istemediği, kimsenin sormadığı bir projeyi tamamlar; klasörü yine de en üst rafa kaldırır ve yılda iki kere bakar.', tag: 'OC-tension' },
     { text: 'Ellilerinde ayda bir pazar, sekiz kişi, hep aynı saatte misafir kabul eder; diğer pazarlar telefonu açmaz ve o sekiz kişi bu kuralı zamanla öğrenir.', tag: 'EN-tension' },
     { text: 'Sabah yedide mutfağa ihtiyaç duyan bir partner için sabah rutinini değiştirir; bir yıl içerlenir, sonra fark etmez olur, sonunda eski rutinin var olduğunu bile unutur.', tag: 'CO-rigidity' },
-    { text: 'Yirmilerinin sonunda kabul etmemesi gereken bir iyiliğe "evet" der; bedelini yıllarca taşır, çok sonra anlar ki o arkadaş aslında en başından "evet" beklemiyordu.', tag: 'AN-pleaser' }
+    { text: 'Yirmilerinin sonunda kabul etmemesi gereken bir iyiliğe "evet" der; bedelini yıllarca taşır, çok sonra anlar ki o arkadaş aslında en başından "evet" beklemiyordu.', tag: 'AN-pleaser' },
+    { text: 'Sürekli güncel tuttuğu bir yan iş listesi vardır; küçüklerin çoğunu bitirir, büyük olan ikisinin akıp gitmesine izin verir.', tag: 'OC-mild' },
+    { text: 'Evin bir odasını özenle yeniler, ardından süpürgelik ve pervaz işini bir yıl boyunca bitmemiş halde bırakır.', tag: 'OC-mild' },
+    { text: 'Ayda bir akşam yemeği verir; sonrasında iki gün sessiz kalır.', tag: 'EN-mild' },
+    { text: 'Cumartesinin tamamını arkadaşlarıyla geçirmeyi sever, ardından pazarı bütünüyle kendine ayırır.', tag: 'EN-mild' },
+    { text: 'Yıllarca aynı kafede aynı kahveyi söyler; baristanın değiştiğini fark eder.', tag: 'CO-mild' },
+    { text: 'Programdaki küçük bir değişikliği dolanıp geçer, sonra kendine bunun canını sıkmadığını söyler.', tag: 'CO-mild' },
+    { text: 'Herkesin gitmek ister gibi göründüğü restoranı seçer; sonrasında, hafifçe, aslında nereyi tercih ettiğini söyler.', tag: 'AN-mild' },
+    { text: 'Dile getirilmemiş küçük bir kırgınlığı bir hafta kadar taşır; ardından çoğunlukla bırakır.', tag: 'AN-mild' }
   ]
 };
 
