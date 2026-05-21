@@ -4718,6 +4718,34 @@ const KIDS_ADULT_FUTURES = [
   { headline: 'Maybe someone who took years off to care for a parent.', details: ['Learned how to read a hospital bill.', 'Kept one small hobby alive through the hardest months.', 'Came back to work slower, and steadier, than before.'], tags: ['family','healthcare'] }
 ];
 
+/* ---------- Dev-mode audit: ensure every future-pool `tag` matches an
+   ENV_FIELDS key. Tags that don't match silently score as neutral in
+   generateAdultFutures(), so a typo would hide forever. One-shot warn. */
+(function auditFuturePoolTags() {
+  try {
+    const validTags = new Set(ENV_FIELDS.map(f => f.key));
+    // Valid keys: family, education, economy, healthcare,
+    //             social, internet, multilingual, urbanRural
+    const pools = {
+      ADULT_FUTURES, ADULT_FUTURES_CLINICAL, KIDS_ADULT_FUTURES
+    };
+    const unknown = [];
+    for (const [name, pool] of Object.entries(pools)) {
+      if (!Array.isArray(pool)) continue;
+      pool.forEach((entry, idx) => {
+        (entry.tags || []).forEach(tag => {
+          if (!validTags.has(tag)) {
+            unknown.push(`${name}[${idx}]:"${tag}"`);
+          }
+        });
+      });
+    }
+    if (unknown.length) {
+      console.warn('[BabyBlend] Unknown future-pool tags (will score neutral):', unknown);
+    }
+  } catch (e) { /* never block boot for an audit */ }
+})();
+
 const KIDS_REFLECTION_PROMPTS = [
   'Should parents choose everything about a child?',
   'What makes people unique?',
