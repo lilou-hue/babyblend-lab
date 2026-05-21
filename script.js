@@ -7309,9 +7309,14 @@ function renderPausePanel() {
   }
   panel.hidden = false;
 
-  const rng = seededRand(state.codename + '|pause');
-  const obs = pickN(localList(REFLECTION_OBSERVATIONS), 2, rng);
-  const cant = pickN(localList(CANNOT_MEASURE), 4, rng);
+  // R14rev (Narrative): decouple the obs pick from the cant-see pick so a
+  // change to either pool can't shift the other. Each gets its own seed key
+  // derived from the codename; same simulation still surfaces the same two
+  // observations and the same four cannot-measure lines deterministically.
+  const obsRng  = seededRand(state.codename + '|pause-obs');
+  const cantRng = seededRand(state.codename + '|pause-cant');
+  const obs  = pickN(localList(REFLECTION_OBSERVATIONS), 2, obsRng);
+  const cant = pickN(localList(CANNOT_MEASURE), 4, cantRng);
   const question = state.reflection || pickReflectionPrompt(state.codename);
 
   $('#pause-observations').innerHTML = obs.map(o => `<li>${o}</li>`).join('');
