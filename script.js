@@ -6575,7 +6575,7 @@ function renderKidsLoves() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>Things they might love</h2>
-      <p class="kids-arc-disclaimer">Not predictions from genes — examples of all that won't fit in a slider.</p>
+      <p class="kids-arc-disclaimer">Not predictions from genes — examples of what won't fit in a slider.</p>
       <p class="subtle">Specific, particular, and theirs.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
@@ -6591,7 +6591,7 @@ function renderKidsQuestions() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>Questions you could ask them</h2>
-      <p class="kids-arc-disclaimer">Not predictions from genes — questions a slider can't answer for you.</p>
+      <p class="kids-arc-disclaimer">Questions a slider can't answer for you.</p>
       <p class="subtle">The kind you might not think to ask a grown-up.</p>
     </header>
     <ul class="kids-arc-list kids-arc-questions">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
@@ -6607,7 +6607,7 @@ function renderKidsDifferences() {
   panel.innerHTML = `
     <header class="kids-arc-head">
       <h2>What might make them <em>them</em></h2>
-      <p class="kids-arc-disclaimer">Not predictions from genes — reminders of what no slider can capture.</p>
+      <p class="kids-arc-disclaimer">Reminders of what no slider can capture.</p>
       <p class="subtle">Difference is the most interesting thing about a person.</p>
     </header>
     <ul class="kids-arc-list">${picks.map(p => `<li>${p}</li>`).join('')}</ul>`;
