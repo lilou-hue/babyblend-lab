@@ -654,6 +654,16 @@ function localGender(g) {
  * and buildEnvPanel emit. Co-located with LADDER_I18N so it sits in a
  * section that's safe from concurrent edits. */
 const LABEL_I18N = {
+  // Life-stage / memory-snapshot labels
+  'Memory snapshots': { zh: '记忆快照', ja: '記憶のスナップショット', ko: '기억의 스냅숏', tr: 'Anı kareleri' },
+  'At 7':  { zh: '7 岁时',  ja: '7歳のとき',  ko: '7살 때',  tr: '7 yaşında' },
+  'At 17': { zh: '17 岁时', ja: '17歳のとき', ko: '17살 때', tr: '17 yaşında' },
+  'At 47': { zh: '47 岁时', ja: '47歳のとき', ko: '47살 때', tr: '47 yaşında' },
+  'Trajectory Snapshots': { zh: '轨迹快照', ja: '軌跡のスナップショット', ko: '궤적 스냅숏', tr: 'Yörünge Kareleri' },
+  'Future portraits': { zh: '未来肖像', ja: '未来のポートレート', ko: '미래의 초상', tr: 'Gelecek portreleri' },
+  'Across the years': { zh: '岁月之间', ja: '歳月を越えて', ko: '세월 너머', tr: 'Yıllar boyunca' },
+  'One life, different decades': { zh: '同一段人生,不同的十年', ja: 'ひとつの人生、ちがう十年', ko: '한 사람의 생, 서로 다른 십 년', tr: 'Tek bir yaşam, farklı on yıllar' },
+  'The same person at four ages. The optimization targets you chose will look like different things at each.': { zh: '同一个人,在四个不同年龄上的样子。你所选择的优化目标,在每一个年龄上看上去都不一样。', ja: '同じひとりの人物の、四つの年齢。あなたが選んだ最適化の目標は、その年齢ごとに違うかたちで現れる。', ko: '같은 한 사람의 네 가지 나이. 당신이 고른 최적화 목표는, 각 나이마다 서로 다른 모습으로 드러난다.', tr: 'Aynı kişinin dört farklı yaşı. Seçtiğin iyileştirme hedefleri her birinde farklı bir şey gibi görünecek.' },
   // Reflection / Adult section headings
   'Same person, different rooms': { zh: '同一个人,不同的房间', ja: '同じ人、ちがう部屋', ko: '같은 사람, 다른 방들', tr: 'Aynı insan, farklı odalar' },
   'Four contexts. One person each. The identity sliders did not model any of them.': { zh: '四种情境,各对应同一个人。身份滑块从未模拟过其中任何一种。', ja: '四つの場面、それぞれに同じ一人の人物。アイデンティティのスライダーは、そのどれもモデル化していない。', ko: '네 가지 상황. 각각 같은 한 사람. 정체성 슬라이더는 그 어느 것도 모델링하지 않았다.', tr: 'Dört bağlam. Her birinde aynı kişi. Kimlik kaydırıcıları bunların hiçbirini modellemedi.' },
@@ -1821,42 +1831,74 @@ const INNER_COHORT_CONTEXTS = [
  * snapshots, four different people. Picked deterministically per codename. */
 const LIFETIME_DRIFT = {
   ages: [
-    { label: 'At 7',  pool: [
-      'Collects something specific that nobody understands.',
-      'Has a recurring dream they do not mention.',
-      'Treats one stuffed animal as a person.',
-      'Defends a friend who is being teased.',
-      'Will lie about something small for years.',
-      'Has a favorite word they say aloud just to hear it.',
-      'Is convinced of one thing that is not true.'
-    ]},
-    { label: 'At 17', pool: [
-      'Argues with a parent about something neither will remember in a decade.',
-      'Has a friendship that feels too intense to last — and will not.',
-      'Writes things down they would die if anyone read.',
-      'Disappoints a teacher they admire.',
-      'Falls in love with an idea before a person.',
-      'Believes their own future is already obvious.',
-      'Stays up late for something that will feel small at 27.'
-    ]},
-    { label: 'At 35', pool: [
-      'Has not given up on a project that is mostly finished.',
-      'Lives within driving distance of one parent.',
-      'Sleeps better some weeks than others.',
-      'Has stopped trying to like a certain food.',
-      'Quietly maintains a friendship through monthly texts.',
-      'Knows what they are afraid of and works around it.',
-      'Owns one piece of furniture they bought too young.'
-    ]},
-    { label: 'At 70', pool: [
-      'Tells a story about being 11 that may be partly invented.',
-      'Has outlived at least one person they expected to grow old with.',
-      'Notices birds.',
-      'Holds a small grudge that no longer matters.',
-      'Surprises themselves with what they remember.',
-      'Has changed their mind about something they were certain of at 30.',
-      'Speaks to a grandchild about something nobody else knows.'
-    ]}
+    { label: 'At 7',
+      pool: [
+        'Collects something specific that nobody understands.',
+        'Has a recurring dream they do not mention.',
+        'Treats one stuffed animal as a person.',
+        'Defends a friend who is being teased.',
+        'Will lie about something small for years.',
+        'Has a favorite word they say aloud just to hear it.',
+        'Is convinced of one thing that is not true.'
+      ],
+      i18n: {
+        zh: { label: '7 岁时', pool: ['专门收集一种没人理解的小东西。', '反复做的一个梦,从不向人提起。', '把某只布偶当作一个人来对待。', '挺身替一个被取笑的朋友说话。', '会为了一件小事撒谎,撒上好几年。', '有一个特别喜欢的词,只为了听到自己念出来。', '深信不疑的一件事,其实并不是真的。'] },
+        ja: { label: '7歳のとき', pool: ['誰にも理解できない、ある特定のものを集めている。', '誰にも話さない、繰り返し見る夢がある。', 'ぬいぐるみを一体、ひとりの人として扱っている。', 'からかわれている友だちを、自分から守る。', 'ちいさなことについて、何年も嘘をつき続ける。', 'お気に入りの言葉があって、ただ自分の声で聞きたいから口に出す。', '本当ではない一つのことを、固く信じ込んでいる。'] },
+        ko: { label: '7살 때', pool: ['아무도 이해 못 할 특정한 것을 모은다.', '아무에게도 말하지 않는, 자주 꾸는 꿈이 있다.', '인형 한 마리를 진짜 사람처럼 대한다.', '놀림받는 친구를 대신해 나선다.', '아주 작은 일을 두고 몇 년이고 거짓말을 한다.', '소리 내어 듣고 싶어서 그저 입 밖으로 꺼내는, 좋아하는 단어가 있다.', '사실이 아닌 단 한 가지를 굳게 믿고 있다.'] },
+        tr: { label: '7 yaşında', pool: ['Kimsenin anlamadığı belirli bir şey biriktirir.', 'Kimseye söylemediği, tekrar gördüğü bir rüyası var.', 'Bir oyuncak hayvanını gerçek bir insan gibi görür.', 'Alay edilen bir arkadaşını savunur.', 'Küçücük bir konuda yıllarca yalan söyler.', 'Sadece kendi kulağıyla duymak için yüksek sesle söylediği bir kelimesi var.', 'Doğru olmayan bir şeye gönülden inanır.'] }
+      }
+    },
+    { label: 'At 17',
+      pool: [
+        'Argues with a parent about something neither will remember in a decade.',
+        'Has a friendship that feels too intense to last — and will not.',
+        'Writes things down they would die if anyone read.',
+        'Disappoints a teacher they admire.',
+        'Falls in love with an idea before a person.',
+        'Believes their own future is already obvious.',
+        'Stays up late for something that will feel small at 27.'
+      ],
+      i18n: {
+        zh: { label: '17 岁时', pool: ['为某件 10 年后谁也记不得的事,跟父母吵了一架。', '有一段太炽烈、注定不会长久的友情——后来也确实没长久。', '在本子上写下一些"如果被人看见就想去死"的话。', '让一位自己很敬重的老师感到失望。', '先爱上一个想法,才爱上一个人。', '坚信自己未来的样子早已一清二楚。', '为某件等到 27 岁回头看会觉得"不过如此"的事彻夜未眠。'] },
+        ja: { label: '17歳のとき', pool: ['親と口論した内容を、十年後にはどちらも覚えていない。', '長くは続かないだろうとわかっているのに、強すぎる友情に身を投じる。', '誰かに読まれたら死にたくなるようなことを、ノートに書きつける。', '尊敬していた先生をがっかりさせる。', '人より先に、ある「考え」に恋をする。', '自分の未来は、もう見えていると思い込んでいる。', '27歳になれば「たいしたことなかった」と思える何かのために、夜更かしする。'] },
+        ko: { label: '17살 때', pool: ['10년 뒤엔 둘 다 잊을 일을 두고 부모와 다툰다.', '오래 가지 못할 만큼 강렬한 우정에 빠진다 — 실제로 오래 가지 못한다.', '누군가 읽으면 죽고 싶을 만한 말을 종이에 쓴다.', '존경하던 선생님을 실망시킨다.', '사람보다 먼저 어떤 생각과 사랑에 빠진다.', '자기 미래가 이미 뻔하다고 확신한다.', '스물일곱이 되면 사소하게 느껴질 일을 위해 밤을 새운다.'] },
+        tr: { label: '17 yaşında', pool: ['On yıl sonra ikisinin de hatırlamayacağı bir şey için ebeveyniyle tartışır.', 'Sürmesi imkânsız ölçüde yoğun, sürmeyecek bir dostluk yaşar.', 'Biri okusa "ölürüm" diyeceği şeyleri yazıya döker.', 'Hayran olduğu bir öğretmeni hayal kırıklığına uğratır.', 'Bir insandan önce bir fikre âşık olur.', 'Kendi geleceğinin çoktan belli olduğuna inanır.', "Yirmi yedisinde küçük gelecek bir şey için gece geç saatlere kadar uyanık kalır."] }
+      }
+    },
+    { label: 'At 35',
+      pool: [
+        'Has not given up on a project that is mostly finished.',
+        'Lives within driving distance of one parent.',
+        'Sleeps better some weeks than others.',
+        'Has stopped trying to like a certain food.',
+        'Quietly maintains a friendship through monthly texts.',
+        'Knows what they are afraid of and works around it.',
+        'Owns one piece of furniture they bought too young.'
+      ],
+      i18n: {
+        zh: { label: '35 岁时', pool: ['有一个几乎做完的项目,始终没有放弃。', '住在开车就能见到的一位父母身边。', '有的星期睡得好,有的星期睡不好。', '已经不再勉强自己去喜欢某一种食物。', '通过每月一两条短信,默默维系着一段友谊。', '知道自己怕什么,并学会绕着它生活。', '家里有一件当年买得太早的家具。'] },
+        ja: { label: '35歳のとき', pool: ['ほとんど仕上がっている、ある計画を、いまもあきらめずにいる。', 'どちらか一方の親と、車で行ける距離に暮らしている。', '週ごとに、よく眠れる週と眠れない週がある。', 'ある食べ物を好きになろうとするのを、もうやめた。', '月に一度のメッセージで、ある友情をひそかに保ち続けている。', '何を恐れているかを自覚し、それを避けて暮らしている。', '若すぎる時期に買った家具を、いまも一つ持っている。'] },
+        ko: { label: '35살 때', pool: ['거의 끝나가는 어느 한 가지 일을 끝내 포기하지 않고 있다.', '운전해서 갈 수 있는 거리에 부모 한 분이 산다.', '잘 자는 주가 있고, 잘 못 자는 주가 있다.', '특정 음식을 굳이 좋아해 보려던 노력을 그만뒀다.', '한 달에 한 번씩 메시지를 주고받으며 어떤 우정을 조용히 이어간다.', '자기가 무엇을 두려워하는지 알고, 그것을 피하며 살아간다.', '너무 어린 시절에 산 가구 한 점을 아직 가지고 있다.'] },
+        tr: { label: '35 yaşında', pool: ['Neredeyse bitmiş bir projeden hâlâ vazgeçmemiş.', 'Bir ebeveyninin araba ile gidilebilecek bir mesafesinde yaşıyor.', 'Bazı haftalar daha iyi uyur, bazıları daha kötü.', 'Belirli bir yiyeceği sevmeye çalışmayı bıraktı.', 'Ayda bir mesajla bir dostluğu sessizce ayakta tutuyor.', 'Korktuğu şeyi bilir; etrafından dolanmayı öğrenmiştir.', "Çok genç yaşta aldığı bir mobilya parçası hâlâ evinde."] }
+      }
+    },
+    { label: 'At 70',
+      pool: [
+        'Tells a story about being 11 that may be partly invented.',
+        'Has outlived at least one person they expected to grow old with.',
+        'Notices birds.',
+        'Holds a small grudge that no longer matters.',
+        'Surprises themselves with what they remember.',
+        'Has changed their mind about something they were certain of at 30.',
+        'Speaks to a grandchild about something nobody else knows.'
+      ],
+      i18n: {
+        zh: { label: '70 岁时', pool: ['讲一个关于自己 11 岁的故事——其中也许有一部分是后来编出来的。', '至少有一位本以为会和自己一起变老的人,已经先走了。', '会注意到鸟。', '心里揣着一桩早已无关紧要的小怨。', '常常被自己还能记起的事情吓一跳。', '对于一件 30 岁时确信无疑的事,如今已经改了主意。', '跟一个孙辈讲起一件没有别人知道的事。'] },
+        ja: { label: '70歳のとき', pool: ['自分が11歳だった頃の物語を語る——どこか、あとから作り足された部分も混じっているかもしれない。', '一緒に年を取るはずだと思っていた誰かに、少なくとも一人は先立たれている。', '鳥に目がいくようになる。', 'もうどうでもいい、ちいさな恨みごとを、まだ少しだけ抱えている。', '自分が何を覚えているかに、自分でびっくりすることがある。', '30歳のときには確信していたことに、いまでは別の答えを出している。', '誰も知らない出来事について、孫の一人にだけ話す。'] },
+        ko: { label: '70살 때', pool: ['열한 살의 자기에 대한 이야기를 들려준다 — 어느 부분쯤은 나중에 덧붙여졌을지도 모른다.', '함께 늙어갈 줄 알았던 사람을 적어도 한 명은 먼저 떠나보냈다.', '새가 눈에 들어오기 시작한다.', '이제는 아무런 의미도 없는 작은 원망 하나를 마음 한 구석에 두고 있다.', '자기가 무엇을 기억하고 있는지에 스스로 놀란다.', '서른에는 확신했던 일에 대해 지금은 다른 답을 갖고 있다.', '아무도 모르는 일에 대해, 손주 한 명에게만 들려준다.'] },
+        tr: { label: '70 yaşında', pool: ['On bir yaşına dair bir hikâye anlatır — belki bir kısmı sonradan eklenmiştir.', 'Birlikte yaşlanacağını sandığı en az bir kişiden daha uzun yaşamıştır.', 'Kuşları fark eder.', 'Artık önemi kalmamış küçük bir kırgınlığı sürdürür.', 'Neyi hatırladığına kendi de şaşar.', "Otuzunda kesinkes inandığı bir konuda fikrini değiştirmiştir.", "Kimsenin bilmediği bir şeyi, bir torununa anlatır."] }
+      }
+    }
   ]
 };
 
@@ -7109,19 +7151,20 @@ function renderMemoryCards() {
   const m47 = pickStableFrom(ADULTHOOD_MEMORIES,   c + '|m47');
 
   host.hidden = false;
+  const L = (s) => (typeof localLabel === 'function') ? localLabel(s) : s;
   host.innerHTML = `
-    <h3 class="memory-heading">Memory snapshots</h3>
+    <h3 class="memory-heading">${L('Memory snapshots')}</h3>
     <div class="memory-strip">
       <article class="memory-card" data-stage="7">
-        <span class="memory-age">At 7</span>
+        <span class="memory-age">${L('At 7')}</span>
         <p class="memory-text">${m7}</p>
       </article>
       <article class="memory-card" data-stage="17">
-        <span class="memory-age">At 17</span>
+        <span class="memory-age">${L('At 17')}</span>
         <p class="memory-text">${m17}</p>
       </article>
       <article class="memory-card" data-stage="47">
-        <span class="memory-age">At 47</span>
+        <span class="memory-age">${L('At 47')}</span>
         <p class="memory-text">${m47}</p>
       </article>
     </div>`;
@@ -7134,9 +7177,9 @@ function renderMemoryCards() {
  * within the seeded buckets — the illusion of aging.
  */
 const LIFE_STAGES = [
-  { age: 7,  label: 'At 7'  },
-  { age: 17, label: 'At 17' },
-  { age: 47, label: 'At 47' }
+  { age: 7,  label: 'At 7',  i18n: { zh: '7 岁时',  ja: '7歳のとき',  ko: '7살 때',  tr: '7 yaşında' } },
+  { age: 17, label: 'At 17', i18n: { zh: '17 岁时', ja: '17歳のとき', ko: '17살 때', tr: '17 yaşında' } },
+  { age: 47, label: 'At 47', i18n: { zh: '47 岁时', ja: '47歳のとき', ko: '47살 때', tr: '47 yaşında' } }
 ];
 
 function renderLifeStageStrip(b) {
@@ -7151,16 +7194,19 @@ function renderLifeStageStrip(b) {
   }
   section.hidden = false;
   if (heading) {
-    heading.textContent =
+    const headingKey =
       state.appMode === 'adult' ? 'Trajectory Snapshots'
       : state.appMode === 'kids' ? 'Future portraits'
       : 'Across the years';
+    heading.textContent = (typeof localLabel === 'function') ? localLabel(headingKey) : headingKey;
   }
+  const lang = (state && state.language) ? state.language : 'en';
   strip.innerHTML = LIFE_STAGES.map(s => {
     const svg = buildAvatarSvg(b, state.style, state.gender, state.codename + '|age' + s.age);
+    const label = (s.i18n && s.i18n[lang]) || s.label;
     return `<figure class="life-stage" data-age="${s.age}">
       <div class="life-stage-avatar">${svg}</div>
-      <figcaption class="life-stage-label">${s.label}</figcaption>
+      <figcaption class="life-stage-label">${label}</figcaption>
     </figure>`;
   }).join('');
 }
@@ -8301,21 +8347,27 @@ function renderLifetimeDrift() {
     return;
   }
   const rng = seededRand(state.codename + '|drift');
+  const lang = (state && state.language) ? state.language : 'en';
   const cards = LIFETIME_DRIFT.ages.map((age, i) => {
-    const idx  = Math.floor(rng() * age.pool.length);
-    const line = age.pool[idx];
+    const tr = (age.i18n && age.i18n[lang]) || {};
+    const label = tr.label || age.label;
+    const pool = tr.pool || age.pool;
+    const idx  = Math.floor(rng() * pool.length);
+    const line = pool[idx];
     return `
       <article class="drift-stage" data-stage="${i}">
         <header class="drift-stage-head">
-          <span class="drift-age">${age.label}</span>
+          <span class="drift-age">${label}</span>
         </header>
         <p class="drift-line">${line}</p>
       </article>`;
   }).join('');
+  const heading = (typeof localLabel === 'function') ? localLabel('One life, different decades') : 'One life, different decades';
+  const subline = (typeof localLabel === 'function') ? localLabel('The same person at four ages. The optimization targets you chose will look like different things at each.') : 'The same person at four ages. The optimization targets you chose will look like different things at each.';
   panel.innerHTML = `
     <header class="lifetime-drift-head">
-      <h2>One life, different decades</h2>
-      <p class="subtle">The same person at four ages. The optimization targets you chose will look like different things at each.</p>
+      <h2>${heading}</h2>
+      <p class="subtle">${subline}</p>
     </header>
     <div class="lifetime-drift-row">${cards}</div>`;
   panel.hidden = false;
