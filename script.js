@@ -7621,7 +7621,7 @@ function updateBabyPreview() {
   // a projection, not a fact) while making allocation feel like a quiet
   // invitation rather than a required first step. Translations match
   // Adult-mode register (cold, clinical, not preachy) and live in LABEL_I18N.
-  const PROJECTION_GATE_ENABLED = false;
+  const PROJECTION_GATE_ENABLED = true;
   const gen = state.generateCount || 0;
   const budgetUsed = computeBudgetUsed();
   // R17 revision: use Adult-mode-only counter so cross-mode generations
@@ -9490,9 +9490,12 @@ function computeSocietalOutcomes(baby, budget, env) {
 function renderSocietalBrief() {
   const panel = $('#societal-brief-panel');
   if (!panel) return;
-  // Gate analytical machinery until the second Generate: the first
+  // Gate analytical machinery until the second Adult Generate: the first
   // projection should feel like one imagined baby, not a cohort report.
-  if (state.appMode !== 'adult' || !state.codename || (state.generateCount || 0) < 2) {
+  // R18: key on adultGenerateCount (not the global counter) so a user who
+  // generated in Reflection/Kids first doesn't arrive at their FIRST Adult
+  // reveal already past the gate. Matches the projection-gate keying above.
+  if (state.appMode !== 'adult' || !state.codename || (state.adultGenerateCount || 0) < 2) {
     panel.hidden = true;
     return;
   }
@@ -9534,7 +9537,7 @@ function renderDivergence() {
   // baseline projection to push against, so wait until the second Generate
   // before letting the banner appear. Guard here so all callers (initial
   // render, dismiss, reroll, rollDivergence) respect it.
-  if (state.appMode !== 'adult' || !state.divergence || (state.generateCount || 0) < 2) {
+  if (state.appMode !== 'adult' || !state.divergence || (state.adultGenerateCount || 0) < 2) {
     el.hidden = true;
     el.innerHTML = '';
     return;
@@ -9745,7 +9748,7 @@ function renderSiblingCohort() {
   if (!panel) return;
   // Same gating: variance-as-people lands harder once the user has
   // already met the one baby it's "varying" against.
-  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0 || (state.generateCount || 0) < 2) {
+  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0 || (state.adultGenerateCount || 0) < 2) {
     panel.hidden = true;
     return;
   }
@@ -9812,7 +9815,7 @@ function renderTraitHistory() {
   if (!panel) return;
   // Same gating: historical drift critique reads as a finger-wag if it
   // shows up before the user has even seen their first projection settle.
-  if (state.appMode !== 'adult' || (state.generateCount || 0) < 2) {
+  if (state.appMode !== 'adult' || (state.adultGenerateCount || 0) < 2) {
     panel.hidden = true;
     return;
   }
