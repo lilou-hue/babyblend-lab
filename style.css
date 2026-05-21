@@ -1099,14 +1099,21 @@ body.mode-adult .life-stage[data-age="47"] .life-stage-avatar svg { filter: drop
    reads as destiny without an explicit disclaimer; this italic, muted line
    reframes the milestone as one path among many. Sits flush under the ticker,
    small and quiet so it doesn't compete with the milestone itself. Hidden by
-   default; revealed in adult mode only. */
+   default; revealed in adult mode only.
+   R19 polish: add 2px cyan border-left + 8px text inset to unify with the
+   .burden-disclaimer / .projection-gated-placeholder visual family — all
+   three disclosure-microcopy slots now share the same "framed aside" signal.
+   Cyan accent matches the aging-scrubber's own border tint so the rule reads
+   as belonging to the panel, not appended to it. */
 .aging-scrubber .trajectory-disclaimer {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
+  padding: 2px 0 2px 8px;
   font-size: 11.5px;
   line-height: 1.45;
   color: var(--ink-soft);
   font-style: italic;
   opacity: 0.78;
+  border-left: 2px solid rgba(126, 224, 255, 0.18);
 }
 .aging-scrubber .trajectory-disclaimer[hidden] { display: none; }
 
