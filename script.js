@@ -4290,8 +4290,8 @@ const KIDS_EXPLAINERS = {
   faceShape: 'Face shape comes from family. It also changes as kids grow up.',
   freckles:  'Some kids get freckles when they spend time in the sun, especially if family does too.',
   dimples:   'Dimples are a fun little family trait. Some have them, some don\'t.',
-  curiosity:  'Two quiet parents can still have a wildly curious kid. People surprise us!',
-  kindness:   'Kindness shows up differently depending on the situation. Some kids are warm in big groups, others one-on-one.',
+  curiosity:  'Two quiet parents can still have a wildly curious kid. People surprise us! (And sometimes a curious kid gets in trouble for asking too much — same trait, different room.)',
+  kindness:   'Kindness shows up differently depending on the situation. Some kids are warm in big groups, others one-on-one. (And sometimes wanting others to feel okay costs them their own quiet — same trait, real tradeoff.)',
   energy:     'Some kids are loud at home and shy at school, or the other way around.',
   focus:      'Focus grows with age, sleep, practice, and finding something that feels exciting.',
   confidence: 'Confidence changes a LOT as people grow up. Bumpy days are normal.'
