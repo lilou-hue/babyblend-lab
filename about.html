@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+  <title>About — BabyBlend Lab</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg-0: #07071a;
+      --bg-1: #0c0c2a;
+      --bg-2: #161640;
+      --ink: #e7eefc;
+      --ink-soft: #a8b3d6;
+      --ink-mute: #7e87ad;
+      --accent:   #7ee0ff;
+      --accent-2: #c89bff;
+      --accent-3: #ff9bd2;
+      --accent-warm: #ffd28a;
+      --panel: rgba(20, 22, 55, 0.55);
+      --rule: rgba(126, 224, 255, 0.18);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 600px at 70% -10%, rgba(126, 224, 255, 0.14), transparent 60%),
+        radial-gradient(800px 700px at -10% 30%, rgba(200, 155, 255, 0.12), transparent 60%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1) 60%, var(--bg-2));
+      background-attachment: fixed;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    .about-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 28px 120px;
+    }
+
+    .about-back {
+      display: inline-block;
+      font-size: 11.5px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--rule);
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      margin-bottom: 48px;
+    }
+    .about-back:hover {
+      color: var(--ink);
+      border-color: rgba(126, 224, 255, 0.55);
+      background: rgba(126, 224, 255, 0.05);
+    }
+
+    .about-title {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4.5vw, 40px);
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+    .about-sub {
+      margin: 0 0 56px;
+      color: var(--ink-soft);
+      font-size: clamp(14px, 1.5vw, 16px);
+      letter-spacing: 0.3px;
+    }
+
+    section.about-section {
+      margin-bottom: 56px;
+    }
+    section.about-section > h2 {
+      margin: 0 0 16px;
+      font-size: 12px;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    section.about-section p {
+      margin: 0 0 16px;
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    section.about-section p:last-child { margin-bottom: 0; }
+    section.about-section strong { color: var(--ink); font-weight: 600; }
+    section.about-section em { color: var(--ink); font-style: italic; }
+
+    .mode-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .mode-list li {
+      padding: 16px 18px;
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+    .mode-list .mode-name {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .mode-list li:nth-child(1) .mode-name { color: var(--accent); }
+    .mode-list li:nth-child(2) .mode-name { color: var(--accent-2); }
+    .mode-list li:nth-child(3) .mode-name { color: var(--accent-warm); }
+
+    .real-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .real-col h3 {
+      margin: 0 0 10px;
+      font-size: 11px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .real-col.real    h3 { color: var(--accent); }
+    .real-col.not-real h3 { color: var(--accent-warm); }
+    .real-col ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .real-col li {
+      padding-left: 14px;
+      position: relative;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+    .real-col li::before {
+      content: "·";
+      position: absolute;
+      left: 2px;
+      top: 0;
+      font-weight: 700;
+    }
+    .real-col.real li::before    { color: var(--accent); }
+    .real-col.not-real li::before { color: var(--accent-warm); }
+
+    .citations {
+      list-style: none;
+      counter-reset: cite;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .citations li {
+      counter-increment: cite;
+      padding: 0 0 0 36px;
+      position: relative;
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+    .citations li::before {
+      content: "[" counter(cite) "]";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      font-size: 11px;
+      letter-spacing: 0.4px;
+    }
+    .citations em { font-style: italic; color: var(--ink); }
+
+    .meta {
+      margin-top: 80px;
+      padding-top: 28px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      color: var(--ink-mute);
+      letter-spacing: 0.3px;
+    }
+
+    @media (max-width: 600px) {
+      .real-grid { grid-template-columns: 1fr; }
+      .about-wrap { padding: 56px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="about-wrap">
+    <a class="about-back" href="./">← Back to the lab</a>
+
+    <h1 class="about-title">About BabyBlend Lab</h1>
+    <p class="about-sub">A speculative simulation about the ethics of human enhancement.</p>
+
+    <section class="about-section">
+      <h2>What this is</h2>
+      <p>BabyBlend Lab is a fictional, single-page interactive about how a near-future consumer biotech product might present itself: institutional language, confidence bands, regulatory disclaimers, and a configuration interface for traits. You input two parents, optionally allocate <em>enhancement credits</em> across nine categories, and the system projects a possible child along with the social, regulatory, and identity consequences of those choices.</p>
+      <p>Nothing here predicts any real child. The mechanics are a deliberate caricature. The ethical questions the interface raises are not.</p>
+    </section>
+
+    <section class="about-section">
+      <h2>Three modes, three arguments</h2>
+      <p>The same fictional baby can be viewed in three registers. Each mode argues something different.</p>
+      <ul class="mode-list">
+        <li>
+          <span class="mode-name">Adult</span>
+          A clinical biotech-product register. Treats the simulation as if it were a real consumer feature: Beta tags, cost tiers, regulatory notices, projection-confidence pills. The argument is <em>what you shouldn't optimize.</em> The Societal Outcomes Brief, the Cost / Access Tier strip, the Sibling Cohort variance row, the Divergence Events, and the Historical Drift timeline together show that the projection is fragile, unequal, and culturally local even at its most authoritative.
+        </li>
+        <li>
+          <span class="mode-name">Reflection</span>
+          A contemplative register. Treats the same baby as a person whose life cannot be sliders. The argument is <em>what these projections cannot see.</em> The Trait Constellation, Memory Cards, Inner Cohort, Lifetime Drift, and Pause Panel each surface a dimension of personhood the model omits — sensory texture, private rooms, decades of self-revision, the things a slider cannot ask about.
+        </li>
+        <li>
+          <span class="mode-name">Kids</span>
+          A wonder / curiosity register. Treats the simulation as a friendly classroom artifact — softer palette, simpler labels, gentler questions. The lightest of the three by design.
+        </li>
+      </ul>
+    </section>
+
+    <section class="about-section">
+      <h2>What's real, what's not</h2>
+      <div class="real-grid">
+        <div class="real-col real">
+          <h3>Real</h3>
+          <ul>
+            <li>Every event and citation in the intro timeline (1978 IVF, 1990 PGD, 2012 CRISPR-Cas9, 2018 He Jiankui twins, 2019 sentencing, 2020 Nobel Prize, 2023 UK Casgevy approval).</li>
+            <li>The Big Five (OCEAN) personality model and its ~40–60% twin-study heritability range.</li>
+            <li>The polygenic-with-Gaussian-noise inheritance shape used for OCEAN sliders.</li>
+            <li>The cosmetic-procedure statistic (ISAPS), "Snapchat dysmorphia" (JAMA Facial Plastic Surgery), BDD prevalence (Veale et al.), and the 75+ countries restricting heritable editing (Baylis et al.).</li>
+          </ul>
+        </div>
+        <div class="real-col not-real">
+          <h3>Fictional</h3>
+          <ul>
+            <li>The Enhancement Allocation budget, cost-per-credit, Access Tier thresholds, regional access lines, and Cohort Placement percentile. They model how a real biotech product might price and rank these things, not what current technology can actually do.</li>
+            <li>The Societal Outcomes Brief lines. Heuristic; informed by social-science instincts about expectation effects and access mismatch, but not predictive.</li>
+            <li>The Divergence Events. Fictional biographies; the <em>principle</em> (that ordinary life events outweigh trait projections) is what's real.</li>
+            <li>The DiceBear avatars. Illustrated stand-ins, not photographs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Process notes</h2>
+      <p>Built in vanilla HTML / CSS / JavaScript — no framework, no build step. Anyone can read the source. Avatar styles come from <a href="https://www.dicebear.com" style="color: var(--accent); text-decoration: none;">DiceBear</a>, loaded from a CDN.</p>
+      <p>Designed in iteration. The first version was a "make a cute baby" toy. Over many sessions it grew into a three-mode ethics interface. The arc the user moves through — playful curiosity through institutional optimization to quiet reflection — mirrors the arc the project itself went through during construction.</p>
+      <p>Hosted on GitHub Pages. The simulator is at <a href="./" style="color: var(--accent); text-decoration: none;">acceleration1st.com</a>.</p>
+    </section>
+
+    <section class="about-section">
+      <h2>Citations</h2>
+      <ol class="citations">
+        <li>Steptoe PC, Edwards RG. Birth after the reimplantation of a human embryo. <em>The Lancet</em>, 312(8085):366, 1978.</li>
+        <li>Handyside AH, Kontogianni EH, Hardy K, Winston RM. Pregnancies from biopsied human preimplantation embryos sexed by Y-specific DNA amplification. <em>Nature</em>, 344:768–770, 1990.</li>
+        <li>Jinek M, Chylinski K, Fonfara I, Hauer M, Doudna JA, Charpentier E. A programmable dual-RNA–guided DNA endonuclease in adaptive bacterial immunity. <em>Science</em>, 337(6096):816–821, 2012.</li>
+        <li>Cyranoski D, Ledford H. Genome-edited baby claim provokes international outcry. <em>Nature</em> news, 26 November 2018.</li>
+        <li>Royal Swedish Academy of Sciences. The Nobel Prize in Chemistry 2020. Press release, October 2020.</li>
+        <li>Medicines and Healthcare products Regulatory Agency (UK). MHRA authorises first gene therapy for sickle-cell disease and transfusion-dependent β-thalassaemia. 16 November 2023.</li>
+        <li>International Society of Aesthetic Plastic Surgery. <em>ISAPS Global Survey on Aesthetic / Cosmetic Procedures</em>, 2022.</li>
+        <li>Rajanala S, Maymone MBC, Vashi NA. Selfies — Living in the Era of Filtered Photographs. <em>JAMA Facial Plastic Surgery</em>, 20(6):443–444, 2018.</li>
+        <li>Veale D, Gledhill LJ, Christodoulou P, Hodsoll J. Body dysmorphic disorder in different settings: A systematic review and estimated weighted prevalence. <em>Body Image</em>, 18:168–186, 2016.</li>
+        <li>Baylis F, Darnovsky M, Hasson K, Krahn TM. Human Germline and Heritable Genome Editing: The Global Policy Landscape. <em>The CRISPR Journal</em>, 3(5):365–377, 2020.</li>
+        <li>Bouchard TJ Jr. Genes, environment, and personality. <em>Science</em>, 264(5166):1700–1701, 1994.</li>
+        <li>Plomin R, DeFries JC, Knopik VS, Neiderhiser JM. <em>Behavioral Genetics</em>, 6th ed. Worth Publishers, 2013.</li>
+      </ol>
+    </section>
+
+    <p class="meta">Fictional simulation. Not medical or genetic advice. Current ethical regulations vary globally.</p>
+  </div>
+</body>
+</html>

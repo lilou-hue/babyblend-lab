@@ -5099,3 +5099,13 @@ body.mode-reflection .lifetime-drift-panel h2 {
   letter-spacing: 0.2px;
   text-align: right;
 }
+
+/* About / sources footer link — small, unobtrusive */
+.site-footer .footer-sep { margin: 0 6px; color: var(--ink-mute); opacity: 0.55; }
+.site-footer .footer-link {
+  color: var(--ink-mute);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color 0.15s;
+}
+.site-footer .footer-link:hover { color: var(--accent); }
