@@ -1,61 +1,63 @@
 # Loop State
 
 ```
-current_round: 9
-rounds_remaining_in_batch: 2
+current_round: 10
+rounds_remaining_in_batch: 1
 status: ready
-last_round_completed: 8
+last_round_completed: 9
 last_round_completed_at: 2026-05-21
 batch_summary: loop/rounds/batch-1-summary.md
 batch: 2
 ```
 
-## Next round focus (Round 9 — fourth of Batch 2)
+## Next round focus (Round 10 — FINAL of Batch 2)
 
-R6 + R7 + R8 done (3 of 5). R9 + R10 left. R9 closes the carryover backlog from R8; R10 will be the last polish pass before batch-2 summary halt.
+R6-R9 done (4 of 5). R10 is the last round. After R10 completes, the next loop invocation hits the halt branch and writes `loop/rounds/batch-2-summary.md` collecting deltas across R6-R10.
 
-### Per-role priorities for Round 9
+**Theme: cleanup, not new mechanics.** R10 should close carryover items and leave Batch 2 with a tight final state.
 
-- **Frontend** — Small a11y carryover from R8: UX MAJOR (style.css:244 — language selector label is `display: none` on mobile but flex gap stays; verify and tighten); MOBILE POLISH (a11y) — add `aria-label="Consent awareness notice"` to `#consent-awareness-leadin` (index.html:282) + `aria-labelledby` on the 3 Kids-arc panels (index.html:559-561). Pure attribute additions.
-- **Systems** — Either (A) graduated OC-mild conflict thresholds (R6 → R7 → R8 deferred) + LOOP_REQUEST(narrative) for matching paths, OR (B) soften binary thresholds to ≥7.5 + add code comment acknowledging pragmatic-not-precise cutoff (Science POLISH R8). Prefer (A) if cleanly scoped.
-- **Narrative** — Carryover backlog. Pick 2-3 of:
-  - "Diversity isn't a glitch — it's the feature" → grounded replacement in HUMANITY_REMINDERS (script.js:1786, 5 langs) — Detection MAJOR R8
-  - "Nature did not consult the optimization handbook" → cut or replace (script.js:1848) — Detection POLISH R8
-  - "Tinkers in a sunny corner" → "Salvages broken things" or similar (script.js:4425) — Sociology MAJOR R8
-  - "Could become really good at storytelling" / "great teacher one day" → present-state (script.js:3822, 3848) — Science MAJOR R8
-  - KIDS_QUESTIONS_FOR_THEM[2] "any pet" → "What animal would you want to learn more about?" (script.js:4264) — Sociology POLISH R8
-  - "Probably feels things deeply — that's a strength" → drop negation-affirmed pattern (script.js:3843) — Writing POLISH R8
-- **Education** — Re-examine HISTORY_CARDS coherence given R8's subtraction of "Access is the harder question." Are remaining entries still well-ordered? OR a small Kids-mode pedagogical tightening (KIDS_OCEAN_TOOLTIP, kids explainers). Pure subtraction preferred. If nothing meaningful surfaces, NO CHANGE.
-- **UX Flow** — Verification pass. R8 rev (`ebe8095`) wired `showConsentAckPrompt` into slider input. Trace the path: slider input → showConsentAckPrompt → micro-ack rendering → user click → consentAck flip → cross-fade fires → consent panel reveals after 200ms. Confirm no leaks, no duplicate fade triggers. If clean, look for ONE small flow stutter. If nothing surfaces, NO CHANGE.
-- **World Design** — Coherence check on the extended "On the regulatory citations." card. With R8 World Design adding Tier I-IV + CMP-N to it, does the card now read coherently or feel like a kitchen-sink disclosure? Also verify the new R8 leadin copy ("the child this affects isn't here yet…") reads cleanly with surrounding Adult-mode prose. Pick ONE tightening. Pure subtraction preferred.
+### Per-role priorities for Round 10
 
-### Carryovers from Batch 1 + R6 + R7 + R8 (open before Round 9)
+- **Frontend** — Implement CSS reveal staggering on `.kids-arc-panel[data-stage="N"]` selectors (R9 UX Flow added the `dataset.stage` hooks); swap `aria-label` → `aria-labelledby` on Kids-arc panels (R9 UX Flow added the heading IDs `kids-{loves,questions,differences}-title`). Possibly the small REGULATORY_CARDS adjacent-entry margin gap. Pure addition / attribute swap.
+- **Systems** — Either soften binary TRAIT_CONFLICT_RULES thresholds (Science POLISH R8 carryover — e.g., O>=8 → O>=7.5 with comment) OR a small drift hunt / NO CHANGE. No new mechanics.
+- **Narrative** — Close as much of the carryover backlog as fits in <80 lines. Highest leverage:
+  - DETECTION MAJOR (script.js:1787): "A trait's value depends on who, when, and where" — false-symmetric triplet → "A strength with one person becomes a liability with another."
+  - WRITING MAJOR (script.js:1786): The R9 replacement "Variation is where unexpected combinations come from" is too vague — try "Different traits create unexpected advantages" or more grounded.
+  - DETECTION POLISH (script.js:1848): "Nature did not consult the optimization handbook" — cut or replace ("Variation exists beyond any design template").
+  - WRITING POLISH (script.js:1788): "Strengths and weaknesses are the same thing in different rooms" — make directional.
+  - SOCIOLOGY MAJOR: KIDS_ADULT_FUTURES equipment-ownership entries [4], [14], [20] (~script.js:4577, 4587, 4593 pre-R9, may have shifted with i18n).
+  - PSYCHOLOGY POLISH (script.js:2556): REFLECTION_TRACES "Holds two contradictory beliefs about themselves at all times" — romanticizes incoherence.
+  - SOCIOLOGY POLISH (script.js:4434): KIDS_QUESTIONS_FOR_THEM[16] "ask a cloud" — leisure assumption.
+  - Pick 2-3.
+- **Education** — Likely NO CHANGE. If something drifted post-R9, pick ONE small subtraction.
+- **UX Flow** — Verify the R9 leadin retire path + Kids-arc rendering. If clean, NO CHANGE. **Highest leverage if anything:** confirm `clearLeadin` helper fires correctly + dataset.stage is set before CSS animations would key off it.
+- **World Design** — Coherence pass on the now-3-clause "On the classification shorthand." card (was extended R9 with RA-N + rule-set prefixes — does it still read clean?). OR a small institutional-voice tightening. OR NO CHANGE.
 
-- **Move consent-awareness AFTER projection** — Product + Narrative Design MAJOR R7. Held.
-- **Graduated OC-mild conflict thresholds** — R6 / R7 / R8 deferred. Open for R9 Systems (A).
-- **Kids-mode onboarding panel** — Product MAJOR R8. Adds new mechanic; held.
-- **Life-shape milestone tagging refactor** — multi-round. Held.
-- **ADULT_TRAJECTORY_MILESTONES linear-language refactor** — Psychology POLISH R8. Held.
-- **Pre-allocation slider gate** — still held.
-- **"Inheritance Burden Index" → "Identity Lock-In Index" rename** — still held.
-- **Cross-locale i18n fallback policy** — Ethics POLISH R8. Architecture decision; held.
-- **Pre-R5 style.css 180-line WIP** — re-stashed. User's call.
-- **Detection / Sociology / Science / Writing carryovers** — assigned to R9 Narrative (above).
+### Carryovers from R6-R9 (still open before Round 10)
+
+- **Mild-tag content translation** — R9 Narrative added 24 EN entries; per-pool LOOP_REQUEST(translator) for zh/ja/ko/tr — held for translator (could be R10 Narrative if budget allows after carryover backlog).
+- **Move consent-awareness AFTER projection** — held since R7.
+- **Pre-allocation slider gate / "Burden Index" rename / Kids onboarding panel / life-shape refactor / ADULT_TRAJECTORY linearity** — all held; not in polish scope.
+- **Cross-locale i18n fallback policy** — UX-architecture decision.
+- **Pre-R5 style.css 180-line WIP** — re-stashed.
 
 ## Batch 2 overall arc
 
-5 rounds, polish-only. R6 + R7 + R8 done (3 of 5). R9 + R10 left. Halt at end of R10 with a batch-2 summary.
+5 rounds, polish-only. R6 + R7 + R8 + R9 done. R10 left. Halt at end of R10 with a batch-2 summary.
 
 ## History
 
+### Round 9 (2026-05-21) — completed (Batch 2 Round 4)
+- 5 Phase-1 commits + 1 NO CHANGE (Education) + 5 Phase-4 revision commits + 1 NO CHANGE (Education) + 1 follow-up integration commit. One Phase-4b conflict (R9 Narrative vs mid-round user i18n extension on KIDS_ADULT_FUTURES) resolved by keeping HEAD's i18n shape + applying R9's intended copy fix in all 5 languages. Strong cross-reviewer convergence on mild-tag content gap (3 reviewers — addressed by R9 Narrative's 24 new EN entries). See `loop/rounds/round-09/summary.md`.
+
 ### Round 8 (2026-05-21) — completed (Batch 2 Round 3)
-- 6 Phase-1 commits + 6 Phase-4 revision commits. Clean cherry-picks throughout (no conflicts). Strongest convergences: leadin cross-fade timing (Ethics + Narrative Design MAJOR) addressed via consentAck-gating (UX Flow rev); class-coded Kids futures (Sociology + Psychology + Science MAJOR) partially addressed (peacemaker virtue framing fixed, rest carried over); disclosure card extended for Tier I-IV + CMP-N (World Design). See `loop/rounds/round-08/summary.md`.
+- 6 Phase-1 + 6 Phase-4 revision commits, clean throughout. Cross-reviewer convergence: leadin fade timing (addressed via consentAck-gating); class-coded Kids futures (partially addressed); diegetic shorthand disclosure (Tier I-IV + CMP-N added to disclosure card). See `loop/rounds/round-08/summary.md`.
 
 ### Round 7 (2026-05-21) — completed (Batch 2 Round 2)
-- 6 Phase-1 commits + 6 Phase-4 revision commits. One cherry-pick conflict (UX Flow timing vs World Design "Ethically:" prefix) resolved by combining intents. Stash incident: user's R7 WIP committed independently mid-round as `3b5406d`; orchestrator stash-pop reached a 5-round-old WIP that was re-stashed. See `loop/rounds/round-07/summary.md`.
+- 6 Phase-1 + 6 Phase-4 revision commits + 1 cherry-pick conflict resolved (UX Flow timing vs World Design "Ethically:" prefix). Stash incident: user's R7 WIP committed independently as `3b5406d`. See `loop/rounds/round-07/summary.md`.
 
 ### Round 6 (2026-05-21) — completed (Batch 2 Round 1)
-- 6 Phase-1 commits + 6 Phase-4 revision commits + 1 orchestrator integration commit. See `loop/rounds/round-06/summary.md`.
+- 6 Phase-1 + 6 Phase-4 revision commits + 1 orchestrator integration commit. See `loop/rounds/round-06/summary.md`.
 
 ### Round 5 (2026-05-20) — completed (Phase-1 only, by design)
 See `loop/rounds/round-05/summary.md`.
