@@ -1189,11 +1189,18 @@ const LABEL_I18N = {
   // R17rev: pre-allocation projection-gate placeholder. Adult-mode register —
   // cold and clinical, not imperative. Frames the panel as a projection
   // contingent on allocation, not a checklist with one missing step.
-  'This projection is provisional. It will shift as you make choices above.': {
-    zh: '本投影是暂定的。它会随着你在上方所做的选择而发生变化。',
-    ja: '本投影は暫定的なものである。上での選択が積み重なるにつれて変動する。',
-    ko: '이 투영은 잠정적이다. 위에서 선택이 이뤄짐에 따라 변동된다.',
-    tr: 'Bu projeksiyon geçicidir. Yukarıda seçimler yapıldıkça değişecektir.'
+  // R21 Narrative: Systems removed the `budgetUsed === 0` clause from the gate,
+  // so the placeholder now persists across slider moves and only clears on the
+  // next Generate (adultGen → 2). Old copy implied the reveal would "shift as
+  // you make choices above" — true of the eventual projection, but misleading
+  // about the immediate reveal trigger. Rewrite names the actual mechanism
+  // (next Generate triggers reveal) and frames allocation as optional shaping
+  // rather than a required step. Register stays cold/clinical across all langs.
+  'This projection waits until you generate again. Adjust above first if you want to shape it.': {
+    zh: '本投影将等到你再次生成时显现。如欲塑造其形,可先在上方调整。',
+    ja: '本投影は次に生成するまで保留される。形を与えたい場合は、まず上で調整せよ。',
+    ko: '이 투영은 다시 생성할 때까지 보류된다. 형태를 빚으려면 먼저 위에서 조정하라.',
+    tr: 'Bu projeksiyon yeniden üretene kadar bekler. Şekillendirmek istiyorsan önce yukarıda ayarla.'
   },
   // Adult panel headings
   'Societal Outcomes Brief': { zh: '社会反应概述', ja: '社会的アウトカム ブリーフ', ko: '사회적 결과 개요', tr: 'Toplumsal Sonuçlar Özeti' },
@@ -7691,7 +7698,7 @@ function updateBabyPreview() {
     // Cleaner fix (move outside <dl> as a <div>) deferred to R19 — that
     // requires CSS grid rework and is out of scope here.
     personalityRows = `
-      <dt class="ocean-sep projection-gated-placeholder" role="status" aria-live="polite">${localLabel('This projection is provisional. It will shift as you make choices above.')}</dt>`;
+      <dt class="ocean-sep projection-gated-placeholder" role="status" aria-live="polite">${localLabel('This projection waits until you generate again. Adjust above first if you want to shape it.')}</dt>`;
   }
   statsEl.classList.toggle('projection-gated', projectionGated);
   statsEl.innerHTML = physicalRows + personalityRows;
