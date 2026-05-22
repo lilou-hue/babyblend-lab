@@ -7647,6 +7647,17 @@ function updateBabyPreview() {
   // a projection, not a fact) while making allocation feel like a quiet
   // invitation rather than a required first step. Translations match
   // Adult-mode register (cold, clinical, not preachy) and live in LABEL_I18N.
+  // R21 Ethics (R18 MAJOR): dropped the `budgetUsed === 0` clause. Previously
+  // the gate auto-cleared the moment ANY allocation landed, which made
+  // allocating read as a prerequisite ("if you don't move credits, the
+  // projection won't appear" → "you must allocate first to see what you're
+  // committing to"). The new gate holds for ALL of adultGen=1, regardless of
+  // allocation moves: the projection only reveals on the NEXT Generate
+  // (adultGen → 2). Allocation is no longer required to unlock the panel.
+  // LOOP_REQUEST(narrative): placeholder copy currently ends with "It will
+  // shift as you make choices above." — with this gate change, choices no
+  // longer cause an in-place shift; the projection reveals only on next
+  // Generate. Consider rewording in a future round.
   const PROJECTION_GATE_ENABLED = true;
   const gen = state.generateCount || 0;
   const budgetUsed = computeBudgetUsed();
@@ -7655,7 +7666,7 @@ function updateBabyPreview() {
   // gate should fire on the user's FIRST Adult reveal, not whenever the
   // global Generate counter happens to land on 1 in Adult mode.
   const adultGen = state.adultGenerateCount || 0;
-  const projectionGated = PROJECTION_GATE_ENABLED && inAdult && adultGen === 1 && budgetUsed === 0;
+  const projectionGated = PROJECTION_GATE_ENABLED && inAdult && adultGen === 1;
   if (inAdult && !projectionGated) {
     personalityRows = `
       <dt class="ocean-sep">${localLabel('Behavioral Projection')}</dt> <dd></dd>
@@ -10831,9 +10842,29 @@ function renderConsentExplainer() {
 // equation. Reflects how heavily this trait contributes to the simulation's three-generation
 // identity-lock Index — NOT a heritability percentage.
 //
-// Why emotional and appearance carry 1.0 (vs. sociability 0.4):
-//   - Real-world heritability: neuroticism ~40% (Polderman 2015), facial morphology ~50-75%,
-//     height ~80%. The 1.0 weight is NOT a heritability claim.
+// R21 rebalance (Science MAJOR convergence): emotional 1.0 → 0.4, appearance 1.0 → 0.6.
+// The prior 1.0 values were defended as "lock-in cascade ≠ heritability", but three reviewers
+// converged on the position that running weights at 1.0 while real-world heritability sits in
+// the ~0.4-0.75 band invited readers to over-interpret the Lock-In bar as a heritability
+// claim. The R17 sociability fix (1.0 → 0.4, matching extraversion ~40%) established the
+// precedent: calibrate the weights to the empirical heritability range as an UPPER BOUND,
+// not the equality. New values:
+//   - emotional 0.4   — neuroticism ~40% (Polderman 2015)
+//   - appearance 0.6  — midpoint of facial-morphology ~50-75% (conservative pick)
+//   - sociability 0.4 — unchanged from R17 (extraversion ~40%)
+// Lock-in cascade is still NOT heritability — parenting style + intergenerational visual
+// baseline propagate identity in ways twin-study % can't capture — but the calibration
+// floor is now the empirical %, so a reader checking the math against Polderman won't see
+// the Lock-In bar reading higher than the underlying heritability would justify.
+//
+// CALIBRATION CONCERN (LOOP_REQUEST(systems) for R22): the `/90` divisor in
+// updateBudgetProjections (pressure = burdenCost / 90) was set when emotional + appearance
+// were 1.0. With the rebalance, the theoretical max burdenCost drops, and the bar will
+// read shorter for the same allocation. NOT adjusting the divisor this round — leave R22
+// to verify whether the new pressure curve still feels right or whether /90 should drop
+// to preserve the bar's dynamic range. Acting on both at once would conflate two effects.
+//
+// Cascade rationale (preserved from R19):
 //   - Cascades in this simulation: emotional self-concept propagates via parenting style
 //     + cultural template; appearance-based identity via intergenerational visual baseline.
 //   - Structural drivers (not modeled but acknowledged): cascades depend on institutional
@@ -10842,10 +10873,16 @@ function renderConsentExplainer() {
 //   - Gender asymmetry: in lived experience appearance-pressure cascades unevenly by gender;
 //     this model weights all traits neutrally to avoid baking gender-specific burden into
 //     the calculation itself.
+//
+// Why all three identity/affect weights now sit in the ~0.4-0.6 behavioral-genetics range:
+// lock-in cascade ≠ heritability, but anchoring the upper bound at the empirical heritability
+// range keeps the model honest — the Lock-In bar can never read more locked-in than the
+// underlying genetics would justify, and the cascade narrative (parenting + visual baseline +
+// structural amplification) still does the work of explaining why even a 0.4 weight matters.
 const INHERITANCE_BURDEN_WEIGHTS = {
   health: 0.1, resilience: 0.2, creativity: 0.4, empathy: 0.4,
   cognition: 0.45, athleticism: 0.6, sociability: 0.4,
-  emotional: 1.0, appearance: 1.0
+  emotional: 0.4, appearance: 0.6
 };
 function updateBudgetProjections(usedOverride) {
   const cohortEl   = $('#cohort-placement');
