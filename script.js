@@ -4395,17 +4395,20 @@ const KIDS_AGE_TICKERS = {
  * life_shape: 'mixed' so R18 selection treats it as the multi-shape default
  * rather than an untagged outlier. Selection wiring lands in R18.
  *
- * R23 Narrative: partial extension to early/mid buckets. Of the 13
- * existing early+mid entries per language, only ~3 genuinely lean a
- * shape — all toward `stability` (rhythm-stabilizing infancy, high
- * school identity solidifying, early career signals). The rest describe
- * universal-developmental processes and stay untagged as fall-through.
- *
- * LOOP_REQUEST(narrative, R24): add NEW shape-divergent entries to
- * ADULT_TRAJECTORY_MILESTONES.{early,mid} so precarity / caretaking /
- * interruption / bloom get early+mid coverage (household economic
- * stress, early-caregiver, childhood illness/upheaval, late-bloomer
- * markers). Cannot be tagged from the current pool — needs addition.
+ * R23 explored tagging early/mid entries with adult life_shapes (commit 702c9b7),
+ * reverted in R23rev after 8-reviewer convergence that:
+ * 1. Tagging childhood with adult trajectory shapes reifies temperament-as-destiny
+ *    (Ethics/Science/Psychology/Risk MAJOR — contradicts the LIFE_SHAPES framing
+ *    that these are simulational metaphors, not developmental predictors).
+ * 2. Asymmetric coverage (only stability tagged) creates a hierarchy in which
+ *    stability codenames see coherent infancy narratives while other shapes hit
+ *    silent filter fallback (UX/Sociology/Product/Narrative Design MAJOR).
+ * The R17 principle stands: early/mid buckets are pre-adult and shape-neutral.
+ * Filter at 0-29 is a documented no-op by design. Shape-aware narrative coherence
+ * emerges at age 30+ in the 'later' bucket where shape divergence becomes
+ * empirically meaningful. Future shape-aware coverage at 0-29 would require NEW
+ * shape-divergent entries (with structural-conditions framing), not retagging
+ * universal-developmental entries.
  */
 /* FRAMING (R16rev): LIFE_SHAPES is a narrative taxonomy, not a model grounded
  * in developmental psychology literature. These categories are simulational
@@ -4432,10 +4435,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     en: [
       'Motor coordination on track; gross and fine skills consolidating as expected.',
       'Verbal acquisition within typical range; vocabulary expanding steadily.',
-      // R23: stability lean — rhythm-stabilizing infancy matches the
-      // stable-routine marker; other early entries are universal-
-      // developmental and stay untagged as default fall-through.
-      { text: 'Temperament profile observable; sleep and feeding rhythms stabilizing.', life_shape: 'stability' },
+      'Temperament profile observable; sleep and feeding rhythms stabilizing.',
       'Attachment patterns forming with primary caregivers.',
       'Early curiosity emerging around objects, sound, and faces.',
       'Pre-literacy markers present; symbolic play beginning to appear.'
@@ -4443,7 +4443,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     zh: [
       '运动协调发展正常;粗大与精细动作按预期整合。',
       '语言获取处于典型区间;词汇量稳步扩大。',
-      { text: '气质特征可观察;睡眠与喂养节律趋于稳定。', life_shape: 'stability' },
+      '气质特征可观察;睡眠与喂养节律趋于稳定。',
       '与主要照护者之间的依恋模式正在形成。',
       '对物体、声音与面孔的早期好奇逐渐显现。',
       '前读写指标已出现;象征性游戏开始出现。'
@@ -4451,7 +4451,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     ja: [
       '運動協調は順調。粗大運動と微細運動の発達は想定どおり統合されつつある。',
       '言語獲得は標準域内。語彙は安定して増加。',
-      { text: '気質プロファイルが観察可能。睡眠・哺乳のリズムが安定してきている。', life_shape: 'stability' },
+      '気質プロファイルが観察可能。睡眠・哺乳のリズムが安定してきている。',
       '主要養育者との愛着パターンが形成されつつある。',
       '物・音・顔への初期の好奇心が現れ始めている。',
       '前読み書きのマーカーが存在し、象徴的遊びが現れ始めている。'
@@ -4459,7 +4459,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     ko: [
       '운동 협응 양호; 대근육 및 소근육 기능이 예상대로 통합되고 있음.',
       '언어 습득은 전형적 범위 안에 있으며 어휘가 꾸준히 확장되고 있음.',
-      { text: '기질 프로파일이 관찰 가능하며, 수면 및 수유 리듬이 안정되어 가는 중.', life_shape: 'stability' },
+      '기질 프로파일이 관찰 가능하며, 수면 및 수유 리듬이 안정되어 가는 중.',
       '주요 양육자와의 애착 패턴이 형성되고 있음.',
       '사물·소리·얼굴에 대한 초기 호기심이 나타나고 있음.',
       '전 문해 지표가 존재하며, 상징 놀이가 나타나기 시작함.'
@@ -4467,7 +4467,7 @@ const ADULT_TRAJECTORY_MILESTONES = {
     tr: [
       'Motor koordinasyon yolunda; kaba ve ince motor beceriler beklenildiği şekilde pekişiyor.',
       'Sözlü dil edinimi tipik aralıkta; söz dağarcığı istikrarlı biçimde genişliyor.',
-      { text: 'Mizaç profili gözlemlenebilir; uyku ve beslenme ritimleri yerine oturuyor.', life_shape: 'stability' },
+      'Mizaç profili gözlemlenebilir; uyku ve beslenme ritimleri yerine oturuyor.',
       'Ana bakım veren kişilerle bağlanma örüntüleri oluşuyor.',
       'Nesnelere, seslere ve yüzlere karşı erken merak belirginleşiyor.',
       'Okuma öncesi belirteçler mevcut; sembolik oyun ortaya çıkmaya başlıyor.'
@@ -4478,51 +4478,46 @@ const ADULT_TRAJECTORY_MILESTONES = {
       'Enters formal schooling; strengths and challenges emerging in learning.',
       'Peer-group identification forming; friendships gain weight against family.',
       'Three or four candidate identities tried on before adolescence settles.',
-      // R23: stability lean — early identity consolidation ("solidifying",
-      // "clarify") matches the settled-trajectory marker. Other mid entries
-      // describe universal-developmental exploration and stay untagged.
-      { text: 'High school identity solidifying; adult interests beginning to clarify.', life_shape: 'stability' },
+      'High school identity solidifying; adult interests beginning to clarify.',
       'First experiences of independent decision-making and its consequences.',
       'Romantic and social self gaining definition through trial and feedback.',
-      // R23: stability lean — "early career signals" reads as the settled-
-      // early marker; contrasts with bloom (late signals).
-      { text: 'Early career signals appearing through interests pursued and initial attempts.', life_shape: 'stability' }
+      'Early career signals appearing through interests pursued and initial attempts.'
     ],
     zh: [
       '进入正规学校教育;在学习中,强项与挑战开始显现。',
       '同伴群体认同正在形成;友谊在家庭之外逐渐获得分量。',
       '青春期稳定下来之前,会尝试三到四种候选的身份。',
-      { text: '高中阶段身份逐步固化;成年期的兴趣开始变得清晰。', life_shape: 'stability' },
+      '高中阶段身份逐步固化;成年期的兴趣开始变得清晰。',
       '第一次体会到独立做决定及其后果。',
       '通过尝试与反馈,恋爱与社交自我逐渐成型。',
-      { text: '通过所追求的兴趣与最初的尝试,早期职业信号开始出现。', life_shape: 'stability' }
+      '通过所追求的兴趣与最初的尝试,早期职业信号开始出现。'
     ],
     ja: [
       '正規教育に入る。学びのなかで、強みと課題が現れ始める。',
       '仲間集団への帰属意識が形成され、友情の比重が家庭に対して相対的に増す。',
       '思春期が落ち着くまでに、三つか四つの候補となる自己像を試す。',
-      { text: '高校期にかけて自己像が固まり、大人としての関心が見え始める。', life_shape: 'stability' },
+      '高校期にかけて自己像が固まり、大人としての関心が見え始める。',
       '独立した意思決定と、その結果を初めて体験する。',
       '試行とフィードバックを通じて、恋愛・社会的自己像が定義されていく。',
-      { text: '追いかける関心と最初の試みから、初期のキャリア信号が現れる。', life_shape: 'stability' }
+      '追いかける関心と最初の試みから、初期のキャリア信号が現れる。'
     ],
     ko: [
       '정규 교육 과정에 진입; 배움 속에서 강점과 어려움이 드러나기 시작함.',
       '또래 집단에 대한 정체감이 형성되며, 가족 대비 우정의 비중이 커짐.',
       '청소년기가 안정되기 전, 세 가지에서 네 가지의 후보 정체성을 시도해 봄.',
-      { text: '고등학교 시기 자아 정체성이 굳어지고, 성인기의 관심사가 명료해지기 시작.', life_shape: 'stability' },
+      '고등학교 시기 자아 정체성이 굳어지고, 성인기의 관심사가 명료해지기 시작.',
       '독립적인 의사 결정과 그 결과를 처음 경험함.',
       '시도와 피드백을 통해 연애 및 사회적 자아가 윤곽을 잡아 감.',
-      { text: '좇는 관심사와 처음의 시도를 통해 초기 진로 신호가 나타남.', life_shape: 'stability' }
+      '좇는 관심사와 처음의 시도를 통해 초기 진로 신호가 나타남.'
     ],
     tr: [
       'Örgün eğitime başlıyor; öğrenmede güçlü yanlar ve zorluklar belirginleşiyor.',
       'Akran grubuyla özdeşim oluşuyor; arkadaşlıklar aileye karşı ağırlık kazanıyor.',
       'Ergenlik yerine oturmadan önce üç veya dört aday kimlik denenir.',
-      { text: 'Lise dönemi kimliği netleşiyor; yetişkin ilgi alanları belirginleşmeye başlıyor.', life_shape: 'stability' },
+      'Lise dönemi kimliği netleşiyor; yetişkin ilgi alanları belirginleşmeye başlıyor.',
       'Bağımsız karar verme ve sonuçlarının ilk deneyimleri yaşanıyor.',
       'Deneme ve geri bildirim yoluyla romantik ve sosyal benlik biçimleniyor.',
-      { text: 'Peşinden gidilen ilgi alanlarından ve ilk denemelerden erken kariyer sinyalleri görünüyor.', life_shape: 'stability' }
+      'Peşinden gidilen ilgi alanlarından ve ilk denemelerden erken kariyer sinyalleri görünüyor.'
     ]
   },
   later: {
@@ -8922,13 +8917,13 @@ function pickAgeTicker(age) {
     // pool for any reason, fall back to the original so the picker never
     // returns nothing.
     //
-    // UX SCOPE NOTE: in R18 only the 'later' bucket had tags; the early/
-    // mid filter was a no-op. R23 added a few `stability` tags to early/
-    // mid (rhythm-stabilizing infancy, high school identity solidifying,
-    // early career signals). Other shapes still see effectively-untagged
-    // early/mid pools — see LOOP_REQUEST(R24) at ADULT_TRAJECTORY_MILESTONES
-    // for the addition needed to cover precarity / caretaking / interruption
-    // / bloom at ages 0-29.
+    // UX SCOPE NOTE: only the 'later' bucket carries life_shape tags. The
+    // early/mid filter is a documented no-op by design: those buckets
+    // describe pre-adult, universal-developmental milestones and stay
+    // shape-neutral (R17 principle; R23rev reaffirmed after the R23
+    // partial-extension was reverted). Shape-aware narrative coherence
+    // emerges at age 30+ where shape divergence becomes empirically
+    // meaningful.
     const shape = pickCodenameLifeShape(state.codename);
     if (shape) {
       const filtered = pool.filter(e => {
