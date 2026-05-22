@@ -9734,8 +9734,17 @@ function renderSocietalBrief() {
   // R18: key on adultGenerateCount (not the global counter) so a user who
   // generated in Reflection/Kids first doesn't arrive at their FIRST Adult
   // reveal already past the gate. Matches the projection-gate keying above.
-  // R24 stagger: Societal Brief is the FIRST wave (gen 2) — Sibling Cohort
-  // moves to gen 3, Trait History to gen 4 for progressive discovery.
+  // R24 explored staggered reveals (Sibling Cohort < 3, Trait History < 4) per
+  // R18 Product POLISH on "simultaneous reveal feels abrupt", reverted in
+  // R24rev after 6-reviewer convergence (UX/Ethics/Psychology/Sociology/Product
+  // /Risk MAJOR + Narrative Design MAJOR): (a) gating critical ethical content
+  // behind repeated generation creates a gamification loop the project
+  // deliberately rejects (R21 Risk MITIGATION precedent); (b) users generating
+  // once or twice would never see Sibling Cohort/Trait History — losing the
+  // distribution + historical-drift critique that contextualizes individual
+  // projection. All 4 gen-2 reveals now fire uniformly at adultGenerateCount
+  // >= 2. If "progressive discovery" is desired in a future round, implement
+  // via information density or DOM order, not gate thresholds.
   if (state.appMode !== 'adult' || !state.codename || (state.adultGenerateCount || 0) < 2) {
     panel.hidden = true;
     return;
@@ -9778,8 +9787,9 @@ function renderDivergence() {
   // baseline projection to push against, so wait until the second Generate
   // before letting the banner appear. Guard here so all callers (initial
   // render, dismiss, reroll, rollDivergence) respect it.
-  // R24 stagger: Divergence stays in the FIRST wave with Societal Brief
-  // (gen 2) — both provide immediate context after the user's first reveal.
+  // See renderSocietalBrief() above for the full R24/R24rev rationale —
+  // all 4 gen-2 reveals (Societal Brief, Divergence, Sibling Cohort, Trait
+  // History) fire uniformly at adultGenerateCount >= 2.
   if (state.appMode !== 'adult' || !state.divergence || (state.adultGenerateCount || 0) < 2) {
     el.hidden = true;
     el.innerHTML = '';
@@ -9989,11 +9999,10 @@ function generateSiblingCohort() {
 function renderSiblingCohort() {
   const panel = $('#sibling-cohort-panel');
   if (!panel) return;
-  // R24 stagger (Product POLISH from R18): gen-2 panels unlock in waves so
-  // progressive discovery isn't undermined by a simultaneous reveal. Sibling
-  // Cohort waits until gen 3 — cohort comparison reads more meaningfully
-  // once the user has population context from Societal Brief + Divergence.
-  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0 || (state.adultGenerateCount || 0) < 3) {
+  // See renderSocietalBrief() above for the full R24/R24rev rationale —
+  // all 4 gen-2 reveals fire uniformly at adultGenerateCount >= 2 after the
+  // 6-reviewer convergence rejected the staggered-unlock gamification loop.
+  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0 || (state.adultGenerateCount || 0) < 2) {
     panel.hidden = true;
     return;
   }
@@ -10058,11 +10067,10 @@ function renderRegionalAccess(usedCredits) {
 function renderTraitHistory() {
   const panel = $('#trait-history-panel');
   if (!panel) return;
-  // R24 stagger (Product POLISH from R18): Trait History lands last at gen 4
-  // because lineage-depth critique only rewards repeated engagement — showing
-  // historical drift before the user has invested in multiple generations
-  // makes it feel like a lecture rather than an earned reflection.
-  if (state.appMode !== 'adult' || (state.adultGenerateCount || 0) < 4) {
+  // See renderSocietalBrief() above for the full R24/R24rev rationale —
+  // all 4 gen-2 reveals fire uniformly at adultGenerateCount >= 2 after the
+  // 6-reviewer convergence rejected the staggered-unlock gamification loop.
+  if (state.appMode !== 'adult' || (state.adultGenerateCount || 0) < 2) {
     panel.hidden = true;
     return;
   }
@@ -10518,7 +10526,12 @@ function saveCurrentTimeline() {
     // R22rev (Product POLISH): persist active mode + language so a saved
     // baby restores into the same context (e.g. Adult, French) it was in.
     appMode:               state.appMode,
-    language:              state.language
+    language:              state.language,
+    // R24rev (Plausibility MAJOR): persist consentAck so loading a deep-Adult
+    // save doesn't bypass the heritable-decision micro-ack. Without this,
+    // load gen 4 → consentAck stays false → user can grind generations
+    // without re-acknowledging. Restored with ?? false in loadTimeline.
+    consentAck:            state.consentAck ?? false
   });
   while (list.length > MAX_SAVED) list.pop();
   persistSaved(list);
@@ -10596,6 +10609,9 @@ function loadTimeline(id) {
   // R22rev (Product POLISH): restore mode + language with safe fallbacks.
   state.appMode              = entry.appMode ?? 'adult';
   state.language             = entry.language ?? 'en';
+  // R24rev (Plausibility MAJOR): restore consentAck so the heritable-decision
+  // micro-ack persists across save/load. Legacy saves lack the field → false.
+  state.consentAck           = entry.consentAck ?? false;
 
   $('#codename').textContent = state.codename;
   renderSliders(state.ranges);
@@ -11310,6 +11326,10 @@ function setupAppModeToggle() {
         b.setAttribute('aria-selected', active ? 'true' : 'false');
       });
       state.appMode = m;
+      // R24rev (Plausibility): clear consentAck when leaving Adult mode so
+      // returning to Adult mid-session re-prompts for the heritable-decision
+      // ack (in-session counterpart to the save/load persistence above).
+      if (m !== 'adult') state.consentAck = false;
       persistAppMode(m);
       applyAppModeClass();
       applyChaosPillLabel();
