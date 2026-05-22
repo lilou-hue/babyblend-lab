@@ -644,7 +644,9 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
 @media (prefers-reduced-motion: reduce) {
   .btn-primary.is-pending-reveal {
     animation: none;
-    box-shadow: 0 0 32px rgba(126,224,255,0.6), 0 0 0 2px rgba(126,224,255,0.35), inset 0 1px 0 rgba(255,255,255,0.45);
+    /* R22rev UX: thicker (3px) + higher-opacity (0.55) ring stays
+       distinguishable when :hover layers its own cyan glow on top. */
+    box-shadow: 0 0 32px rgba(126,224,255,0.6), 0 0 0 3px rgba(126,224,255,0.55), inset 0 1px 0 rgba(255,255,255,0.45);
   }
 }
 
@@ -1122,11 +1124,20 @@ body.mode-adult .life-stage[data-age="47"] .life-stage-avatar svg { filter: drop
      position. Cap height at ~6 lines and scroll the overflow so the
      surround stays still; padding-right reserves space for the scroll
      thumb so text doesn't reflow when it appears. */
-  max-height: 9em;
+  max-height: 12em;
   overflow-y: auto;
   padding-right: 4px;
   overscroll-behavior: contain;
 }
+/* R22rev Visual Director: subtle scrollbar styling — matches .decision-list pattern
+   so the ticker scroll-area reads as part of the cool/cyan panel family rather
+   than the browser default chrome. */
+.scrubber-ticker::-webkit-scrollbar { width: 6px; }
+.scrubber-ticker::-webkit-scrollbar-thumb {
+  background: rgba(126, 224, 255, 0.18);
+  border-radius: 999px;
+}
+.scrubber-ticker::-webkit-scrollbar-track { background: transparent; }
 /* R18rev (Risk + Science + Sociology MAJOR convergence): disclosure microcopy
    beneath the trajectory ticker. Codename-deterministic life_shape selection
    reads as destiny without an explicit disclaimer; this italic, muted line
@@ -3398,8 +3409,11 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
    align with the disclaimer's text inset. */
 .budget-projections .projection-gated-placeholder,
 .projection-gated-placeholder {
-  margin: 0;
-  padding: 4px 10px 4px 10px;
+  /* R22rev LOOP_REQUEST(systems): with .ocean-sep dropped from the
+     placeholder element, the top margin + border-top here provide the
+     visual separator the section header used to supply. */
+  margin: 8px 0 0;
+  padding: 6px 10px 4px 10px;
   font-size: 11px;
   font-style: italic;
   line-height: 1.5;
@@ -3407,6 +3421,7 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   color: var(--ink-mute);
   letter-spacing: 0.3px;
   border-left: 2px solid rgba(126, 224, 255, 0.20);
+  border-top: 1px solid rgba(126, 224, 255, 0.12);
 }
 /* R18 verification: placeholder is a single <dt> rendered inside
    .baby-stats (a 2-column `auto 1fr` grid). Without column-span, the
@@ -3817,6 +3832,12 @@ body.mode-adult .alt-vibe {
   .reminder-banner,
   .history-content,
   .history-chevron { animation: none !important; transition: none !important; }
+
+  /* R22rev Visual Director: with the pulse stopped, the radial glow sits
+     at its full intensity which reads as "hot" rather than ambient. Soften
+     to ~mid-pulse opacity so the static state matches what the animated
+     state averages to. */
+  .avatar-glow { opacity: 0.5; }
 
   /* Atmospheric loops on key reveal screens — constellation pulses,
      hobby-node bob, future-tree drift/pulse, and the band-breathe on
