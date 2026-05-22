@@ -1232,6 +1232,17 @@ const LABEL_I18N = {
     ko: '클릭하여 투영을 드러내라',
     tr: 'Projeksiyonu açığa çıkarmak için tıkla'
   },
+  // R22rev UX Flow (Sociology MAJOR + Risk MITIGATION): aria-label on the
+  // scrubber-ticker so SR users learn the milestone prose is a scrollable
+  // region, not a single line that ends where their viewport clips it. Paired
+  // with role="region" in index.html; rendered each tick in renderAgingScrubber
+  // via localLabel so the hint follows the active language.
+  'Milestone description, scrollable': {
+    zh: '里程碑描述,可滚动',
+    ja: 'マイルストーンの説明、スクロール可能',
+    ko: '마일스톤 설명, 스크롤 가능',
+    tr: 'Kilometre taşı açıklaması, kaydırılabilir'
+  },
   // Adult panel headings
   'Societal Outcomes Brief': { zh: '社会反应概述', ja: '社会的アウトカム ブリーフ', ko: '사회적 결과 개요', tr: 'Toplumsal Sonuçlar Özeti' },
   'Modeled societal response to this projection. Each line fires from a specific allocation, trait, or environment combination — not a generic readout. These outcomes are modeled within the simulation using speculative social-psychological frameworks, not empirical findings.': { zh: '对本投影的社会反应建模。每一条都由特定的分配、性状或环境组合触发,而非通用文本。这些结果是在模拟器内,用思辨性的社会—心理框架建模出来的,并非实证研究结论。', ja: 'この投影に対する社会的反応のモデル。各行は、特定の割り当て・特性・環境の組み合わせから発火しており、定型の読み上げではない。これらの結果は、本シミュレーション内で思考実験的な社会心理学フレームを用いて構築されたものであり、実証研究の知見ではない。', ko: '이 투영에 대한 사회적 반응의 모형. 각 줄은 일반적인 출력값이 아니라 특정 할당·특성·환경의 조합에 의해 점화된다. 이 결과들은 시뮬레이션 내부에서 사변적 사회심리학 틀로 만들어진 것이며, 실증적 발견이 아니다.', tr: 'Bu projeksiyona yönelik modellenen toplumsal yanıt. Her satır belirli bir tahsis, özellik veya çevre kombinasyonundan tetiklenir; genel bir okumadan değil. Bu çıktılar simülasyon içinde sosyo-psikolojik kurgusal çerçevelerle modellenmiştir; ampirik bulgular değildir.' },
@@ -8916,7 +8927,10 @@ function renderAgingScrubber() {
       state.appMode === 'adult' ? `t = ${age} yrs`
       : (age === 0 ? 'newborn' : `${age} years old`);
   }
-  if (ticker) ticker.textContent = pickAgeTicker(age);
+  if (ticker) {
+    ticker.textContent = pickAgeTicker(age);
+    ticker.setAttribute('aria-label', localLabel('Milestone description, scrollable'));
+  }
   // R18rev: trajectory disclosure microcopy — adult mode only. The codename-
   // deterministic life_shape filter inside pickAgeTicker reads as destiny
   // without this line; rendering it adjacent to the ticker makes the
