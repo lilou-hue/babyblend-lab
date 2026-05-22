@@ -625,6 +625,18 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.15); }
     0 0 32px rgba(126, 224, 255, 0.6),
     inset 0 1px 0 rgba(255,255,255,0.45);
 }
+/* R21rev: post-allocation cue — UX Flow gates the Generate button when
+   adultGen===1 and projection is still gated; this rule layers a subtle
+   cyan pulse on top of .btn-primary so the affordance reads as "ready,
+   waiting on you" without competing with hover.
+   LOOP_REQUEST(ux-flow): toggle is-pending-reveal class when adultGen===1 + projection gated */
+.btn-primary.is-pending-reveal {
+  animation: pendingRevealPulse 1.8s ease-in-out infinite;
+}
+@keyframes pendingRevealPulse {
+  0%, 100% { box-shadow: 0 0 24px rgba(126,224,255,0.45), inset 0 1px 0 rgba(255,255,255,0.45); }
+  50%      { box-shadow: 0 0 36px rgba(126,224,255,0.75), 0 0 0 2px rgba(126,224,255,0.35), inset 0 1px 0 rgba(255,255,255,0.45); }
+}
 
 /* ---------- Results layout ---------- */
 .results {
@@ -3337,7 +3349,10 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
   display: block;
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, rgba(126, 224, 255, 0.55), rgba(200, 155, 255, 0.55), rgba(255, 155, 210, 0.7));
+  /* R21rev: explicit stops so the cyan→purple→pink sweep is visible
+     even at small fill widths (without stops, browsers spread the
+     midpoint at 50% of the rendered width, hiding purple under ~30%). */
+  background: linear-gradient(90deg, rgba(126,224,255,0.55) 0%, rgba(200,155,255,0.55) 50%, rgba(255,155,210,0.7) 100%);
   transition: width 0.35s ease;
 }
 
@@ -3380,6 +3395,15 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
    panel — matches the .burden-disclaimer pattern in .budget-projections. */
 .baby-stats .projection-gated-placeholder {
   grid-column: 1 / -1;
+}
+/* R21rev mobile polish: narrower viewport wraps the italic placeholder
+   onto 2–3 lines; bump line-height + padding so the wrapped lines breathe. */
+@media (max-width: 540px) {
+  .budget-projections .projection-gated-placeholder,
+  .projection-gated-placeholder {
+    line-height: 1.6;
+    padding: 6px 10px;
+  }
 }
 
 .budget-grid {
