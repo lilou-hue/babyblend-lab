@@ -1189,18 +1189,35 @@ const LABEL_I18N = {
   // R17rev: pre-allocation projection-gate placeholder. Adult-mode register —
   // cold and clinical, not imperative. Frames the panel as a projection
   // contingent on allocation, not a checklist with one missing step.
-  // R21 Narrative: Systems removed the `budgetUsed === 0` clause from the gate,
-  // so the placeholder now persists across slider moves and only clears on the
-  // next Generate (adultGen → 2). Old copy implied the reveal would "shift as
-  // you make choices above" — true of the eventual projection, but misleading
-  // about the immediate reveal trigger. Rewrite names the actual mechanism
-  // (next Generate triggers reveal) and frames allocation as optional shaping
-  // rather than a required step. Register stays cold/clinical across all langs.
-  'This projection waits until you generate again. Adjust above first if you want to shape it.': {
-    zh: '本投影将等到你再次生成时显现。如欲塑造其形,可先在上方调整。',
-    ja: '本投影は次に生成するまで保留される。形を与えたい場合は、まず上で調整せよ。',
-    ko: '이 투영은 다시 생성할 때까지 보류된다. 형태를 빚으려면 먼저 위에서 조정하라.',
-    tr: 'Bu projeksiyon yeniden üretene kadar bekler. Şekillendirmek istiyorsan önce yukarıda ayarla.'
+  // R21 Narrative rev: 6-reviewer convergence on register. Old copy ("generate
+  // again", "Adjust above first") leaked app-mechanical voice (Writing MAJOR +
+  // Detection) and read as imperative checklist (Narrative MAJOR). Rewrite
+  // uses passive voice ("awaits the next generation") for adult clinical
+  // register (Sociology POLISH), softens "Adjust above" to "Adjustments above
+  // shape it" (Writing POLISH), and adds "no shaping is also a choice" to
+  // defuse iteration-optimization framing (Risk MITIGATION). JA avoids archaic
+  // imperative "せよ"; TR avoids "ayarla" repetition + "Şekillendirmek"
+  // abstraction, prefers "biçimlendirmek".
+  'This projection awaits the next generation. Adjustments above shape it; no shaping is also a choice.': {
+    zh: '本投影等待下一次世代。上方的调整可以塑造它;不进行塑造也是一种选择。',
+    ja: 'この投影は次の世代を待っている。上での調整がそれを形作るが、形作らないこともまた一つの選択である。',
+    ko: '이 투영은 다음 세대를 기다린다. 위에서의 조정이 그것을 빚어내며, 빚어내지 않는 것 또한 하나의 선택이다.',
+    tr: 'Bu projeksiyon bir sonraki kuşağı bekler. Yukarıdaki ayarlar onu biçimlendirir; biçimlendirmemek de bir seçimdir.'
+  },
+  // R21 Narrative rev (Psychology MAJOR): Modest-tier pressureNote rewritten to
+  // decouple heritability from propagation. Old copy ("genetic basis is likely
+  // heritable") inverted the lock-in cascade narrative — heritability framed as
+  // the lock-in mechanism, when the actual mechanism is identity-template +
+  // structural cascade. New copy names the propagation channel (family
+  // identity-templates + structural cascades), notes that 40-60% biological
+  // variation keeps plasticity high, and identifies what actually locks in
+  // (parenting + appearance baseline). Other tier strings fall through to EN
+  // via localLabel since they have no entry — preserves prior behavior.
+  'Modest · traits at this weight propagate through family identity-templates and structural cascades; the 40-60% biological variation suggests plasticity remains high — what locks in is parenting + appearance baseline, not trait fixity.': {
+    zh: '中等 · 此权重下的性状通过家庭身份模板与结构性级联向下传递;40-60% 的生物变异表明可塑性仍然较高 —— 真正锁定的是养育方式与外貌基线,而非性状本身的固化。',
+    ja: '中程度 · この重みの形質は、家族の同一性テンプレートと構造的カスケードを通じて伝播する。40-60% の生物学的変異は可塑性が依然として高いことを示しており、固定化されるのは形質そのものではなく、養育と外見のベースラインである。',
+    ko: '중간 · 이 가중치의 형질들은 가족 정체성 템플릿과 구조적 연쇄를 통해 전파된다. 40-60%의 생물학적 변이는 가소성이 여전히 높음을 시사하며 — 고착되는 것은 형질의 고정성이 아니라 양육과 외모의 기준선이다.',
+    tr: 'Orta · bu ağırlıktaki özellikler aile kimlik şablonları ve yapısal kademeler yoluyla aktarılır; %40-60 biyolojik varyasyon plastisitenin yüksek kaldığını gösterir — sabitlenen şey özelliğin kendisi değil, ebeveynlik ve görünüş temelidir.'
   },
   // R21rev UX Flow: aria-label hint paired with .is-pending-reveal class on
   // the Generate button when the projection gate is armed (inAdult &&
@@ -7711,7 +7728,7 @@ function updateBabyPreview() {
     // Cleaner fix (move outside <dl> as a <div>) deferred to R19 — that
     // requires CSS grid rework and is out of scope here.
     personalityRows = `
-      <dt class="ocean-sep projection-gated-placeholder" role="status" aria-live="polite">${localLabel('This projection waits until you generate again. Adjust above first if you want to shape it.')}</dt>`;
+      <dt class="ocean-sep projection-gated-placeholder" role="status" aria-live="polite">${localLabel('This projection awaits the next generation. Adjustments above shape it; no shaping is also a choice.')}</dt>`;
   }
   statsEl.classList.toggle('projection-gated', projectionGated);
   statsEl.innerHTML = physicalRows + personalityRows;
@@ -10995,10 +11012,10 @@ function updateBudgetProjections(usedOverride) {
     let note;
     if (burdenCost === 0) note = 'No allocations yet · the Index updates once you commit credits';
     else if (pressure <= 0.15) note = 'Minimal · few traits are pre-decided — but the choice is still made for them';
-    else if (pressure <= 0.45) note = 'Modest · the genetic basis for a handful of traits is likely heritable; individual expression remains contingent on environment and development';
+    else if (pressure <= 0.45) note = 'Modest · traits at this weight propagate through family identity-templates and structural cascades; the 40-60% biological variation suggests plasticity remains high — what locks in is parenting + appearance baseline, not trait fixity.';
     else if (pressure <= 0.75) note = 'Substantial · the genetic basis for a defined trait profile is likely heritable across descendants; individual expression remains contingent on environment and development';
     else note = 'Saturated · the genetic basis for the trait profile is likely heritable across descendants; reversing the institutional and social conditions it creates is harder than reversing any single allele';
-    pressureNote.textContent = note;
+    pressureNote.textContent = localLabel(note);
   }
 
   // R3 revision: at higher lock-in tiers, append a single line of
