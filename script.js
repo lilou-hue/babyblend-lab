@@ -7712,26 +7712,42 @@ function updateBabyPreview() {
       <dt>${localLabel('Extraversion')}</dt>       <dd>${display.extraversion}${conf('extraversion')}</dd>
       <dt>${localLabel('Agreeableness')}</dt>      <dd>${display.agreeableness}${conf('agreeableness')}</dd>
       <dt>${localLabel('Neuroticism')}</dt>        <dd>${display.neuroticism}${conf('neuroticism')}</dd>`;
-  } else if (projectionGated) {
-    // Placeholder is a single <dt role="status"> spanning the projection row.
-    // Earlier scaffold used an empty <dt> + centered <dd> to mimic a DL row,
-    // but the empty term confused screen readers (announced as a blank term
-    // followed by an orphan definition). role="status" makes the live-region
-    // intent explicit; CSS rule already targets .projection-gated-placeholder
-    // and remains valid against the <dt>. The dl rhythm degrades gracefully:
-    // the single term reads as a standalone heading-shaped row.
-    // R18rev (Mobile MAJOR): added explicit aria-live="polite" alongside
-    // role="status". role="status" implies aria-live="polite" but several
-    // mobile screen readers (TalkBack, VoiceOver on older iOS) don't
-    // consistently honor the implicit binding inside a <dt>; declaring it
-    // explicitly removes the ambiguity without restructuring the <dl>.
-    // Cleaner fix (move outside <dl> as a <div>) deferred to R19 — that
-    // requires CSS grid rework and is out of scope here.
-    personalityRows = `
-      <dt class="ocean-sep projection-gated-placeholder" role="status" aria-live="polite">${localLabel('This projection awaits the next generation. Adjustments above shape it; no shaping is also a choice.')}</dt>`;
   }
+  // R22 Systems (R21 Mobile MAJOR fix): the projection-gated placeholder
+  // carries role="status" aria-live="polite", but it used to be baked into
+  // the personalityRows innerHTML string. Every renderBaby() call replaced
+  // statsEl.innerHTML, which destroyed and recreated the <dt> on every
+  // render — breaking the screen reader's live-region subscription so the
+  // placeholder copy was never announced. Fix: build innerHTML WITHOUT the
+  // placeholder, then surgically manage a persistent <dt> by ID. On gate-
+  // active renders, reuse the existing element (only textContent updates →
+  // subscription survives) or create + prepend if absent. On gate-inactive
+  // renders, remove it. CSS still targets .projection-gated-placeholder
+  // and .baby-stats .projection-gated-placeholder { grid-column: 1/-1 }
+  // (R18 Frontend) — the element stays inside statsEl so grid-span holds.
   statsEl.classList.toggle('projection-gated', projectionGated);
   statsEl.innerHTML = physicalRows + personalityRows;
+  const placeholderId = 'projection-gate-placeholder';
+  const placeholderCopy = localLabel('This projection awaits the next generation. Adjustments above shape it; no shaping is also a choice.');
+  let placeholderEl = document.getElementById(placeholderId);
+  if (projectionGated) {
+    if (placeholderEl && placeholderEl.parentNode === statsEl) {
+      // Preserve element identity → preserve live-region subscription.
+      if (placeholderEl.textContent !== placeholderCopy) placeholderEl.textContent = placeholderCopy;
+    } else {
+      // Remove any stale node from a previous statsEl render path, then create fresh.
+      if (placeholderEl && placeholderEl.parentNode) placeholderEl.parentNode.removeChild(placeholderEl);
+      placeholderEl = document.createElement('dt');
+      placeholderEl.id = placeholderId;
+      placeholderEl.className = 'ocean-sep projection-gated-placeholder';
+      placeholderEl.setAttribute('role', 'status');
+      placeholderEl.setAttribute('aria-live', 'polite');
+      placeholderEl.textContent = placeholderCopy;
+      statsEl.appendChild(placeholderEl);
+    }
+  } else if (placeholderEl && placeholderEl.parentNode) {
+    placeholderEl.parentNode.removeChild(placeholderEl);
+  }
 
   // R21rev UX Flow — Generate-button affordance for the projection gate.
   // 4 reviewers (UX/Ethics/Product/Narrative MAJOR) flagged that after the
