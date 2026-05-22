@@ -10904,22 +10904,22 @@ function renderConsentExplainer() {
 // converged on the position that running weights at 1.0 while real-world heritability sits in
 // the ~0.4-0.75 band invited readers to over-interpret the Lock-In bar as a heritability
 // claim. The R17 sociability fix (1.0 → 0.4, matching extraversion ~40%) established the
-// precedent: calibrate the weights to the empirical heritability range as an UPPER BOUND,
-// not the equality. New values:
+// precedent: calibrate the weights so they sit AT OR BELOW the empirical heritability range
+// as a conservative mid-range estimate of cascade breadth, not at the equality. New values:
 //   - emotional 0.4   — neuroticism ~40% (Polderman 2015)
-//   - appearance 0.6  — midpoint of facial-morphology ~50-75% (conservative pick)
+//   - appearance 0.6  — conservative mid-range estimate within facial-morphology ~50-75%
 //   - sociability 0.4 — unchanged from R17 (extraversion ~40%)
 // Lock-in cascade is still NOT heritability — parenting style + intergenerational visual
 // baseline propagate identity in ways twin-study % can't capture — but the calibration
 // floor is now the empirical %, so a reader checking the math against Polderman won't see
 // the Lock-In bar reading higher than the underlying heritability would justify.
 //
-// CALIBRATION CONCERN (LOOP_REQUEST(systems) for R22): the `/90` divisor in
-// updateBudgetProjections (pressure = burdenCost / 90) was set when emotional + appearance
-// were 1.0. With the rebalance, the theoretical max burdenCost drops, and the bar will
-// read shorter for the same allocation. NOT adjusting the divisor this round — leave R22
-// to verify whether the new pressure curve still feels right or whether /90 should drop
-// to preserve the bar's dynamic range. Acting on both at once would conflate two effects.
+// CALIBRATION (R21rev — resolved across six reviewers): the `/90` divisor in
+// updateBudgetProjections was set when emotional + appearance were 1.0. With the rebalance,
+// the theoretical max burdenCost dropped, and the bar read shorter for the same allocation.
+// R21rev: rescaled to /70 to restore bar dynamic range proportional to weight rebalance.
+// /70 is a moderate rescale that preserves most of the prior dynamic range without
+// overcorrecting back to the pre-rebalance saturation curve.
 //
 // Cascade rationale (preserved from R19):
 //   - Cascades in this simulation: emotional self-concept propagates via parenting style
@@ -10932,10 +10932,15 @@ function renderConsentExplainer() {
 //     the calculation itself.
 //
 // Why all three identity/affect weights now sit in the ~0.4-0.6 behavioral-genetics range:
-// lock-in cascade ≠ heritability, but anchoring the upper bound at the empirical heritability
-// range keeps the model honest — the Lock-In bar can never read more locked-in than the
-// underlying genetics would justify, and the cascade narrative (parenting + visual baseline +
-// structural amplification) still does the work of explaining why even a 0.4 weight matters.
+// lock-in cascade ≠ heritability, but anchoring at the empirical heritability range keeps the
+// model honest — the Lock-In bar can never read more locked-in than the underlying genetics
+// would justify, and the cascade narrative (parenting + visual baseline + structural
+// amplification) still does the work of explaining why even a 0.4 weight matters.
+// R21rev (Sociology MAJOR) — guard against heritability creep: these weights are NOT empirical
+// heritability percentages. They are cascade-breadth scalars now calibrated to sit AT OR BELOW
+// the empirical heritability range. Reading "appearance 0.6" as "appearance is 60% heritable"
+// is a category error — 0.6 is the proportional weight on the cost × units × weight equation,
+// chosen to stay below the empirical heritability ceiling, not derived from twin-study data.
 const INHERITANCE_BURDEN_WEIGHTS = {
   health: 0.1, resilience: 0.2, creativity: 0.4, empathy: 0.4,
   cognition: 0.45, athleticism: 0.6, sociability: 0.4,
@@ -10998,7 +11003,8 @@ function updateBudgetProjections(usedOverride) {
   }, 0);
   // Normalizer chosen so a mid-heavy allocation across high-weight packages
   // saturates the bar; a comparable spend on health-class packages does not.
-  const pressure = Math.min(1, burdenCost / 90);
+  // R21rev: rescaled to /70 to restore bar dynamic range proportional to weight rebalance.
+  const pressure = Math.min(1, burdenCost / 70);
   if (pressureEl) pressureEl.style.width = (pressure * 100).toFixed(0) + '%';
   if (pressureNote) {
     // Notes describe what passes forward (Narrative R3) under World Design
