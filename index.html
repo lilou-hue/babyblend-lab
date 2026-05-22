@@ -272,15 +272,6 @@
       </details>
     </section>
 
-    <!-- 1c-pre. Consent-awareness lead-in (Adult mode, gen ≥ 1).
-         Round 7 (UX): the awareness one-liner used to live inside the
-         collapsed #trait-conflicts block at the bottom of the baby panel,
-         so the behavioral projection (personality stats, archetype) and
-         the Enhancement Allocation header both arrived before the ethical
-         framing. Surfacing it here lets the line precede the projection
-         AND the Consent Implications reveal. -->
-    <div class="consent-awareness-leadin adult-only" id="consent-awareness-leadin" hidden aria-live="polite" aria-label="Consent awareness notice"></div>
-
     <!-- 1c. Enhancement Allocation (Adult mode only) -->
     <section class="panel budget-panel adult-only" id="budget-panel" aria-labelledby="budget-heading">
       <div class="dna-helix" aria-hidden="true">
@@ -354,6 +345,20 @@
       <div class="regional-access" id="regional-access" hidden></div>
       <div class="decision-log" id="decision-log" hidden></div>
     </section>
+
+    <!-- 1c-bridge. Consent-awareness lead-in (Adult mode, gen ≥ 1).
+         Round 24 (UX Flow): repositioned AFTER the Enhancement Allocation
+         panel. The R7 placement put the leadin BEFORE the projection so
+         the ethical framing preceded the numbers; the R24 held-over
+         critique argued the projection is what the consent is for, so
+         the ethical line should arrive AS A RESPONSE to seeing the
+         projected cohort placement / cost / access / burden bar — not as
+         a warning that risks reading like preemptive permission. The
+         "Ethically:" prefix in the copy already mitigates the
+         out-of-context screenshot risk that motivated the R7 order.
+         Sitting between budget-panel and consent-panel makes the line a
+         bridge: projection → ethical framing → full Consent Implications. -->
+    <div class="consent-awareness-leadin adult-only" id="consent-awareness-leadin" hidden aria-live="polite" aria-label="Consent awareness notice"></div>
 
     <!-- 1c-ii. Consent Implications (Adult mode only) — sits next to the
          Enhancement Allocation panel and frames child-autonomy as a

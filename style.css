@@ -3553,22 +3553,23 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
 .budget-panel input[type="range"][disabled] { cursor: not-allowed; opacity: 0.55; }
 
 /* Gen-1 consent-awareness one-liner. Round 7: hoisted out of the
-   collapsed trait-conflicts block into #consent-awareness-leadin above
-   the Enhancement Allocation header so the ethical framing precedes the
-   behavioral projection. Cross-fades out on micro-ack so the same
-   screen-space hands off to the intensity-progress hint (two-beat
-   consent rhythm). */
+   collapsed trait-conflicts block into #consent-awareness-leadin.
+   Round 24 (UX Flow): repositioned AFTER #budget-panel so the ethical
+   framing reads as a response to the projection rather than a preface
+   to it. Cross-fades out on micro-ack so the same screen-space hands
+   off to the intensity-progress hint (two-beat consent rhythm). */
 
-/* Container for the leadin — Round 7 rev: without a panel chrome the
-   italic one-liner gets visually dominated by the backdrop-blurred
-   budget-panel that follows. Borrow the .consent-ack-prompt palette
-   (dark inset, warm amber border) so the ethical framing reads as a
-   peer of the micro-ack that succeeds it. */
+/* Container for the leadin — without a panel chrome the italic one-liner
+   gets visually dominated by the backdrop-blurred panels around it.
+   Borrow the .consent-ack-prompt palette (dark inset, warm amber border)
+   so the ethical framing reads as a peer of the micro-ack that succeeds
+   it, and as a bridge between Enhancement Allocation and Consent
+   Implications. */
 #consent-awareness-leadin {
   /* Round 9 rev: margin:0 so the wrapper's retirement during note fade
-     doesn't leave a residual gap above the budget-panel. The inner
-     .consent-awareness-note keeps owning its own surrounding space via
-     the chrome rule below (margin:0, padding:0 reset inside wrapper). */
+     doesn't leave a residual gap between budget-panel and consent-panel.
+     The inner .consent-awareness-note keeps owning its own surrounding
+     space via the chrome rule below (margin:0, padding:0 inside wrapper). */
   margin: 0;
   padding: 10px 12px;
   background: rgba(7, 9, 30, 0.6);
@@ -3650,7 +3651,9 @@ body.mode-adult .chaos-pill.is-active { animation: none; }
    Warm-tinted left border echoes the heritable-allocation badge; negative
    margin tightens the gap with the budget panel above so the two read as a
    grouped pair rather than two equally-weighted sections. */
-#budget-panel + .consent-panel { margin-top: -6px; }
+/* R24 (UX Flow): leadin now sits between #budget-panel and .consent-panel,
+   so the adjacent-sibling collapse targets the post-leadin gap instead. */
+#consent-awareness-leadin + .consent-panel { margin-top: -6px; }
 .consent-panel { border-left: 3px solid rgba(255, 210, 138, 0.4); }
 .consent-panel > .subtle { font-size: 13px; }
 .consent-panel .consent-explainer { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
