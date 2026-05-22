@@ -9733,6 +9733,8 @@ function renderSocietalBrief() {
   // R18: key on adultGenerateCount (not the global counter) so a user who
   // generated in Reflection/Kids first doesn't arrive at their FIRST Adult
   // reveal already past the gate. Matches the projection-gate keying above.
+  // R24 stagger: Societal Brief is the FIRST wave (gen 2) — Sibling Cohort
+  // moves to gen 3, Trait History to gen 4 for progressive discovery.
   if (state.appMode !== 'adult' || !state.codename || (state.adultGenerateCount || 0) < 2) {
     panel.hidden = true;
     return;
@@ -9775,6 +9777,8 @@ function renderDivergence() {
   // baseline projection to push against, so wait until the second Generate
   // before letting the banner appear. Guard here so all callers (initial
   // render, dismiss, reroll, rollDivergence) respect it.
+  // R24 stagger: Divergence stays in the FIRST wave with Societal Brief
+  // (gen 2) — both provide immediate context after the user's first reveal.
   if (state.appMode !== 'adult' || !state.divergence || (state.adultGenerateCount || 0) < 2) {
     el.hidden = true;
     el.innerHTML = '';
@@ -9984,9 +9988,11 @@ function generateSiblingCohort() {
 function renderSiblingCohort() {
   const panel = $('#sibling-cohort-panel');
   if (!panel) return;
-  // Same gating: variance-as-people lands harder once the user has
-  // already met the one baby it's "varying" against.
-  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0 || (state.adultGenerateCount || 0) < 2) {
+  // R24 stagger (Product POLISH from R18): gen-2 panels unlock in waves so
+  // progressive discovery isn't undermined by a simultaneous reveal. Sibling
+  // Cohort waits until gen 3 — cohort comparison reads more meaningfully
+  // once the user has population context from Societal Brief + Divergence.
+  if (state.appMode !== 'adult' || !state.codename || !state.siblings || state.siblings.length === 0 || (state.adultGenerateCount || 0) < 3) {
     panel.hidden = true;
     return;
   }
@@ -10051,9 +10057,11 @@ function renderRegionalAccess(usedCredits) {
 function renderTraitHistory() {
   const panel = $('#trait-history-panel');
   if (!panel) return;
-  // Same gating: historical drift critique reads as a finger-wag if it
-  // shows up before the user has even seen their first projection settle.
-  if (state.appMode !== 'adult' || (state.adultGenerateCount || 0) < 2) {
+  // R24 stagger (Product POLISH from R18): Trait History lands last at gen 4
+  // because lineage-depth critique only rewards repeated engagement — showing
+  // historical drift before the user has invested in multiple generations
+  // makes it feel like a lecture rather than an earned reflection.
+  if (state.appMode !== 'adult' || (state.adultGenerateCount || 0) < 4) {
     panel.hidden = true;
     return;
   }
