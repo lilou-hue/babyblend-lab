@@ -6445,6 +6445,28 @@ const KIDS_ADULT_FUTURES = [
     if (malformed.length) {
       console.warn('[BabyBlend] Milestone entries not {text,life_shape?} or string:', malformed);
     }
+    // R23rev: asymmetric coverage warn. For each bucket, count tagged entries
+    // per non-`mixed` LIFE_SHAPES key (across all langs). If at least one
+    // shape has >0 entries and others have 0, flag the missing shapes —
+    // partial coverage is the silent-fallback case generateAdultFutures()
+    // can't surface. All-zero (shape-neutral bucket by design) stays silent.
+    const nonMixedShapes = Object.keys(LIFE_SHAPES).filter(k => k !== 'mixed');
+    Object.entries(ADULT_TRAJECTORY_MILESTONES).forEach(([bucket, byLang]) => {
+      if (!byLang || typeof byLang !== 'object') return;
+      const counts = Object.fromEntries(nonMixedShapes.map(s => [s, 0]));
+      Object.values(byLang).forEach(arr => {
+        if (!Array.isArray(arr)) return;
+        arr.forEach(entry => {
+          if (entry && typeof entry === 'object' && typeof entry.life_shape === 'string' &&
+              counts.hasOwnProperty(entry.life_shape)) counts[entry.life_shape]++;
+        });
+      });
+      const present = nonMixedShapes.filter(s => counts[s] > 0);
+      const missing = nonMixedShapes.filter(s => counts[s] === 0);
+      if (present.length && missing.length) {
+        console.warn(`[ADULT_TRAJECTORY_MILESTONES audit] asymmetric coverage in bucket "${bucket}": tagged shapes [${present.join(', ')}], missing [${missing.join(', ')}]`);
+      }
+    });
   } catch (e) { /* never block boot for an audit */ }
 })();
 
