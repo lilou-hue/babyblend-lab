@@ -7719,35 +7719,46 @@ function updateBabyPreview() {
   // statsEl.innerHTML, which destroyed and recreated the <dt> on every
   // render — breaking the screen reader's live-region subscription so the
   // placeholder copy was never announced. Fix: build innerHTML WITHOUT the
-  // placeholder, then surgically manage a persistent <dt> by ID. On gate-
-  // active renders, reuse the existing element (only textContent updates →
-  // subscription survives) or create + prepend if absent. On gate-inactive
-  // renders, remove it. CSS still targets .projection-gated-placeholder
-  // and .baby-stats .projection-gated-placeholder { grid-column: 1/-1 }
-  // (R18 Frontend) — the element stays inside statsEl so grid-span holds.
-  statsEl.classList.toggle('projection-gated', projectionGated);
-  statsEl.innerHTML = physicalRows + personalityRows;
+  // placeholder, then carefully preserve and update a persistent <dt> by
+  // ID via a detach + reattach pattern. R22rev (Plausibility MAJOR): the
+  // earlier "reuse existing" branch never fired because innerHTML wiped
+  // the placeholder BEFORE the getElementById lookup ran. We now detach
+  // the element FIRST (preserving its reference + live-region subscription),
+  // then innerHTML-wipe safely, then reattach. CSS still targets
+  // .projection-gated-placeholder and .baby-stats .projection-gated-placeholder
+  // { grid-column: 1/-1 } (R18 Frontend) — the element stays inside statsEl
+  // so grid-span holds.
+  if (!statsEl) return; // R22rev Plausibility POLISH — early guard before any statsEl ops.
   const placeholderId = 'projection-gate-placeholder';
   const placeholderCopy = localLabel('This projection awaits the next generation. Adjustments above shape it; no shaping is also a choice.');
+  // R22rev (Plausibility MAJOR): detach placeholder BEFORE innerHTML wipe, then reattach.
+  // Element identity (and aria-live subscription) survives the innerHTML reset.
   let placeholderEl = document.getElementById(placeholderId);
+  if (placeholderEl && placeholderEl.parentNode) {
+    placeholderEl.parentNode.removeChild(placeholderEl); // detach (preserves the element reference)
+  }
+
+  statsEl.classList.toggle('projection-gated', projectionGated);
+  statsEl.innerHTML = physicalRows + personalityRows; // safely wipes — placeholder is detached
+
   if (projectionGated) {
-    if (placeholderEl && placeholderEl.parentNode === statsEl) {
-      // Preserve element identity → preserve live-region subscription.
-      if (placeholderEl.textContent !== placeholderCopy) placeholderEl.textContent = placeholderCopy;
-    } else {
-      // Remove any stale node from a previous statsEl render path, then create fresh.
-      if (placeholderEl && placeholderEl.parentNode) placeholderEl.parentNode.removeChild(placeholderEl);
+    if (!placeholderEl) {
       placeholderEl = document.createElement('dt');
       placeholderEl.id = placeholderId;
-      placeholderEl.className = 'ocean-sep projection-gated-placeholder';
       placeholderEl.setAttribute('role', 'status');
       placeholderEl.setAttribute('aria-live', 'polite');
-      placeholderEl.textContent = placeholderCopy;
-      statsEl.appendChild(placeholderEl);
+      placeholderEl.setAttribute('aria-atomic', 'false');  // Ethics MAJOR mitigation
+      placeholderEl.setAttribute('aria-relevant', 'text'); // Ethics MAJOR mitigation
     }
-  } else if (placeholderEl && placeholderEl.parentNode) {
-    placeholderEl.parentNode.removeChild(placeholderEl);
+    // R22rev (Narrative Design MAJOR): drop .ocean-sep — keep visual separation
+    // via .projection-gated-placeholder only.
+    // LOOP_REQUEST(frontend): verify .projection-gated-placeholder alone gives
+    // sufficient visual separation; if not, add a top-border or margin rule.
+    placeholderEl.className = 'projection-gated-placeholder';
+    if (placeholderEl.textContent !== placeholderCopy) placeholderEl.textContent = placeholderCopy;
+    statsEl.appendChild(placeholderEl); // reattach (same element reference)
   }
+  // If !projectionGated, placeholderEl was already detached above and is no longer in DOM.
 
   // R21rev UX Flow — Generate-button affordance for the projection gate.
   // 4 reviewers (UX/Ethics/Product/Narrative MAJOR) flagged that after the
@@ -10441,7 +10452,11 @@ function saveCurrentTimeline() {
     lastGeneratedInAdult:  state.lastGeneratedInAdult ?? false,
     // R19rev: persist aging-scrubber position so the ticker restores to
     // the same age the user was viewing when they saved.
-    age:                   state.age ?? 17
+    age:                   state.age ?? 17,
+    // R22rev (Product POLISH): persist active mode + language so a saved
+    // baby restores into the same context (e.g. Adult, French) it was in.
+    appMode:               state.appMode,
+    language:              state.language
   });
   while (list.length > MAX_SAVED) list.pop();
   persistSaved(list);
@@ -10516,6 +10531,9 @@ function loadTimeline(id) {
   state.adultGenerateCount   = entry.adultGenerateCount ?? 0;
   state.lastGeneratedInAdult = entry.lastGeneratedInAdult ?? false;
   state.age                  = entry.age ?? 17;
+  // R22rev (Product POLISH): restore mode + language with safe fallbacks.
+  state.appMode              = entry.appMode ?? 'adult';
+  state.language             = entry.language ?? 'en';
 
   $('#codename').textContent = state.codename;
   renderSliders(state.ranges);
