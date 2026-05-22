@@ -1185,7 +1185,7 @@ const LABEL_I18N = {
   // beneath the age-ticker in adult mode so the milestone reads as one
   // possible path among many. Turkish plural form ("örüntüler... biri")
   // preserved across the register shift.
-  'These patterns are one story among many — not what will happen.': { zh: '这些模式只是诸多故事中的一种 —— 而非将发生之事。', ja: 'これらのパターンは多くの物語のうちの一つにすぎず、実際に起こることではない。', ko: '이 패턴들은 수많은 이야기 중 하나일 뿐 — 일어날 일이 아니다。', tr: 'Bu örüntüler birçok hikâyeden yalnızca biri — gerçekleşecek olan değil.' },
+  'These patterns are one story among many — not what will happen.': { zh: '这些模式只是诸多故事中的一种 —— 而非将发生之事。', ja: 'これらのパターンは多くの物語のうちの一つにすぎず、実際に起こることではない。', ko: '이 패턴들은 수많은 이야기 중 하나일 뿐 — 일어날 일이 아니다.', tr: 'Bu örüntüler birçok hikâyeden yalnızca biri — gerçekleşecek olan değil.' },
   // R17rev: pre-allocation projection-gate placeholder. Adult-mode register —
   // cold and clinical, not imperative. Frames the panel as a projection
   // contingent on allocation, not a checklist with one missing step.
@@ -6544,7 +6544,7 @@ const KIDS_ARC_CLOSING_AFFIRMATION = {
  * entirely real (not a projection). 1-element arrays mirror KIDS arc. */
 const REFLECTION_ARC_CLOSING_AFFIRMATION = {
   en: ['What emerges will be partly theirs, partly circumstance, entirely real.'],
-  zh: ['真正出现的那个人,一部分是他们自己,一部分是境遇,而完完整整是真实的。'],
+  zh: ['真正出现的那个人,一部分是他/她,一部分是境遇,而完完整整是真实的。'],
   ja: ['実際に現れるその人は、一部はその人のもの、一部は巡り合わせ、そのすべてが現実です。'],
   ko: ['실제로 모습을 드러내는 그 사람은, 일부는 그 자신, 일부는 상황, 전부가 실재입니다.'],
   tr: ['Ortaya çıkacak olan, bir kısmı kendisine ait, bir kısmı koşullar, tamamı gerçek olacak.']
