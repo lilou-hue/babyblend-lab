@@ -1105,6 +1105,17 @@ body.mode-adult .life-stage[data-age="47"] .life-stage-avatar svg { filter: drop
   line-height: 1.5;
   color: var(--ink-soft);
   min-height: 2.2em;
+  /* R22 UX Flow (Mobile R19 followup): the R18 `interruption` life_shape
+     entry in ADULT_TRAJECTORY_MILESTONES runs ~280 chars vs ~60-120 for
+     other entries. Without a ceiling, the ticker reflows the panel by
+     2-4 lines when that shape is selected, jolting the slider's spatial
+     position. Cap height at ~6 lines and scroll the overflow so the
+     surround stays still; padding-right reserves space for the scroll
+     thumb so text doesn't reflow when it appears. */
+  max-height: 9em;
+  overflow-y: auto;
+  padding-right: 4px;
+  overscroll-behavior: contain;
 }
 /* R18rev (Risk + Science + Sociology MAJOR convergence): disclosure microcopy
    beneath the trajectory ticker. Codename-deterministic life_shape selection
