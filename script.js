@@ -6891,14 +6891,14 @@ function applyBudgetPanelGate() {
   const isAdult = state.appMode === 'adult';
   const gen = state.generateCount || 0;
   const eligible = isAdult && gen >= 1;
-  // Round 7 rev (UX): consent-awareness lead-in renders FIRST on this tick
-  // so the ethical framing precedes Enhancement Allocation in DOM/paint
-  // order, not just in source order. Previously the leadin's visibility
-  // toggle ran AFTER the budget panel unhide; if leadin updates ever got
-  // deferred (e.g. via a future microtask), the projection could paint
-  // before the lead-in resolved. Co-locating them at the top of the gate
-  // — and re-asserting hidden=false on every eligible tick — makes the
-  // intent explicit: lead-in precedes projection, same render frame.
+  // Round 24 (UX Flow): the consent-awareness lead-in now sits AFTER
+  // #budget-panel in DOM (between Enhancement Allocation and Consent
+  // Implications) so the ethical line reads as a response to the
+  // visible projection rather than a warning preceding it. The toggle
+  // order in this gate is preserved (leadin first, then panel, then
+  // consent) for safety: the leadin's visibility flip is cheap and
+  // synchronous, and asserting it before the projection's reveal means
+  // its content is resolved by the time the user's eye reaches it.
   // Cross-fade hand-off (showConsentAckPrompt) still works because we
   // never clobber an existing `.is-leaving` note: we only set innerHTML
   // when no note exists, and we leave the node alone once consentAck flips.
@@ -6935,8 +6935,9 @@ function applyBudgetPanelGate() {
     // three-beat rhythm called out by Ethics MAJOR + Narrative MAJOR.
   }
   // Budget panel: always visible in Adult mode; locked until first generation.
-  // Unhidden AFTER the leadin so the ethical framing is committed to the DOM
-  // before the projection panel reveals, even though both land in one paint.
+  // Unhidden after the leadin's visibility flip; both land in one paint, and
+  // R24 placed the leadin after the budget-panel in DOM so the projection
+  // arrives first visually with the ethical framing as the bridge below it.
   if (panel) {
     panel.hidden = !isAdult;
     const interactionReady = eligible;
