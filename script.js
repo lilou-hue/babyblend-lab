@@ -6757,7 +6757,7 @@ const state = {
   // not the global Generate-button count.
   lastGeneratedInAdult: false, // true iff most recent generate() was in Adult mode
   adultGenerateCount: 0,       // Adult-mode-only counter for projection-gate keying
-  consentAck: false,   // session-level: heritable-decision micro-ack (gates first non-zero allocation)
+  consentAck: false,   // heritable-decision micro-ack (gates first non-zero allocation); R24rev: persisted in save/load, cleared on mode-switch away from Adult
   alternates: [],      // generated alternate-baby cards
   futures: [],         // generated adult-life future cards (for current baby)
   age: 17,             // current age on the aging-scrubber slider (0..80)
