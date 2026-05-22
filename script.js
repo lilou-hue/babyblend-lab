@@ -6891,14 +6891,24 @@ function applyBudgetPanelGate() {
   const isAdult = state.appMode === 'adult';
   const gen = state.generateCount || 0;
   const eligible = isAdult && gen >= 1;
-  // Round 24 (UX Flow): the consent-awareness lead-in now sits AFTER
-  // #budget-panel in DOM (between Enhancement Allocation and Consent
-  // Implications) so the ethical line reads as a response to the
-  // visible projection rather than a warning preceding it. The toggle
-  // order in this gate is preserved (leadin first, then panel, then
-  // consent) for safety: the leadin's visibility flip is cheap and
-  // synchronous, and asserting it before the projection's reveal means
-  // its content is resolved by the time the user's eye reaches it.
+  // Round 7 rev (UX): consent-awareness lead-in renders FIRST on this tick
+  // so the ethical framing precedes Enhancement Allocation in DOM/paint
+  // order, not just in source order. Previously the leadin's visibility
+  // toggle ran AFTER the budget panel unhide; if leadin updates ever got
+  // deferred (e.g. via a future microtask), the projection could paint
+  // before the lead-in resolved. Co-locating them at the top of the gate
+  // — and re-asserting hidden=false on every eligible tick — makes the
+  // intent explicit: lead-in precedes projection, same render frame.
+  // R24 explored moving the consent-awareness leadin AFTER budget-panel per
+  // the held-since-R7 deferral ("ethics should respond to projection, not
+  // precede it"). Reverted in R24rev after 8-reviewer convergence (UX +
+  // Ethics POLISH + Psychology + Sociology MAJOR + Mobile MAJOR + Plausibility
+  // MITIGATION + Risk MITIGATION + Narrative Design MAJOR): informed-consent
+  // ordering requires ethics framing to PRECEDE the allocation interface,
+  // not respond to it. The original R7 placement (leadin BEFORE projection)
+  // ensures users see the ethical framing before encountering the sliders,
+  // so the framing functions as informed-consent preamble rather than
+  // post-hoc justification.
   // Cross-fade hand-off (showConsentAckPrompt) still works because we
   // never clobber an existing `.is-leaving` note: we only set innerHTML
   // when no note exists, and we leave the node alone once consentAck flips.
@@ -6935,9 +6945,9 @@ function applyBudgetPanelGate() {
     // three-beat rhythm called out by Ethics MAJOR + Narrative MAJOR.
   }
   // Budget panel: always visible in Adult mode; locked until first generation.
-  // Unhidden after the leadin's visibility flip; both land in one paint, and
-  // R24 placed the leadin after the budget-panel in DOM so the projection
-  // arrives first visually with the ethical framing as the bridge below it.
+  // Unhidden AFTER the leadin so the ethical framing is committed to the DOM
+  // before the projection panel reveals, even though both land in one paint.
+  // The leadin precedes the projection, framing the allocation before it begins.
   if (panel) {
     panel.hidden = !isAdult;
     const interactionReady = eligible;
